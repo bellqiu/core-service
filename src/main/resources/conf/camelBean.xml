@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:camelContext="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://camel.apache.org/schema/spring
+						http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+<!-- 	<bean id="testProcessor" class="com.hb.core.rest.processor.TestProcessor"></bean>	
+	
+	<bean id="entitySeeker" class="com.hb.core.rest.tool.EntitySeeker"></bean>
+	
+	Default rest response
+	<bean id="defaultRestResponse" class="com.hb.core.rest.processor.DefaultRestResponse"></bean>
+	
+	<bean id="testResponse2" class="com.hb.core.rest.processor.TestResponse2"></bean> -->
+	
+</beans>

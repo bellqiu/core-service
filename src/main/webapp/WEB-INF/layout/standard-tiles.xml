@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+ 
+<tiles-definitions>   
+	<!-- Parents -->     
+        <definition name="standardLayout" template="/WEB-INF/layout/standard.jsp" >
+        	 <put-attribute name="title" value="HB"/>
+        	 <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
+        	 <put-attribute name="body" value="/WEB-INF/jsp/body/blank.jsp"/>
+        	 <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
+        </definition>
+       
+      <!-- Pages -->
+        <definition name="home" extends="standardLayout" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/home.jsp"/>
+        </definition>
+        
+        <definition name="myOrder" extends="standardLayout" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/myOrder.jsp"/>
+        </definition>
+        
+        <definition name="cacheManager" extends="standardLayout" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/cacheManager.jsp"/>
+        </definition>
+        
+        <definition name="newAccount" extends="standardLayout" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
+        </definition>
+        
+        
+       <!-- Errors --> 
+        <definition name="500" extends="standardLayout" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/500.jsp"/>
+        </definition>
+        
+        <definition name="loginRequired" extends="standardLayout" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
+        </definition>
+        
+        <definition name="accessDenied" extends="standardLayout" >
+        	 <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
+        	  <!-- <put-attribute name="body" value="/WEB-INF/jsp/body/accessDenied.jsp"/> -->
+        </definition>
+        
+        
+        <!-- Admin Web -->
+		<definition name="admin_console" template="/WEB-INF/layout/admin_layout.jsp"></definition>
+		
+</tiles-definitions>

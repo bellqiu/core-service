@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+	<diskStore path="/home/data/cache/customerdevice" />
+	<defaultCache eternal="true" maxElementsInMemory="50"
+		memoryStoreEvictionPolicy="LFU" />
+	<cache name="siteDTO" eternal="false"
+		timeToLiveSeconds="6000" maxElementsInMemory="1"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="1" />
+		
+</ehcache>

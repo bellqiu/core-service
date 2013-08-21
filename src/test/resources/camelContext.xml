@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://camel.apache.org/schema/spring
+						http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<beans:import resource="applicationContext.xml" />
+
+	<!-- <camelContext> <routeBuilder ref="ftpToJmsRoute" /> </camelContext> -->
+	<!-- Context -->
+	<camelContext id="camelContext1" autoStartup="true"
+		shutdownRoute="Defer">
+		<route>
+			<from uri="file:data/inbox?noop=true" />
+			<to uri="file:data/outbox" />
+		</route>
+	</camelContext>
+
+	<camelContext id="camelContext2">
+		<route>
+			<from uri="quartz://report?cron=0+0+6+*+*+?" />
+			<to uri="http://riders.com/orders/?cmd=received&amp;date=yesterday" />
+			<process ref="csvProcessor" />
+			<to uri="file://riders/orders?fileName=report-${header.Date}.csv" />
+		</route>
+	</camelContext>
+
+
+</beans:beans>

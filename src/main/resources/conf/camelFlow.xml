@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://camel.apache.org/schema/spring"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://camel.apache.org/schema/spring 
+						http://camel.apache.org/schema/spring/camel-spring-2.0-M1.xsd
+						http://camel.apache.org/schema/cxf 
+						http://camel.apache.org/schema/cxf/camel-cxf.xsd
+				        http://cxf.apache.org/jaxrs 
+				        http://cxf.apache.org/schemas/jaxrs.xsd">
+	<beans:import resource="classpath:META-INF/cxf/cxf.xml" />
+	<beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<!-- <jaxrs:server id="restService" address="/" serviceClass="com.hb.core.rest.OrderService"> 
+		<jaxrs:serviceBeans> <beans:ref bean="orderService" /> </jaxrs:serviceBeans> 
+		</jaxrs:server> -->
+	<!-- <camelContext> <routeBuilder ref="ftpToJmsRoute" /> </camelContext> -->
+
+	<!-- Context -->
+	<!-- <camelContext id="camelContext1" autoStartup="true">
+		<route> <from uri="file:data/inbox?noop=true" /> <process ref="downloadLogger"></process> 
+			<to uri="file:data/outbox?noop=true" /> </route>
+		<route>
+			<from uri="cxfrs:///?resourceClasses=com.hb.core.rest.api.CrudService" />
+			<choice>
+				<when>
+					<simple>${header.operationName} == 'getUser'</simple>
+					<to uri="bean:entitySeeker?method=fetchById('com.hb.core.rest.dto.User',1)" /> 
+					<to uri="jpa:com.hb.core.rest.dto.User?consumer.query=from User where id=1" pattern="InOut" /> 
+					<marshal>
+						<json library="Jackson" unmarshalTypeName="com.hb.core.rest.dto.User" />
+					</marshal>
+				</when>
+				<otherwise>
+					<to uri="bean:defaultRestResponse"></to>
+				</otherwise>
+			</choice>
+		</route>
+	</camelContext> -->
+
+
+</beans:beans>
