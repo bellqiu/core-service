@@ -36,6 +36,9 @@ public abstract class Component implements Serializable{
 	}
 	
 	public Component() {
+		if(null == createDate){
+			createDate = new Date();
+		}
 	}
 
 	public long getId() {

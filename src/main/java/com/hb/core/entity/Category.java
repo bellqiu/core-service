@@ -18,7 +18,6 @@ public class Category  extends Component{
 	private String name;
 	private Type type = Type.NAVIGATION;
 	
-	
 	public static enum Type{
 		LINK,
 		SPECIAL_OFFER,

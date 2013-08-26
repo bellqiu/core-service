@@ -14,6 +14,7 @@
 		<!-- Import css/js -->
 		<style type="text/css">
 			@import url("/resources/ext/resources/ext-theme-neptune/ext-theme-neptune-all.css");
+			@import url("/resources/ext/ux/shared/example.css");
 		</style>
 		<script type="text/javascript">
 			var loginuser = {
@@ -22,6 +23,13 @@
 			}
 		</script>
 		<script src="/resources/ext/ext-all-debug.js" type="text/javascript"></script>
+		<script src="/api.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/resources/ext/ux/upload/plupload/js/plupload.js"></script>
+		<script type="text/javascript" src="/resources/ext/ux/upload/plupload/js/plupload.html4.js"></script>
+		<script type="text/javascript" src="/resources/ext/ux/upload/plupload/js/plupload.html5.js"></script>
+		<script type="text/javascript" src="/resources/ext/ux/upload/plupload/js/plupload.flash.js"></script>
+		<script type="text/javascript" src="/resources/ext/ux/upload/plupload/js/plupload.silverlight.js"></script>
+		<script type="text/javascript" src="/resources/ext/ux/shared/examples.js"></script>	
 		<script src="/resources/ext/Admin.js" type="text/javascript"></script>
 		
 </head>

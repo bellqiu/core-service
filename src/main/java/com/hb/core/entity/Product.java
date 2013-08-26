@@ -22,6 +22,8 @@ public class Product extends Component{
 	private String overrideUrl;
 	private Image primaryImage;
 	private List<Image> secondaryImages = new ArrayList<Image>();
+	private List<Option> options = new ArrayList<Option>();
+	private List<Property> props = new ArrayList<Property>();
 	
 	public Product() {
 	}
@@ -133,6 +135,22 @@ public class Product extends Component{
 
 	public void setSupportedCategories(List<Long> supportedCategories) {
 		this.supportedCategories = supportedCategories;
+	}
+
+	public List<Option> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<Option> options) {
+		this.options = options;
+	}
+
+	public List<Property> getProps() {
+		return props;
+	}
+
+	public void setProps(List<Property> props) {
+		this.props = props;
 	}
 	
 }

@@ -2,36 +2,34 @@ Ext.define('AM.controller.GlobalNav', {
     extend: 'Ext.app.Controller',
     views: [
             'toolbar.GlobalNav',
-            'image.Create'
+            'setting.Manager'
     ],
-    stores: ['CreateCombo'],
+    stores: ['ManagerCombo'],
     init: function() {
         this.control({
             'globalnav button#logout': {
                 click: this.logout
             },
             
-            'globalnav combo#create': {
-            	select: this.create
+            'globalnav combo#managerCombo': {
+            	select: this.manage
             }
+            
         });
     },
     
-    create : function(combo, records, eOpts){
+    manage : function(combo, records, eOpts){
     	var opt = records[0].data.value;
-    	if(opt == 'image'){
+    	if(opt == 'setting'){
     		
-    		var editTabPanel = combo.up("viewport").down("tabpanel#mainContainer");
+    		var tabpanel = combo.up("viewport").down("tabpanel#managerContainer");
     		
-    		var imagecreate = combo.up("viewport").down("tabpanel#mainContainer imagecreate");
-    		
-    		if(imagecreate){
-    			editTabPanel.setActiveTab(imagecreate);
+    		if(tabpanel.down("settingmanager")){
+    			tabpanel.setActiveTab(tabpanel.down("settingmanager"));
     		}else{
-    			var view = Ext.widget('imagecreate');
-    			view.closable = true;
-    			editTabPanel.insert(0,view);
-    			editTabPanel.setActiveTab(0);
+    			var view = Ext.widget('settingmanager');
+    			tabpanel.insert(0, view);
+    			tabpanel.setActiveTab(0);
     		}
     		
     	}else{
