@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.googlecode.ehcache.annotations.Cacheable;
-import com.honeybuy.shop.dto.SiteDTO;
+import com.hb.core.shared.dto.SiteDTO;
 
 /**
  * 

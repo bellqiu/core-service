@@ -1,4 +1,4 @@
-package com.honeybuy.shop.dto;
+package com.hb.core.shared.dto;
 
 import java.util.ArrayList;
 import java.util.List;

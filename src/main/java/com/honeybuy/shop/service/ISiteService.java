@@ -4,7 +4,7 @@
  */
 package com.honeybuy.shop.service;
 
-import com.honeybuy.shop.dto.SiteDTO;
+import com.hb.core.shared.dto.SiteDTO;
 
 /**
  * 

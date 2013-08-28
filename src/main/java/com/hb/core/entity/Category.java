@@ -1,22 +1,70 @@
 package com.hb.core.entity;
 
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@JsonAutoDetect
+
+@NamedQueries(value=
+{
+	@NamedQuery(name="QueryCategoryByName", query="select c from Category as c where name=:name"),
+	@NamedQuery(name="QueryTopCategories", query="select c from Category as c where parent is null")
+})
 public class Category  extends Component{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4754872499051739634L;
-	
+	@Column(name="display_Name")
 	private String displayName;
+	
+	@Column(name="icon_Url")
 	private String iconUrl;
+	
+	@Column(name="url")
 	private String url;
+	
+	@Column(name="related_keyword")
 	private String relatedKeyword;
+
+	@Column(name="page_title")
 	private String pageTitle;
+	
+	@Column(name="market_content")
 	private String marketContent;
+	
+	@Column(name="description")
 	private String description;
+	
+	@Column(name="name")
 	private String name;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type")
 	private Type type = Type.NAVIGATION;
+	
+	@ManyToOne(optional=true)
+	@JoinColumn(name="parent_id")
+	private Category parent;
+	
+	@OneToMany(mappedBy="parent")
+	private List<Category> subCategory;
 	
 	public static enum Type{
 		LINK,
@@ -99,6 +147,22 @@ public class Category  extends Component{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Category getParent() {
+		return parent;
+	}
+
+	public void setParent(Category parent) {
+		this.parent = parent;
+	}
+
+	public List<Category> getSubCategory() {
+		return subCategory;
+	}
+
+	public void setSubCategory(List<Category> subCategory) {
+		this.subCategory = subCategory;
 	}
 	
 	

@@ -88,7 +88,7 @@ Ext.define('AM.view.setting.Manager', {
 				store : 'Setting',
 				plugins : [ {
 					ptype : 'cellediting',
-					clicksToEdit : 1,
+					clicksToEdit : 2,
 					id : 'cellEditor'
 				} ],
 				selModel : {

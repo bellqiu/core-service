@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.honeybuy.shop.dto.UserDTO;
+import com.hb.core.shared.dto.UserDTO;
 @Service
 @Transactional
 public class UserService implements IUserService{

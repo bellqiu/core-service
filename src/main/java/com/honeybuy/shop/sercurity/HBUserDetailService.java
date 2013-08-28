@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.honeybuy.shop.dto.UserDTO;
+import com.hb.core.shared.dto.UserDTO;
 import com.honeybuy.shop.service.IUserService;
 
 public class HBUserDetailService implements UserDetailsService{

@@ -1,6 +1,6 @@
 package com.honeybuy.shop.service;
 
-import com.honeybuy.shop.dto.UserDTO;
+import com.hb.core.shared.dto.UserDTO;
 
 public interface IUserService {
 	UserDTO getUserByName(String name);

@@ -5,7 +5,9 @@ Ext.Loader.setConfig({
 	       
 	   }
 });
+
 Ext.direct.Manager.addProvider(Ext.app.REMOTING_API); 
+
 Ext.application({
 	requires : [ 'Ext.container.Viewport', 'Ext.data.*',
 	             'Ext.util.*', 'Ext.direct.*'],
@@ -13,7 +15,7 @@ Ext.application({
 
 	appFolder : '/resources/ext/admin',
 
-	controllers : ['GlobalNav' , 'Setting'],
+	controllers : ['GlobalNav' , 'Setting', 'CategoryTree'],
 
 	launch : function() {
 		

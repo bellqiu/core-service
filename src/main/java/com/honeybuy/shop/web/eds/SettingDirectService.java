@@ -59,21 +59,6 @@ public class SettingDirectService {
  		
 	}
 	
-	/*@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
-	public List<Setting> update(List<Setting> settings) {
-		List<Setting> rs = new ArrayList<Setting>();
-		if(null != rs){
-			for (Setting setting : rs) {
-				setting.setUpdateDate(new Date());
-				setting = service.saveOrUpdate(setting);
-				rs.add(setting);
-			}
-		}
-		
-		
-		return rs;
-	}
-	*/
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
 	public Setting update(Setting setting) {
 		setting.setUpdateDate(new Date());

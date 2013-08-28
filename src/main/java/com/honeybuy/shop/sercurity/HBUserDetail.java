@@ -10,7 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.honeybuy.shop.dto.UserDTO;
+import com.hb.core.shared.dto.UserDTO;
 
 public class HBUserDetail implements UserDetails, CredentialsContainer {
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.honeybuy.shop.dto.UserDTO;
+import com.hb.core.shared.dto.UserDTO;
 import com.honeybuy.shop.service.IUserService;
 
 /**

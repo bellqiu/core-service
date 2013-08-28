@@ -2,7 +2,7 @@
  * Project: iSAPort
  * Copyright (c) 2012 HP. All Rights Reserved.
  */
-package com.honeybuy.shop.dto;
+package com.hb.core.shared.dto;
 
 import java.io.Serializable;
 import java.util.List;
