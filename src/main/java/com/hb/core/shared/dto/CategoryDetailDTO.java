@@ -1,5 +1,8 @@
 package com.hb.core.shared.dto;
 
+
+import javax.validation.constraints.NotNull;
+
 import com.hb.core.entity.Category.Type;
 
 public class CategoryDetailDTO {
@@ -20,6 +23,7 @@ public class CategoryDetailDTO {
 	
 	private String description;
 	
+	@NotNull
 	private String name;
 	
 	private Type type = Type.NAVIGATION;

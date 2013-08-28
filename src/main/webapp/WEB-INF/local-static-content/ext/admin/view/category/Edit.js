@@ -16,9 +16,6 @@ Ext.define('AM.view.category.Edit', {
 		items : [ {
 			text : 'Save',
 			itemId : 'saveCategory'
-		}, {
-			text : 'Delete',
-			itemId : 'deleteCategory'
 		} ]
 	} ],
 	initComponent : function() {
@@ -26,30 +23,87 @@ Ext.define('AM.view.category.Edit', {
 		Ext.apply(this, {
 			items : [ {
 				xtype : 'form',
+				paramsAsHash: true,
 				border : 0,
 				layout : 'fit',
 				api : {
 					// The server-side method to call for load() requests
-					load : 'categoryDirectService.loadDetail'
+					load : 'categoryDirectService.loadDetail',
+					submit : 'categoryDirectService.saveDetail'
 				},
 				defaults : {
-					border : 0
+					border : 0,
+					anchor : '100%'
+				},
+				fieldDefaults : {
+					labelAlign : 'left',
+					labelWidth : 115,
+					msgTarget : 'side',
+					margin : 5
 				},
 				items : [ {
 					xtype : 'fieldset',
 					layout : {
 						type : 'table',
-						columns : 2
+						columns : 1
 					},
-					items : [ {
-						margin : 5,
-						fieldLabel : 'Parent Name',
-						name : 'parentName',
+
+					items : [
+					  {
+						fieldLabel : 'Parent Id',
+						name : 'id',
+						xtype : 'displayfield',
+						hidden: true
+					},{
+						fieldLabel : 'Parent Id',
+						name : 'parentId',
+						xtype : 'displayfield',
+						regex : /^\w+$/,
+						regexText : 'Only for characters',
+						flex : 1
+					} ,{
+						fieldLabel : 'Name',
+						name : 'name',
 						xtype : 'textfield',
 						regex : /^\w+$/,
 						regexText : 'Only for characters',
-						width : 250
-					} ]
+						flex : 1
+					},{
+						fieldLabel : 'Type',
+						name : 'type',
+						xtype : 'combo',
+						displayField : 'name',
+						valueField : 'type',
+						typeAhead : true,
+						triggerAction : 'all',
+						store : 'CategoryType',
+						allowBlank : false
+					},{
+						fieldLabel : 'Icon Url',
+						name : 'iconUrl',
+						xtype : 'textfield',
+						flex : 1
+					},{
+						fieldLabel : 'Url',
+						name : 'url',
+						xtype : 'textfield',
+						flex : 1
+					},{
+						fieldLabel : 'Page Title',
+						name : 'pageTitle',
+						xtype : 'textfield',
+						flex : 1
+					},{
+						fieldLabel : 'Related Keyword',
+						name : 'relatedKeyword',
+						xtype : 'textfield',
+						flex : 1
+					},{
+						fieldLabel : 'Market Content',
+						name : 'marketContent',
+						xtype : 'htmleditor',
+						width : 600
+					}]
 				} ]
 			} ]
 		});
@@ -67,6 +121,7 @@ Ext.define('AM.view.category.Edit', {
 			},
 			notifyDrop : function(ddSource, e, data) {
 				var f = form.getForm();
+				f.findField('parentId').setValue(ddSource.dragData.records[0].data.id);
 				return true;
 			}
 		});
