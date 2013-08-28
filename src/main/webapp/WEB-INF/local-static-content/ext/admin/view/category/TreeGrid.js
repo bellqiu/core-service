@@ -35,6 +35,9 @@ Ext.define('AM.view.category.TreeGrid', {
 				}, {
 					text : 'Synchronize',
 					itemId : 'synchronize'
+				}, {
+					text : 'Refresh',
+					itemId : 'refresh'
 				} ]
 			} ],
 			columns : [ {

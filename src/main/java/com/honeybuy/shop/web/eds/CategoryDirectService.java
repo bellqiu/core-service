@@ -48,24 +48,35 @@ public class CategoryDirectService {
 	}*/
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.FORM_LOAD)
-	public CategoryDetailDTO loadDetail(@RequestParam(value = "id") long id, @RequestParam(value = "parent", required = false) long parent){
+	public CategoryDetailDTO loadDetail(@RequestParam(value = "id") long id ,@RequestParam(value = "parent", required = false) long parent){
 		CategoryDetailDTO categoryDetailDTO = new CategoryDetailDTO();
-		categoryDetailDTO.setPageTitle("saved");
-		categoryDetailDTO.setName("Test");
-		categoryDetailDTO.setParentId(parent);
-		System.out.println("#################load CategoryDetailDTO");
+		
+		if(id > 0){
+			categoryDetailDTO = categoryService.getCategoryDetailDTOById(id);
+		}else{
+			categoryDetailDTO.setPageTitle("PageTitle");
+			categoryDetailDTO.setName("Name");
+			categoryDetailDTO.setParentId(parent);
+		}
+	
 		return categoryDetailDTO;
 	}
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.FORM_POST)
 	public ExtDirectFormPostResult saveDetail(@Valid CategoryDetailDTO categoryDetailDTO, BindingResult result){
 		if (!result.hasErrors()) {
-			if (categoryService.getCategoryByName(categoryDetailDTO.getName()) != null) {
+			if (categoryDetailDTO.getId()< 1 && categoryService.getCategoryByName(categoryDetailDTO.getName()) != null) {
 				result.rejectValue("name", null, "Category already taken");
 			}
 		}
+		if(!result.hasErrors()){
+			categoryDetailDTO = categoryService.saveCategoryDetail(categoryDetailDTO);
+		}
 		
-		return new ExtDirectFormPostResult(result);
+		ExtDirectFormPostResult directFormPostResult = new ExtDirectFormPostResult(result);
+		directFormPostResult.addResultProperty("resultForm", categoryDetailDTO);
+		
+		return directFormPostResult;
 	}
 	
 }

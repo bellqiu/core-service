@@ -1,6 +1,7 @@
 package com.hb.core.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hb.core.entity.Category;
 import com.hb.core.exception.CoreServiceException;
+import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 
 @Transactional
@@ -29,6 +31,60 @@ public class CategoryService {
 			}
 		}
 		category = em.merge(category);
+		return category;
+	}
+	
+	public CategoryDetailDTO saveCategoryDetail(CategoryDetailDTO categoryDetailDTO) {
+		if (categoryDetailDTO.getId() < 1) {
+			if (null != getCategoryByName(categoryDetailDTO.getName())) {
+				throw new CoreServiceException("Category already exist");
+			}
+		}
+		
+		Category category = catDetail2Cat(categoryDetailDTO);
+		
+		category = em.merge(category);
+		
+		return cat2CatDetail(category);
+		
+	}
+	
+	private CategoryDetailDTO cat2CatDetail(Category category){
+		CategoryDetailDTO categoryDetailDTO = new CategoryDetailDTO();
+		categoryDetailDTO.setType(category.getType());
+		categoryDetailDTO.setDisplayName(category.getDisplayName());
+		categoryDetailDTO.setIconUrl(category.getIconUrl());
+		categoryDetailDTO.setMarketContent(category.getMarketContent());
+		categoryDetailDTO.setName(category.getName());
+		categoryDetailDTO.setPageTitle(category.getPageTitle());
+		categoryDetailDTO.setRelatedKeyword(category.getRelatedKeyword());
+		categoryDetailDTO.setUrl(category.getUrl());
+		categoryDetailDTO.setId(category.getId());
+		categoryDetailDTO.setParentId(category.getParent()!=null ? category.getParent().getId() : 0);
+		return categoryDetailDTO;
+	}
+	
+	
+	private Category catDetail2Cat(CategoryDetailDTO categoryDetailDTO){
+		Category category = new Category();
+		
+		if(categoryDetailDTO.getId() > 0){
+			category = getCategoryById(categoryDetailDTO.getId());
+		}
+		
+		if(categoryDetailDTO.getParentId() > 0){
+			category.setParent(getCategoryById(categoryDetailDTO.getParentId()));
+		}
+		category.setCreateDate(category.getCreateDate()== null ? new Date() : category.getCreateDate());
+		category.setUpdateDate(new Date());
+		category.setType(categoryDetailDTO.getType());
+		category.setDisplayName(categoryDetailDTO.getDisplayName());
+		category.setIconUrl(categoryDetailDTO.getIconUrl());
+		category.setMarketContent(categoryDetailDTO.getMarketContent());
+		category.setName(categoryDetailDTO.getName());
+		category.setPageTitle(categoryDetailDTO.getPageTitle());
+		category.setRelatedKeyword(categoryDetailDTO.getRelatedKeyword());
+		category.setUrl(categoryDetailDTO.getUrl());
 		return category;
 	}
 
@@ -58,6 +114,10 @@ public class CategoryService {
 				"QueryTopCategories", Category.class);
 		
 		return query.getResultList();
+	}
+	
+	public CategoryDetailDTO getCategoryDetailDTOById(long id){
+		return cat2CatDetail(getCategoryById(id));
 	}
 	
 	public List<CategoryTreeDTO> getCategoryTree(int id){

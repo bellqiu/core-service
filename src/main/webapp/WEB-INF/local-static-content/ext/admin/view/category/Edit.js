@@ -19,7 +19,7 @@ Ext.define('AM.view.category.Edit', {
 		} ]
 	} ],
 	initComponent : function() {
-
+		var self = this;
 		Ext.apply(this, {
 			items : [ {
 				xtype : 'form',
@@ -50,16 +50,13 @@ Ext.define('AM.view.category.Edit', {
 
 					items : [
 					  {
-						fieldLabel : 'Parent Id',
 						name : 'id',
-						xtype : 'displayfield',
+						xtype : 'textfield',
 						hidden: true
-					},{
+					} ,{
 						fieldLabel : 'Parent Id',
 						name : 'parentId',
-						xtype : 'displayfield',
-						regex : /^\w+$/,
-						regexText : 'Only for characters',
+						xtype : 'textfield',
 						flex : 1
 					} ,{
 						fieldLabel : 'Name',
