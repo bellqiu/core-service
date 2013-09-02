@@ -35,10 +35,14 @@ public class CategoryService {
 	}
 	
 	public CategoryDetailDTO saveCategoryDetail(CategoryDetailDTO categoryDetailDTO) {
+		
+		Category existingCategory = getCategoryByName(categoryDetailDTO.getName());
 		if (categoryDetailDTO.getId() < 1) {
-			if (null != getCategoryByName(categoryDetailDTO.getName())) {
+			if (null != existingCategory) {
 				throw new CoreServiceException("Category already exist");
 			}
+		}else if (null!= existingCategory && existingCategory.getId() != categoryDetailDTO.getId()){
+				throw new CoreServiceException("This name is not available");
 		}
 		
 		Category category = catDetail2Cat(categoryDetailDTO);
@@ -74,6 +78,8 @@ public class CategoryService {
 		
 		if(categoryDetailDTO.getParentId() > 0){
 			category.setParent(getCategoryById(categoryDetailDTO.getParentId()));
+		}else{
+			category.setParent(null);
 		}
 		category.setCreateDate(category.getCreateDate()== null ? new Date() : category.getCreateDate());
 		category.setUpdateDate(new Date());

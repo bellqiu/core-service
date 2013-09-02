@@ -24,6 +24,9 @@ Ext
 							},
 							'categoryeditor button#saveCategory' : {
 								click : this.saveCategory
+							},
+							'categorytreegrid actioncolumn' : {
+								click : this.actionCategoryDetail
 							}
 
 						});
@@ -35,6 +38,44 @@ Ext
 								.getStore().load();
 					},
 
+					actionCategoryDetail : function(view, cell, row, col, e) {
+						var m = e.getTarget().src
+								.match(/.*\/images\/(\w+)\.\w+\b/);
+						if (m) {
+							view.getSelectionModel()
+									.select(row, false)
+							switch (m[1]) {
+							case 'edit':
+								var contentPanel = view.up("viewport").down(
+								"tabpanel#mainContainer");
+								
+								var editor = Ext.create("AM.view.category.Edit", {
+									title : 'Edit Category'
+								});
+
+								contentPanel.insert(0, editor);
+								contentPanel.setActiveTab(0);
+
+								var form = editor.down("form");
+								
+								form.load({
+									// pass 2 arguments to server side getBasicInfo
+									// method (len=2)
+									params : {
+										id : view.getSelectionModel().getSelection()[0].get('id'),
+										parent : 0
+									}
+								})
+								break;
+							case 'delete':
+								
+								console.log(">>>>>>>Delete");
+								
+								break;
+							}
+						}
+					},
+
 					saveCategory : function(btn) {
 						btn
 								.up("categoryeditor")
@@ -44,7 +85,8 @@ Ext
 										{
 
 											success : function(form, action) {
-												form.setValues(action.result.resultForm);
+												form
+														.setValues(action.result.resultForm);
 											},
 										});
 					},

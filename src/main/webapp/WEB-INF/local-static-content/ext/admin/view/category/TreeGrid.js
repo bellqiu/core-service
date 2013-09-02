@@ -70,9 +70,22 @@ Ext.define('AM.view.category.TreeGrid', {
 				width : 55,
 				menuDisabled : true,
 				xtype : 'actioncolumn',
-				tooltip : 'Edit task',
-				align : 'center',
-				icon : '/resources/ext/resources/images/edit.png'
+				//tooltip : 'Edit task',
+				//align : 'center',
+				//
+				items : [
+				         {
+				        	 icon : '/resources/ext/resources/images/edit.png',
+				        	 tooltip : 'Edit Category',
+				        	 id : 'edit'
+				        	 
+				         },
+				         {
+				        	 icon : '/resources/ext/resources/images/delete.gif',
+				        	 tooltip : 'Delete Category',
+				        	 id : 'delete'
+				         }
+				         ]
 			} ]
 		});
 		this.callParent();

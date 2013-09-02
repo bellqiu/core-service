@@ -1,5 +1,6 @@
 package com.honeybuy.shop.web.eds;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethodType;
 import ch.ralscha.extdirectspring.bean.ExtDirectFormPostResult;
 
+import com.hb.core.entity.Setting;
 import com.hb.core.service.CategoryService;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
@@ -77,6 +79,17 @@ public class CategoryDirectService {
 		directFormPostResult.addResultProperty("resultForm", categoryDetailDTO);
 		
 		return directFormPostResult;
+	}
+	
+	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
+	public CategoryTreeDTO update(CategoryTreeDTO categoryTreeDTO) {
+		
+		
+		return null;
+	}
+	
+	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
+	public void destory(CategoryTreeDTO categoryTreeDTO) {
 	}
 	
 }
