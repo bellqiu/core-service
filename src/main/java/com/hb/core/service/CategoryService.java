@@ -34,6 +34,11 @@ public class CategoryService {
 		return category;
 	}
 	
+	/*public void destory(Category category){
+		Category category =  em.merge(category);
+		em.remove(category);
+	}*/
+	
 	public CategoryDetailDTO saveCategoryDetail(CategoryDetailDTO categoryDetailDTO) {
 		
 		Category existingCategory = getCategoryByName(categoryDetailDTO.getName());
@@ -165,6 +170,11 @@ public class CategoryService {
 
 	public void destory(Category category) {
 		category = em.merge(category);
+		em.remove(category);
+	}
+	
+	public void destory(long id) {
+		Category category = em.find(Category.class, id);
 		em.remove(category);
 	}
 

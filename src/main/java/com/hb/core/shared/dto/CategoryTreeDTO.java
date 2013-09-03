@@ -1,7 +1,9 @@
 package com.hb.core.shared.dto;
 
-import com.hb.core.entity.Category;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import com.hb.core.entity.Category;
+@JsonIgnoreProperties(ignoreUnknown = true, value={"parentId"})
 public class CategoryTreeDTO {
 	private long id;
 	private String name;

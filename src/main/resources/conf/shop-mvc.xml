@@ -24,9 +24,17 @@
 	
 	<context:component-scan base-package="ch.ralscha.extdirectspring"/> 
 	
+	<bean id="objectMapper" class="com.honeybuy.shop.util.FeaturedObjectMapper">
+	</bean> 
+	
+	<bean id="jsonHandler" class="ch.ralscha.extdirectspring.util.JsonHandler">
+		<property name="mapper" ref="objectMapper"></property>
+	</bean>
+	
 	<bean id="extDirectSpringConfiguration" 
       class="ch.ralscha.extdirectspring.controller.Configuration" >
       	<property name="sendExceptionMessage" value="true"></property>
+      <property name="jsonHandler" ref="jsonHandler"></property>
       </bean>
 
 	<mvc:interceptors>

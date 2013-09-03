@@ -1,6 +1,5 @@
 package com.honeybuy.shop.web.eds;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,7 +15,7 @@ import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethodType;
 import ch.ralscha.extdirectspring.bean.ExtDirectFormPostResult;
 
-import com.hb.core.entity.Setting;
+import com.hb.core.exception.CoreServiceException;
 import com.hb.core.service.CategoryService;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
@@ -83,13 +82,20 @@ public class CategoryDirectService {
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
 	public CategoryTreeDTO update(CategoryTreeDTO categoryTreeDTO) {
+		CategoryDetailDTO cADetailDTO = categoryService.getCategoryDetailDTOById(categoryTreeDTO.getId());
+		cADetailDTO.setName(categoryTreeDTO.getName());
+		cADetailDTO.setDisplayName(categoryTreeDTO.getDisplayName());
+		cADetailDTO = categoryService.saveCategoryDetail(cADetailDTO);
 		
-		
-		return null;
+		return categoryTreeDTO;
 	}
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
-	public void destory(CategoryTreeDTO categoryTreeDTO) {
+	public void destroy(CategoryTreeDTO categoryTreeDTO) {
+		if(categoryTreeDTO.getId() < 1 ){
+			throw new CoreServiceException("Save category before delete");
+		}
+		categoryService.destory(categoryTreeDTO.getId());
 	}
 	
 }

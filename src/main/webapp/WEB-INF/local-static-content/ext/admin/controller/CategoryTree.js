@@ -14,6 +14,10 @@ Ext
 							'categorytreegrid toolbar button#newCategory' : {
 								click : this.newCategory
 							},
+							
+							'categorytreegrid toolbar button#synchronize' : {
+								click : this.synchronize
+							},
 							'categorytreegrid toolbar button#refresh' : {
 								click : this.refreshCategoryGrid
 							},
@@ -31,7 +35,11 @@ Ext
 
 						});
 					},
-
+					
+					synchronize : function(btn){
+						btn.up('categorytreegrid').getStore().sync();
+					},
+					
 					refreshCategoryGrid : function(btn) {
 						var queryPanel = btn.up("viewport").down(
 								"tabpanel#managerContainer categorytreegrid")
@@ -69,7 +77,8 @@ Ext
 								break;
 							case 'delete':
 								
-								console.log(">>>>>>>Delete");
+								view.getTreeStore().getNodeById(view.getSelectionModel().getSelection()[0].get('id')).remove();
+								view.getTreeStore().sync();
 								
 								break;
 							}
