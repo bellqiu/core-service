@@ -54,18 +54,36 @@ Ext.define('AM.view.html.HtmlManager', {
 						margin : 5,
 						xtype : 'panel',
 						border : 0,
+						colspan : 2,
+						layout : {
+							type : 'hbox',
+							align : 'middle',
+							pack : 'center'
+						},
 						defaults : {
 							border : 0,
 							margin : 2
 						},
 						items : [ {
-							xtype : 'button',
-							text : 'Search',
-							id : 'searchHtml'
+							flex : 2
 						}, {
-							xtype : 'button',
-							text : 'reset',
-							id : 'resetHtml'
+							flex : 2,
+							defaults : {
+								border : 0,
+								margin : 2
+							},
+							items : [ {
+								xtype : 'button',
+								text : 'Search',
+								id : 'searchHtml',
+								flex : 1
+							}, {
+								xtype : 'button',
+								text : 'reset',
+								id : 'resetHtml',
+								flex : 1
+							} ]
+
 						} ]
 					} ]
 
