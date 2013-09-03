@@ -4,9 +4,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NamedQueries(value=
+	{
+		@NamedQuery(name="QueryHtmlByKey", query="select h from HTML as h where name=:key"),
+		@NamedQuery(name="countAllHtml", query="select count(h.id) from HTML as h"),
+	})
 public class HTML extends Component{
 
 	/**

@@ -43,7 +43,31 @@ Ext.define('AM.controller.GlobalNav', {
     			tabpanel.insert(0, view);
     			tabpanel.setActiveTab(0);
     		}
-    	}else{
+    	} else if(opt == 'html'){
+    		
+    		var tabpanel = combo.up("viewport").down("tabpanel#managerContainer");
+    		
+    		if(tabpanel.down("htmlmanager")){
+    			tabpanel.setActiveTab(tabpanel.down("htmlmanager"));
+    		}else{
+    			var view = Ext.widget('htmlmanager');
+    			tabpanel.insert(0, view);
+    			tabpanel.setActiveTab(0);
+    		}
+    		
+    	} else if(opt == 'country'){
+    		
+    		var tabpanel = combo.up("viewport").down("tabpanel#managerContainer");
+    		
+    		if(tabpanel.down("countrymanager")){
+    			tabpanel.setActiveTab(tabpanel.down("countrymanager"));
+    		}else{
+    			var view = Ext.widget('countrymanager');
+    			tabpanel.insert(0, view);
+    			tabpanel.setActiveTab(0);
+    		}
+    		
+    	} else {
     		Ext.Msg.alert('Status', 'No operation');
     	}
     	combo.reset();

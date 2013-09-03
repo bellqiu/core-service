@@ -15,7 +15,7 @@ Ext.application({
 
 	appFolder : '/resources/ext/admin',
 
-	controllers : ['GlobalNav' , 'Setting', 'CategoryTree'],
+	controllers : ['GlobalNav' , 'Setting', 'CategoryTree', 'HTML', 'Country'],
 
 	launch : function() {
 		

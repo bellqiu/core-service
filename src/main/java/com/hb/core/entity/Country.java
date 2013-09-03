@@ -1,5 +1,19 @@
 package com.hb.core.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NamedQueries(value=
+	{
+		@NamedQuery(name="QueryCountryByKey", query="select c from Country as c where code=:key"),
+		@NamedQuery(name="countAllCountry", query="select count(c.id) from Country as c"),
+	})
 public class Country extends Component{
 
 	/**
@@ -9,9 +23,13 @@ public class Country extends Component{
 	
 	private String code;
 	private String abbrCode;
+	@Column(name = "normal_delivery_price")
 	private float normalDeliveryPrice;
+	@Column(name = "advance_delivery_price")
 	private float advanceDeliveryPrice;
+	@Column(name = "free_delivery_price")
 	private float freeDeliveryPrice;
+	@Column(name = "free_advance_delivery_price")
 	private float freeAdvanceDeliveryPrice;
 	
 	public Country() {
