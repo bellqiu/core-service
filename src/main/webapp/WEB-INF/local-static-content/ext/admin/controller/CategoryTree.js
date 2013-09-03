@@ -76,9 +76,16 @@ Ext
 								})
 								break;
 							case 'delete':
+								Ext.MessageBox.confirm('Delete', 'Are you sure ?', function(btn){
+								   if(btn === 'yes'){
+									   view.getTreeStore().getNodeById(view.getSelectionModel().getSelection()[0].get('id')).remove();
+									   view.getTreeStore().sync();
+								   }
+								   else{
+									   Ext.example.msg('Cancel', 'Delete cancel');
+								   }
+								 });
 								
-								view.getTreeStore().getNodeById(view.getSelectionModel().getSelection()[0].get('id')).remove();
-								view.getTreeStore().sync();
 								
 								break;
 							}

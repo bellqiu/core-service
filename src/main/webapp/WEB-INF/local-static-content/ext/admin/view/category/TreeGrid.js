@@ -8,10 +8,12 @@ Ext.define('AM.view.category.TreeGrid', {
 	multiSelect : false,
 	singleExpand : true,
 	closable : true,
+	stateful : true,
 	initComponent : function() {
 
 		Ext.apply(this, {
 			store : 'CategoryTree',
+			stateful : true,
 			viewConfig: {
                 plugins: {
                     ddGroup: 'grid-to-edit-parent',
