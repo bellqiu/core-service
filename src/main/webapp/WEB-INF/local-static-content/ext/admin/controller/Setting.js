@@ -38,7 +38,7 @@ Ext.define('AM.controller.Setting', {
 				grid.getStore().removeAt(index);
 				grid.getStore().sync();
 			} else {
-				Ext.example.msg('Cancel', 'Delete cancel');
+				Ext.example.msg('Cancel', 'Delete canceled');
 			}
 		});
 

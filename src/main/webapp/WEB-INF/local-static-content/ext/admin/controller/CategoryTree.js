@@ -82,7 +82,7 @@ Ext
 									   view.getTreeStore().sync();
 								   }
 								   else{
-									   Ext.example.msg('Cancel', 'Delete cancel');
+									   Ext.example.msg('Cancel', 'Delete canceled');
 								   }
 								 });
 								
