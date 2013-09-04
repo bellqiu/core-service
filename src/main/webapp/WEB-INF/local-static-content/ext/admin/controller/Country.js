@@ -34,8 +34,14 @@ Ext.define('AM.controller.Country', {
     },
     
     deleteCountry :function(grid, el, index){
-    	grid.getStore().removeAt(index);
-    	grid.getStore().sync();
+    	Ext.MessageBox.confirm('Delete', 'Are you sure ?', function(btn) {
+			if (btn === 'yes') {
+				grid.getStore().removeAt(index);
+				grid.getStore().sync();
+			} else {
+				Ext.example.msg('Cancel', 'Delete canceled');
+			}
+		});
    },
     
     newCountry :function(btn){

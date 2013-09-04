@@ -113,7 +113,7 @@ Ext.define('AM.view.html.HtmlManager', {
 					}
 				}, {
 					text : "Content",
-					dataIndex : "Content",
+					dataIndex : "content",
 					flex : 2
 				}, {
 					text : "Update Date",
@@ -133,8 +133,14 @@ Ext.define('AM.view.html.HtmlManager', {
 					sortable : false,
 					menuDisabled : true,
 					items : [ {
+						icon : '/resources/ext/resources/images/edit.png',
+						tooltip : 'Edit HTML',
+						id : 'editHTML'
+
+					}, {
 						icon : '/resources/ext/resources/images/delete.gif',
-						tooltip : 'Delete HTML'
+						tooltip : 'Delete HTML',
+						id : 'deleteHTML'
 					} ]
 				} ],
 				bbar : {
@@ -152,6 +158,9 @@ Ext.define('AM.view.html.HtmlManager', {
 					}, {
 						text : 'Synchronize',
 						itemId : 'synchronize'
+					}, {
+						text : 'Refresh',
+						itemId : 'refreshHTML'
 					} ]
 				} ]
 

@@ -77,19 +77,39 @@ Ext.define('AM.view.country.CountryManager', {
 						margin : 5,
 						xtype : 'panel',
 						border : 0,
+						colspan : 2,
+						layout : {
+							type : 'hbox',
+							align : 'middle',
+							pack : 'center'
+						},
 						defaults : {
 							border : 0,
 							margin : 2
 						},
 						items : [ {
-							xtype : 'button',
-							text : 'Search',
-							id : 'searchCountry'
-						}, {
-							xtype : 'button',
-							text : 'reset',
-							id : 'resetCountry'
-						} ]
+							flex : 2
+						},
+						{
+							flex : 2,
+							defaults : {
+								border : 0,
+								margin : 2
+							},
+							items : [{
+								xtype : 'button',
+								text : 'Search',
+								id : 'searchCountry',
+								flex : 1
+							},
+							{
+								xtype : 'button',
+								text : 'reset',
+								id : 'resetCountry',
+								flex : 1
+							}]
+							
+						}]
 					} ]
 
 				} ]
