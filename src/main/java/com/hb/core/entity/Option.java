@@ -1,7 +1,22 @@
 package com.hb.core.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name="POption")
 public class Option extends Component{
 
 	/**
@@ -9,14 +24,21 @@ public class Option extends Component{
 	 */
 	private static final long serialVersionUID = 8504143946515106133L;
 	
+	@Column(name="description_value")
 	private String desc;
 	
-	private List<OptionItem> items;
+	@OneToMany(targetEntity=OptionItem.class,orphanRemoval=true,cascade={CascadeType.ALL})
+	@JoinColumn(name="Option_id")
+	private List<OptionItem> items = new ArrayList<OptionItem>();
 	
+	@Column(name="default_value")
 	private String defaultValue;
 	
+	@Column(name="name")
 	private String name;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type")
 	private Type type = Type.TEXT;
 	
 	public static enum Type{

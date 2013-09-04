@@ -1,53 +1,105 @@
 package com.hb.core.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyJoinColumn;
+
+import org.hibernate.annotations.IndexColumn;
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Product extends Component{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -84296171648012884L;
+	
+	
+	@Column(name="keywords")
 	private String keywords;
-	private List<String> tags;
+	
+	@Column(name="tags")
+	private String tags;
+	
+	@Column(name="abstract_text")
 	private String abstractText;
+	
+	@Column(name="detail")
 	private String detail;
-	private int weight;
+	
+	@Column(name="title")
 	private String title;
-	private int primaryCategory;
-	private List<Long> supportedCategories = new ArrayList<Long>();
+	
+	@Column(name="price")
 	private double price;
+	
+	@Column(name="actual_price")
 	private double actualPrice;
+	
+	@Column(name="override_url")
 	private String overrideUrl;
-	private Image primaryImage;
-	private List<Image> secondaryImages = new ArrayList<Image>();
+	
+	@Column(name="name")
+	private String name;
+	
+	@ManyToMany(cascade={CascadeType.ALL})
+	@JoinTable(name="Product_has_Images",
+				joinColumns=@JoinColumn(name="Product_id"),
+				inverseJoinColumns=@JoinColumn(name="Image_id"))
+	@IndexColumn(name="sequence", base=0, nullable=false)
+	private List<Image> images = new ArrayList<Image>();
+	
+	@ManyToMany(cascade={CascadeType.ALL})
+	@JoinTable(name="Product_has_Option",
+				joinColumns=@JoinColumn(name="Product_id"),
+				inverseJoinColumns=@JoinColumn(name="Option_id"))
+	@IndexColumn(name="sequence", base=0, nullable=false)
 	private List<Option> options = new ArrayList<Option>();
+	
+	@ManyToMany(cascade={CascadeType.ALL})
+	@JoinTable(name="Product_has_Property",
+				joinColumns=@JoinColumn(name="Product_id"),
+				inverseJoinColumns=@JoinColumn(name="Property_id"))
+	@IndexColumn(name="sequence", base=0, nullable=false)
 	private List<Property> props = new ArrayList<Property>();
+	
+	@ManyToMany
+	@JoinTable(name="Product_has_TabProduct",
+				joinColumns=@JoinColumn(name="Product_id"),
+				inverseJoinColumns=@JoinColumn(name="TabProduct_id"))
+	@IndexColumn(name="sequence", base=0, nullable=false)
+	private List<TabProduct> product = new ArrayList<TabProduct>();
+	
+	@ManyToMany
+	@JoinTable(name="Product_has_Category",
+				joinColumns=@JoinColumn(name="Product_id"),
+				inverseJoinColumns=@JoinColumn(name="Category_id"))
+	@IndexColumn(name="sequence", base=0, nullable=false)
+	private List<Category> categories = new ArrayList<Category>();
+	
+	@ManyToMany()
+	@JoinTable(name="Product_has_Mannual",
+				joinColumns=@JoinColumn(name="Product_id"),
+				inverseJoinColumns=@JoinColumn(name="HTML_id"))
+	@MapKeyColumn(name="name")
+	private Map<String, HTML> manuals = new HashMap<String, HTML>();
+	
 	
 	public Product() {
 	}
-	
-	public Image getPrimaryImage() {
-		return primaryImage;
-	}
-
-	public void setPrimaryImage(Image primaryImage) {
-		this.primaryImage = primaryImage;
-	}
-
-
-	public List<Image> getSecondaryImages() {
-		return secondaryImages;
-	}
-
-
-
-	public void setSecondaryImages(List<Image> secondaryImages) {
-		this.secondaryImages = secondaryImages;
-	}
-
-
 
 	public String getKeywords() {
 		return keywords;
@@ -55,14 +107,6 @@ public class Product extends Component{
 
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
-	}
-
-	public List<String> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<String> tags) {
-		this.tags = tags;
 	}
 
 	public String getAbstractText() {
@@ -81,13 +125,6 @@ public class Product extends Component{
 		this.detail = detail;
 	}
 
-	public int getWeight() {
-		return weight;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
 
 	public String getTitle() {
 		return title;
@@ -95,6 +132,14 @@ public class Product extends Component{
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 	public double getPrice() {
@@ -121,20 +166,12 @@ public class Product extends Component{
 		this.overrideUrl = overrideUrl;
 	}
 
-	public int getPrimaryCategory() {
-		return primaryCategory;
+	public List<Image> getImages() {
+		return images;
 	}
 
-	public void setPrimaryCategory(int primaryCategory) {
-		this.primaryCategory = primaryCategory;
-	}
-
-	public List<Long> getSupportedCategories() {
-		return supportedCategories;
-	}
-
-	public void setSupportedCategories(List<Long> supportedCategories) {
-		this.supportedCategories = supportedCategories;
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	public List<Option> getOptions() {
@@ -151,6 +188,38 @@ public class Product extends Component{
 
 	public void setProps(List<Property> props) {
 		this.props = props;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<TabProduct> getProduct() {
+		return product;
+	}
+
+	public void setProduct(List<TabProduct> product) {
+		this.product = product;
+	}
+
+	public Map<String, HTML> getManuals() {
+		return manuals;
+	}
+
+	public void setManuals(Map<String, HTML> manuals) {
+		this.manuals = manuals;
 	}
 	
 }

@@ -21,6 +21,11 @@ Ext.define('AM.view.toolbar.GlobalNav', {
 										id: 'managerCombo'
 
 									},{
+										xtype : 'button',
+										text : 'New Product',
+										id : 'newproduct'
+										
+									}/*,{
 										
 										xtype: 'uploadbutton',
 										text : 'Upload Image',
@@ -64,7 +69,7 @@ Ext.define('AM.view.toolbar.GlobalNav', {
 										}
 
 									
-									},'->', {
+									}*/,'->', {
 										xtype : 'label',
 										text : loginuser.email
 									},
