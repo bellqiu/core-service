@@ -20,7 +20,7 @@
 			</c:forEach>
 		</style>
 		
-		<script src="${site.resourceServer}${site.webResourcesFolder}/js/jquery-1.910.js" type="text/javascript"></script>
+		<script src="${site.resourceServer}${site.webResourcesFolder}/js/jquery-1.9.1.js" type="text/javascript"></script>
 		<script src="${site.resourceServer}${site.webResourcesFolder}/js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
 		
 		<c:forEach items="${site.js }" var="js">
