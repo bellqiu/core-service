@@ -46,14 +46,15 @@ Ext.define('AM.controller.Setting', {
 
 	newSetting : function(btn) {
 		var store = btn.up('gridpanel').getStore();
-
+		var d = Ext.Date.clearTime(new Date());
+		//var dt = Ext.Date.format(d, 'm/d/Y g:i:s A T'); 
 		var rec = new AM.model.Setting({
 			name : '',
 			value : '',
 			type : 'STRING',
 			status : 'ACTIVE',
-			createDate : Ext.Date.clearTime(new Date()),
-			updateDate : Ext.Date.clearTime(new Date())
+			createDate : d,
+			updateDate : d
 		});
 		store.insert(0, rec);
 		btn.up('gridpanel').getPlugin().startEditByPosition({

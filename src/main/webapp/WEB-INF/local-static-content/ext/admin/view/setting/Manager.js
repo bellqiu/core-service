@@ -127,13 +127,14 @@ Ext.define('AM.view.setting.Manager', {
 					text : "Update Date",
 					dataIndex : "updateDate",
 					type : 'date',
-					renderer : Ext.util.Format.dateRenderer('m/d/Y h:s'),
+					//renderer : Ext.util.Format.dateRenderer('m/d/Y h:s'),
+					renderer : Ext.util.Format.dateRenderer('m/d/Y H:i:s'),
 					flex : 1.5
 				}, {
 					text : "Create Date",
 					dataIndex : "createDate",
 					type : 'date',
-					renderer : Ext.util.Format.dateRenderer('m/d/Y h:s'),
+					renderer : Ext.util.Format.dateRenderer('m/d/Y H:i:s'),
 					flex : 1.5
 				}, {
 					xtype : 'actioncolumn',
