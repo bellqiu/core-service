@@ -67,6 +67,18 @@ Ext.define('AM.controller.GlobalNav', {
     			tabpanel.setActiveTab(0);
     		}
     		
+    	} else if(opt == 'currency'){
+    		
+    		var tabpanel = combo.up("viewport").down("tabpanel#managerContainer");
+    		
+    		if(tabpanel.down("currencymanager")){
+    			tabpanel.setActiveTab(tabpanel.down("currencymanager"));
+    		}else{
+    			var view = Ext.widget('currencymanager');
+    			tabpanel.insert(0, view);
+    			tabpanel.setActiveTab(0);
+    		}
+    		
     	} else {
     		Ext.Msg.alert('Status', 'No operation');
     	}

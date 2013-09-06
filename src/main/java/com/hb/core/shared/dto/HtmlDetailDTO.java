@@ -3,8 +3,6 @@ package com.hb.core.shared.dto;
 
 import javax.validation.constraints.NotNull;
 
-import com.hb.core.entity.Category.Type;
-
 public class HtmlDetailDTO {
 	
 	private long id;

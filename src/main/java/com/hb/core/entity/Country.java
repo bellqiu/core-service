@@ -7,8 +7,11 @@ import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@JsonAutoDetect
 @NamedQueries(value=
 	{
 		@NamedQuery(name="QueryCountryByKey", query="select c from Country as c where code=:key"),

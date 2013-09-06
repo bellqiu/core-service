@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
-import com.hb.core.entity.Category;
 import com.hb.core.entity.HTML;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.HtmlDetailDTO;
