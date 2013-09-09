@@ -102,7 +102,7 @@ Ext.define('AM.view.currency.CurrencyManager', {
 				}, {
 					text : "code",
 					dataIndex : "code",
-					flex : 2,
+					flex : 1,
 					editor : {
 						xtype : 'textfield',
 						allowBlank : false
@@ -118,15 +118,14 @@ Ext.define('AM.view.currency.CurrencyManager', {
 				}, {
 					text : 'Default Currency',
 					dataIndex : 'defaultCurrency',
-					flex : 1,
+					flex : 2,
 					id : 'defaultCurrencyId',
-					editor : {
-						//xtype : 'checkboxgroup',
-						xtype : 'radiogroup',
-						//xtype : 'fieldset',
-						defaultType: 'radio',
-						layout : "anchor",
-						allowBlank : true
+					type : 'boolean',
+					/*renderer : function(value) {
+			            return "<input type='radio' name = 'defaultCurrencyRadio' onchange='setValue'" + (value ? "checked='checked'" : "") + ">";
+					},*/
+					renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+						return '<input '+(value?'checked=checked':'')+' onchange="setDefault('+rowIdx+',\''+store.storeId+'\');" type=radio name="rgrp'+this.body.id+'"/>'
 					}
 				}, {
 					text : "Update Date",
@@ -172,4 +171,14 @@ Ext.define('AM.view.currency.CurrencyManager', {
 		} ];
 		this.callParent(arguments);
 	},
+	
 });
+function setDefault(rowIdx,storeId)
+{
+	for(index in Ext.getStore(storeId).data.items)
+	{
+		if(Ext.getStore(storeId).data.items[index].data.defaultCurrency)
+			Ext.getStore(storeId).data.items[index].set('defaultCurrency',false); 
+	}
+	Ext.getStore(storeId).data.items[rowIdx].set('defaultCurrency',true);
+}
