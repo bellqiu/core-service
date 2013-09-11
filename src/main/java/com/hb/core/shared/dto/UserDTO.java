@@ -7,11 +7,9 @@ import javax.validation.constraints.NotNull;
 
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 public class UserDTO {
-	@NotBlank
-	private String uid;
+	private long id;
 	@Email
 	@NotNull
 	private String email;
@@ -19,11 +17,11 @@ public class UserDTO {
 	private boolean enabled;
 	private final List<String> roles = new ArrayList<String>();
 	
-	public String getUid() {
-		return uid;
+	public long getId() {
+		return id;
 	}
-	public void setUid(String uid) {
-		this.uid = uid;
+	public void setId(long id) {
+		this.id = id;
 	}
 	public String getEmail() {
 		return email;

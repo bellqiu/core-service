@@ -9,27 +9,27 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hb.core.shared.dto.UserDTO;
 @Service
 @Transactional
-public class UserService implements IUserService{
+public class UserServiceDev implements IUserService{
 	
 	private static final Map<String, UserDTO> users = new HashMap<String, UserDTO>();
 	
-	public UserService() {
+	public UserServiceDev() {
 		for (int i = 0; i < 3; i++) {
 			String userName = "R" + i + "@hb.com";
 			UserDTO userDTO = new UserDTO();
 			userDTO.setEmail(userName);
 			
 			userDTO.setPassword("admin");
-			userDTO.setUid(i+"_uid");
+			userDTO.setId(i);
 			
 			if(i != 2){
 				userDTO.setEnabled(true);
 			}
 			
 			if(i == 0){
-				userDTO.getRoles().add("USER");
+				userDTO.getRoles().add(com.hb.core.entity.User.Type.USER.toString());
 			}else{
-				userDTO.getRoles().add("ADMIN");
+				userDTO.getRoles().add(com.hb.core.entity.User.Type.ADMIN.toString());
 			}
 			
 			users.put(userName, userDTO);
@@ -50,8 +50,8 @@ public class UserService implements IUserService{
 		userDTO.setEmail(username);
 		
 		userDTO.setPassword(password);
-		userDTO.setUid(username);
-		userDTO.getRoles().add("USER");
+		//userDTO.setUid(username);
+		userDTO.getRoles().add(com.hb.core.entity.User.Type.USER.toString());
 		userDTO.setEnabled(true);
 		
 		users.put(username, userDTO);

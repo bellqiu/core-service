@@ -14,12 +14,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @JsonAutoDetect
+@NamedQueries(value=
+{
+	@NamedQuery(name="QueryUserByEmail", query="select u from User as u where email=:email "),
+	@NamedQuery(name="countAllUser", query="select count(u.id) from User as u "),
+})
 public class User extends Component {
 
 	/**
@@ -33,7 +40,7 @@ public class User extends Component {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type")
-	private Type type = Type.L1;
+	private Type type = Type.USER;
 
 	@ManyToOne(cascade={CascadeType.ALL},optional=true)
 	@JoinColumn(name="billing_address_id", updatable=true)
@@ -46,11 +53,10 @@ public class User extends Component {
 	private List<Address> shippingAddresses = new ArrayList<Address>();
 	
 	public static enum Type {
-		L1, L2, L3,
-
-		S1,
-
-		A1, A2
+		USER,
+		V1,V2,
+		ADMIN,
+		S1,S2
 	}
 
 	public String getEmail() {
@@ -75,6 +81,14 @@ public class User extends Component {
 
 	public void setType(Type type) {
 		this.type = type;
+	}
+
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	public Address getBillingAddress() {
+		return billingAddress;
 	}
 
 	public List<Address> getShippingAddresses() {

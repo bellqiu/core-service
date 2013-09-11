@@ -79,6 +79,18 @@ Ext.define('AM.controller.GlobalNav', {
     			tabpanel.setActiveTab(0);
     		}
     		
+    	} else if(opt == 'user'){
+    		
+    		var tabpanel = combo.up("viewport").down("tabpanel#managerContainer");
+    		
+    		if(tabpanel.down("usermanager")){
+    			tabpanel.setActiveTab(tabpanel.down("usermanager"));
+    		}else{
+    			var view = Ext.widget('usermanager');
+    			tabpanel.insert(0, view);
+    			tabpanel.setActiveTab(0);
+    		}
+    		
     	} else {
     		Ext.Msg.alert('Status', 'No operation');
     	}

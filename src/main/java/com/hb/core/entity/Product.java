@@ -13,9 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.MapKey;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.MapKeyJoinColumn;
 
 import org.hibernate.annotations.IndexColumn;
 @Entity
