@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.honeybuy.shop.service.ISiteService;
+import com.honeybuy.shop.web.eds.SiteDirectService;
 
 /**
  * 
@@ -21,7 +21,7 @@ public class SiteDataInterceptor extends HandlerInterceptorAdapter{
 	
 	
 	@Autowired
-	private ISiteService siteService;
+	private SiteDirectService siteService;
 	
 	
 	public static final String SITE_ATTR = "site";
@@ -34,11 +34,11 @@ public class SiteDataInterceptor extends HandlerInterceptorAdapter{
 		return true;
 	}
 
-	public ISiteService getSiteService() {
+	public SiteDirectService getSiteService() {
 		return siteService;
 	}
 
-	public void setSiteService(ISiteService siteService) {
+	public void setSiteService(SiteDirectService siteService) {
 		this.siteService = siteService;
 	}
 

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.UserDTO;
-import com.honeybuy.shop.service.IUserService;
 
 /**
  * 
@@ -24,7 +24,7 @@ import com.honeybuy.shop.service.IUserService;
 public class AccountController {
 	
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 	
 	@RequestMapping("/login")
 	public String login(){

@@ -15,12 +15,26 @@ import com.hb.core.entity.Option;
 import com.hb.core.entity.OptionItem;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.Property;
+import com.hb.core.shared.dto.ProductDetailDTO;
 
 @Transactional
 @Service
 public class ProductService {
 	@PersistenceContext
 	private EntityManager entityManager;
+	
+	public ProductDetailDTO getProductDetail(long productId){
+		
+		ProductDetailDTO productDetailDTO = null;
+		
+		Product product = entityManager.find(Product.class, productId);
+		
+		if(null != product){
+			
+		}
+		
+		return null;
+	}
 
 	public void test() {
 		Image image1 = new Image();

@@ -82,11 +82,11 @@ public class CategoryDirectService {
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
 	public CategoryTreeDTO update(CategoryTreeDTO categoryTreeDTO) {
-		CategoryDetailDTO cADetailDTO = categoryService.getCategoryDetailDTOById(categoryTreeDTO.getId());
+		/*CategoryDetailDTO cADetailDTO = categoryService.getCategoryDetailDTOById(categoryTreeDTO.getId());
 		cADetailDTO.setName(categoryTreeDTO.getName());
 		cADetailDTO.setDisplayName(categoryTreeDTO.getDisplayName());
-		cADetailDTO = categoryService.saveCategoryDetail(cADetailDTO);
-		
+		cADetailDTO = categoryService.saveCategoryDetail(cADetailDTO);*/
+		categoryService.saveCategoryTree(categoryTreeDTO);
 		return categoryTreeDTO;
 	}
 	

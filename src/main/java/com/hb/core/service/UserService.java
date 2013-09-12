@@ -30,7 +30,11 @@ public class UserService {
 	
 	public UserDTO getUserByName(String name) {
 		// TODO
-		UserDTO userDTO = null;
+		UserDTO userDTO = new UserDTO();
+		userDTO.setEmail("R1@hb.com");
+		userDTO.setPassword("admin");
+		userDTO.setEnabled(true);
+		userDTO.getRoles().add(User.Type.ADMIN.toString());
 		return userDTO;
 	}
 

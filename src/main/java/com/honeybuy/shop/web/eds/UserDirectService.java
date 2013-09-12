@@ -25,9 +25,36 @@ import com.hb.core.shared.dto.UserDTO;
 @Secured("ADMIN")
 public class UserDirectService {
 	
+	private static final Map<String, UserDTO> users = new HashMap<String, UserDTO>();
+	
+	
 	@Autowired
 	private UserService service;
 	
+	
+	public UserDirectService() {
+		for (int i = 0; i < 3; i++) {
+			String userName = "R" + i + "@hb.com";
+			UserDTO userDTO = new UserDTO();
+			userDTO.setEmail(userName);
+			
+			userDTO.setPassword("admin");
+			userDTO.setId(i);
+			
+			if(i != 2){
+				userDTO.setEnabled(true);
+			}
+			
+			if(i == 0){
+				userDTO.getRoles().add(com.hb.core.entity.User.Type.USER.toString());
+			}else{
+				userDTO.getRoles().add(com.hb.core.entity.User.Type.ADMIN.toString());
+			}
+			
+			users.put(userName, userDTO);
+		}
+	}
+
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_READ)
 	@Transactional(readOnly=true)
 	public ExtDirectStoreReadResult<UserDTO> list(ExtDirectStoreReadRequest storeRequest) {
@@ -67,5 +94,27 @@ public class UserDirectService {
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
 	public void destory(UserDTO userDTO) {
 		 service.destory(userDTO);
+	}
+	
+	
+	public UserDTO getUserByName(String name) {
+		return users.get(name);
+	}
+
+	public UserDTO newUser(String username, String password) {
+		
+		UserDTO userDTO = new UserDTO();
+		
+		userDTO.setEmail(username);
+		
+		userDTO.setPassword(password);
+		//userDTO.setUid(username);
+		userDTO.getRoles().add(com.hb.core.entity.User.Type.USER.toString());
+		userDTO.setEnabled(true);
+		
+		users.put(username, userDTO);
+		
+		
+		return userDTO;
 	}
 }

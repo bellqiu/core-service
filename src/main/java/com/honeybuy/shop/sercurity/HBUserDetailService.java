@@ -5,13 +5,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.UserDTO;
-import com.honeybuy.shop.service.IUserService;
 
 public class HBUserDetailService implements UserDetailsService{
 	
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username)

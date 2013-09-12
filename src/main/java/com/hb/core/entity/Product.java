@@ -25,7 +25,6 @@ public class Product extends Component{
 	 */
 	private static final long serialVersionUID = -84296171648012884L;
 	
-	
 	@Column(name="keywords")
 	private String keywords;
 	

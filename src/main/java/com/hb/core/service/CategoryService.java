@@ -1,7 +1,6 @@
 package com.hb.core.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,9 +8,11 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hb.core.convert.Converter;
 import com.hb.core.entity.Category;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.CategoryDetailDTO;
@@ -24,6 +25,12 @@ public class CategoryService {
 	@PersistenceContext
 	private EntityManager em;
 
+	@Autowired
+	private Converter<CategoryDetailDTO, Category> categoryDetailConverter;
+
+	@Autowired
+	private Converter<CategoryTreeDTO, Category>  categoryTreeConverter;
+
 	public Category saveOrUpdate(Category category) {
 		if (category.getId() < 1) {
 			if (null != getCategoryByName(category.getName())) {
@@ -33,70 +40,53 @@ public class CategoryService {
 		category = em.merge(category);
 		return category;
 	}
-	
-	/*public void destory(Category category){
-		Category category =  em.merge(category);
-		em.remove(category);
-	}*/
-	
-	public CategoryDetailDTO saveCategoryDetail(CategoryDetailDTO categoryDetailDTO) {
-		
-		Category existingCategory = getCategoryByName(categoryDetailDTO.getName());
+
+	/*
+	 * public void destory(Category category){ Category category =
+	 * em.merge(category); em.remove(category); }
+	 */
+
+	public CategoryDetailDTO saveCategoryDetail(
+			CategoryDetailDTO categoryDetailDTO) {
+
+		Category existingCategory = getCategoryByName(categoryDetailDTO
+				.getName());
 		if (categoryDetailDTO.getId() < 1) {
 			if (null != existingCategory) {
 				throw new CoreServiceException("Category already exist");
 			}
-		}else if (null!= existingCategory && existingCategory.getId() != categoryDetailDTO.getId()){
-				throw new CoreServiceException("This name is not available");
+		} else if (null != existingCategory
+				&& existingCategory.getId() != categoryDetailDTO.getId()) {
+			throw new CoreServiceException("This name is not available");
 		}
-		
-		Category category = catDetail2Cat(categoryDetailDTO);
-		
+
+		Category category = categoryDetailConverter.transf(categoryDetailDTO);
+
 		category = em.merge(category);
-		
-		return cat2CatDetail(category);
-		
+
+		return categoryDetailConverter.convert(category);
+
 	}
-	
-	private CategoryDetailDTO cat2CatDetail(Category category){
-		CategoryDetailDTO categoryDetailDTO = new CategoryDetailDTO();
-		categoryDetailDTO.setType(category.getType());
-		categoryDetailDTO.setDisplayName(category.getDisplayName());
-		categoryDetailDTO.setIconUrl(category.getIconUrl());
-		categoryDetailDTO.setMarketContent(category.getMarketContent());
-		categoryDetailDTO.setName(category.getName());
-		categoryDetailDTO.setPageTitle(category.getPageTitle());
-		categoryDetailDTO.setRelatedKeyword(category.getRelatedKeyword());
-		categoryDetailDTO.setUrl(category.getUrl());
-		categoryDetailDTO.setId(category.getId());
-		categoryDetailDTO.setParentId(category.getParent()!=null ? category.getParent().getId() : 0);
-		return categoryDetailDTO;
-	}
-	
-	
-	private Category catDetail2Cat(CategoryDetailDTO categoryDetailDTO){
-		Category category = new Category();
-		
-		if(categoryDetailDTO.getId() > 0){
-			category = getCategoryById(categoryDetailDTO.getId());
+
+	public CategoryTreeDTO saveCategoryTree(CategoryTreeDTO categoryTreeDTO) {
+
+		Category existingCategory = getCategoryByName(categoryTreeDTO.getName());
+
+		if (categoryTreeDTO.getId() < 1) {
+			if (null != existingCategory) {
+				throw new CoreServiceException("Category already exist");
+			}
+		} else if (null != existingCategory
+				&& existingCategory.getId() != categoryTreeDTO.getId()) {
+			throw new CoreServiceException("This name is not available");
 		}
-		
-		if(categoryDetailDTO.getParentId() > 0){
-			category.setParent(getCategoryById(categoryDetailDTO.getParentId()));
-		}else{
-			category.setParent(null);
-		}
-		category.setCreateDate(category.getCreateDate()== null ? new Date() : category.getCreateDate());
-		category.setUpdateDate(new Date());
-		category.setType(categoryDetailDTO.getType());
-		category.setDisplayName(categoryDetailDTO.getDisplayName());
-		category.setIconUrl(categoryDetailDTO.getIconUrl());
-		category.setMarketContent(categoryDetailDTO.getMarketContent());
-		category.setName(categoryDetailDTO.getName());
-		category.setPageTitle(categoryDetailDTO.getPageTitle());
-		category.setRelatedKeyword(categoryDetailDTO.getRelatedKeyword());
-		category.setUrl(categoryDetailDTO.getUrl());
-		return category;
+
+		Category category = categoryTreeConverter.transf(categoryTreeDTO);
+
+		category = em.merge(category);
+
+		return categoryTreeConverter.convert(category);
+
 	}
 
 	public Category getCategoryByName(String name) {
@@ -114,57 +104,49 @@ public class CategoryService {
 			throw new CoreServiceException(e);
 		}
 	}
-	
+
 	private Category getCategoryById(long id) {
 
 		return em.find(Category.class, id);
 	}
 
 	private List<Category> getTopCategories() {
-		TypedQuery<Category> query = em.createNamedQuery(
-				"QueryTopCategories", Category.class);
-		
+		TypedQuery<Category> query = em.createNamedQuery("QueryTopCategories",
+				Category.class);
+
 		return query.getResultList();
 	}
-	
-	public CategoryDetailDTO getCategoryDetailDTOById(long id){
-		return cat2CatDetail(getCategoryById(id));
+
+	public CategoryDetailDTO getCategoryDetailDTOById(long id) {
+		return categoryDetailConverter.convert(getCategoryById(id));
 	}
-	
-	public List<CategoryTreeDTO> getCategoryTree(int id){
+
+	public List<CategoryTreeDTO> getCategoryTree(int id) {
 		List<CategoryTreeDTO> treeDTOs = new ArrayList<CategoryTreeDTO>();
-		
-		if(id < 1){
+
+		if (id < 1) {
 			List<Category> categories = getTopCategories();
-			if(null != categories){
+			if (null != categories) {
 				for (Category category : categories) {
-					CategoryTreeDTO categoryTreeDTO  = new CategoryTreeDTO();
-					categoryTreeDTO.setDisplayName(category.getDisplayName());
-					categoryTreeDTO.setId(category.getId());
-					categoryTreeDTO.setLeaf(category.getSubCategory() == null || category.getSubCategory().size() < 1 );
-					categoryTreeDTO.setName(category.getName());
-					categoryTreeDTO.setType(category.getType());
+					CategoryTreeDTO categoryTreeDTO = categoryTreeConverter
+							.convert(category);
 					treeDTOs.add(categoryTreeDTO);
 				}
 			}
-		}else{
+		} else {
 			Category c = getCategoryById(id);
-			if(null != c){
+			if (null != c) {
 				List<Category> categories = c.getSubCategory();
-				if(null != categories){
+				if (null != categories) {
 					for (Category category : categories) {
-						CategoryTreeDTO categoryTreeDTO  = new CategoryTreeDTO();
-						categoryTreeDTO.setDisplayName(category.getDisplayName());
-						categoryTreeDTO.setId(category.getId());
-						categoryTreeDTO.setLeaf(category.getSubCategory() == null || category.getSubCategory().size() < 1 );
-						categoryTreeDTO.setName(category.getName());
-						categoryTreeDTO.setType(category.getType());
+						CategoryTreeDTO categoryTreeDTO = categoryTreeConverter
+								.convert(category);
 						treeDTOs.add(categoryTreeDTO);
 					}
 				}
 			}
 		}
-		
+
 		return treeDTOs;
 	}
 
@@ -172,7 +154,7 @@ public class CategoryService {
 		category = em.merge(category);
 		em.remove(category);
 	}
-	
+
 	public void destory(long id) {
 		Category category = em.find(Category.class, id);
 		em.remove(category);

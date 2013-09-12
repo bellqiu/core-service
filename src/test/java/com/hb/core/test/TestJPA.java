@@ -1,13 +1,20 @@
 package com.hb.core.test;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.hb.core.entity.Setting;
 import com.hb.core.entity.User;
 import com.hb.core.service.AccountService;
+import com.hb.core.service.SettingService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -16,6 +23,9 @@ public class TestJPA {
 	
 	@Autowired
 	private AccountService userService;
+	
+	@Autowired
+	private SettingService settingService;
 	
 	@Test
 	public void test(){
@@ -31,4 +41,14 @@ public class TestJPA {
 		User user = userService.getUserById(1L);
 		System.out.println(user.getId()+"###########################################");
 	}
+	
+	@Test
+	public void test3(){
+		Setting setting = settingService.getSetting("XXXX", Setting.Type.STRING);
+		
+		Assert.assertEquals(setting.getValue(), "dddd");
+	}
+	
+	
+	
 }

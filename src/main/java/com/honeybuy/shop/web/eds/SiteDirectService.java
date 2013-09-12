@@ -2,7 +2,7 @@
  * Project: iSAPort
  * Copyright (c) 2012 HP. All Rights Reserved.
  */
-package com.honeybuy.shop.service;
+package com.honeybuy.shop.web.eds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,8 @@ import com.hb.core.shared.dto.SiteDTO;
  * @version 1.0
  */
 @Service
-public class SiteService implements ISiteService{
+public class SiteDirectService{
 
-	@Override
 	@Cacheable(cacheName="siteDTO")
 	public SiteDTO getSite() {
 		System.out.println("Getting site info.......................");
