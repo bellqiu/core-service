@@ -29,19 +29,50 @@ public class UserService {
 	private EntityManager em;
 	
 	public UserDTO getUserByName(String name) {
-		// TODO
-		UserDTO userDTO = new UserDTO();
-		userDTO.setEmail("R1@hb.com");
-		userDTO.setPassword("admin");
-		userDTO.setEnabled(true);
-		userDTO.getRoles().add(User.Type.ADMIN.toString());
+		UserDTO userDTO = convertUser2DTO(getUser(name));
+		if(userDTO == null) {
+			// TODO need to remove when before code is release
+			// This is for default login user
+			for (int i = 0; i < 3; i++) {
+				String userPreDefinedName = "R" + i + "@hb.com";
+				if(userPreDefinedName.equals(name)) {
+					userDTO = new UserDTO();
+					userDTO.setEmail(userPreDefinedName);
+					
+					userDTO.setPassword("admin");
+					userDTO.setId(i);
+					
+					if(i != 2){
+						userDTO.setEnabled(true);
+					}
+					
+					if(i == 0){
+						userDTO.getRoles().add(com.hb.core.entity.User.Type.USER.toString());
+					}else{
+						userDTO.getRoles().add(com.hb.core.entity.User.Type.ADMIN.toString());
+					}
+					break;
+				}
+			}
+		}
 		return userDTO;
 	}
 
 	public UserDTO newUser(String username, String password) {
-		// TODO
-		UserDTO userDTO = new UserDTO();
-		return userDTO;
+		if(getUser(username) != null) {
+			throw new CoreServiceException("User already exist");
+		}
+		
+		User user = new User();
+		user.setEmail(username);
+		user.setPassword(password);
+		user.setType(User.Type.USER);
+		Date currentDate = new Date();
+		user.setCreateDate(currentDate);
+		user.setUpdateDate(currentDate);
+		user = em.merge(user);
+		
+		return convertUser2DTO(user);
 	}
 	
 	public UserDTO saveOrUpdate(UserDTO userDTO){
@@ -50,6 +81,7 @@ public class UserService {
 			if (null != existingUser) {
 				throw new CoreServiceException("User already exist");
 			}
+			userDTO.setEnabled(true);
 		} else if (null != existingUser
 				&& existingUser.getId() != userDTO.getId()) {
 			throw new CoreServiceException("This email has been registered");
@@ -78,8 +110,8 @@ public class UserService {
 			Iterator<String> item = filters.keySet().iterator();
 			while(item.hasNext()){
 				String param = item.next();
-				if("role".equalsIgnoreCase(param)){
-					ql.append(param +" = :" + param + " ");
+				if("roles".equalsIgnoreCase(param)){
+					ql.append(" type = :type ");
 				}else{
 					ql.append(param +" like :"+param +" ");
 				}
@@ -92,18 +124,18 @@ public class UserService {
 		ql.append(" order by " + sort + " " + dir);
 		
 		StringBuffer queryStringPrefix = new StringBuffer("select s from User as s ");
-		StringBuffer CountStringPrefix = new StringBuffer("select count(s.id) from User as s ");
+		StringBuffer countStringPrefix = new StringBuffer("select count(s.id) from User as s ");
 		
 		TypedQuery<User> query = em.createQuery( queryStringPrefix.append(ql).toString(), User.class);
-		TypedQuery<Long> count = em.createQuery( CountStringPrefix.append(ql).toString(), Long.class);
+		TypedQuery<Long> count = em.createQuery( countStringPrefix.append(ql).toString(), Long.class);
 		
 		
 		query.setFirstResult(start);
 		query.setMaxResults(max);
 		for (Map.Entry<String, String> paramEntry : filters.entrySet()) {
-			if("type".equals(paramEntry.getKey())){
-				query.setParameter(paramEntry.getKey(), User.Type.valueOf(paramEntry.getValue()));
-				count.setParameter(paramEntry.getKey(), User.Type.valueOf(paramEntry.getValue()));
+			if("roles".equals(paramEntry.getKey())){
+				query.setParameter("type", User.Type.valueOf(paramEntry.getValue()));
+				count.setParameter("type", User.Type.valueOf(paramEntry.getValue()));
 			}else{
 				query.setParameter(paramEntry.getKey(), "%" + paramEntry.getValue() + "%");
 				count.setParameter(paramEntry.getKey(), "%" + paramEntry.getValue() + "%");
