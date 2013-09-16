@@ -1,6 +1,5 @@
 package com.hb.core.service;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -9,11 +8,13 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
+import com.hb.core.convert.Converter;
 import com.hb.core.entity.HTML;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.HtmlDetailDTO;
@@ -24,6 +25,9 @@ public class HtmlService {
 	
 	@PersistenceContext
 	private EntityManager em;
+	
+	@Autowired
+	private Converter<HtmlDetailDTO, HTML> htmlDetailConverter; 
 	
 	public HTML saveOrUpdate(HTML html){
 		if(html.getId() < 1){
@@ -110,7 +114,7 @@ public class HtmlService {
 	
 	public HtmlDetailDTO getHtmlDetailById(long id) {
 		HTML html = getHtmlById(id);
-		return convertHTML2DTO(html);
+		return htmlDetailConverter.convert(html);
 	}
 
 
@@ -124,36 +128,9 @@ public class HtmlService {
 				throw new CoreServiceException("This name is not available");
 		}
 		
-		HTML html = convertDTO2HTML(htmlDetailDTO);
+		HTML html = htmlDetailConverter.transf(htmlDetailDTO);
 		html = em.merge(html);
 		
-		return convertHTML2DTO(html);
-	}
-	
-	private HtmlDetailDTO convertHTML2DTO(HTML html) {
-		if(html == null) {
-			return null;
-		}
-		HtmlDetailDTO htmlDetailDTO = new HtmlDetailDTO();
-		htmlDetailDTO.setId(html.getId());
-		htmlDetailDTO.setName(html.getName());
-		htmlDetailDTO.setContent(html.getContent());
-		return htmlDetailDTO;
-	}
-	
-	private HTML convertDTO2HTML(HtmlDetailDTO htmlDetailDTO) {
-		if(htmlDetailDTO == null) {
-			return null;
-		}
-		HTML html = new HTML();
-		if(htmlDetailDTO.getId() > 0) {
-			html = getHtmlById(htmlDetailDTO.getId());
-		}
-		
-		html.setName(htmlDetailDTO.getName());
-		html.setContent(htmlDetailDTO.getContent());
-		html.setUpdateDate(new Date());
-		html.setCreateDate(html.getCreateDate() == null ? new Date() : html.getCreateDate());
-		return html;
+		return htmlDetailConverter.convert(html);
 	}
 }

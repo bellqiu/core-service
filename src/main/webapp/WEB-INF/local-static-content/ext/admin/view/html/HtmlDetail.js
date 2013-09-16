@@ -25,7 +25,6 @@ Ext.define('AM.view.html.HtmlDetail', {
 				xtype : 'form',
 				paramsAsHash: true,
 				border : 0,
-				layout : 'fit',
 				api : {
 					// The server-side method to call for load() requests
 					load : 'htmlDirectService.loadHtmlDetail',
@@ -60,33 +59,12 @@ Ext.define('AM.view.html.HtmlDetail', {
 						regex : /^\w+$/,
 						regexText : 'Only for characters',
 						flex : 1
-					},/*{
-						fieldLabel : 'update Date',
-						name : 'updateDate',
-						xtype : 'datefield',
-						renderer : Ext.util.Format.dateRenderer('m/d/Y h:s'),
-						//hidden : true,
-						value: new Date(),
-						flex : 1
-					},{
-						fieldLabel : 'create Date',
-						name : 'createDate',
-						xtype : 'datefield',
-						renderer : Ext.util.Format.dateRenderer('m/d/Y h:s'),
-						//hidden : true,
-						flex : 1
-					},*/{
+					}, {
 						fieldLabel : 'Content',
 						name : 'content',
 						xtype : 'htmleditor',
-						width : 600
-					}/*,{
-						fieldLabel : 'status',
-						name : 'status',
-						xtype : 'textfield',
-						hidden : true,
-						flex : 1
-					}*/]
+						width : 850,
+					}]
 				} ]
 			} ]
 		});
@@ -96,18 +74,6 @@ Ext.define('AM.view.html.HtmlDetail', {
 		this.callParent(arguments);
 		var form = this.down('form'), body = form.body;
 
-		this.formPanelDropTarget = new Ext.dd.DropTarget(body, {
-			ddGroup : 'grid-to-edit-parent',
-			notifyEnter : function(ddSource, e, data) {
-				body.stopAnimation();
-				body.highlight();
-			},
-			notifyDrop : function(ddSource, e, data) {
-				var f = form.getForm();
-				f.findField('parentId').setValue(ddSource.dragData.records[0].data.id);
-				return true;
-			}
-		});
 	},
 
 	beforeDestroy : function() {

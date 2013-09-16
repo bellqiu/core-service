@@ -114,6 +114,14 @@ Ext.define('AM.view.html.HtmlManager', {
 				}, {
 					text : "Content",
 					dataIndex : "content",
+					renderer : function(value) {
+						len = value.length;
+						// TODO trim the content
+						/*if(len > 25) {
+							value = escape(value.subString(0,25));
+						}*/
+			            return value;
+			        }, 
 					flex : 2
 				}, {
 					text : "Update Date",

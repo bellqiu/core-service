@@ -11,12 +11,13 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
-import com.hb.core.entity.Component;
+import com.hb.core.convert.Converter;
 import com.hb.core.entity.User;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.UserDTO;
@@ -28,8 +29,11 @@ public class UserService {
 	@PersistenceContext
 	private EntityManager em;
 	
+	@Autowired
+	private Converter<UserDTO, User> userConverter; 
+	
 	public UserDTO getUserByName(String name) {
-		UserDTO userDTO = convertUser2DTO(getUser(name));
+		UserDTO userDTO = userConverter.convert(getUser(name));
 		if(userDTO == null) {
 			// TODO need to remove when before code is release
 			// This is for default login user
@@ -72,7 +76,7 @@ public class UserService {
 		user.setUpdateDate(currentDate);
 		user = em.merge(user);
 		
-		return convertUser2DTO(user);
+		return userConverter.convert(user);
 	}
 	
 	public UserDTO saveOrUpdate(UserDTO userDTO){
@@ -86,13 +90,13 @@ public class UserService {
 				&& existingUser.getId() != userDTO.getId()) {
 			throw new CoreServiceException("This email has been registered");
 		}
-		User user = convertDTO2User(userDTO);
+		User user = userConverter.transf(userDTO);
 		user = em.merge(user);
-		return convertUser2DTO(user);
+		return userConverter.convert(user);
 	}
 	
 	public void destory(UserDTO userDTO){
-		User user = convertDTO2User(userDTO);
+		User user = userConverter.transf(userDTO);
 		user = em.merge(user);
 		em.remove(user);
 	}
@@ -145,7 +149,7 @@ public class UserService {
 		List<User> resultList = query.getResultList();
 		List<UserDTO> userDTOList = new ArrayList<UserDTO>(resultList.size());
 		for(User user : resultList) {
-			userDTOList.add(convertUser2DTO(user));
+			userDTOList.add(userConverter.convert(user));
 		}
 		return new ExtDirectStoreReadResult<UserDTO>(total, userDTOList);
 	}
@@ -167,52 +171,12 @@ public class UserService {
 		return user;
 	}
 	
-	public User getUserById(long id) {
-		User user = null;
-		user = em.find(User.class, id);
-		return user;
+	private User getUserById(long id) {
+		return em.find(User.class, id);
 	}
 	
 	public UserDTO getUserDTOById(long id) {
 		User user = getUserById(id);
-		return convertUser2DTO(user);
-	}
-	
-	private UserDTO convertUser2DTO(User user) {
-		if(user == null) {
-			return null;
-		}
-		UserDTO userDTO = new UserDTO();
-		userDTO.setId(user.getId());
-		userDTO.setEmail(user.getEmail());
-		userDTO.setPassword(user.getPassword());
-		userDTO.setEnabled(user.getStatus() == Component.Status.ACTIVE);
-		List<String> roles = userDTO.getRoles();
-		String role = user.getType() == null ? User.Type.USER.toString() : user.getType().toString();
-		if(!roles.contains(role)) {
-			roles.add(role);
-		}
-		return userDTO;
-	}
-	
-	private User convertDTO2User(UserDTO userDTO) {
-		if(userDTO == null) {
-			return null;
-		}
-		User user = new User();
-		if(userDTO.getId() > 0) {
-			user = getUserById(userDTO.getId());
-		}
-		
-		user.setEmail(userDTO.getEmail());
-		user.setPassword(userDTO.getPassword());
-		List<String> roles = userDTO.getRoles();
-		if(roles.size() > 0) {
-			user.setType(User.Type.valueOf(roles.get(0)));
-		}
-		user.setStatus(userDTO.isEnabled() ? Component.Status.ACTIVE : Component.Status.DISABLED);
-		user.setUpdateDate(new Date());
-		user.setCreateDate(user.getCreateDate() == null ? new Date() : user.getCreateDate());
-		return user;
+		return userConverter.convert(user);
 	}
 }
