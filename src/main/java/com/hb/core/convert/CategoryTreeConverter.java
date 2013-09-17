@@ -5,14 +5,10 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.hb.core.entity.Category;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 
-@Service("categoryTreeConverter")
-@Transactional(readOnly = true)
+@org.springframework.stereotype.Component
 public class CategoryTreeConverter implements Converter<CategoryTreeDTO, Category>{
 
 	@PersistenceContext

@@ -6,15 +6,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.hb.core.entity.Component;
 import com.hb.core.entity.User;
 import com.hb.core.shared.dto.UserDTO;
 
-@Service
-@Transactional(readOnly = true)
+@org.springframework.stereotype.Component
 public class UserConverter implements
 		Converter<UserDTO, User> {
 	

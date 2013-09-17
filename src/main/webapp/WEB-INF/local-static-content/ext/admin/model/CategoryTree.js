@@ -4,7 +4,8 @@
            {name:'id',type:'int'},
            {name:'displayName',type:'string'},
            {name:'name',type:'string'},
-           {name:'type',type:'string'}
+           {name:'type',type:'string'},
+           {name:'parentId',type:'int'}
         ],
         idProperty: 'id'
 });

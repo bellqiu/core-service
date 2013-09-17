@@ -5,14 +5,10 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.hb.core.entity.HTML;
 import com.hb.core.shared.dto.HtmlDetailDTO;
 
-@Service
-@Transactional(readOnly = true)
+@org.springframework.stereotype.Component
 public class HtmlDetailConverter implements
 		Converter<HtmlDetailDTO, HTML> {
 	

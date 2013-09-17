@@ -4,16 +4,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.hb.core.entity.Product;
 import com.hb.core.entity.TabProduct;
 import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.hb.core.shared.dto.TabProductDTO;
 
-@Service
-@Transactional(readOnly = true)
+@org.springframework.stereotype.Component
 public class TabProductConverter implements Converter<TabProductDTO, TabProduct>{
 
 	@PersistenceContext
