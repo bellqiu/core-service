@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hb.core.entity.HTML;
 import com.hb.core.shared.dto.HtmlDetailDTO;
 
-@Service("htmlDetailConverter")
+@Service
 @Transactional(readOnly = true)
 public class HtmlDetailConverter implements
 		Converter<HtmlDetailDTO, HTML> {

@@ -10,6 +10,8 @@ public class CategoryTreeDTO {
 	private String displayName;
 	private Category.Type type = Category.Type.NAVIGATION;
 	
+	private long parentId;
+	
 	private boolean leaf;
 	
 	public CategoryTreeDTO() {
@@ -53,6 +55,14 @@ public class CategoryTreeDTO {
 
 	public void setLeaf(boolean leaf) {
 		this.leaf = leaf;
+	}
+
+	public long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(long parentId) {
+		this.parentId = parentId;
 	}
 	
 }

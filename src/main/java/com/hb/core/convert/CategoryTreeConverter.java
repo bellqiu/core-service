@@ -26,6 +26,11 @@ public class CategoryTreeConverter implements Converter<CategoryTreeDTO, Categor
 		categoryTreeDTO.setLeaf(category.getSubCategory() == null || category.getSubCategory().size() < 1 );
 		categoryTreeDTO.setName(category.getName());
 		categoryTreeDTO.setType(category.getType());
+		
+		Category parent = category.getParent();
+		
+		categoryTreeDTO.setParentId(null!=parent ? parent.getId() : 0L);
+		
 		return categoryTreeDTO;
 	}
 
@@ -36,7 +41,7 @@ public class CategoryTreeConverter implements Converter<CategoryTreeDTO, Categor
 		if (categoryTreeDTO.getId() > 0) {
 			category = em.find(Category.class, categoryTreeDTO.getId());
 		}
-
+		
 		category.setCreateDate(category.getCreateDate() == null ? new Date()
 				: category.getCreateDate());
 		category.setUpdateDate(new Date());
@@ -44,6 +49,10 @@ public class CategoryTreeConverter implements Converter<CategoryTreeDTO, Categor
 		category.setName(categoryTreeDTO.getName());
 		category.setType(categoryTreeDTO.getType());
 		category.setDisplayName(categoryTreeDTO.getDisplayName());
+		
+		if(categoryTreeDTO.getParentId() > 0 ){
+			category.setParent(em.find(Category.class, categoryTreeDTO.getParentId()));
+		}
 		
 		return category;
 		

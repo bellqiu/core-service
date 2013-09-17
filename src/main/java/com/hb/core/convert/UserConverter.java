@@ -13,7 +13,7 @@ import com.hb.core.entity.Component;
 import com.hb.core.entity.User;
 import com.hb.core.shared.dto.UserDTO;
 
-@Service("userConverter")
+@Service
 @Transactional(readOnly = true)
 public class UserConverter implements
 		Converter<UserDTO, User> {

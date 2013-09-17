@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hb.core.entity.Category;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 
-@Service("categoryDetailConverter")
+@Service
 @Transactional(readOnly = true)
 public class CategoryDetailConverter implements
 		Converter<CategoryDetailDTO, Category> {
