@@ -24,6 +24,12 @@ public class HtmlDetailConverter implements
 
 	@Override
 	public HtmlDetailDTO convert(HTML html) {
+		
+		if(null == html){
+			return null;
+		}
+		
+		
 		HtmlDetailDTO HtmlDetailDTO = new HtmlDetailDTO();
 		HtmlDetailDTO.setContent(html.getContent());
 		HtmlDetailDTO.setName(html.getName());
@@ -32,18 +38,24 @@ public class HtmlDetailConverter implements
 	}
 
 	@Override
-	public HTML transf(HtmlDetailDTO HtmlDetailDTO) {
+	public HTML transf(HtmlDetailDTO htmlDetailDTO) {
+		
+		if(null == htmlDetailDTO){
+			return null;
+		}
+		
+		
 		HTML html = new HTML();
 
-		if (HtmlDetailDTO.getId() > 0) {
-			html = em.find(HTML.class, HtmlDetailDTO.getId());
+		if (htmlDetailDTO.getId() > 0) {
+			html = em.find(HTML.class, htmlDetailDTO.getId());
 		}
 
 		html.setCreateDate(html.getCreateDate() == null ? new Date()
 				: html.getCreateDate());
 		html.setUpdateDate(new Date());
-		html.setContent(HtmlDetailDTO.getContent());
-		html.setName(HtmlDetailDTO.getName());
+		html.setContent(htmlDetailDTO.getContent());
+		html.setName(htmlDetailDTO.getName());
 		return html;
 	}
 

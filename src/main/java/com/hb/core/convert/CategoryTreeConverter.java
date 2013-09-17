@@ -20,6 +20,11 @@ public class CategoryTreeConverter implements Converter<CategoryTreeDTO, Categor
 	
 	@Override
 	public CategoryTreeDTO convert(Category category) {
+		
+		if(null == category){
+			return null;
+		}
+		
 		CategoryTreeDTO categoryTreeDTO  = new CategoryTreeDTO();
 		categoryTreeDTO.setDisplayName(category.getDisplayName());
 		categoryTreeDTO.setId(category.getId());
@@ -36,6 +41,12 @@ public class CategoryTreeConverter implements Converter<CategoryTreeDTO, Categor
 
 	@Override
 	public Category transf(CategoryTreeDTO categoryTreeDTO) {
+		
+		if(null == categoryTreeDTO){
+			return null;
+		}
+		
+		
 		Category category = new Category();
 
 		if (categoryTreeDTO.getId() > 0) {

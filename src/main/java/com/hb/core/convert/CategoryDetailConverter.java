@@ -21,6 +21,11 @@ public class CategoryDetailConverter implements
 
 	@Override
 	public CategoryDetailDTO convert(Category category) {
+		
+		if(null == category){
+			return null;
+		}
+		
 		CategoryDetailDTO categoryDetailDTO = new CategoryDetailDTO();
 		categoryDetailDTO.setType(category.getType());
 		categoryDetailDTO.setDisplayName(category.getDisplayName());
@@ -38,6 +43,11 @@ public class CategoryDetailConverter implements
 
 	@Override
 	public Category transf(CategoryDetailDTO categoryDetailDTO) {
+		
+		if(null == categoryDetailDTO){
+			return null;
+		}
+		
 		Category category = new Category();
 
 		if (categoryDetailDTO.getId() > 0) {

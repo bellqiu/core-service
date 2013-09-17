@@ -40,6 +40,12 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 	
 	@Override
 	public ProductDetailDTO convert(Product product) {
+		
+		if(null == product){
+			return null;
+		}
+		
+		
 		ProductDetailDTO detailDTO = new ProductDetailDTO();
 		detailDTO.setAbstractText(product.getAbstractText());
 		detailDTO.setActualPrice(product.getActualPrice());
@@ -87,6 +93,11 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 
 	@Override
 	public Product transf(ProductDetailDTO productDetailDTO) {
+		
+		if(null == productDetailDTO){
+			return null;
+		}
+		
 		
 		Product product = new Product(); 
 		

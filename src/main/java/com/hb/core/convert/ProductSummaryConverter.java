@@ -22,6 +22,12 @@ public class ProductSummaryConverter implements Converter<ProductSummaryDTO, Pro
 
 	@Override
 	public ProductSummaryDTO convert(Product p) {
+		
+		if(null == p){
+			return null;
+		}
+		
+		
 		ProductSummaryDTO summaryDTO = new ProductSummaryDTO();
 		summaryDTO.setAbstractText(p.getAbstractText());
 		summaryDTO.setActualPrice(p.getActualPrice());
@@ -51,6 +57,12 @@ public class ProductSummaryConverter implements Converter<ProductSummaryDTO, Pro
 
 	@Override
 	public Product transf(ProductSummaryDTO pto) {
+		
+		if(null == pto){
+			return null;
+		}
+		
+		
 		Product product  = new Product();
 		
 		if(pto.getId() > 0){

@@ -26,6 +26,12 @@ public class UserConverter implements
 
 	@Override
 	public UserDTO convert(User user) {
+		
+		if(null == user){
+			return null;
+		}
+		
+		
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(user.getId());
 		userDTO.setEmail(user.getEmail());
@@ -41,6 +47,12 @@ public class UserConverter implements
 
 	@Override
 	public User transf(UserDTO userDTO) {
+		
+		if(null == userDTO){
+			return null;
+		}
+		
+		
 		User user = new User();
 		if(userDTO.getId() > 0) {
 			user = em.find(User.class, userDTO.getId());

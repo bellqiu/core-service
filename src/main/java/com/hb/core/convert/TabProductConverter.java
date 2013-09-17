@@ -24,6 +24,12 @@ public class TabProductConverter implements Converter<TabProductDTO, TabProduct>
 	
 	@Override
 	public TabProductDTO convert(TabProduct tp) {
+		
+		if(null == tp){
+			return null;
+		}
+		
+		
 		TabProductDTO dto = null;
 		
 		if(null != tp){
@@ -42,6 +48,12 @@ public class TabProductConverter implements Converter<TabProductDTO, TabProduct>
 
 	@Override
 	public TabProduct transf(TabProductDTO d) {
+		
+		if(null == d){
+			return null;
+		}
+		
+		
 		TabProduct product = new TabProduct();
 		
 		if(d.getId() > 0){
