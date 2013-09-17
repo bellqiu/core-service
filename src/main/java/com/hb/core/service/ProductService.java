@@ -30,11 +30,11 @@ public class ProductService {
 	
 	public ProductDetailDTO getProductDetail(long productId){
 		
-		ProductDetailDTO productDetailDTO = null;
+		ProductDetailDTO productDetailDTO = new ProductDetailDTO();
 		
-		Product product = entityManager.find(Product.class, productId);
-		
-		if(null != product){
+		if(productId > 0){
+			Product product = entityManager.find(Product.class, productId);
+			
 			productDetailDTO = productDetailConverter.convert(product);
 		}
 		

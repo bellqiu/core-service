@@ -23,8 +23,17 @@ Ext.define('AM.controller.Product', {
 		var editor = Ext.create("AM.view.product.Edit", {
 			title : 'New Product'
 		});
+		var form = editor.down("form");
 
 		contentPanel.insert(0, editor);
 		contentPanel.setActiveTab(0);
+		
+		form.load({
+			// pass 2 arguments to server side getBasicInfo
+			// method (len=2)
+			params : {
+				id : 2
+			}
+		})
 	}
 });

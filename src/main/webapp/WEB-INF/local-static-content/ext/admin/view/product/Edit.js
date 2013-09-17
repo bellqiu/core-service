@@ -10,6 +10,12 @@ Ext.define('AM.view.product.Edit', {
 	items : [ {
 		border : 0,
 		xtype : 'form',
+		paramsAsHash: true,
+		api : {
+			// The server-side method to call for load() requests
+			load : 'productDirectService.loadProduct'/*,
+			submit : 'categoryDirectService.saveDetail'*/
+		},
 		layout : 'vbox',
 		fieldDefaults : {
 			labelAlign : 'left',
