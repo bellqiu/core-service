@@ -36,7 +36,7 @@ public class ProductDetailDTO {
 	
 	private List<Option> options = new ArrayList<Option>();
 	
-	private List<CategoryTreeDTO> categorys = new ArrayList<CategoryTreeDTO>();
+	private List<CategoryTreeDTO> categories = new ArrayList<CategoryTreeDTO>();
 	 
 	private Map<String, HTML> mannuals = new HashMap<String,HTML>();
 	
@@ -140,13 +140,6 @@ public class ProductDetailDTO {
 		this.options = options;
 	}
 
-	public List<CategoryTreeDTO> getCategorys() {
-		return categorys;
-	}
-
-	public void setCategorys(List<CategoryTreeDTO> categorys) {
-		this.categorys = categorys;
-	}
 
 	public Map<String, HTML> getMannuals() {
 		return mannuals;
@@ -170,6 +163,14 @@ public class ProductDetailDTO {
 
 	public void setProps(List<Property> props) {
 		this.props = props;
+	}
+
+	public List<CategoryTreeDTO> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<CategoryTreeDTO> categories) {
+		this.categories = categories;
 	}
 	
 }

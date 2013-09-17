@@ -16,10 +16,6 @@ import com.hb.core.shared.dto.CategoryDetailDTO;
 public class CategoryDetailConverter implements
 		Converter<CategoryDetailDTO, Category> {
 	
-	public CategoryDetailConverter() {
-		System.out.println("##################\n################\n######################\n#########################");
-	}
-
 	@PersistenceContext
 	private EntityManager em;
 

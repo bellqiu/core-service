@@ -1,6 +1,9 @@
 package com.hb.core.shared.dto;
 
 public class ProductSummaryDTO {
+	
+	public static final String CAT_SPLIT_IN_BREADCRUMB = ">";
+	
 	private long id;
 	
 	private String keywords;

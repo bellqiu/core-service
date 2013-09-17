@@ -5,9 +5,11 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hb.core.convert.Converter;
 import com.hb.core.entity.Category;
 import com.hb.core.entity.HTML;
 import com.hb.core.entity.Image;
@@ -23,6 +25,9 @@ public class ProductService {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
+	@Autowired
+	private Converter<ProductDetailDTO, Product> productDetailConverter;
+	
 	public ProductDetailDTO getProductDetail(long productId){
 		
 		ProductDetailDTO productDetailDTO = null;
@@ -30,10 +35,10 @@ public class ProductService {
 		Product product = entityManager.find(Product.class, productId);
 		
 		if(null != product){
-			
+			productDetailDTO = productDetailConverter.convert(product);
 		}
 		
-		return null;
+		return productDetailDTO;
 	}
 
 	public void test() {

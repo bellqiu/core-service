@@ -78,7 +78,7 @@ public class Product extends Component{
 				joinColumns=@JoinColumn(name="Product_id"),
 				inverseJoinColumns=@JoinColumn(name="TabProduct_id"))
 	@IndexColumn(name="sequence", base=0, nullable=false)
-	private List<TabProduct> product = new ArrayList<TabProduct>();
+	private List<TabProduct> relatedProducts = new ArrayList<TabProduct>();
 	
 	@ManyToMany
 	@JoinTable(name="Product_has_Category",
@@ -203,12 +203,12 @@ public class Product extends Component{
 		this.name = name;
 	}
 
-	public List<TabProduct> getProduct() {
-		return product;
+	public List<TabProduct> getRelatedProducts() {
+		return relatedProducts;
 	}
 
-	public void setProduct(List<TabProduct> product) {
-		this.product = product;
+	public void setRelatedProducts(List<TabProduct> relatedProducts) {
+		this.relatedProducts = relatedProducts;
 	}
 
 	public Map<String, HTML> getManuals() {
