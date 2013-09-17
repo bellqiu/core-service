@@ -43,13 +43,14 @@ public class TabProductConverter implements Converter<TabProductDTO, TabProduct>
 		if(d.getId() > 0){
 			product = em.find(TabProduct.class, d.getId());
 		}else{
-			product.setName(d.getName());
 			if(d.getProducts() != null){
 				for (ProductSummaryDTO p : d.getProducts()) {
 					product.getProducts().add(productSummaryConverter.transf(p));
 				}
 			}
 		}
+		
+		product.setName(d.getName());
 		
 		return product;
 	}

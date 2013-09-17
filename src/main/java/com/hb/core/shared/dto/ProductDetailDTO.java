@@ -40,7 +40,7 @@ public class ProductDetailDTO {
 	 
 	private Map<String, HTML> mannuals = new HashMap<String,HTML>();
 	
-	private List<ProductSummaryDTO> relatedProducts = new ArrayList<ProductSummaryDTO>();
+	private List<TabProductDTO> relatedProducts = new ArrayList<TabProductDTO>();
 	
 	private List<Property> props = new ArrayList<Property>();
 
@@ -149,11 +149,11 @@ public class ProductDetailDTO {
 		this.mannuals = mannuals;
 	}
 
-	public List<ProductSummaryDTO> getRelatedProducts() {
+	public List<TabProductDTO> getRelatedProducts() {
 		return relatedProducts;
 	}
 
-	public void setRelatedProducts(List<ProductSummaryDTO> relatedProducts) {
+	public void setRelatedProducts(List<TabProductDTO> relatedProducts) {
 		this.relatedProducts = relatedProducts;
 	}
 

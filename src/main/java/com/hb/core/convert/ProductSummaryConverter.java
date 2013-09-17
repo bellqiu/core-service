@@ -56,17 +56,17 @@ public class ProductSummaryConverter implements Converter<ProductSummaryDTO, Pro
 		if(pto.getId() > 0){
 			product = em.find(Product.class, pto.getId());
 			
-		}else{
-			product.setAbstractText(pto.getAbstractText());
-			product.setActualPrice(pto.getActualPrice());
-			product.setId(pto.getId());
-			product.setKeywords(pto.getKeywords());
-			product.setName(pto.getName());
-			product.setOverrideUrl(pto.getOverrideUrl());
-			product.setPrice(pto.getPrice());
-			product.setTags(pto.getTags());
-			product.setTitle(pto.getTitle());
 		}
+		
+		product.setAbstractText(pto.getAbstractText());
+		product.setActualPrice(pto.getActualPrice());
+		product.setId(pto.getId());
+		product.setKeywords(pto.getKeywords());
+		product.setName(pto.getName());
+		product.setOverrideUrl(pto.getOverrideUrl());
+		product.setPrice(pto.getPrice());
+		product.setTags(pto.getTags());
+		product.setTitle(pto.getTitle());
 		
 		return product;
 	}
