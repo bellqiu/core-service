@@ -91,6 +91,18 @@ Ext.define('AM.controller.GlobalNav', {
     			tabpanel.setActiveTab(0);
     		}
     		
+    	} else if(opt == 'product'){
+    		
+    		var tabpanel = combo.up("viewport").down("tabpanel#managerContainer");
+    		
+    		if(tabpanel.down("productsummarymanager")){
+    			tabpanel.setActiveTab(tabpanel.down("productsummarymanager"));
+    		}else{
+    			var view = Ext.widget('productsummarymanager');
+    			tabpanel.insert(0, view);
+    			tabpanel.setActiveTab(0);
+    		}
+    		
     	} else {
     		Ext.Msg.alert('Status', 'No operation');
     	}

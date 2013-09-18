@@ -1,13 +1,21 @@
 package com.hb.core.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
 import com.hb.core.convert.Converter;
 import com.hb.core.entity.Category;
@@ -17,7 +25,9 @@ import com.hb.core.entity.Option;
 import com.hb.core.entity.OptionItem;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.Property;
+import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.ProductDetailDTO;
+import com.hb.core.shared.dto.ProductSummaryDTO;
 
 @Transactional
 @Service
@@ -27,6 +37,9 @@ public class ProductService {
 	
 	@Autowired
 	private Converter<ProductDetailDTO, Product> productDetailConverter;
+	
+	@Autowired
+	private Converter<ProductSummaryDTO, Product> productSummaryConverter;
 	
 	public ProductDetailDTO getProductDetail(long productId){
 		
@@ -39,6 +52,91 @@ public class ProductService {
 		}
 		
 		return productDetailDTO;
+	}
+	
+	public ExtDirectStoreReadResult<ProductSummaryDTO> storeQuery(int start, int max, String sort, String dir, Map<String,String> filters){
+		StringBuffer ql = new StringBuffer("");
+		if(!filters.isEmpty()){
+			ql.append(" where ");
+			Iterator<String> item = filters.keySet().iterator();
+			while(item.hasNext()){
+				String param = item.next();
+				if ("price".equalsIgnoreCase(param)
+						|| "actualPrice".equalsIgnoreCase(param)) {
+					ql.append(param +" = :" + param + " ");
+				}else{
+					ql.append(param +" like :"+param +" ");
+				}
+				if(item.hasNext()){
+					ql.append(" and ");
+				}
+			}
+		}
+		
+		ql.append(" order by " + sort + " " + dir);
+		
+		StringBuffer queryStringPrefix = new StringBuffer("select p from Product as p ");
+		StringBuffer countStringPrefix = new StringBuffer("select count(p.id) from Product as p ");
+		
+		TypedQuery<Product> query = entityManager.createQuery( queryStringPrefix.append(ql).toString(), Product.class);
+		TypedQuery<Long> count = entityManager.createQuery( countStringPrefix.append(ql).toString(), Long.class);
+		
+		query.setFirstResult(start);
+		query.setMaxResults(max);
+		for (Map.Entry<String, String> paramEntry : filters.entrySet()) {
+			String key = paramEntry.getKey();
+			if ("price".equalsIgnoreCase(key)
+					|| "actualPrice".equalsIgnoreCase(key)) {
+				query.setParameter(key, Double.valueOf(paramEntry.getValue()));
+				count.setParameter(key, Double.valueOf((paramEntry.getValue())));
+			}else{
+				query.setParameter(key, "%" + paramEntry.getValue() + "%");
+				count.setParameter(key, "%" + paramEntry.getValue() + "%");
+			}
+		}
+		int totalCount = count.getSingleResult().intValue();
+		List<Product> resultList = query.getResultList();
+		List<ProductSummaryDTO> productDTOList = new ArrayList<ProductSummaryDTO>(resultList.size());
+		for(Product product : resultList) {
+			productDTOList.add(productSummaryConverter.convert(product));
+		}
+		return new ExtDirectStoreReadResult<ProductSummaryDTO>(totalCount, productDTOList);
+	}
+	
+	// only allow to update existing product, which id is productSummaryDTO.id and productSummaryDTO.name is not existing for other product
+	public ProductSummaryDTO update(ProductSummaryDTO productSummaryDTO){
+		Product product;
+		if(productSummaryDTO.getId() < 1 || (product = getProductById(productSummaryDTO.getId())) == null){
+			throw new CoreServiceException("Product does not exist");
+		}
+		Product productByName = getProductByName(productSummaryDTO.getName());
+		if(null != productByName && productByName.getId() != product.getId()){
+			throw new CoreServiceException("Product already exist with name is " + productSummaryDTO.getName());
+		}
+		
+		product = entityManager.merge(productSummaryConverter.transf(productSummaryDTO));
+		return productSummaryConverter.convert(product);
+	}
+
+	private Product getProductByName(String name) {
+		Product product = null;
+		
+		try {
+			TypedQuery<Product> query = entityManager.createNamedQuery("QueryProductByName",Product.class);
+			query.setParameter("name", name);
+			
+			product = query.getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		} catch (Exception e) {
+			throw new CoreServiceException(e);
+		}
+		
+		return product;
+	}
+	
+	private Product getProductById(long id) {
+		return entityManager.find(Product.class, id);
 	}
 
 	public void test() {

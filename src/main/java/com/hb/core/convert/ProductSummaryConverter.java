@@ -1,5 +1,6 @@
 package com.hb.core.convert;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.persistence.EntityManager;
@@ -75,6 +76,8 @@ public class ProductSummaryConverter implements Converter<ProductSummaryDTO, Pro
 		product.setPrice(pto.getPrice());
 		product.setTags(pto.getTags());
 		product.setTitle(pto.getTitle());
+		product.setCreateDate(product.getCreateDate() == null ? new Date() : product.getCreateDate());
+		product.setUpdateDate(new Date());
 		
 		return product;
 	}

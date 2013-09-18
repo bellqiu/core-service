@@ -17,7 +17,6 @@ import com.hb.core.entity.Property;
 import com.hb.core.entity.TabProduct;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
-import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.hb.core.shared.dto.TabProductDTO;
 
 @org.springframework.stereotype.Component
@@ -28,9 +27,6 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 	
 	@Autowired
 	private Converter<CategoryTreeDTO, Category> categoryTreeConverter;
-	
-	@Autowired
-	private Converter<ProductSummaryDTO, Product> productSummaryConverter;
 	
 	@Autowired
 	private Converter<TabProductDTO, TabProduct> tabProductConverter;
