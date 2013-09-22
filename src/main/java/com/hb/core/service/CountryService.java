@@ -24,10 +24,9 @@ public class CountryService {
 	private EntityManager em;
 
 	public Country saveOrUpdate(Country country){
-		if(country.getId() < 1){
-			if(null != getCountry(country.getCode())){
-				throw new CoreServiceException("Country already exist");
-			}
+		Country existingCountry = getCountry(country.getCode());
+		if(existingCountry != null && (country.getId() < 1 || existingCountry.getId() == country.getId())) {
+			throw new CoreServiceException("Country name already exist");
 		}
 		country = em.merge(country);
 		return country;

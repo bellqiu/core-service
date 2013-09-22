@@ -24,10 +24,9 @@ public class CurrencyService {
 	private EntityManager em;
 
 	public Currency saveOrUpdate(Currency currency){
-		if(currency.getId() < 1){
-			if(null != getCurrencyByName(currency.getName())){
-				throw new CoreServiceException("Setting already exist");
-			}
+		Currency existingCurrency = getCurrencyByName(currency.getName());
+		if(existingCurrency != null && (currency.getId() < 1 || existingCurrency.getId() != currency.getId())) {
+			throw new CoreServiceException("Currency name already exist");
 		}
 		currency = em.merge(currency);
 		return currency;

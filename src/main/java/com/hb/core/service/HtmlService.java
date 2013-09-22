@@ -30,10 +30,9 @@ public class HtmlService {
 	private Converter<HtmlDetailDTO, HTML> htmlDetailConverter; 
 	
 	public HTML saveOrUpdate(HTML html){
-		if(html.getId() < 1){
-			if(null != getHTML(html.getName())){
-				throw new CoreServiceException("HTML already exist");
-			}
+		HTML existingHTML = getHTML(html.getName());
+		if(null != existingHTML && (existingHTML.getId() != html.getId() || html.getId() < 1)) {
+			throw new CoreServiceException("HTML name already exist");
 		}
 		html = em.merge(html);
 		return html;
@@ -120,12 +119,8 @@ public class HtmlService {
 
 	public HtmlDetailDTO saveHTMLDetail(HtmlDetailDTO htmlDetailDTO) {
 		HTML existingHTML = getHTML(htmlDetailDTO.getName());
-		if (htmlDetailDTO.getId() < 1) {
-			if (null != existingHTML) {
-				throw new CoreServiceException("HTML already exist");
-			}
-		}else if (null!= existingHTML && existingHTML.getId() != htmlDetailDTO.getId()){
-				throw new CoreServiceException("This name is not available");
+		if(null != existingHTML && (existingHTML.getId() != htmlDetailDTO.getId() || htmlDetailDTO.getId() < 1)) {
+			throw new CoreServiceException("HTML name already exist");
 		}
 		
 		HTML html = htmlDetailConverter.transf(htmlDetailDTO);

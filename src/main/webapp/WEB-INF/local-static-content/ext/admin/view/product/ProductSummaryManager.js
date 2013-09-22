@@ -150,6 +150,17 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					text : "Breadcrumb",
 					dataIndex : "categoryBreadcrumb",
 					flex : 2,
+				}, {
+					xtype : 'actioncolumn',
+					width : 30,
+					sortable : false,
+					menuDisabled : true,
+					items : [ {
+						icon : '/resources/ext/resources/images/edit.png',
+						tooltip : 'Edit Product',
+						id : 'editProduct'
+
+					}]
 				}],
 				bbar : {
 					xtype : 'pagingtoolbar',

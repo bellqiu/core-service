@@ -23,6 +23,10 @@ Ext.define('AM.controller.ProductSummary', {
 
 			'productsummarymanager toolbar button#refreshProductSummary' : {
 				click : this.refreshProductSummary
+			}, 
+			
+			'productsummarymanager gridpanel actioncolumn' : {
+				click : this.editProduct
 			}
 			
 		});
@@ -88,6 +92,31 @@ Ext.define('AM.controller.ProductSummary', {
 		var queryPanel = btn.up("viewport").down(
 		"tabpanel#managerContainer productsummarymanager");
 		this.getProductSummaryStore().load();
+	}, 
+	
+	editProduct : function(view, cell, row, col, e) {
+		view.getSelectionModel().select(row, false);
+		var contentPanel = view.up("viewport").down("tabpanel#mainContainer");
+		var editor = Ext.create("AM.view.product.Edit", {
+			title : 'Edit Product'
+		});
+		var productForm = editor.down("form");
+
+		contentPanel.insert(0, editor);
+		contentPanel.setActiveTab(0);
+		
+		productForm.load({
+			// pass 2 arguments to server side getBasicInfo
+			// method (len=2)
+			params : {
+				id : view.getSelectionModel().getSelection()[0]
+				.get('id')
+			},
+			success : function (form, action){
+				productForm.up("producteditor").setProduct(action.result.data);
+				productForm.getForm().setValues(action.result.data);
+			}
+		})
 	}
 
 });
