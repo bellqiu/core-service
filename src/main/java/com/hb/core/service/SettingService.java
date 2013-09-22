@@ -24,10 +24,10 @@ public class SettingService {
 	private EntityManager em;
 
 	public Setting saveOrUpdate(Setting setting){
-		if(setting.getId() < 1){
-			if(null != getSetting(setting.getName(), setting.getType())){
-				throw new CoreServiceException("Setting already exist");
-			}
+		Setting existing =  getSetting(setting.getName(), setting.getType());
+		
+		if((setting.getId() < 1 && null != existing) ||  ( null != existing && existing.getId() != setting.getId())){
+			throw new CoreServiceException("Setting name already exist");
 		}
 		setting = em.merge(setting);
 		return setting;

@@ -32,10 +32,11 @@ public class CategoryService {
 	private Converter<CategoryTreeDTO, Category>  categoryTreeConverter;
 
 	public Category saveOrUpdate(Category category) {
-		if (category.getId() < 1) {
-			if (null != getCategoryByName(category.getName())) {
-				throw new CoreServiceException("Category already exist");
-			}
+		
+		Category existing =  getCategoryByName(category.getName());
+		
+		if (( null != existing && category.getId() < 1) || ( null != existing && existing.getId() != category.getId()) ) {
+			throw new CoreServiceException("Category name already exist");
 		}
 		category = em.merge(category);
 		return category;
