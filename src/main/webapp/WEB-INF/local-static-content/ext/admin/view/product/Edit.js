@@ -129,13 +129,7 @@ Ext.define('AM.view.product.Edit', {
 			                }
 			            },
 						enableKeyEvents:true,
-						store :'EmptyCategoryTree'/* Ext.create("Ext.data.Store",{
-			                model: 'AM.model.CategoryTree',
-			                data : [],
-			                proxy: {
-			                    type: 'memory'
-			                }
-			            })*/,
+						store :'EmptyCategoryTree',
 						columns: [
 						          { text: 'Name', dataIndex: 'name', flex: 1 },
 						          { text: 'Display Name',  dataIndex: 'displayName' , flex: 2}
@@ -197,13 +191,7 @@ Ext.define('AM.view.product.Edit', {
 			                }
 			            },
 						enableKeyEvents:true,
-						store :'EmptyImage'/* Ext.create("Ext.data.Store",{
-			                model: 'AM.model.CategoryTree',
-			                data : [],
-			                proxy: {
-			                    type: 'memory'
-			                }
-			            })*/,
+						store :'EmptyImage',
 						columns: [
 						          { text: 'Icon', dataIndex: 'iconUrl', flex: 1 },
 						          { text: 'Name',  dataIndex: 'name' , flex: 2}

@@ -19,13 +19,15 @@ Ext.define('AM.controller.Product', {
 				actionfailed : this.actionfailed
 			},
 			'producteditor gridpanel#category' : {
-				cellkeydown : this.bindDeleteKey,
+				cellkeydown : this.bindCategoryDeleteKey,
 				render : this.initCategoryDragAndDrop,
 				beforeDestroy : this.distoryCategoryView
 			},
 			'producteditor button#saveProduct' : {
 				click : this.submitProduct
-			}
+			},'producteditor gridpanel#image' : {
+				cellkeydown : this.bindDeleteKey
+			},
 		});
 	},
 	
@@ -37,14 +39,23 @@ Ext.define('AM.controller.Product', {
 		var productOverider = productForm.getValues();
 		
 		var categories = [];
+		var images = [];
 		
 		var categoryStoredData = productEditor.down("gridpanel#category").getStore().getRange();
+		var imageStoredData = productEditor.down("gridpanel#image").getStore().getRange();
 		
 		for(var i = 0; i < categoryStoredData.length; i++){
 			categories.push(categoryStoredData[i].data)
 		}
 		
 		product.categories = categories;
+		
+		for(var i = 0; i < imageStoredData.length; i++){
+			images.push(imageStoredData[i].data)
+		}
+		
+		product.categories = categories;
+		product.images = images;
 		
 		product = Ext.apply(product, productOverider)
 		if(productForm.isValid()){
@@ -137,7 +148,7 @@ Ext.define('AM.controller.Product', {
 			// pass 2 arguments to server side getBasicInfo
 			// method (len=2)
 			params : {
-				id : 2
+				id : 0
 			},
 			success : function (form, action){
 				productForm.up("producteditor").setProduct(action.result.data);
