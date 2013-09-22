@@ -129,7 +129,8 @@ Ext.define('AM.controller.Product', {
 				id : 0
 			},
 			success : function (form, action){
-				productForm.up("producteditor").setProduct(action.result.data)
+				productForm.up("producteditor").setProduct(action.result.data);
+				productForm.getForm().setValues(action.result.data);
 			}
 		})
 	}

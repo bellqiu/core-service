@@ -35,7 +35,14 @@ public class ProductDirectService {
 	@ExtDirectMethod(value=ExtDirectMethodType.FORM_LOAD)
 	@Secured("ADMIN")
 	public ProductDetailDTO loadProduct(@RequestParam("id") long id){
-		return productService.getProductDetail(id);
+		
+		ProductDetailDTO detailDTO = productService.getProductDetail(id);
+		
+		if(null == detailDTO){
+			detailDTO = new ProductDetailDTO();
+		}
+		
+		return detailDTO;
 	}
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_READ)

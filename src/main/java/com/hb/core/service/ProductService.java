@@ -43,7 +43,7 @@ public class ProductService {
 	
 	public ProductDetailDTO getProductDetail(long productId){
 		
-		ProductDetailDTO productDetailDTO = new ProductDetailDTO();
+		ProductDetailDTO productDetailDTO = null;
 		
 		if(productId > 0){
 			Product product = em.find(Product.class, productId);
@@ -121,7 +121,7 @@ public class ProductService {
 	public ProductDetailDTO saveProductDetail(ProductDetailDTO detailDTO){
 		
 		if (detailDTO.getId() < 1) {
-			if (null != getProductDetail(detailDTO.getId())) {
+			if (null != getProductByName(detailDTO.getName())) {
 				throw new CoreServiceException("Product already exist");
 			}
 		}
