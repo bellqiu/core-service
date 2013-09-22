@@ -165,6 +165,9 @@ Ext.define('AM.view.product.Edit', {
 											url : '/admin/image/upload',
 											autoStart : false,
 											max_file_size : '20mb',
+											filters : [
+											           	{title : "Image files", extensions : "jpg,gif,png"}
+											           ],
 											statusQueuedText : 'Ready to upload',
 											statusUploadingText : 'Uploading ({0}%)',
 											statusFailedText : '<span style="color: red">Error</span>',
@@ -246,13 +249,6 @@ Ext.define('AM.view.product.Edit', {
 			buttons : [ {
 				text : 'Save',
 				itemId :'saveProduct'
-			},{
-				
-				xtype: 'uploadbutton',
-				text : 'Upload Image',
-				uploader : {
-					url : '/admin/image/upload'
-				}
 			}, {
 				text : 'Reload',
 				itemId :'reloadProduct'
