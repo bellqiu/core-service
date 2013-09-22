@@ -1,6 +1,10 @@
 Ext.define('AM.view.product.Edit', {
 	extend : 'Ext.panel.Panel',
 	alias : 'widget.producteditor',
+	
+	config : {
+		product : {},
+	},
 	layout : 'fit',
 	defaults : {
 		border : 0,
@@ -10,11 +14,12 @@ Ext.define('AM.view.product.Edit', {
 	items : [ {
 		border : 0,
 		xtype : 'form',
+		itemId : 'productForm',
 		paramsAsHash: true,
 		api : {
 			// The server-side method to call for load() requests
-			load : 'productDirectService.loadProduct'/*,
-			submit : 'categoryDirectService.saveDetail'*/
+			load : 'productDirectService.loadProduct',
+			submit : 'productDirectService.saveDetail'
 		},
 		layout : 'vbox',
 		fieldDefaults : {
@@ -109,38 +114,108 @@ Ext.define('AM.view.product.Edit', {
 				}
 			}, {
 				title : 'Category',
-				layout : 'fit'/*,
+				layout : 'fit',
 				items : {
 					xtype : 'gridpanel',
-					store : new Ext.data.Store({
-		                model: 'AM.model.CategoryTree'
-		            }),
+					itemId : 'category',
+					viewConfig: {
+		                plugins: {
+		                    ddGroup: 'category-row-to-row',
+		                    ptype: 'gridviewdragdrop',
+		                    enableDrop: true
+		                }
+		            },
+					enableKeyEvents:true,
+					store :'EmptyCategoryTree'/* Ext.create("Ext.data.Store",{
+		                model: 'AM.model.CategoryTree',
+		                data : [],
+		                proxy: {
+		                    type: 'memory'
+		                }
+		            })*/,
 					columns: [
 					          { text: 'Name', dataIndex: 'name', flex: 1 },
 					          { text: 'Display Name',  dataIndex: 'displayName' , flex: 2}
 					         
 					      ]
-				}*/
+				}
 			}, {
 				title : 'Images',
 				defaults : {
 					width : 230
 				},
-				defaultType : 'textfield',
-
+				layout : 'fit',
 				items : [ {
-					fieldLabel : 'Home',
-					name : 'home',
-					value : '(888) 555-1212'
-				}, {
-					fieldLabel : 'Business',
-					name : 'business'
-				}, {
-					fieldLabel : 'Mobile',
-					name : 'mobile'
-				}, {
-					fieldLabel : 'Fax',
-					name : 'fax'
+					xtype : 'gridpanel',
+					tbar: [
+								{
+									
+									xtype: 'uploadbutton',
+									text : 'Upload Image',
+									// singleFile: true,
+									plugins : [ {
+										ptype : 'ux.upload.window',
+										title : 'Upload',
+										width : 520,
+										height : 350
+									} ],
+									uploader : {
+										url : '/admin/image/upload',
+										autoStart : false,
+										max_file_size : '20mb',
+										statusQueuedText : 'Ready to upload',
+										statusUploadingText : 'Uploading ({0}%)',
+										statusFailedText : '<span style="color: red">Error</span>',
+										statusDoneText : '<span style="color: green">Complete</span>',
+								
+										statusInvalidSizeText : 'File too large',
+										statusInvalidExtensionText : 'Invalid file type'
+									},
+									listeners : {
+										filesadded : function(uploader, files) {
+											console.log('filesadded');
+											return true;
+										},
+								
+										beforeupload : function(uploader, file) {
+											console.log('beforeupload');
+										},
+								
+										fileuploaded : function(uploader, file) {
+											console.log('fileuploaded');
+										},
+								
+										uploadcomplete : function(uploader, success, failed) {
+											console.log('uploadcomplete');
+										},
+										scope : this
+									}
+								
+								
+								}
+					],
+					itemId : 'image',
+					viewConfig: {
+		                plugins: {
+		                    ddGroup: 'image-row-to-row',
+		                    ptype: 'gridviewdragdrop',
+		                    enableDrop: true
+		                }
+		            },
+					enableKeyEvents:true,
+					store :'EmptyImage'/* Ext.create("Ext.data.Store",{
+		                model: 'AM.model.CategoryTree',
+		                data : [],
+		                proxy: {
+		                    type: 'memory'
+		                }
+		            })*/,
+					columns: [
+					          { text: 'Icon', dataIndex: 'iconUrl', flex: 1 },
+					          { text: 'Name',  dataIndex: 'name' , flex: 2}
+					         
+					      ]
+					
 				} ]
 			}, {
 				title : 'Option',
@@ -179,14 +254,10 @@ Ext.define('AM.view.product.Edit', {
 
 		buttons : [ {
 			text : 'Save',
-			handler : function() {
-				this.up('form').getForm().isValid();
-			}
+			itemId :'saveProduct'
 		}, {
-			text : 'Cancel',
-			handler : function() {
-				this.up('form').getForm().reset();
-			}
+			text : 'Reload',
+			itemId :'reloadProduct'
 		} ]
 	} ]
 });

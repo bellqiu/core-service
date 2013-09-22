@@ -33,7 +33,7 @@ import com.hb.core.shared.dto.ProductSummaryDTO;
 @Service
 public class ProductService {
 	@PersistenceContext
-	private EntityManager entityManager;
+	private EntityManager em;
 	
 	@Autowired
 	private Converter<ProductDetailDTO, Product> productDetailConverter;
@@ -46,7 +46,7 @@ public class ProductService {
 		ProductDetailDTO productDetailDTO = new ProductDetailDTO();
 		
 		if(productId > 0){
-			Product product = entityManager.find(Product.class, productId);
+			Product product = em.find(Product.class, productId);
 			
 			productDetailDTO = productDetailConverter.convert(product);
 		}
@@ -78,8 +78,8 @@ public class ProductService {
 		StringBuffer queryStringPrefix = new StringBuffer("select p from Product as p ");
 		StringBuffer countStringPrefix = new StringBuffer("select count(p.id) from Product as p ");
 		
-		TypedQuery<Product> query = entityManager.createQuery( queryStringPrefix.append(ql).toString(), Product.class);
-		TypedQuery<Long> count = entityManager.createQuery( countStringPrefix.append(ql).toString(), Long.class);
+		TypedQuery<Product> query = em.createQuery( queryStringPrefix.append(ql).toString(), Product.class);
+		TypedQuery<Long> count = em.createQuery( countStringPrefix.append(ql).toString(), Long.class);
 		
 		query.setFirstResult(start);
 		query.setMaxResults(max);
@@ -114,15 +114,30 @@ public class ProductService {
 			throw new CoreServiceException("Product already exist with name is " + productSummaryDTO.getName());
 		}
 		
-		product = entityManager.merge(productSummaryConverter.transf(productSummaryDTO));
+		product = em.merge(productSummaryConverter.transf(productSummaryDTO));
 		return productSummaryConverter.convert(product);
+	}
+	
+	public ProductDetailDTO saveProductDetail(ProductDetailDTO detailDTO){
+		
+		if (detailDTO.getId() < 1) {
+			if (null != getProductDetail(detailDTO.getId())) {
+				throw new CoreServiceException("Product already exist");
+			}
+		}
+		
+		Product product = productDetailConverter.transf(detailDTO);
+		
+		product = em.merge(product);
+		
+		return productDetailConverter.convert(product);
 	}
 
 	private Product getProductByName(String name) {
 		Product product = null;
 		
 		try {
-			TypedQuery<Product> query = entityManager.createNamedQuery("QueryProductByName",Product.class);
+			TypedQuery<Product> query = em.createNamedQuery("QueryProductByName",Product.class);
 			query.setParameter("name", name);
 			
 			product = query.getSingleResult();
@@ -136,7 +151,7 @@ public class ProductService {
 	}
 	
 	private Product getProductById(long id) {
-		return entityManager.find(Product.class, id);
+		return em.find(Product.class, id);
 	}
 
 	public void test() {
@@ -148,11 +163,11 @@ public class ProductService {
 		image2.setAltTitle("test");
 		image2.setCreateDate(new Date());
 		
-		HTML html1 = entityManager.find(HTML.class, 1L);
-		HTML html2 = entityManager.find(HTML.class, 2L);
+		HTML html1 = em.find(HTML.class, 1L);
+		HTML html2 = em.find(HTML.class, 2L);
 
-		Category category1 = entityManager.find(Category.class, 1L);
-		Category category2 = entityManager.find(Category.class, 2L);
+		Category category1 = em.find(Category.class, 1L);
+		Category category2 = em.find(Category.class, 2L);
 
 		Property prop1 = new Property();
 		prop1.setName("p1");
@@ -199,6 +214,6 @@ public class ProductService {
 		product.getOptions().add(option);
 		product.getManuals().put("A11", html1);
 		product.getManuals().put("B22", html2);
-		entityManager.merge(product);
+		em.merge(product);
 	}
 }

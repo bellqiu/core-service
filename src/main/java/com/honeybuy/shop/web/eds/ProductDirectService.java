@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -70,5 +72,11 @@ public class ProductDirectService {
 		productSummaryDTO = productService.update(productSummaryDTO);
 		
 		return productSummaryDTO;
+	}
+	
+	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
+	public ProductDetailDTO saveDetail(@Valid ProductDetailDTO product){
+		
+		return productService.saveProductDetail(product);
 	}
 }

@@ -1,5 +1,7 @@
 package com.hb.core.convert;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -120,36 +122,43 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 		
 		product.setTitle(productDetailDTO.getTitle());
 		
+		product.setCategories(new ArrayList<Category>());
+		
 		if(null != productDetailDTO.getCategories()){
 			for (CategoryTreeDTO c : productDetailDTO.getCategories()) {
 				product.getCategories().add(categoryTreeConverter.transf(c));
 			}
 		}
 		
+		product.setManuals(new HashMap<String, HTML>());
 		if(null != productDetailDTO.getMannuals()){
 			for (Map.Entry<String, HTML> c : productDetailDTO.getMannuals().entrySet()) {
 				product.getManuals().put(c.getKey(), em.find(HTML.class, c.getValue().getId()));
 			}
 		}
 		
+		product.setImages(new ArrayList<Image>());
 		if(null != productDetailDTO.getImages()){
 			for (Image image : productDetailDTO.getImages()) {
 				product.getImages().add(em.find(Image.class, image.getId()));
 			}
 		}
 		
+		product.setOptions(new ArrayList<Option>());
 		if(null != productDetailDTO.getOptions()){
 			for (Option option : productDetailDTO.getOptions()) {
 				product.getOptions().add(em.find(Option.class, option.getId()));
 			}
 		}
 		
+		product.setProps(new ArrayList<Property>());
 		if(null != productDetailDTO.getProps()){
 			for (Property property : productDetailDTO.getProps()) {
 				product.getProps().add(em.find(Property.class, property.getId()));
 			}
 		}
 		
+		product.setRelatedProducts(new ArrayList<TabProduct>());
 		if(null != productDetailDTO.getRelatedProducts()){
 			for (TabProductDTO tabProductDTO : productDetailDTO.getRelatedProducts()) {
 				product.getRelatedProducts().add(tabProductConverter.transf(tabProductDTO));

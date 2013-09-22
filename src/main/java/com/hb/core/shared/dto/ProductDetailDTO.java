@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
 import com.hb.core.entity.HTML;
 import com.hb.core.entity.Image;
 import com.hb.core.entity.Option;
 import com.hb.core.entity.Property;
-
 public class ProductDetailDTO {
 	
 	private long id;
@@ -30,6 +31,7 @@ public class ProductDetailDTO {
 	
 	private String overrideUrl;
 	
+	@NotNull
 	private String name;
 	
 	private List<Image> images = new ArrayList<Image>();

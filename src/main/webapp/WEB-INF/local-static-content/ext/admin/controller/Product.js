@@ -4,17 +4,111 @@ Ext.define('AM.controller.Product', {
 
 	/*
 	 * models : [ 'Setting' ],
-	 * 
-	 * stores : [ 'Setting', 'SettingType' ],
-	 */
-
+	 * */
+	 stores : [ 'EmptyCategoryTree', 'EmptyImage'],
+	
 	init : function() {
 		this.control({
 			'globalnav button#newproduct' : {
 				click : this.newProduct
+			},
+			
+			'producteditor form#productForm' : {
+				actioncomplete : this.initProductData,
+				beforeaction : this.beforeaction,
+				actionfailed : this.actionfailed
+			},
+			'producteditor gridpanel#category' : {
+				cellkeydown : this.bindDeleteKey,
+				render : this.initCategoryDragAndDrop,
+				beforeDestroy : this.distoryCategoryView
+			},
+			'producteditor button#saveProduct' : {
+				click : this.submitProduct
 			}
-
 		});
+	},
+	
+	submitProduct : function (btn){
+		var productEditor = btn.up("producteditor");
+		var productForm = productEditor.down("form#productForm").getForm();
+		
+		var product = productEditor.getProduct();
+		var productOverider = productForm.getValues();
+		
+		var categories = [];
+		
+		var categoryStoredData = productEditor.down("gridpanel#category").getStore().getRange();
+		
+		for(var i = 0; i < categoryStoredData.length; i++){
+			categories.push(categoryStoredData[i].data)
+		}
+		
+		product.categories = categories;
+		
+		product = Ext.apply(product, productOverider)
+		if(productForm.isValid()){
+			productForm.findField("name").up("producteditor").setLoading(true);
+			productDirectService.saveDetail(product, function(data){
+				productForm.findField("name").up("producteditor").setLoading(false);
+			});
+		}
+	},
+	
+	distoryCategoryView :function(grid){
+		grid.dd = null;
+	},
+	initCategoryDragAndDrop : function (grid){
+		var body = grid.body
+		grid.dd = new Ext.dd.DropTarget(body, {
+			ddGroup : 'grid-to-edit-parent',
+			notifyEnter : function(ddSource, e, data) {
+				body.stopAnimation();
+				body.highlight();
+			},
+			notifyDrop : function(ddSource, e, data) {
+				var store = grid.getStore();
+
+				var catlog = ddSource.dragData.records[0].data;
+				
+				if(store.find('id',catlog.id) > 0){
+					return false
+				}else{
+					store.add(catlog);
+				}
+				return true;
+			}
+		});
+	},
+	
+	actionfailed : function(form, action) {
+		form.findField("name").up("producteditor").setLoading(
+				false);
+		Ext.example.msg('<font color="red">Error</font>',
+				'<font color="red">' + action.type
+						+ " Failed </font>");
+	},
+
+	beforeaction : function(form) {
+		form.findField("name").up("producteditor").setLoading(
+				true, true);
+	},
+	
+	bindDeleteKey : function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts){
+		var store = grid.getStore();
+        store.removeAt(rowIndex);
+	},
+	
+	initProductData : function (productFrom){
+		productFrom.findField("name").up("producteditor").setLoading(
+				false);
+		var productEditor = productFrom.findField("name").up("producteditor");
+		
+		var categoryStore = productEditor.down("gridpanel#category").getStore();
+		var imageStore = productEditor.down("gridpanel#image").getStore();
+		
+		categoryStore.loadData(productEditor.getProduct().categories);
+		imageStore.loadData(productEditor.getProduct().images);
 	},
 
 	newProduct : function(btn) {
@@ -23,16 +117,19 @@ Ext.define('AM.controller.Product', {
 		var editor = Ext.create("AM.view.product.Edit", {
 			title : 'New Product'
 		});
-		var form = editor.down("form");
+		var productForm = editor.down("form");
 
 		contentPanel.insert(0, editor);
 		contentPanel.setActiveTab(0);
 		
-		form.load({
+		productForm.load({
 			// pass 2 arguments to server side getBasicInfo
 			// method (len=2)
 			params : {
-				id : 2
+				id : 0
+			},
+			success : function (form, action){
+				productForm.up("producteditor").setProduct(action.result.data)
 			}
 		})
 	}
