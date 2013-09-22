@@ -49,7 +49,16 @@ Ext.define('AM.controller.Product', {
 		product = Ext.apply(product, productOverider)
 		if(productForm.isValid()){
 			productForm.findField("name").up("producteditor").setLoading(true);
-			productDirectService.saveDetail(product, function(data){
+			productDirectService.saveDetail(product, function(data, rs, suc){
+				if(suc && data){
+					productForm.findField("name").up("producteditor").setProduct(data);
+					productForm.setValues(data);
+				}else if(rs && rs.type == 'exception'){
+					Ext.example.msg('<font color="red">Error</font>',
+							'<font color="red">' + rs.message
+									+ " </font>");
+				}
+				
 				productForm.findField("name").up("producteditor").setLoading(false);
 			});
 		}
