@@ -11,11 +11,18 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.IndexColumn;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NamedQueries(value=
+	{
+		@NamedQuery(name="QueryTabProductByName", query="select tp from TabProduct as tp where name=:name"),
+		@NamedQuery(name="countAllTabProduct", query="select count(tp.id) from TabProduct as tp"),
+	})
 public class TabProduct extends Component{
 	
 	/**
