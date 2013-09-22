@@ -122,20 +122,22 @@ Ext.define('AM.controller.Product', {
 
 	newProduct : function(btn) {
 		var contentPanel = btn.up("viewport").down("tabpanel#mainContainer");
-
+		
 		var editor = Ext.create("AM.view.product.Edit", {
 			title : 'New Product'
 		});
-		var productForm = editor.down("form");
-
+		
 		contentPanel.insert(0, editor);
 		contentPanel.setActiveTab(0);
+		
+		
+		var productForm = editor.down("form");
 		
 		productForm.load({
 			// pass 2 arguments to server side getBasicInfo
 			// method (len=2)
 			params : {
-				id : 0
+				id : 2
 			},
 			success : function (form, action){
 				productForm.up("producteditor").setProduct(action.result.data);

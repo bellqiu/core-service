@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hb.core.entity.Image;
 import com.hb.core.service.ImageResourceService;
 import com.honeybuy.shop.web.dto.ImageUploadResult;
 
@@ -36,11 +37,11 @@ public class ImageProcessorController {
 		String filename = file.getOriginalFilename();
 		
 		try {
-			imageResourceService.newImage(file.getBytes(), filename);
+			Image image = imageResourceService.newImage(file.getBytes(), filename);
+			rs.setImage(image);
 		} catch (Exception e) {
 			rs.setMessage(e.getMessage());
 			rs.setSuccess(false);
-			
 			return rs;
 		}
 		
