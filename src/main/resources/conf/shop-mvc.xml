@@ -68,7 +68,7 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 
 		<!-- one of the properties available; the maximum file size in bytes -->
-		<property name="maxUploadSize" value="100000" />
+		<property name="maxUploadSize" value="21234520" />
 	</bean>
 
 	<!-- EHCache Annotation -->
@@ -108,7 +108,7 @@
 	<bean id="defaultExceptionHandler"
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="order" value="0"></property>
-		<property name="defaultErrorView" value="500" />
+		<!-- <property name="defaultErrorView" value="500" /> -->
 		<property name="exceptionMappings">
 			<props>
 				<prop key="org.springframework.security.access.AccessDeniedException">accessDenied</prop>
