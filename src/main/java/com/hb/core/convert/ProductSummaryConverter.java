@@ -33,7 +33,7 @@ public class ProductSummaryConverter implements Converter<ProductSummaryDTO, Pro
 		if(null != p.getCategories()){
 			for (Iterator<Category> iterator = p.getCategories().iterator(); iterator.hasNext();) {
 				Category c = iterator.next();
-				categoryBreadcrumb += c.getDisplayName();
+				categoryBreadcrumb += c.getName();
 				if(iterator.hasNext()){
 					categoryBreadcrumb += ProductSummaryDTO.CAT_SPLIT_IN_BREADCRUMB;
 				}
