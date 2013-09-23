@@ -45,7 +45,7 @@ public class Image extends Component{
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type")
-	private Type type ;
+	private Type type = Type.PRODUCT_NORMAL;
 	
 	public static enum Type{
 		LOGO,

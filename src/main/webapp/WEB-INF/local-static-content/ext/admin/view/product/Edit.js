@@ -15,7 +15,7 @@ Ext.define('AM.view.product.Edit', {
 	initComponent : function() {
 		
 		var imageStore = Ext.create("Ext.data.JsonStore",{
-			model : 'AM.model.CategoryTree',
+			model : 'AM.model.Image',
 			data : [],
 			buffered : false,
 		});
@@ -186,7 +186,7 @@ Ext.define('AM.view.product.Edit', {
 									
 											fileuploaded : function(uploader, file, resp) {
 												if(resp.success){
-													var store = uploader.owner.up("tabpanel#mainContainer").getActiveTab().down("gridpanel#image").getStore();
+													var store = uploader.owner.up("producteditor").down("gridpanel#image").getStore();
 													store.add(resp.image);
 												}
 												console.log('fileuploaded');
@@ -205,9 +205,15 @@ Ext.define('AM.view.product.Edit', {
 						enableKeyEvents:true,
 						store :imageStore,
 						columns: [
-						          { text: 'Icon', dataIndex: 'iconUrl', flex: 1 },
-						          { text: 'Name',  dataIndex: 'name' , flex: 2}
-						         
+						          { text: 'Icon', dataIndex: 'iconUrl', flex: 1 , renderer :function (val ){ return "<img src='" + site.resourceServer + site.webResourcesFolder+ site.productImageResourcesFolder + "/"+ val + "'>"}},
+						          { text: 'Name',  dataIndex: 'name' , flex: 2},
+						          { text: 'URL',  dataIndex: 'noChangeUrl' , flex: 2,  
+						        	  	renderer :function (val ){ 
+						        	  			
+						        	  		return "<a href='" + site.resourceServer + site.webResourcesFolder+ site.productImageResourcesFolder + "/"+ val + "' target='_blank'>"+val+"</a>"
+						        	  			
+						        	  	}
+						          }
 						      ]
 						
 					} ]

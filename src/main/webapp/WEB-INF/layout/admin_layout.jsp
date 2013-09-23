@@ -1,3 +1,6 @@
+<%@page import="com.hb.core.shared.dto.SiteDTO"%>
+<%@page import="java.io.StringWriter"%>
+<%@page import="org.codehaus.jackson.map.ObjectMapper"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
@@ -21,6 +24,19 @@
 					id : '1',
 					email: 'wan-shan.zhu@hp.com'
 			}
+			<%
+			
+			ObjectMapper mapper = new ObjectMapper();
+			
+			StringWriter stringWriter = new StringWriter();
+			
+			SiteDTO dto = (SiteDTO)request.getAttribute("site");
+			
+			mapper.writeValue(stringWriter, dto);
+			
+			%>
+			
+			var site = <%= stringWriter.getBuffer().toString()%> ;
 		</script>
 		<script src="/resources/ext/ext-all-debug.js" type="text/javascript"></script>
 		<script src="/api.js" type="text/javascript"></script>

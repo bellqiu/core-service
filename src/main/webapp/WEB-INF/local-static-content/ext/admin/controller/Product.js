@@ -2,9 +2,9 @@ Ext.define('AM.controller.Product', {
 	extend : 'Ext.app.Controller',
 	views : [ 'product.Edit' ],
 
-	/*
-	 * models : [ 'Setting' ],
-	 * 
+	 models : [ 'Image' ],
+	 /*
+	 * * 
 	 stores : [ 'EmptyCategoryTree', 'EmptyImage'],*/
 	
 	init : function() {

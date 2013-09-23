@@ -24,9 +24,9 @@ public class SiteDirectService{
 	public SiteDTO getSite() {
 		SiteDTO siteDTO = new SiteDTO();
 		
-		siteDTO.setResourceServer("http://localhost:88");
-		siteDTO.setWebResourcesFolder("/resources");
-		siteDTO.setProductImageResourcesFolder("/image");
+		siteDTO.setResourceServer("http://localhost");
+		siteDTO.setWebResourcesFolder("/rs");
+		siteDTO.setProductImageResourcesFolder("/img");
 		
 		List<String> css = new ArrayList<String>();
 		List<String> js = new ArrayList<String>();
