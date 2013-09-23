@@ -3,8 +3,7 @@ Ext.define('AM.view.product.Edit', {
 	alias : 'widget.producteditor',
 	
 	config : {
-		product : {},
-		fileUploader : null
+		product : {}
 	},
 	layout : 'fit',
 	defaults : {

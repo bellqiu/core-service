@@ -19,7 +19,7 @@ Ext.define('AM.controller.Product', {
 				actionfailed : this.actionfailed
 			},
 			'producteditor gridpanel#category' : {
-				cellkeydown : this.bindCategoryDeleteKey,
+				cellkeydown : this.bindDeleteKey,
 				render : this.initCategoryDragAndDrop,
 				beforeDestroy : this.distoryCategoryView
 			},
@@ -90,13 +90,14 @@ Ext.define('AM.controller.Product', {
 				var store = grid.getStore();
 
 				var catlog = ddSource.dragData.records[0].data;
-				
-				if(store.find('id',catlog.id) > 0){
-					return false
-				}else{
+				if(store.find("id", catlog.id)){
+					
 					store.add(catlog);
+					
+					return true;
 				}
-				return true;
+				
+				return false;
 			}
 		});
 	},
@@ -115,8 +116,10 @@ Ext.define('AM.controller.Product', {
 	},
 	
 	bindDeleteKey : function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts){
-		var store = grid.getStore();
-        store.removeAt(rowIndex);
+		if(e.keyCode == 46){
+			var store = grid.getStore();
+	        store.removeAt(rowIndex);
+		}
 	},
 	
 	initProductData : function (productFrom){
