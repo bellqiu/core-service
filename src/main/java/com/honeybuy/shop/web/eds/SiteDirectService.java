@@ -22,7 +22,6 @@ public class SiteDirectService{
 
 	@Cacheable(cacheName="siteDTO")
 	public SiteDTO getSite() {
-		System.out.println("Getting site info.......................");
 		SiteDTO siteDTO = new SiteDTO();
 		
 		siteDTO.setResourceServer("http://localhost:88");

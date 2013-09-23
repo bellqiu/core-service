@@ -4,8 +4,8 @@ Ext.define('AM.controller.Product', {
 
 	/*
 	 * models : [ 'Setting' ],
-	 * */
-	 stores : [ 'EmptyCategoryTree', 'EmptyImage'],
+	 * 
+	 stores : [ 'EmptyCategoryTree', 'EmptyImage'],*/
 	
 	init : function() {
 		this.control({
@@ -90,7 +90,18 @@ Ext.define('AM.controller.Product', {
 				var store = grid.getStore();
 
 				var catlog = ddSource.dragData.records[0].data;
-				if(store.find("id", catlog.id)){
+				
+				var data = store.getRange();
+				
+				var existing = false;
+				
+				for(var i = 0; i < data.length; i++){
+					if(	data[i].data.id  == catlog.id){
+						existing = true;
+					}
+				}
+				
+				if(!existing){
 					
 					store.add(catlog);
 					

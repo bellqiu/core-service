@@ -29,7 +29,6 @@ public class SiteDataInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		System.out.println("Preparing site DTO");
 		request.setAttribute(SITE_ATTR, siteService.getSite());
 		return true;
 	}

@@ -13,6 +13,19 @@ Ext.define('AM.view.product.Edit', {
 	closable : true,
 	
 	initComponent : function() {
+		
+		var imageStore = Ext.create("Ext.data.JsonStore",{
+			model : 'AM.model.CategoryTree',
+			data : [],
+			buffered : false,
+		});
+		
+		var categoryStore = Ext.create("Ext.data.JsonStore",{
+			model : 'AM.model.CategoryTree',
+			data : [],
+			buffered : false,
+		});
+		
 		this.items = [ {
 			border : 0,
 			xtype : 'form',
@@ -128,7 +141,7 @@ Ext.define('AM.view.product.Edit', {
 			                }
 			            },
 						enableKeyEvents:true,
-						store :'EmptyCategoryTree',
+						store : categoryStore,
 						columns: [
 						          { text: 'Name', dataIndex: 'name', flex: 1 },
 						          { text: 'Display Name',  dataIndex: 'displayName' , flex: 2}
@@ -173,7 +186,7 @@ Ext.define('AM.view.product.Edit', {
 									
 											fileuploaded : function(uploader, file, resp) {
 												if(resp.success){
-													var store = uploader.owner.up("producteditor").down("gridpanel#image").getStore();
+													var store = uploader.owner.up("tabpanel#mainContainer").getActiveTab().down("gridpanel#image").getStore();
 													store.add(resp.image);
 												}
 												console.log('fileuploaded');
@@ -190,7 +203,7 @@ Ext.define('AM.view.product.Edit', {
 			                }
 			            },
 						enableKeyEvents:true,
-						store :'EmptyImage',
+						store :imageStore,
 						columns: [
 						          { text: 'Icon', dataIndex: 'iconUrl', flex: 1 },
 						          { text: 'Name',  dataIndex: 'name' , flex: 2}
