@@ -106,6 +106,13 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 				xtype : 'gridpanel',
 				border : 0,
 				store : 'ProductSummary',
+				viewConfig: {
+	                plugins: {
+	                    ddGroup: 'grid-to-edit-parent-productsummary',
+	                    ptype: 'gridviewdragdrop',
+	                    enableDrop: false
+	                }
+	            },
 				plugins : [ {
 					ptype : 'cellediting',
 					clicksToEdit : 2,

@@ -20,34 +20,20 @@ import ch.ralscha.extdirectspring.bean.SortInfo;
 import ch.ralscha.extdirectspring.filter.Filter;
 import ch.ralscha.extdirectspring.filter.StringFilter;
 
-import com.hb.core.service.ProductService;
-import com.hb.core.shared.dto.ProductDetailDTO;
-import com.hb.core.shared.dto.ProductSummaryDTO;
+import com.hb.core.service.TabProductService;
+import com.hb.core.shared.dto.TabProductDTO;
 
 @Service
 @Transactional
-@Secured("USER")
-public class ProductDirectService {
+@Secured("ADMIN")
+public class TabProductDirectService {
 	
 	@Autowired
-	private ProductService productService;
-	
-	@ExtDirectMethod(value=ExtDirectMethodType.FORM_LOAD)
-	@Secured("ADMIN")
-	public ProductDetailDTO loadProduct(@RequestParam("id") long id){
-		
-		ProductDetailDTO detailDTO = productService.getProductDetail(id);
-		
-		if(null == detailDTO){
-			detailDTO = new ProductDetailDTO();
-		}
-		
-		return detailDTO;
-	}
+	private TabProductService tabProductService;
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_READ)
 	@Transactional(readOnly=true)
-	public ExtDirectStoreReadResult<ProductSummaryDTO> list(ExtDirectStoreReadRequest storeRequest) {
+	public ExtDirectStoreReadResult<TabProductDTO> list(ExtDirectStoreReadRequest storeRequest) {
 		
 		int start = storeRequest.getStart() == null ? 0 : storeRequest.getStart();
 		int max = storeRequest.getLimit() == null ? 25 : storeRequest.getLimit();
@@ -71,20 +57,43 @@ public class ProductDirectService {
 			}
 		}
 		
-		return productService.storeQuery(start, max, sort, "DESCENDING".equals(dir) ? "DESC" : "ASC" , filters);
+		return tabProductService.queryResult(start, max, sort, "DESCENDING".equals(dir) ? "DESC" : "ASC" , filters);
+ 		
 	}
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
-	@Secured("ADMIN")
-	public ProductSummaryDTO update(ProductSummaryDTO productSummaryDTO) {
-		productSummaryDTO = productService.update(productSummaryDTO);
+	public TabProductDTO update(TabProductDTO tabProductDTO) {
+		if(tabProductDTO.getId() > 0 ){
+			TabProductDTO tabExisting = tabProductService.getTabProductDTOById(tabProductDTO.getId());
+			tabExisting.setName(tabProductDTO.getName());
+			tabProductDTO = tabProductService.saveOrUpdate(tabExisting);
+		} else {
+			tabProductDTO = tabProductService.saveOrUpdate(tabProductDTO);
+		}
 		
-		return productSummaryDTO;
+		return tabProductDTO;
 	}
 	
-	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
-	public ProductDetailDTO saveDetail(@Valid ProductDetailDTO product){
-		
-		return productService.saveProductDetail(product);
+	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
+	public void destory(TabProductDTO tabProductDTO) {
+		 tabProductService.destory(tabProductDTO);
 	}
+	
+	@ExtDirectMethod(value=ExtDirectMethodType.FORM_LOAD)
+	public TabProductDTO loadTabProduct(@RequestParam("id") long id){
+		
+		TabProductDTO tabProductDTO = tabProductService.getTabProductDTOById(id);
+		
+		if(null == tabProductDTO){
+			tabProductDTO = new TabProductDTO();
+		}
+		
+		return tabProductDTO;
+	}
+	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
+	public TabProductDTO saveTabProductDetail(@Valid TabProductDTO tabProductDTO){
+		tabProductDTO = tabProductService.saveOrUpdate(tabProductDTO);
+		return tabProductDTO;
+	}
+	
 }

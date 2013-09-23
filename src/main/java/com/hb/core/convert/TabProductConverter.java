@@ -1,5 +1,7 @@
 package com.hb.core.convert;
 
+import java.util.ArrayList;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -44,28 +46,30 @@ public class TabProductConverter implements Converter<TabProductDTO, TabProduct>
 	}
 
 	@Override
-	public TabProduct transf(TabProductDTO d) {
+	public TabProduct transf(TabProductDTO tabProductDTO) {
 		
-		if(null == d){
+		if(null == tabProductDTO){
 			return null;
 		}
 		
 		
-		TabProduct product = new TabProduct();
+		TabProduct tabProduct = new TabProduct();
 		
-		if(d.getId() > 0){
-			product = em.find(TabProduct.class, d.getId());
-		}else{
-			if(d.getProducts() != null){
-				for (ProductSummaryDTO p : d.getProducts()) {
-					product.getProducts().add(productSummaryConverter.transf(p));
-				}
+		if(tabProductDTO.getId() > 0){
+			tabProduct = em.find(TabProduct.class, tabProductDTO.getId());
+		}
+		
+		tabProduct.setProducts(new ArrayList<Product>());
+
+		if (tabProductDTO.getProducts() != null) {
+			for (ProductSummaryDTO p : tabProductDTO.getProducts()) {
+				tabProduct.getProducts().add(productSummaryConverter.transf(p));
 			}
 		}
 		
-		product.setName(d.getName());
+		tabProduct.setName(tabProductDTO.getName());
 		
-		return product;
+		return tabProduct;
 	}
 
 }

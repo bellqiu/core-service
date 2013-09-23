@@ -8,6 +8,7 @@ Ext.define('AM.store.ManagerCombo', {
         {name: 'Country', value: 'country'},
         {name: 'Setting', value: 'setting'},
         {name: 'Currency', value: 'currency'},
-        {name: 'User', value: 'user'}
+        {name: 'User', value: 'user'},
+        {name: 'TabProduct', value: 'tabproduct'}
     ]
 });
