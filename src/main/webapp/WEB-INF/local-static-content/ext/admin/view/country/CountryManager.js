@@ -104,7 +104,7 @@ Ext.define('AM.view.country.CountryManager', {
 							},
 							{
 								xtype : 'button',
-								text : 'reset',
+								text : 'Reset',
 								id : 'resetCountry',
 								flex : 1
 							}]

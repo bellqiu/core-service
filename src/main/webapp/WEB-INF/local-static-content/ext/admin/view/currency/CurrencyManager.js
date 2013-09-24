@@ -51,6 +51,7 @@ Ext.define('AM.view.currency.CurrencyManager', {
 						name : 'code',
 						width : 250
 					}, {
+						xtype: 'numberfield',
 						margin : 5,
 						fieldLabel : 'Rate On Default',
 						name : 'exchangeRateBaseOnDefault',
@@ -70,7 +71,7 @@ Ext.define('AM.view.currency.CurrencyManager', {
 							id : 'searchCurrency'
 						}, {
 							xtype : 'button',
-							text : 'reset',
+							text : 'Reset',
 							id : 'resetCurrency'
 						} ]
 					} ]

@@ -83,7 +83,7 @@ Ext.define('AM.view.user.UserManager', {
 								flex : 1
 							}, {
 								xtype : 'button',
-								text : 'reset',
+								text : 'Reset',
 								id : 'resetUser',
 								flex : 1
 							} ]

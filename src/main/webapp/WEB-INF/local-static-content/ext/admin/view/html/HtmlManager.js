@@ -79,7 +79,7 @@ Ext.define('AM.view.html.HtmlManager', {
 								flex : 1
 							}, {
 								xtype : 'button',
-								text : 'reset',
+								text : 'Reset',
 								id : 'resetHtml',
 								flex : 1
 							} ]

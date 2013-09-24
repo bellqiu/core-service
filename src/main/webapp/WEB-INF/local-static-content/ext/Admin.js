@@ -19,7 +19,9 @@ Ext.application({
 
 	appFolder : '/resources/ext/admin',
 
-	controllers : ['GlobalNav' , 'Setting', 'CategoryTree', 'HTML', 'Country', 'Product', 'Currency', 'User', 'ProductSummary', 'TabProduct'],
+	controllers : [ 'GlobalNav', 'Setting', 'CategoryTree', 'HTML', 'Country',
+			'Product', 'Currency', 'User', 'ProductSummary', 'TabProduct',
+			'Coupon' ],
 
 	launch : function() {
 		

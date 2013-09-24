@@ -26,7 +26,7 @@ import com.hb.core.shared.dto.TabProductDTO;
 public class TabProductService {
 	
 	@PersistenceContext
-	private EntityManager entityManager;
+	private EntityManager em;
 	
 	@Autowired
 	private Converter<TabProductDTO, TabProduct> tabProductConverter; 
@@ -38,26 +38,26 @@ public class TabProductService {
 		}
 		
 		TabProduct tabProduct = tabProductConverter.transf(tabProductDTO);
-		tabProduct = entityManager.merge(tabProduct);
+		tabProduct = em.merge(tabProduct);
 		
 		return tabProductConverter.convert(tabProduct);
 	}
 	
 	public void destory(TabProductDTO tabProductDTO){
 		TabProduct tabProduct = tabProductConverter.transf(tabProductDTO);
-		tabProduct = entityManager.merge(tabProduct);
-		entityManager.remove(tabProduct);
+		tabProduct = em.merge(tabProduct);
+		em.remove(tabProduct);
 	}
 	
 	public void destory(long id){
-		TabProduct tabProduct =  entityManager.find(TabProduct.class, id);
+		TabProduct tabProduct =  em.find(TabProduct.class, id);
 		if(tabProduct != null) {
-			entityManager.remove(tabProduct);
+			em.remove(tabProduct);
 		}
 	}
 	
 	public long getHTMLCount(){
-		TypedQuery<Long> query = entityManager.createNamedQuery("countAllHtml", Long.class);
+		TypedQuery<Long> query = em.createNamedQuery("countAllHtml", Long.class);
 		return query.getSingleResult();
 	}
 
@@ -81,8 +81,8 @@ public class TabProductService {
 		StringBuffer queryStringPrefix = new StringBuffer("select tp from TabProduct as tp ");
 		StringBuffer countStringPrefix = new StringBuffer("select count(tp.id) from TabProduct as tp ");
 		
-		TypedQuery<TabProduct> query = entityManager.createQuery( queryStringPrefix.append(ql).toString(), TabProduct.class);
-		TypedQuery<Long> count = entityManager.createQuery( countStringPrefix.append(ql).toString(), Long.class);
+		TypedQuery<TabProduct> query = em.createQuery( queryStringPrefix.append(ql).toString(), TabProduct.class);
+		TypedQuery<Long> count = em.createQuery( countStringPrefix.append(ql).toString(), Long.class);
 		
 		query.setFirstResult(start);
 		query.setMaxResults(max);
@@ -103,7 +103,7 @@ public class TabProductService {
 		TabProduct tabProduct = null;
 		
 		try {
-			TypedQuery<TabProduct> query = entityManager.createNamedQuery("QueryTabProductByName",TabProduct.class);
+			TypedQuery<TabProduct> query = em.createNamedQuery("QueryTabProductByName",TabProduct.class);
 			query.setParameter("name", name);
 			
 			tabProduct = query.getSingleResult();
@@ -116,12 +116,12 @@ public class TabProductService {
 	}
 	
 	public TabProduct getTabProductById(long id) {
-		return entityManager.find(TabProduct.class, id);
+		return em.find(TabProduct.class, id);
 	}
 	
 	public TabProductDTO getTabProductDTOById(long id) {
 		if(id > 0) {
-			TabProduct tabproduct = entityManager.find(TabProduct.class, id);
+			TabProduct tabproduct = em.find(TabProduct.class, id);
 			if(tabproduct != null) {
 				return tabProductConverter.convert(tabproduct);
 			}

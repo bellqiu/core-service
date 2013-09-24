@@ -115,6 +115,18 @@ Ext.define('AM.controller.GlobalNav', {
     			tabpanel.setActiveTab(0);
     		}
     		
+    	} else if(opt == 'coupon'){
+    		
+    		var tabpanel = combo.up("viewport").down("tabpanel#managerContainer");
+    		
+    		if(tabpanel.down("couponmanager")){
+    			tabpanel.setActiveTab(tabpanel.down("couponmanager"));
+    		}else{
+    			var view = Ext.widget('couponmanager');
+    			tabpanel.insert(0, view);
+    			tabpanel.setActiveTab(0);
+    		}
+    		
     	} else {
     		Ext.Msg.alert('Status', 'No operation');
     	}

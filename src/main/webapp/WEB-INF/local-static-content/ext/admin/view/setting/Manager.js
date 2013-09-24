@@ -73,7 +73,7 @@ Ext.define('AM.view.setting.Manager', {
 							id : 'search'
 						}, {
 							xtype : 'button',
-							text : 'reset',
+							text : 'Reset',
 							id : 'reset'
 						} ]
 					} ]
