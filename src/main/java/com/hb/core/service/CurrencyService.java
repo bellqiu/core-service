@@ -15,6 +15,7 @@ import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
 import com.hb.core.entity.Currency;
 import com.hb.core.exception.CoreServiceException;
+import com.hb.core.util.Constants;
 
 @Transactional
 @Service
@@ -51,7 +52,8 @@ public class CurrencyService {
 			while(item.hasNext()){
 				String param = item.next();
 				if("exchangeRateBaseOnDefault".equalsIgnoreCase(param)){
-					ql.append(param +" = :" + param + " ");
+					ql.append(param +" > :" + param + "_low and ");
+					ql.append(param +" < :" + param + "_up ");
 				}else{
 					ql.append(param +" like :"+param +" ");
 				}
@@ -73,12 +75,16 @@ public class CurrencyService {
 		query.setFirstResult(start);
 		query.setMaxResults(max);
 		for (Map.Entry<String, String> paramEntry : filters.entrySet()) {
-			if("exchangeRateBaseOnDefault".equals(paramEntry.getKey())){
-				query.setParameter(paramEntry.getKey(), paramEntry.getValue());
-				count.setParameter(paramEntry.getKey(), paramEntry.getValue());
+			String key = paramEntry.getKey();
+			if("exchangeRateBaseOnDefault".equals(key)){
+				float value = Float.valueOf(paramEntry.getValue());
+				query.setParameter(key + "_low", value - Constants.FLOAT_COMPARE);
+				query.setParameter(key + "_up", value + Constants.FLOAT_COMPARE);
+				count.setParameter(key + "_low",  value - Constants.FLOAT_COMPARE);
+				count.setParameter(key + "_up",  value + Constants.FLOAT_COMPARE);
 			}else{
-				query.setParameter(paramEntry.getKey(), "%" + paramEntry.getValue() + "%");
-				count.setParameter(paramEntry.getKey(), "%" + paramEntry.getValue() + "%");
+				query.setParameter(key, "%" + paramEntry.getValue() + "%");
+				count.setParameter(key, "%" + paramEntry.getValue() + "%");
 			}
 		}
 		return new ExtDirectStoreReadResult<Currency>(count.getSingleResult().intValue(),query.getResultList());

@@ -15,6 +15,7 @@ import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
 import com.hb.core.entity.Country;
 import com.hb.core.exception.CoreServiceException;
+import com.hb.core.util.Constants;
 
 @Transactional
 @Service
@@ -54,7 +55,8 @@ public class CountryService {
 						|| "advanceDeliveryPrice".equalsIgnoreCase(param)
 						|| "freeDeliveryPrice".equalsIgnoreCase(param)
 						|| "freeAdvanceDeliveryPrice".equalsIgnoreCase(param)) {
-					ql.append(param +" = :" + param + " ");
+					ql.append(param +" > :" + param + "_low and ");
+					ql.append(param +" < :" + param + "_up ");
 				}else{
 					ql.append(param +" like :"+param +" ");
 				}
@@ -81,8 +83,11 @@ public class CountryService {
 					|| "advanceDeliveryPrice".equalsIgnoreCase(key)
 					|| "freeDeliveryPrice".equalsIgnoreCase(key)
 					|| "freeAdvanceDeliveryPrice".equalsIgnoreCase(key)) {
-				query.setParameter(key, Float.valueOf(paramEntry.getValue()));
-				count.setParameter(key, Float.valueOf((paramEntry.getValue())));
+				float value = Float.valueOf(paramEntry.getValue());
+				query.setParameter(key + "_low", value - Constants.FLOAT_COMPARE);
+				query.setParameter(key + "_up", value + Constants.FLOAT_COMPARE);
+				count.setParameter(key + "_low",  value - Constants.FLOAT_COMPARE);
+				count.setParameter(key + "_up",  value + Constants.FLOAT_COMPARE);
 			}else{
 				query.setParameter(key, "%" + paramEntry.getValue() + "%");
 				count.setParameter(key, "%" + paramEntry.getValue() + "%");
