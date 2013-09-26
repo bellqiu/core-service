@@ -97,19 +97,6 @@ Ext.define('AM.view.coupon.CouponDetail', {
 						name : 'startDate',
 						xtype : 'datefield',
 						format : 'm/d/Y',
-						/*renderData : function(v) {
-							return new Date();
-						}*/
-						/*renderContent : function(out, values) {
-							return new Date();
-						},*/
-						listeners : {
-						    render : function(datefield) {
-						        /// code to convert GMT String to date object
-						        datefield.setValue(new Date());
-						             }
-						 },
-						//renderer : Ext.util.Format.dateRenderer('m/d/Y'),
 						flex : 1
 					}, {
 						fieldLabel : 'End Date',
