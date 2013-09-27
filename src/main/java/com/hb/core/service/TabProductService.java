@@ -56,8 +56,8 @@ public class TabProductService {
 		}
 	}
 	
-	public long getHTMLCount(){
-		TypedQuery<Long> query = em.createNamedQuery("countAllHtml", Long.class);
+	public long getTabProductCount(){
+		TypedQuery<Long> query = em.createNamedQuery("countAllTabProduct", Long.class);
 		return query.getSingleResult();
 	}
 

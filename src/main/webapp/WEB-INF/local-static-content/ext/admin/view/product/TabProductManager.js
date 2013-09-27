@@ -71,6 +71,13 @@ Ext.define('AM.view.product.TabProductManager', {
 				xtype : 'gridpanel',
 				border : 0,
 				store : 'TabProduct',
+				viewConfig: {
+	                plugins: {
+	                    ddGroup: 'grid-to-edit-parent-tabproduct',
+	                    ptype: 'gridviewdragdrop',
+	                    enableDrop: false
+	                }
+	            },
 				plugins : [ {
 					ptype : 'cellediting',
 					clicksToEdit : 2,

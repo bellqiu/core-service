@@ -27,7 +27,12 @@ Ext.define('AM.controller.Product', {
 				click : this.submitProduct
 			},'producteditor gridpanel#image' : {
 				cellkeydown : this.bindDeleteKey
+			},'producteditor gridpanel#relatedProduct' : {
+				cellkeydown : this.bindDeleteKey,
+				render : this.initTabProductDragAndDrop,
+				beforeDestroy : this.distoryTabProductView
 			},
+			
 		});
 	},
 	
@@ -40,22 +45,27 @@ Ext.define('AM.controller.Product', {
 		
 		var categories = [];
 		var images = [];
+		var relatedProducts = [];
 		
 		var categoryStoredData = productEditor.down("gridpanel#category").getStore().getRange();
 		var imageStoredData = productEditor.down("gridpanel#image").getStore().getRange();
+		var relatedProductData = productEditor.down("gridpanel#relatedProduct").getStore().getRange();
 		
 		for(var i = 0; i < categoryStoredData.length; i++){
 			categories.push(categoryStoredData[i].data)
 		}
 		
-		product.categories = categories;
-		
 		for(var i = 0; i < imageStoredData.length; i++){
 			images.push(imageStoredData[i].data)
 		}
 		
+		for(var i = 0; i < relatedProductData.length; i++) {
+			relatedProducts.push(relatedProductData[i].data);
+		}
+		
 		product.categories = categories;
 		product.images = images;
+		product.relatedProducts = relatedProducts;
 		
 		product = Ext.apply(product, productOverider)
 		if(productForm.isValid()){
@@ -140,9 +150,11 @@ Ext.define('AM.controller.Product', {
 		
 		var categoryStore = productEditor.down("gridpanel#category").getStore();
 		var imageStore = productEditor.down("gridpanel#image").getStore();
+		var relatedProductStore = productEditor.down("gridpanel#relatedProduct").getStore();
 		
 		categoryStore.loadData(productEditor.getProduct().categories);
 		imageStore.loadData(productEditor.getProduct().images);
+		relatedProductStore.loadData(productEditor.getProduct().relatedProducts);
 	},
 
 	newProduct : function(btn) {
@@ -169,5 +181,44 @@ Ext.define('AM.controller.Product', {
 				productForm.getForm().setValues(action.result.data);
 			}
 		})
-	}
+	}, 
+	
+	initTabProductDragAndDrop : function (grid){
+		var body = grid.body
+		grid.dd = new Ext.dd.DropTarget(body, {
+			ddGroup : 'grid-to-edit-parent-tabproduct',
+			notifyEnter : function(ddSource, e, data) {
+				body.stopAnimation();
+				body.highlight();
+			},
+			notifyDrop : function(ddSource, e, data) {
+				var store = grid.getStore();
+
+				var catlog = ddSource.dragData.records[0].data;
+				
+				var data = store.getRange();
+				
+				var existing = false;
+				
+				for(var i = 0; i < data.length; i++){
+					if(	data[i].data.id  == catlog.id){
+						existing = true;
+					}
+				}
+				
+				if(!existing){
+					
+					store.add(catlog);
+					
+					return true;
+				}
+				
+				return false;
+			}
+		});
+	},
+	distoryTabProductView : function(grid){
+		grid.dd = null;
+	},
+	
 });

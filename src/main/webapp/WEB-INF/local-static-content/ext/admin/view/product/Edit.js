@@ -26,6 +26,12 @@ Ext.define('AM.view.product.Edit', {
 			buffered : false,
 		});
 		
+		var tabProductStore = Ext.create("Ext.data.JsonStore",{
+			model : 'AM.model.TabProduct',
+			data : [],
+			buffered : false,
+		});
+		
 		this.items = [ {
 			border : 0,
 			xtype : 'form',
@@ -245,9 +251,20 @@ Ext.define('AM.view.product.Edit', {
 					title : 'Related Product',
 					layout : 'fit',
 					items : {
-						xtype : 'htmleditor',
-						name : 'bio2',
-						fieldLabel : 'Biography'
+						xtype : 'gridpanel',
+						itemId : 'relatedProduct',
+						viewConfig: {
+			                plugins: {
+			                    ddGroup: 'relatedproduct-row-to-row',
+			                    ptype: 'gridviewdragdrop',
+			                    enableDrop: true
+			                }
+			            },
+						enableKeyEvents:true,
+						store : tabProductStore,
+						columns: [
+						          { text: 'Name', dataIndex: 'name', flex: 1 },
+						      ]
 					}
 				} ]
 			} ],

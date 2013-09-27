@@ -83,6 +83,7 @@ public class ProductDirectService {
 	}
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
+	@Secured("ADMIN")
 	public ProductDetailDTO saveDetail(@Valid ProductDetailDTO product){
 		
 		return productService.saveProductDetail(product);
