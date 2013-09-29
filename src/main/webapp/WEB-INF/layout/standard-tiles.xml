@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tiles-definitions PUBLIC
-       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
- 
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
 <tiles-definitions>   
 	<!-- Parents -->     
         <definition name="standardLayout" template="/WEB-INF/layout/standard.jsp" >
         	 <put-attribute name="title" value="HB"/>
-        	 <put-attribute name="header" value="/WEB-INF/jsp/header/header.jsp"/>
+        	 <put-attribute name="header" value="/WEB-INF/jsp/header/head.jsp"/>
         	 <put-attribute name="body" value="/WEB-INF/jsp/body/blank.jsp"/>
         	 <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
         </definition>
-       
+        
+      <!-- Modules -->
+		<definition name="home.header.module" template="/WEB-INF/layout/header.jsp">
+			<put-attribute name="dockbar" value="/WEB-INF/jsp/header/dockbar.jsp"></put-attribute>
+			<put-attribute name="mainHeader" value="/WEB-INF/jsp/header/main-header.jsp"></put-attribute>
+			<put-attribute name="navigator" value="/WEB-INF/jsp/header/navigator.jsp"></put-attribute>
+		</definition>
+		<definition name="home.body.module" template="/WEB-INF/layout/home-content.jsp">
+			<put-attribute name="adSlider" value="/WEB-INF/jsp/body/adSlider.jsp"></put-attribute>
+			<put-attribute name="spotlight" value="/WEB-INF/jsp/body/spotlight.jsp"></put-attribute>
+			<put-attribute name="bestSelling" value="/WEB-INF/jsp/body/bestSelling.jsp"></put-attribute>
+			<put-attribute name="featuredProducts" value="/WEB-INF/jsp/body/featuredProducts.jsp"></put-attribute>
+		</definition>
       <!-- Pages -->
         <definition name="home" extends="standardLayout" >
-        	  <put-attribute name="body" value="/WEB-INF/jsp/body/home.jsp"/>
+        	  <put-attribute name="header" value="home.header.module"/>
+        	  <put-attribute name="body" value="home.body.module"/>
         </definition>
         
         <definition name="myOrder" extends="standardLayout" >

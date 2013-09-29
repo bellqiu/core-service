@@ -10,32 +10,39 @@
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<meta content="" name="keywords">
 		<meta content="" name="description">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
 		<!-- Import css/js -->
 		<style type="text/css">
-				 @import url("${site.resourceServer}${site.webResourcesFolder}/css/reset.css");
-				  @import url("${site.resourceServer}${site.webResourcesFolder}/css/smoothness/jquery-ui-1.10.3.custom.min.css");
+				  @import url("/resources/css/reset.css");
+				  @import url("/resources/css/smoothness/jquery-ui-1.10.3.custom.css");
+				  @import url("/resources/css/reset.css");
+				  @import url("/resources/bxslider/jquery.bxslider.css");
+				  @import url("/resources/bootstrap/bootstrap-responsive.css");
 			<c:forEach items="${site.css }" var="css">
-		   		 @import url("${site.resourceServer}${site.webResourcesFolder}${css}");
+		   		 @import url("/resources/${css}");
 			</c:forEach>
+				 @import url("/resources/css/core.css");
 		</style>
 		
-		<script src="${site.resourceServer}${site.webResourcesFolder}/js/jquery-1.9.1.js" type="text/javascript"></script>
-		<script src="${site.resourceServer}${site.webResourcesFolder}/js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
+		<script src="/resources/js/jquery-1.9.1.js" type="text/javascript"></script>
+		<script src="/resources/js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
+		<script src="/resources/bxslider/jquery.bxslider.js" type="text/javascript"></script>
 		
 		<c:forEach items="${site.js }" var="js">
 			<script src="${site.resourceServer}${site.webResourcesFolder}${js}" type="text/javascript"></script>
 		</c:forEach>
-		
 </head>
 <body>
-	<div id="top">
-		<tiles:insertAttribute name="header" />
+	<div class="row-fluid">
+		<tiles:insertAttribute name="header"/>
 	</div>
-	<div id="main">
+
+	<div class="row-fluid">
 		<tiles:insertAttribute name="body"/>
 	</div>
-	<div id="footer">
+
+	<div class="row-fluid">
 		<tiles:insertAttribute name="footer"/>
 	</div>
 </body>

@@ -1,0 +1,185 @@
+body {
+    color: #1A1A1A;
+    font-family: "wf_SegoeUI","Segoe UI","Segoe","Segoe WP","Tahoma","Verdana","Arial","sans-serif";
+    font-size: 100%;
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "wf_SegoeUILight","wf_SegoeUI","Segoe UI Light","Segoe WP Light","Segoe UI","Segoe","Segoe WP","Tahoma","Verdana","Arial","sans-serif";
+    font-weight: 300;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0px;
+}
+
+a {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #1570A6;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    vertical-align: baseline;
+}
+
+a:HOVER {
+	color: #1570A6;
+	text-decoration: underline;
+}
+
+.heading--large {
+    font-size: 2em;
+    line-height: 1.25;
+}
+
+.heading--small {
+    font-size: 1.25em;
+}
+
+.header {
+	width:95%;
+	margin: auto;
+}
+
+.dockbar {
+	height: 40px;
+}
+
+.dockbar-menu li {
+	float:left;
+	margin-left: 20px;
+	margin-top: 7px;
+	font-size: 1.2em;
+}
+.dockbar-menu li ul{
+	display: none;
+	position: absolute;
+	z-index: 9999;
+}
+
+.dockbar-menu li span{
+	float:right;
+}
+
+.dockbar .shoppingCart{
+	background-color: #1570A6;
+    color: #FFFFFF;
+    float: right;
+    font-size: 1.2em;
+    height: 20px;
+    padding: 8px 20px;
+    width: 70px;
+}
+
+.dockbar .shoppingCart:HOVER{
+	background-color: #002050;
+}
+
+.main-header {
+	height: 105px;
+}
+
+.logoAndBannerAndSearchBox {
+	padding: 25px 0 0;
+}
+
+.header-logo {
+	height: 60px;
+	background-color: #dedede;
+}
+
+.header-banner {
+	height: 60px;
+	background-color: #dedede;
+}
+
+.header-searchBox {
+	border: 1px solid gray;
+}
+
+#searchBox{
+	font-size: 1.5em;
+    height: 30px;
+    position: relative;
+    width: 100%;
+    z-index: 100;
+}
+
+.navigator {
+	height: 40px;
+	margin: 0 auto;
+	opacity: 0.9;
+}
+
+.top-level-navigator{
+	width: 100%;
+}
+
+.top-level-navigator:AFTER{
+	clear: both;
+}
+
+.top-level-navigator-list{
+	float: left;
+	padding-top: 7px;
+}
+
+.top-level-navigator-item{
+	display: inline-block;
+    margin: 0;
+    font-size: 1.6em;
+    margin-right: 5px;
+    width: 160px;
+}
+
+.body {
+	width: 95%;
+	margin: auto;
+}
+
+.bx-wrapper .bx-viewport {
+	box-shadow: none;
+}
+
+.sliderContent1 {
+	background-color: #199bff;
+	width: 100%;
+	height: 300px;
+	margin: auto;
+}
+
+.sliderContent2 {
+	background-color: #bfff47;
+	width: 100%;
+	height: 300px;
+	margin: auto;
+}
+
+.sliderContent3 {
+	background-color: #ac5acc;
+	width: 100%;
+	height: 300px;
+	margin: auto;
+}
+
+.productItem {
+	background-color: #DEDEDE;
+	height: 200px;
+}
+
+.featuredProducts{
+	margin-bottom: 100px;
+}
+
+.bxslider li {
+	width: auto;
+}
+
+.footer {
+	background-color: #EEEEEE;
+	height: 300px;
+}
