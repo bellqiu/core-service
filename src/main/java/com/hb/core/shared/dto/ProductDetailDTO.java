@@ -40,7 +40,7 @@ public class ProductDetailDTO {
 	
 	private List<CategoryTreeDTO> categories = new ArrayList<CategoryTreeDTO>();
 	 
-	private Map<String, HTML> mannuals = new HashMap<String,HTML>();
+	private Map<String, HTML> manuals = new HashMap<String,HTML>();
 	
 	private List<TabProductDTO> relatedProducts = new ArrayList<TabProductDTO>();
 	
@@ -143,12 +143,12 @@ public class ProductDetailDTO {
 	}
 
 
-	public Map<String, HTML> getMannuals() {
-		return mannuals;
+	public Map<String, HTML> getManuals() {
+		return manuals;
 	}
 
-	public void setMannuals(Map<String, HTML> mannuals) {
-		this.mannuals = mannuals;
+	public void setManuals(Map<String, HTML> manuals) {
+		this.manuals = manuals;
 	}
 
 	public List<TabProductDTO> getRelatedProducts() {

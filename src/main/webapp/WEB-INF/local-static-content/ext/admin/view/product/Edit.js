@@ -32,6 +32,21 @@ Ext.define('AM.view.product.Edit', {
 			buffered : false,
 		});
 		
+		var manualStore = Ext.create("Ext.data.ArrayStore", {
+	    	storeId: 'manualStore',
+	    	fields: [
+	    	         {name:'key',type:'String'},
+	    	         {name:'id',type:'int'},
+	    	         {name:'createDate', type:'date', defaultValue : 0 , convert : function(v,record){return new Date(v)}},
+	    	         {name:'updateDate', type:'date',   defaultValue : 0, convert : function(v,record){return new Date(v)}},
+	    	         {name:'status',type:'string'},
+	    	         {name:'content',type:'string'},
+	    	         {name:'name',type:'string'}
+	    	],
+	    	data : [],
+			buffered : false,
+		});
+		
 		this.items = [ {
 			border : 0,
 			xtype : 'form',
@@ -240,12 +255,37 @@ Ext.define('AM.view.product.Edit', {
 						fieldLabel : 'Biography'
 					}
 				} , {
-					title : 'Mannual',
+					title : 'Manual',
 					layout : 'fit',
 					items : {
-						xtype : 'htmleditor',
-						name : 'bio2',
-						fieldLabel : 'Biography'
+						xtype : 'gridpanel',
+						itemId : 'manual',
+						viewConfig: {
+			                plugins: {
+			                    ddGroup: 'manual-row-to-row',
+			                    ptype: 'gridviewdragdrop',
+			                    enableDrop: true
+			                }
+			            },
+			            plugins : [ {
+							ptype : 'cellediting',
+							clicksToEdit : 2,
+							id : 'cellEditor'
+						} ],
+						enableKeyEvents:true,
+						store : manualStore,
+						selModel : {
+							selType : 'cellmodel'
+						},
+						columns: [
+						          { text: 'Name', dataIndex: 'key', flex: 1, 
+						        	editor : {
+											xtype : 'textfield',
+											allowBlank : false
+									}
+						          },
+						          { text: 'HTML Name', dataIndex: 'name', flex: 1 },
+						      ]
 					}
 				} , {
 					title : 'Related Product',

@@ -61,7 +61,7 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 		
 		detailDTO.setKeywords(product.getKeywords());
 		
-		detailDTO.setMannuals(product.getManuals());
+		detailDTO.setManuals(product.getManuals());
 		
 		detailDTO.setName(product.getName());
 		
@@ -131,8 +131,8 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 		}
 		
 		product.setManuals(new HashMap<String, HTML>());
-		if(null != productDetailDTO.getMannuals()){
-			for (Map.Entry<String, HTML> c : productDetailDTO.getMannuals().entrySet()) {
+		if(null != productDetailDTO.getManuals()){
+			for (Map.Entry<String, HTML> c : productDetailDTO.getManuals().entrySet()) {
 				product.getManuals().put(c.getKey(), em.find(HTML.class, c.getValue().getId()));
 			}
 		}

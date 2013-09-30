@@ -27,6 +27,10 @@ Ext.define('AM.controller.Product', {
 				click : this.submitProduct
 			},'producteditor gridpanel#image' : {
 				cellkeydown : this.bindDeleteKey
+			},'producteditor gridpanel#manual' : {
+				cellkeydown : this.bindDeleteKey,
+				render : this.initManualDragAndDrop,
+				beforeDestroy : this.distoryManualView
 			},'producteditor gridpanel#relatedProduct' : {
 				cellkeydown : this.bindDeleteKey,
 				render : this.initTabProductDragAndDrop,
@@ -45,10 +49,13 @@ Ext.define('AM.controller.Product', {
 		
 		var categories = [];
 		var images = [];
+		var manuals = {};
 		var relatedProducts = [];
 		
 		var categoryStoredData = productEditor.down("gridpanel#category").getStore().getRange();
 		var imageStoredData = productEditor.down("gridpanel#image").getStore().getRange();
+		var manualStoredData = productEditor.down("gridpanel#manual").getStore().getRange();
+		productEditor.down("gridpanel#manual").getStore().sync();
 		var relatedProductData = productEditor.down("gridpanel#relatedProduct").getStore().getRange();
 		
 		for(var i = 0; i < categoryStoredData.length; i++){
@@ -59,6 +66,12 @@ Ext.define('AM.controller.Product', {
 			images.push(imageStoredData[i].data)
 		}
 		
+		var manualJsonData = {};
+		for(var i = 0; i < manualStoredData.length; i++){
+			var data = manualStoredData[i].data
+			manuals[data.key] = data;
+		}
+		
 		for(var i = 0; i < relatedProductData.length; i++) {
 			relatedProducts.push(relatedProductData[i].data);
 		}
@@ -66,6 +79,7 @@ Ext.define('AM.controller.Product', {
 		product.categories = categories;
 		product.images = images;
 		product.relatedProducts = relatedProducts;
+		product.manuals = manuals; 
 		
 		product = Ext.apply(product, productOverider)
 		if(productForm.isValid()){
@@ -151,10 +165,24 @@ Ext.define('AM.controller.Product', {
 		var categoryStore = productEditor.down("gridpanel#category").getStore();
 		var imageStore = productEditor.down("gridpanel#image").getStore();
 		var relatedProductStore = productEditor.down("gridpanel#relatedProduct").getStore();
+		var manualStore = productEditor.down("gridpanel#manual").getStore();
 		
 		categoryStore.loadData(productEditor.getProduct().categories);
 		imageStore.loadData(productEditor.getProduct().images);
 		relatedProductStore.loadData(productEditor.getProduct().relatedProducts);
+		
+		var manuals = productEditor.getProduct().manuals;
+		var manualArray = [];
+		for(var k in manuals) {
+			var rec = {};
+			rec["key"] = k;
+			m = manuals[k];
+			for(var ht in m) {
+				rec[ht] = m[ht];
+			}
+			manualArray.push(rec);
+		}
+		manualStore.loadData(manualArray);
 	},
 
 	newProduct : function(btn) {
@@ -194,21 +222,22 @@ Ext.define('AM.controller.Product', {
 			notifyDrop : function(ddSource, e, data) {
 				var store = grid.getStore();
 
-				var catlog = ddSource.dragData.records[0].data;
+				var tabProduct = ddSource.dragData.records[0].data;
 				
 				var data = store.getRange();
 				
 				var existing = false;
 				
 				for(var i = 0; i < data.length; i++){
-					if(	data[i].data.id  == catlog.id){
+					if(	data[i].data.id  == tabProduct.id){
 						existing = true;
+						break;
 					}
 				}
 				
 				if(!existing){
 					
-					store.add(catlog);
+					store.add(tabProduct);
 					
 					return true;
 				}
@@ -218,6 +247,46 @@ Ext.define('AM.controller.Product', {
 		});
 	},
 	distoryTabProductView : function(grid){
+		grid.dd = null;
+	},
+	
+	initManualDragAndDrop : function (grid){
+		var body = grid.body
+		grid.dd = new Ext.dd.DropTarget(body, {
+			ddGroup : 'grid-to-edit-parent-html',
+			notifyEnter : function(ddSource, e, data) {
+				body.stopAnimation();
+				body.highlight();
+			},
+			notifyDrop : function(ddSource, e, data) {
+				var store = grid.getStore();
+
+				var manual = ddSource.dragData.records[0].data;
+				
+				var data = store.getRange();
+				
+				var existing = false;
+				
+				for(var i = 0; i < data.length; i++){
+					if(	data[i].data.id  == manual.id){
+						existing = true;
+						break;
+					}
+				}
+				
+				if(!existing){
+					manual.key = "";
+					
+					store.add(manual);
+					
+					return true;
+				}
+				
+				return false;
+			}
+		});
+	},
+	distoryManualView : function(grid){
 		grid.dd = null;
 	},
 	

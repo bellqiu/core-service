@@ -95,6 +95,13 @@ Ext.define('AM.view.html.HtmlManager', {
 				xtype : 'gridpanel',
 				border : 0,
 				store : 'HTML',
+				viewConfig: {
+	                plugins: {
+	                    ddGroup: 'grid-to-edit-parent-html',
+	                    ptype: 'gridviewdragdrop',
+	                    enableDrop: false
+	                }
+	            },
 				plugins : [ {
 					ptype : 'cellediting',
 					clicksToEdit : 2,
