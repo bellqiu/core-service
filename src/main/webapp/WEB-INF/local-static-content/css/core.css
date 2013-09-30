@@ -141,6 +141,12 @@ a:HOVER {
 	margin: auto;
 }
 
+.bodyContent{
+	max-width: 1200px;
+	margin: auto;
+	padding: 0px;
+}
+
 .bx-wrapper .bx-viewport {
 	box-shadow: none;
 }
@@ -169,6 +175,20 @@ a:HOVER {
 .productItem {
 	background-color: #DEDEDE;
 	height: 200px;
+}
+
+.spotlight{
+	width:100%;
+}
+
+.controller-prev{
+	float: left;
+	margin-left: 20px;
+}
+
+.controller-next{
+	float: right;
+	margin-right: 20px;
 }
 
 .featuredProducts{

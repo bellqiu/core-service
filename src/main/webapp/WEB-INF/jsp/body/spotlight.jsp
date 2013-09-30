@@ -28,9 +28,9 @@ $(".spotlight").ready(function(){
 	  
 	  $('.spotlight .product-gallary').bxSlider({
 		  captions: true,
-		  slideWidth: 300,
+		  slideWidth: 230,
 		  minSlides: 2,
-		  maxSlides: 4,
+		  maxSlides: 5,
 		  slideMargin: 10
 		});
 	});
