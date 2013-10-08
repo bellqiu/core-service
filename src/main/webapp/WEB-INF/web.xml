@@ -84,5 +84,11 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://www.honeybuy.com/tag/hb</taglib-uri>
+			<taglib-location>/WEB-INF/tag/HBTag.tld</taglib-location>
+		</taglib>
+	</jsp-config>
 
 </web-app>
