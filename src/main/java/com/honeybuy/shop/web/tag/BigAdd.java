@@ -1,9 +1,16 @@
 package com.honeybuy.shop.web.tag;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
+import com.hb.core.entity.HTML;
+import com.hb.core.service.HtmlService;
 import com.hb.core.service.SettingService;
 
 public class BigAdd extends AbstractHBTag{
@@ -15,11 +22,28 @@ public class BigAdd extends AbstractHBTag{
 	@Autowired
 	private SettingService settingService;
 	
+	@Autowired
+	private HtmlService htmlService;
+	
 	private String settingKey;
 
 	@Override
-	public String handle(PageContext context) {
-		String s = settingService.getStringValue("test");
+	public String handle(ServletRequest request) {
+		String s = settingService.getStringValue(settingKey);
+		
+		List<HTML> htmls  = new ArrayList<HTML>();
+		
+		if(!StringUtils.isEmpty(s)){
+			for (String k : s.split(",")) {
+				HTML html = htmlService.getHTML(k);
+				if(null!=html){
+					htmls.add(html);
+				}
+			}
+		}
+		
+		request.setAttribute("bigAddHtmls", htmls);
+		
 		return "bigAdd";
 	}
 

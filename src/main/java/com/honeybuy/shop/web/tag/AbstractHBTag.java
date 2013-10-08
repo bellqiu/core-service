@@ -1,5 +1,6 @@
 package com.honeybuy.shop.web.tag;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -34,7 +35,7 @@ public abstract class AbstractHBTag extends TagSupport {
 	public int doEndTag() throws JspException {
 
 		try {
-			pageContext.include("/WEB-INF/jsp/tag/"+handle(pageContext)+".jsp");
+			pageContext.include("/WEB-INF/jsp/tag/"+handle(pageContext.getRequest())+".jsp", true);
 		} catch (Exception e) {
 			throw new CoreServiceException(e);
 		}
@@ -42,6 +43,6 @@ public abstract class AbstractHBTag extends TagSupport {
 		return TagSupport.EVAL_PAGE;
 	}
 
-	public abstract String handle(PageContext context);
+	public abstract String handle(ServletRequest request);
 
 }
