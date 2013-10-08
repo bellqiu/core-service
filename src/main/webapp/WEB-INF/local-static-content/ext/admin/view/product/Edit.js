@@ -240,12 +240,18 @@ Ext.define('AM.view.product.Edit', {
 					} ]
 				}, {
 					title : 'Option',
-					layout : 'fit',
-					items : {
-						xtype : 'htmleditor',
-						name : 'bio2',
-						fieldLabel : 'Biography'
-					}
+					layout : 'vbox',
+					defaults : {
+						margin : 4
+					},
+					items : [{
+						xtype : 'button',
+						itemId : 'newoption',
+						text : 'New Option'
+					},{
+						xtype : 'button',
+						text : 'New Option'
+					}]
 				}, {
 					title : 'Property',
 					layout : 'fit',

@@ -1,6 +1,6 @@
 Ext.define('AM.controller.Product', {
 	extend : 'Ext.app.Controller',
-	views : [ 'product.Edit' ],
+	views : [ 'product.Edit', 'option.OptionWindow'],
 
 	 models : [ 'Image' ],
 	 /*
@@ -37,7 +37,21 @@ Ext.define('AM.controller.Product', {
 				beforeDestroy : this.distoryTabProductView
 			},
 			
+			'producteditor button#newoption' : {
+				click : this.newOption
+			}
 		});
+	},
+	
+	newOption : function(btn){
+		var optionWin = Ext.create("AM.view.option.OptionWindow",{
+			title  : "New Option",
+			modal  : true,
+			height: 400,
+		    width: 600
+		});
+		optionWin.show();
+		optionWin.center();
 	},
 	
 	submitProduct : function (btn){
