@@ -70,17 +70,8 @@ Ext.define('AM.view.option.OptionWindow', {
 				plugins : Ext.create('Ext.ux.TabReorderer'),
 				activeTab : '-1',
 				items : [ {
-					title : '1',
-					html :'1'
-				}, {
-					title : '2',
-					html :'2'
-				},{
-					title : '3',
-					html :'3'
-				},{
-					title : '+',
-					itemId : 'newOptionItem'
+					xtype : 'productoptionitem',
+					title : 'Override Properties'
 				} ],
 				header : false
 			} ],

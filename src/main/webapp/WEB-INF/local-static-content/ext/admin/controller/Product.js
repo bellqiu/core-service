@@ -1,6 +1,6 @@
 Ext.define('AM.controller.Product', {
 	extend : 'Ext.app.Controller',
-	views : [ 'product.Edit', 'option.OptionWindow'],
+	views : [ 'product.Edit', 'option.OptionWindow','option.OptionItem','option.OptionGrid'],
 
 	 models : [ 'Image' ],
 	 /*

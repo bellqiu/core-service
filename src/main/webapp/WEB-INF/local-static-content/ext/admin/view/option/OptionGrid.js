@@ -1,12 +1,12 @@
-Ext.define('AM.view.option.OptionItem', {
+Ext.define('AM.view.option.OptionGrid', {
 	extend : 'Ext.container.Container',
-	alias : 'widget.productoptionitem',
+	alias : 'widget.productoptiongrid',
 	initComponent : function() {
 		var me = this;
 		
 
 		var propertyStore = Ext.create("Ext.data.JsonStore",{
-			model : 'AM.model.Property',
+			model : 'AM.model.Option',
 			data : [],
 			buffered : false,
 		});
@@ -28,7 +28,8 @@ Ext.define('AM.view.option.OptionItem', {
 				tbar : [
 				        {
 				        	xtype:'button',
-				        	text : 'Add'
+				        	text : 'Add',
+				        	itemId: 'newoption'
 				        }
 				        ],
 				columns : [ {
@@ -40,8 +41,8 @@ Ext.define('AM.view.option.OptionItem', {
 						allowBlank : false
 					}
 				}, {
-					text : "Value",
-					dataIndex : "value",
+					text : "Default",
+					dataIndex : "defaltValue",
 					flex : 2,
 					editor : {
 						xtype : 'textfield',
@@ -53,8 +54,11 @@ Ext.define('AM.view.option.OptionItem', {
 					sortable : false,
 					menuDisabled : true,
 					items : [ {
+						icon : '/resources/ext/resources/images/edit.gif',
+						tooltip : 'Edit'
+					},{
 						icon : '/resources/ext/resources/images/delete.gif',
-						tooltip : 'Delete Setting'
+						tooltip : 'Delete'
 					} ]
 				} ]
 			}]
