@@ -1,6 +1,7 @@
 package com.hb.core.convert;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hb.core.entity.Category;
+import com.hb.core.entity.Component;
 import com.hb.core.entity.HTML;
 import com.hb.core.entity.Image;
 import com.hb.core.entity.Option;
@@ -151,12 +153,32 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 			}
 		}
 		
-		product.setProps(new ArrayList<Property>());
+		/*product.setProps(new ArrayList<Property>());
 		if(null != productDetailDTO.getProps()){
 			for (Property property : productDetailDTO.getProps()) {
 				product.getProps().add(em.find(Property.class, property.getId()));
 			}
+		}*/
+		product.setProps(new ArrayList<Property>());
+		if(null != productDetailDTO.getProps()){
+			for (Property property : productDetailDTO.getProps()) {
+				Property existingProperty = em.find(Property.class, property.getId());
+				if(existingProperty != null) {
+					existingProperty.setName(property.getName());
+					existingProperty.setValue(property.getValue());
+					existingProperty.setDesc(property.getDesc());
+					existingProperty.setStatus(property.getStatus() == null ? Component.Status.ACTIVE : property.getStatus());
+					existingProperty.setCreateDate(property.getCreateDate() == null ? new Date() : property.getCreateDate());
+					existingProperty.setUpdateDate(new Date());
+				} else {
+					existingProperty = property;
+					//product.getProps().add();
+				}
+				product.getProps().add(existingProperty);
+				//em.merge(existingProperty);
+			}
 		}
+		
 		
 		product.setRelatedProducts(new ArrayList<TabProduct>());
 		if(null != productDetailDTO.getRelatedProducts()){

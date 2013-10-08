@@ -17,6 +17,7 @@ Ext.define('AM.view.option.OptionItem', {
 				xtype : 'gridpanel',
 				border : 0,
 				store : propertyStore,
+				itemId : 'property',
 				plugins : [ {
 					ptype : 'cellediting',
 					clicksToEdit : 2,
@@ -28,7 +29,8 @@ Ext.define('AM.view.option.OptionItem', {
 				tbar : [
 				        {
 				        	xtype:'button',
-				        	text : 'Add'
+				        	text : 'Add',
+				        	itemId : 'addProperty'
 				        }
 				        ],
 				columns : [ {

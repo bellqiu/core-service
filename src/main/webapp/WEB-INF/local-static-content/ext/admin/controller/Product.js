@@ -2,7 +2,7 @@ Ext.define('AM.controller.Product', {
 	extend : 'Ext.app.Controller',
 	views : [ 'product.Edit', 'option.OptionWindow','option.OptionItem','option.OptionGrid'],
 
-	 models : [ 'Image' ],
+	 models : [ 'Image', 'Property' ],
 	 /*
 	 * * 
 	 stores : [ 'EmptyCategoryTree', 'EmptyImage'],*/
@@ -35,6 +35,11 @@ Ext.define('AM.controller.Product', {
 				cellkeydown : this.bindDeleteKey,
 				render : this.initTabProductDragAndDrop,
 				beforeDestroy : this.distoryTabProductView
+			}
+			,'producteditor gridpanel#property' : {
+				cellkeydown : this.bindDeleteKey,
+			}, 'producteditor button#addProperty' : {
+				click : this.addProperty
 			},
 			
 			'producteditor button#newoption' : {
@@ -65,19 +70,22 @@ Ext.define('AM.controller.Product', {
 		var images = [];
 		var manuals = {};
 		var relatedProducts = [];
+		var properties = [];
 		
 		var categoryStoredData = productEditor.down("gridpanel#category").getStore().getRange();
 		var imageStoredData = productEditor.down("gridpanel#image").getStore().getRange();
 		var manualStoredData = productEditor.down("gridpanel#manual").getStore().getRange();
 		productEditor.down("gridpanel#manual").getStore().sync();
 		var relatedProductData = productEditor.down("gridpanel#relatedProduct").getStore().getRange();
+		var propertyStoredData = productEditor.down("gridpanel#property").getStore().getRange();
+		productEditor.down("gridpanel#property").getStore().sync();
 		
 		for(var i = 0; i < categoryStoredData.length; i++){
 			categories.push(categoryStoredData[i].data)
 		}
 		
 		for(var i = 0; i < imageStoredData.length; i++){
-			images.push(imageStoredData[i].data)
+			images.push(imageStoredData[i].data);
 		}
 		
 		var manualJsonData = {};
@@ -90,10 +98,15 @@ Ext.define('AM.controller.Product', {
 			relatedProducts.push(relatedProductData[i].data);
 		}
 		
+		for(var i = 0; i < propertyStoredData.length; i++){
+			properties.push(propertyStoredData[i].data);
+		}
+		
 		product.categories = categories;
 		product.images = images;
 		product.relatedProducts = relatedProducts;
 		product.manuals = manuals; 
+		product.props = properties;
 		
 		product = Ext.apply(product, productOverider)
 		if(productForm.isValid()){
@@ -110,7 +123,11 @@ Ext.define('AM.controller.Product', {
 				
 				productForm.findField("name").up("producteditor").setLoading(false);
 			});
+			
+			//product.name = productForm.getField("name");
 		}
+		
+		
 	},
 	
 	distoryCategoryView :function(grid){
@@ -180,9 +197,11 @@ Ext.define('AM.controller.Product', {
 		var imageStore = productEditor.down("gridpanel#image").getStore();
 		var relatedProductStore = productEditor.down("gridpanel#relatedProduct").getStore();
 		var manualStore = productEditor.down("gridpanel#manual").getStore();
+		var propertyStore = productEditor.down("gridpanel#property").getStore();
 		
 		categoryStore.loadData(productEditor.getProduct().categories);
 		imageStore.loadData(productEditor.getProduct().images);
+		propertyStore.loadData(productEditor.getProduct().props);
 		relatedProductStore.loadData(productEditor.getProduct().relatedProducts);
 		
 		var manuals = productEditor.getProduct().manuals;
@@ -304,4 +323,56 @@ Ext.define('AM.controller.Product', {
 		grid.dd = null;
 	},
 	
+	initPropertyDragAndDrop : function (grid){
+		var body = grid.body
+		grid.dd = new Ext.dd.DropTarget(body, {
+			notifyEnter : function(ddSource, e, data) {
+				body.stopAnimation();
+				body.highlight();
+			},
+			notifyDrop : function(ddSource, e, data) {
+				var store = grid.getStore();
+
+				var manual = ddSource.dragData.records[0].data;
+				
+				var data = store.getRange();
+				
+				var existing = false;
+				
+				for(var i = 0; i < data.length; i++){
+					if(	data[i].data.id  == manual.id){
+						existing = true;
+						break;
+					}
+				}
+				
+				if(!existing){
+					manual.key = "";
+					
+					store.add(manual);
+					
+					return true;
+				}
+				
+				return false;
+			}
+		});
+	},
+	distoryPropertyView : function(grid){
+		grid.dd = null;
+	},
+	
+	addProperty : function(btn){
+		var store = btn.up("producteditor").down("gridpanel#property").getStore();
+		var rec = new AM.model.Property({
+			id : 0,
+			name : '',
+			value : '',
+		});
+		store.insert(0, rec);
+		btn.up("producteditor").down("gridpanel#property").getPlugin().startEditByPosition({
+			row : 0,
+			column : 0
+		});
+	},
 });

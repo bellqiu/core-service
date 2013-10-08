@@ -26,6 +26,15 @@ Ext.define('AM.view.product.Edit', {
 			buffered : false,
 		});
 		
+		var propertyStore = Ext.create("Ext.data.JsonStore",{
+			model : 'AM.model.Property',
+			data : [],
+			buffered : false,
+			proxy: {
+		        type: 'memory'
+		    }
+		});
+		
 		var tabProductStore = Ext.create("Ext.data.JsonStore",{
 			model : 'AM.model.TabProduct',
 			data : [],
@@ -251,7 +260,44 @@ Ext.define('AM.view.product.Edit', {
 					title : 'Property',
 					layout : 'fit',
 					items : {
-						xtype : 'productoptionitem'
+						flex : 1,
+						xtype : 'gridpanel',
+						border : 0,
+						store : propertyStore,
+						itemId : 'property',
+						plugins : [ {
+							ptype : 'cellediting',
+							clicksToEdit : 2,
+							id : 'cellEditorProperty'
+						} ],
+						selModel : {
+							selType : 'cellmodel'
+						},
+						tbar : [
+						        {
+						        	xtype:'button',
+						        	text : 'Add',
+						        	itemId : 'addProperty'
+						        }
+						        ],
+						columns : [ {
+							text : "Name",
+							dataIndex : "name",
+							flex : 1,
+							editor : {
+								xtype : 'textfield',
+								allowBlank : false,
+								name : "propertyName"
+							}
+						}, {
+							text : "Value",
+							dataIndex : "value",
+							flex : 2,
+							editor : {
+								xtype : 'textfield',
+								allowBlank : false
+							}
+						}]
 					}
 				} , {
 					title : 'Manual',
