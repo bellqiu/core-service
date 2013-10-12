@@ -1,12 +1,12 @@
-Ext.define('AM.view.option.OptionGrid', {
+Ext.define('AM.view.option.Property', {
 	extend : 'Ext.container.Container',
-	alias : 'widget.productoptiongrid',
+	alias : 'widget.productpropertyitem',
 	initComponent : function() {
 		var me = this;
 		
 
-		var optionStore = Ext.create("Ext.data.JsonStore",{
-			model : 'AM.model.Option',
+		var propertyStore = Ext.create("Ext.data.JsonStore",{
+			model : 'AM.model.Property',
 			data : [],
 			buffered : false,
 			proxy: {
@@ -19,8 +19,8 @@ Ext.define('AM.view.option.OptionGrid', {
 				flex : 1,
 				xtype : 'gridpanel',
 				border : 0,
-				store : optionStore,
-				itemId : 'option',
+				store : propertyStore,
+				itemId : 'property',
 				plugins : [ {
 					ptype : 'cellediting',
 					clicksToEdit : 2,
@@ -33,7 +33,7 @@ Ext.define('AM.view.option.OptionGrid', {
 				        {
 				        	xtype:'button',
 				        	text : 'Add',
-				        	itemId: 'newoption'
+				        	itemId : 'addProperty'
 				        }
 				        ],
 				columns : [ {
@@ -43,29 +43,18 @@ Ext.define('AM.view.option.OptionGrid', {
 					editor : {
 						xtype : 'textfield',
 						allowBlank : false,
-						name : "optionName"
+						name : "propertyName"
 					}
 				}, {
-					text : "Default",
-					dataIndex : "defaultValue",
+					text : "Value",
+					dataIndex : "value",
 					flex : 2,
 					editor : {
 						xtype : 'textfield',
-						allowBlank : false
+						allowBlank : false,
+						name : "propertyValue"
 					}
-				}, {
-					xtype : 'actioncolumn',
-					width : 30,
-					sortable : false,
-					menuDisabled : true,
-					items : [ {
-						icon : '/resources/ext/resources/images/edit.png',
-						tooltip : 'Edit'
-					}/*,{
-						icon : '/resources/ext/resources/images/delete.gif',
-						tooltip : 'Delete'
-					} */]
-				} ]
+				}]
 			}]
 		});
 

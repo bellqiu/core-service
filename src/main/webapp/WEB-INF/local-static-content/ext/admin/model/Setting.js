@@ -7,7 +7,7 @@
            {name:'status',type:'string'},
            {name:'value',type:'string'},
            {name:'name',type:'string'},
-           {name:'type',type:'string'},
+           {name:'type',type:'string'}
         ],
         idProperty: 'id'
     });

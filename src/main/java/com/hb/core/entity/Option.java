@@ -27,7 +27,7 @@ public class Option extends Component{
 	@Column(name="description_value")
 	private String desc;
 	
-	@OneToMany(targetEntity=OptionItem.class,orphanRemoval=true,cascade={CascadeType.ALL})
+	@OneToMany(targetEntity=OptionItem.class,cascade={CascadeType.ALL})
 	@JoinColumn(name="Option_id")
 	private List<OptionItem> items = new ArrayList<OptionItem>();
 	

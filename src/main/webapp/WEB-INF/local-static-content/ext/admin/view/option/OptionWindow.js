@@ -2,7 +2,10 @@ Ext.define('AM.view.option.OptionWindow', {
 	extend : 'Ext.window.Window',
 	alias : 'widget.productoptionwindow',
 	layout : 'fit',
-	requires : [ 'Ext.form.*' ],
+	requires : [ 'Ext.form.*', 'AM.store.OptionType' ],
+	config : {
+		option : {}
+	},
 	closable : true,
 	border : 0,
 	height : 200,
@@ -13,8 +16,15 @@ Ext.define('AM.view.option.OptionWindow', {
 	},
 	initComponent : function() {
 		this.items = [ {
-			xytpe : 'form',
+			xtype : 'form',
 			layout : 'vbox',
+			itemId : 'productOptionForm',
+			paramsAsHash: true,
+			api : {
+				// The server-side method to call for load() requests
+				load : 'productDirectService.loadProduct',
+				submit : 'productDirectService.saveDetail'
+			},
 			fieldDefaults : {
 				labelAlign : 'left',
 				msgTarget : 'side'
@@ -33,6 +43,7 @@ Ext.define('AM.view.option.OptionWindow', {
 					xtype : 'container',
 					flex : 1,
 					border : false,
+					itemId : 'optionWindow',
 					layout : 'anchor',
 					defaultType : 'textfield',
 					items : [ {
@@ -46,20 +57,25 @@ Ext.define('AM.view.option.OptionWindow', {
 							fieldLabel : 'Name',
 							allowBlank : false,
 							name : 'name',
+							itemId : "opName",
 							xtype : 'textfield',
 							flex : 1
 						}, {
 							fieldLabel : 'Type',
+							xtype : 'combo',
+							store : 'OptionType',
 							allowBlank : false,
-							xtype : 'textfield',
 							name : 'type',
+							displayField : 'name',
+							valueField : 'type',
 							flex : 1
 						} ]
 
 					}, {
 						fieldLabel : 'Default Value',
 						allowBlank : false,
-						name : 'defaultvalue',
+						name : 'defaultValue',
+						xtype : 'textfield',
 						anchor : '90%',
 					} ]
 				} ]
@@ -67,21 +83,23 @@ Ext.define('AM.view.option.OptionWindow', {
 				flex : 4,
 				xtype : 'tabpanel',
 				layout : 'fix',
+				id : 'optionItemPanel',
 				plugins : Ext.create('Ext.ux.TabReorderer'),
-				activeTab : '-1',
-				items : [ {
+				//activeTab : '-1',
+				/*items : [ {
 					xtype : 'productoptionitem',
-					title : 'Override Properties'
-				} ],
-				header : false
+					title : 'Option Items'
+				} ],*/
+				//header : false
 			} ],
 			buttons : [ {
+				text : 'Add Item',
+				itemId : 'addOptionItem'
+			}, {
 				text : 'Save',
 				itemId : 'saveOption'
 			} ]
-		}
-
-		]
+		}]
 		this.callParent(arguments);
 	},
 });
