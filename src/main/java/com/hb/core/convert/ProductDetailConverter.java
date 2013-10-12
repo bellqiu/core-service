@@ -160,15 +160,14 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 					List<OptionItem> items = option.getItems();
 					if(items != null && items.size() > 0) {
 						List<OptionItem> existingOptionItems = existingOption.getItems();
-						Map<Long, Integer> itemMap = new HashMap<Long, Integer>();
-						int i = 0;
+						Map<Long, OptionItem> itemMap = new HashMap<Long, OptionItem>();
 						for(OptionItem optionItem : existingOptionItems) {
-							itemMap.put(optionItem.getId(), i++);
+							itemMap.put(optionItem.getId(), optionItem);
 						}
 						Set<Long> existingIdSet = itemMap.keySet();
 						for(OptionItem optionItem : items) {
 							if(existingIdSet.contains(optionItem.getId())) {
-								OptionItem existingOptionItem = existingOptionItems.get(itemMap.get(optionItem.getId()));
+								OptionItem existingOptionItem = itemMap.get(optionItem.getId());
 								existingOptionItem.setDisplayName(optionItem.getDisplayName());
 								existingOptionItem.setIconUrl(optionItem.getIconUrl());
 								existingOptionItem.setPriceChange(optionItem.getPriceChange());
@@ -177,19 +176,19 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 								List<Property> overrideProps = optionItem.getOverrideProps();
 								if(overrideProps != null && overrideProps.size() > 0) {
 									List<Property> existingOverridePropsList = existingOptionItem.getOverrideProps();
-									Map<Long, Integer> propertyMap = new HashMap<Long, Integer>();
-									int j = 0;
+									Map<Long, Property> propertyMap = new HashMap<Long, Property>();
 									for(Property property : existingOverridePropsList) {
-										propertyMap.put(property.getId(), j++);
+										propertyMap.put(property.getId(), property);
 									}
 									Set<Long> existingPropertyIdSet = propertyMap.keySet();
 									for(Property property : overrideProps) {
 										if(existingPropertyIdSet.contains(property.getId())) {
-											Property existingProperty = existingOverridePropsList.get(propertyMap.get(property.getId()));
+											Property existingProperty = propertyMap.get(property.getId());
 											existingProperty.setName(property.getName());
 											existingProperty.setValue(property.getValue());
 											existingProperty.setDesc(property.getDesc());
 											existingProperty.setUpdateDate(new Date());
+											existingPropertyIdSet.remove(property.getId());
 										} else {
 											property.setId(0);
 											property.setCreateDate(new Date());
@@ -197,7 +196,14 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 											existingOverridePropsList.add(property);
 										}
 									}
+									if(existingPropertyIdSet.size() > 0) {
+										for(Long propertyId : existingPropertyIdSet) {
+											existingOverridePropsList.remove(propertyMap.get(propertyId));
+										}
+									}
+									existingOptionItem.setOverrideProps(existingOverridePropsList);
 								}
+								existingIdSet.remove(optionItem.getId());
 							} else {
 								optionItem.setId(0);
 								optionItem.setCreateDate(new Date());
@@ -205,7 +211,12 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 								existingOptionItems.add(optionItem);
 							}
 						}
-						existingOption.setItems(items);
+						if(existingIdSet.size() > 0) {
+							for(Long optionItemId : existingIdSet) {
+								existingOptionItems.remove(itemMap.get(optionItemId));
+							}
+						}
+						existingOption.setItems(existingOptionItems);
 					}
 				} else {
 					existingOption = option;

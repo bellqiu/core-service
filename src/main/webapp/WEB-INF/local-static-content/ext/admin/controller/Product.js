@@ -56,14 +56,9 @@ Ext.define('AM.controller.Product', {
 				click : this.addOptionItem
 			}, 'productoptionwindow productpropertyitem button#addProperty' : {
 				click : this.addProperty
-			}/*, 'productoptionwindow productoptionitem button#addOptionItem' : {
-				click : this.newOptionItem
-			}, 
-			, 'productoptionitemwindow gridpanel#property' : {
+			}, 'productoptionwindow productpropertyitem gridpanel#property' : {
 				cellkeydown : this.bindDeleteKey
-			}, 'productoptionitemwindow button#saveOptionItem' : {
-				cellkeydown : this.saveOptionItem
-			}*/
+			}
 			
 		});
 	},
@@ -72,7 +67,7 @@ Ext.define('AM.controller.Product', {
 		var optionWin = Ext.create("AM.view.option.OptionWindow",{
 			title  : "New Option",
 			modal  : true,
-			height: 450,
+			height: 550,
 		    width: 500,
 		    parentComponentId : btn.up("producteditor").getId()
 		});
@@ -342,7 +337,7 @@ Ext.define('AM.controller.Product', {
 		var optionWin = Ext.create("AM.view.option.OptionWindow",{
 			title  : "Edit Option",
 			modal  : true,
-			height: 450,
+			height: 550,
 		    width: 500,
 		    parentComponentId : grid.up("producteditor").getId()
 		});
@@ -367,25 +362,14 @@ Ext.define('AM.controller.Product', {
 		}
 		contentPanel.setActiveTab(0);
 		option.columnId = index;
-		/*var editor = Ext.create("AM.view.option.OptionItem",{
-			title  : "Option Item",
-		});
-		contentPanel.insert(0, editor);
-		contentPanel.setActiveTab(0);
-		var option = btn.up("productoptionwindow").getOption();
-		if(option.optionItemId == undefined) {
-			option.optionItemId = [];
-		} 
-		option.optionItemId.push(editor.getId());*/
-		//alert("OK");
 	},
 	
 	saveOption : function(btn){
 		var optionwindow = btn.up("productoptionwindow");
+		var optionForm = optionwindow.down("form#productOptionForm").getForm();
 		var productEditor = Ext.getCmp(optionwindow.parentComponentId);
 		var optionItemPanel = optionwindow.down("tabpanel#optionItemPanel");
 		var product = productEditor.getProduct();
-		var optionForm = optionwindow.down("form#productOptionForm").getForm();
 		var optionOverider = optionForm.getValues();
 		var option = optionwindow.getOption();
 		
@@ -408,7 +392,7 @@ Ext.define('AM.controller.Product', {
 				propertyItems = [];
 				propertyItemData = propertyItemStore.getRange();
 				for(j=0;j<propertyItemData.length;j++) {
-					propertyItems.push(propertyItemData[i].data);
+					propertyItems.push(propertyItemData[j].data);
 				}
 				optionItemFormValue.overrideProps = propertyItems;
 				optionItems.push(optionItemFormValue);
@@ -416,11 +400,6 @@ Ext.define('AM.controller.Product', {
 		} 
 		option.items = optionItems;
 
-		/*var optionItemData = optionItem.getStore().getRange();
-		for(i = 0; i < optionItemData.length; i++) {
-			optionItems.push(optionItemData[i].data);
-		}*/
-		
 		var optionStore = productEditor.down("gridpanel#option").getStore();
 		var optionStoreData = optionStore.getRange();
 		var existing = false;
@@ -447,15 +426,14 @@ Ext.define('AM.controller.Product', {
 		for(i = 0; i < optionStoreData.length; i++) {
 			options.push(optionStoreData[i].raw);
 		}
-		optionStore.sync();
 		product.options = options;
 		
 		if(optionForm.isValid) {
 			productEditor.setLoading(true);
 			productDirectService.saveDetail(product, function(data, rs, suc){
 				if(suc && data){
-					productEditor.setProduct(data);
-					//optionwindow.close();
+					optionStore.loadData(data.options);
+					optionwindow.close();
 					//productForm.setValues(data);
 				}else if(rs && rs.type == 'exception'){
 					Ext.example.msg('<font color="red">Error</font>',

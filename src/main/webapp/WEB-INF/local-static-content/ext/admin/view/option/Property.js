@@ -1,6 +1,8 @@
 Ext.define('AM.view.option.Property', {
 	extend : 'Ext.container.Container',
 	alias : 'widget.productpropertyitem',
+	
+	layout : 'fit',
 	initComponent : function() {
 		var me = this;
 		

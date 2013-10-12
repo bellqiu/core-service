@@ -1,6 +1,8 @@
 Ext.define('AM.view.option.OptionGrid', {
 	extend : 'Ext.container.Container',
 	alias : 'widget.productoptiongrid',
+	
+	layout : 'fit',
 	initComponent : function() {
 		var me = this;
 		
