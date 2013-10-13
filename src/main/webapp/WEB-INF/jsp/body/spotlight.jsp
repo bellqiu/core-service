@@ -29,7 +29,6 @@ $(".spotlight").ready(function(){
 	  $('.spotlight .product-gallary').bxSlider({
 		  captions: true,
 		  slideWidth: 230,
-		  minSlides: 2,
 		  maxSlides: 5,
 		  slideMargin: 10
 		});

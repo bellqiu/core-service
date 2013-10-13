@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div class="dockbar">
-	<div class="span3 offset9">
+	<div class="span4 offset8">
 	<ul class="dockbar-menu">
 		<li>
 			<a href="#">Help</span></a>
@@ -30,10 +30,10 @@
 				<li><a href="#">item3</a></li>
 			</ul>
 		</li>
+		<li>
+			<a href="#">Cart (0)</a>
+		</li>
 	</ul>
-	<a class="shoppingCart" href="#">
-		Cart (0)
-	</a>
 	</div>
 </div>
 

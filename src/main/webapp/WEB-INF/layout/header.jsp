@@ -6,11 +6,11 @@
 	<div class="row-fluid">
 		<tiles:insertAttribute name="dockbar"/>
 	</div>
-	<div class="row-fluid">
+	<div class="row-fluid main-header">
 	<tiles:insertAttribute name="mainHeader"/>
 	</div>
 	
-	<div class="row-fluid">
+	<div class="row-fluid navigator">
 	<tiles:insertAttribute name="navigator"/>
 	</div>
 </div>

@@ -55,7 +55,7 @@ $(".bestSelling").ready(function(){
 	  nextText: 'Down',
 	  prevText: 'Up',
 	  mode: 'vertical',
-	  minSlides: 2,
+	  maxSlides: 2,
 	  slideWidth: 390,
 	  slideMargin: 20
 	});
@@ -66,7 +66,7 @@ $(".bestSelling").ready(function(){
 	  nextText: 'Down',
 	  prevText: 'Up',
 	  mode: 'vertical',
-	  minSlides: 2,
+	  maxSlides: 2,
 	  slideWidth: 390,
 	  slideMargin: 20
 	});
@@ -77,7 +77,7 @@ $(".bestSelling").ready(function(){
 	  nextText: 'Down',
 	  prevText: 'Up',
 	  mode: 'vertical',
-	  minSlides: 2,
+	  maxSlides: 2,
 	  slideWidth: 390,
 	  slideMargin: 20
 	});

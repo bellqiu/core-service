@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div class="navigator">
-	<div class="row-fluid">
 		<div class="top-level-navigator">
 			<ul class="top-level-navigator-list">
 				<li class="top-level-navigator-item">
@@ -27,5 +25,3 @@
 				</li>
 			</ul>
 		</div>
-	</div>
-</div>

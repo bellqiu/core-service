@@ -41,12 +41,17 @@ a:HOVER {
 }
 
 .header {
-	width:95%;
+	min-width:980px;
+	max-width:95%;
 	margin: auto;
 }
 
 .dockbar {
 	height: 40px;
+}
+
+.dockbar-menu {
+	float: right;
 }
 
 .dockbar-menu li {
@@ -88,16 +93,23 @@ a:HOVER {
 }
 
 .header-logo {
-	height: 60px;
+	float:left;
+	width:200px;
+	height: 70px;
 	background-color: #dedede;
+	margin-right: 50px;
 }
 
 .header-banner {
-	height: 60px;
+	float:left;
+	width:440px;
+	height: 70px;
 	background-color: #dedede;
+	float:left;
 }
 
 .header-searchBox {
+	float:right;
 	border: 1px solid gray;
 }
 
@@ -133,16 +145,17 @@ a:HOVER {
     margin: 0;
     font-size: 1.6em;
     margin-right: 5px;
-    width: 160px;
+    width: 130px;
 }
 
 .body {
-	width: 95%;
+	max-width: 95%;
 	margin: auto;
 }
 
 .bodyContent{
 	max-width: 1200px;
+	min-height:980px;
 	margin: auto;
 	padding: 0px;
 }
@@ -151,30 +164,35 @@ a:HOVER {
 	box-shadow: none;
 }
 
+.ad-slider{
+	min-width:980px;
+}
+
 .sliderContent1 {
 	background-color: #199bff;
-	width: 100%;
+	min-width:980px;
 	height: 300px;
 	margin: auto;
 }
 
 .sliderContent2 {
 	background-color: #bfff47;
-	width: 100%;
+	min-width:980px;
 	height: 300px;
 	margin: auto;
 }
 
 .sliderContent3 {
 	background-color: #ac5acc;
-	width: 100%;
+	min-width:980px;
 	height: 300px;
 	margin: auto;
 }
 
-.productItem {
+.spotlight .productItem {
 	background-color: #DEDEDE;
 	height: 200px;
+	width: 230px;
 }
 
 .spotlight{
@@ -191,8 +209,22 @@ a:HOVER {
 	margin-right: 20px;
 }
 
+.bestSelling .productItem {
+	background-color: #DEDEDE;
+	height: 200px;
+	width: 380px;
+}
+
 .featuredProducts{
 	margin-bottom: 100px;
+}
+
+.featuredProducts .productItem {
+	background-color: #DEDEDE;
+	height: 200px;
+	width: 285px;
+	float: left;
+	margin-right: 15px;
 }
 
 .bxslider li {
