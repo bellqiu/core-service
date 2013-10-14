@@ -30,19 +30,26 @@ public abstract class AbstractHBTag extends TagSupport {
 
 		bf.autowireBean(this);
 	}
-
+	
 	@Override
-	public int doEndTag() throws JspException {
-
+	public int doStartTag() throws JspException {
 		try {
 			pageContext.include("/WEB-INF/jsp/tag/"+handle(pageContext.getRequest())+".jsp", true);
 		} catch (Exception e) {
 			throw new CoreServiceException(e);
 		}
 
+		return TagSupport.EVAL_BODY_INCLUDE;
+	}
+
+	@Override
+	public int doEndTag() throws JspException {
+		clean(pageContext.getRequest());
 		return TagSupport.EVAL_PAGE;
 	}
 
 	public abstract String handle(ServletRequest request);
+	
+	public void clean(ServletRequest request){};
 
 }

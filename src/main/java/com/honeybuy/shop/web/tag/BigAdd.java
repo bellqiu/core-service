@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -46,7 +45,12 @@ public class BigAdd extends AbstractHBTag{
 		
 		return "bigAdd";
 	}
-
+	
+	@Override
+	public void clean(ServletRequest request) {
+		request.removeAttribute("bigAddHtmls");
+	}
+	
 	public SettingService getSettingService() {
 		return settingService;
 	}
