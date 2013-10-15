@@ -2,7 +2,7 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
 	monitoring="autodetect" dynamicConfig="true">
-	<diskStore path="/home/data/cache/customerdevice" />
+	<diskStore path="/home/project/data" />
 	<defaultCache eternal="true" maxElementsInMemory="50"
 		memoryStoreEvictionPolicy="LFU" />
 	<cache name="siteDTO" eternal="false"
