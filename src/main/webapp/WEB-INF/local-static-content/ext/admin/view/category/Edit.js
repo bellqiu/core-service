@@ -62,7 +62,7 @@ Ext.define('AM.view.category.Edit', {
 						fieldLabel : 'Name',
 						name : 'name',
 						xtype : 'textfield',
-						regex : /^\w+$/,
+						regex : /^[\w\-]+$/,
 						regexText : 'Only for characters',
 						flex : 1
 					}, {
@@ -73,7 +73,7 @@ Ext.define('AM.view.category.Edit', {
 					}, {
 						fieldLabel : 'Description',
 						name : 'description',
-						xtype : 'textfield',
+						xtype : 'textarea',
 						flex : 1
 					}, {
 						fieldLabel : 'Type',
