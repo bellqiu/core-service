@@ -71,7 +71,6 @@ Ext.define('AM.view.option.OptionWindow', {
 
 					}, {
 						fieldLabel : 'Default Value',
-						allowBlank : false,
 						name : 'defaultValue',
 						xtype : 'textfield',
 						anchor : '90%',

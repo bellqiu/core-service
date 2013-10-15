@@ -58,12 +58,13 @@ Ext.define('AM.view.html.HtmlDetail', {
 						xtype : 'textfield',
 						regex : /^\w+$/,
 						regexText : 'Only for characters',
+						allowBlank : false,
 						flex : 1
 					}, {
 						fieldLabel : 'Content',
 						name : 'content',
 						xtype : 'htmleditor',
-						width : 850,
+						width : 850
 					}]
 				} ]
 			} ]

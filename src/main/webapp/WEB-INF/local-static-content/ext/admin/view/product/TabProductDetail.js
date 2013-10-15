@@ -94,10 +94,7 @@ Ext.define('AM.view.product.TabProductDetail', {
 			buttons : [ {
 				text : 'Save',
 				itemId :'saveTabProduct'
-			}, {
-				text : 'Reload',
-				itemId :'reloadTabProduct'
-			} ]
+			}]
 		} ];
 		
 		this.callParent(arguments);

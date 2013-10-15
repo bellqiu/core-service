@@ -60,7 +60,6 @@ Ext.define('AM.view.option.OptionGrid', {
 					flex : 2,
 					editor : {
 						xtype : 'textfield',
-						allowBlank : false
 					}
 				}, {
 					xtype : 'actioncolumn',
@@ -70,10 +69,7 @@ Ext.define('AM.view.option.OptionGrid', {
 					items : [ {
 						icon : '/resources/ext/resources/images/edit.png',
 						tooltip : 'Edit'
-					}/*,{
-						icon : '/resources/ext/resources/images/delete.gif',
-						tooltip : 'Delete'
-					} */]
+					}]
 				} ]
 			}]
 		});

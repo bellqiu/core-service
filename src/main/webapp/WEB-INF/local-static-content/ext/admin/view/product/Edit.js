@@ -87,12 +87,10 @@ Ext.define('AM.view.product.Edit', {
 					}, {
 						fieldLabel : 'Title',
 						name : 'title',
-						allowBlank : false,
 						anchor : '90%'
 					}, {
 						fieldLabel : 'Override Url',
 						name : 'overrideUrl',
-						allowBlank : false,
 						anchor : '90%'
 					}, {
 						xtype : 'container',
@@ -106,12 +104,14 @@ Ext.define('AM.view.product.Edit', {
 							xtype : 'numberfield',
 							allowBlank : false,
 							name : 'price',
+							minValue : 0,
 							flex : 1
 						}, {
 							fieldLabel : 'Actual Price',
 							allowBlank : false,
 							name : 'actualPrice',
 							xtype : 'numberfield',
+							minValue : 0,
 							flex : 1
 						} ]
 
