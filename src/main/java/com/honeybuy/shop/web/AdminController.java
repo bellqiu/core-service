@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import net.sf.ehcache.CacheManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin")
 @Secured("ADMIN")
 public class AdminController {
+	
+	@Autowired
+	@Qualifier("hbCacheManager")
+	private CacheManager cacheManager;
 
 	@RequestMapping("/console")
 	public String console() {
@@ -32,7 +38,7 @@ public class AdminController {
 
 	@RequestMapping("/cache/list")
 	public String listCache(Model model) throws IOException {
-		model.addAttribute("cache", CacheManager.getInstance().getCacheNames());
+		model.addAttribute("cache", cacheManager.getCacheNames());
 		
 		return "admin_cache";
 	}
@@ -40,7 +46,7 @@ public class AdminController {
 	@RequestMapping("/cache/remove")
 	public String removeCacheCache(Model model, @RequestParam("el") String cache)
 			throws IOException {
-		CacheManager.getInstance().getCache(cache).removeAll();
+		cacheManager.getCache(cache).removeAll();
 		return "redirect:/admin/cache/list";
 	}
 }
