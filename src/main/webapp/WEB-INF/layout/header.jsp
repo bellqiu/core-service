@@ -10,8 +10,7 @@
 	<tiles:insertAttribute name="mainHeader"/>
 	</div>
 	
-	<div class="row-fluid navigator">
 	<tiles:insertAttribute name="navigator"/>
-	</div>
+
 </div>
 </header>

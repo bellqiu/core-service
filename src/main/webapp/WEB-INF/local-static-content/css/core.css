@@ -31,6 +31,10 @@ a:HOVER {
 	text-decoration: underline;
 }
 
+.light-gray-background{
+	background-color: #EEEEEE;
+}
+
 .heading--large {
     font-size: 2em;
     line-height: 1.25;
@@ -127,6 +131,26 @@ a:HOVER {
 	opacity: 0.9;
 }
 
+.category-content{
+	min-height: 300px;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	z-index: 99999;
+	border-top: medium solid #EEEEEE;
+	background-color: #EEEEEE;
+	display:none;
+}
+
+.menu-line{
+	position: absolute;
+	left: 0;
+	height:5px;
+	width: 100%;
+	background-color: #EEEEEE;
+	z-index: 99999;
+}
+
 .top-level-navigator{
 	width: 100%;
 }
@@ -137,7 +161,6 @@ a:HOVER {
 
 .top-level-navigator-list{
 	float: left;
-	padding-top: 7px;
 }
 
 .top-level-navigator-item{
@@ -146,6 +169,49 @@ a:HOVER {
     font-size: 1.6em;
     margin-right: 5px;
     width: 130px;
+}
+
+.specialOffer{
+	border-bottom: 0.1em solid #D8D8D8;
+    margin: 30px auto auto;
+    max-width: 1200px;
+    min-width: 980px;
+}
+
+.special-item {
+	float: left;
+	margin-right: 107px;
+    text-align: center;
+}
+.subCategory{
+	margin: 30px auto auto;
+    max-width: 1200px;
+    min-width: 980px;
+}
+
+.subCategory-list{
+	float: left;
+    margin-left: 2%;
+    margin-right: 15%;
+    position: relative;
+}
+
+.l2Category{
+	font-family: "wf_SegoeUI","Segoe UI","Segoe","Segoe WP","Tahoma","Verdana","Arial","sans-serif";
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 1.25em;
+    margin-bottom: 0.65em;
+}
+
+.l3Category{
+	font-size: 0.8125em;
+    margin-bottom: 1.2em;
+}
+
+.special-item img{
+	width: 133px;
+	height: 96px;
 }
 
 .body {
