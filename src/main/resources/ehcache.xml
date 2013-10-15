@@ -10,4 +10,8 @@
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="1" />
 		
+	<cache name="SettingServiceCacheWraper_getStringValue" eternal="false"
+		timeToLiveSeconds="6000" maxElementsInMemory="1"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="1" />
 </ehcache>

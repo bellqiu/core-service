@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.hb.core.entity.HTML;
 import com.hb.core.service.HtmlService;
-import com.hb.core.service.SettingService;
+import com.honeybuy.shop.web.cache.SettingServiceCacheWraper;
 
 public class BigAdd extends AbstractHBTag{
 	
@@ -18,8 +18,9 @@ public class BigAdd extends AbstractHBTag{
 	 * 
 	 */
 	private static final long serialVersionUID = -6291125879700376692L;
+	
 	@Autowired
-	private SettingService settingService;
+	private SettingServiceCacheWraper settingService;
 	
 	@Autowired
 	private HtmlService htmlService;
@@ -51,11 +52,16 @@ public class BigAdd extends AbstractHBTag{
 		request.removeAttribute("bigAddHtmls");
 	}
 	
-	public SettingService getSettingService() {
+	@Override
+	public void release() {
+		settingKey = null;
+	}
+	
+	public SettingServiceCacheWraper getSettingService() {
 		return settingService;
 	}
 
-	public void setSettingService(SettingService settingService) {
+	public void setSettingService(SettingServiceCacheWraper settingService) {
 		this.settingService = settingService;
 	}
 
