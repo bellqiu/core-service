@@ -24,7 +24,9 @@ Ext.define('AM.controller.Product', {
 				render : this.initCategoryDragAndDrop,
 				beforeDestroy : this.distoryCategoryView
 			},
-			'producteditor button#saveProduct' : {
+			'producteditor button#copyProduct' : {
+				click : this.copyProduct
+			},'producteditor button#saveProduct' : {
 				click : this.submitProduct
 			},'producteditor gridpanel#image' : {
 				cellkeydown : this.bindDeleteKey
@@ -420,7 +422,8 @@ Ext.define('AM.controller.Product', {
 						optionStore.insert(index, data);
 					}
 					optionStore.sync();
-					optionwindow.setOption(data);
+					optionwindow.close();
+					/*optionwindow.setOption(data);
 					optionForm.setValues(data);
 					option.optionItemId = [];
 					var optionItemPanel = optionwindow.down("tabpanel#optionItemPanel");
@@ -437,7 +440,7 @@ Ext.define('AM.controller.Product', {
 						optionItemPanel.insert(0, editor);
 						option.optionItemId.push(editor.getId());
 					}
-					optionItemPanel.setActiveTab(0);
+					optionItemPanel.setActiveTab(0);*/
 				}else if(rs && rs.type == 'exception'){
 					Ext.example.msg('<font color="red">Error</font>',
 						'<font color="red">' + rs.message
@@ -462,5 +465,29 @@ Ext.define('AM.controller.Product', {
 		option.optionItemId.push(editor.getId());
 		
 	},
+	
+	copyProduct : function(btn) {
+		var contentPanel = btn.up("viewport").down("tabpanel#mainContainer");
+		var producteditor = btn.up("producteditor");
+		var editor = Ext.create("AM.view.product.Edit", {
+			title : 'New Product'
+		});
+		
+		contentPanel.insert(0, editor);
+		contentPanel.setActiveTab(0);
+		var productForm = editor.down("form");
+		productForm.load({
+			// pass 2 arguments to server side getBasicInfo
+			// method (len=2)
+			params : {
+				id : producteditor.getProduct().id,
+				isCopy : true
+			},
+			success : function (form, action){
+				productForm.up("producteditor").setProduct(action.result.data);
+				productForm.getForm().setValues(action.result.data);
+			}
+		})
+	}, 
 	
 });

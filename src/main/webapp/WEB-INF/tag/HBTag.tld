@@ -16,4 +16,19 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<name>bigAdd</name>
+		<tagclass>com.honeybuy.shop.web.tag.HtmlTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>htmlKey</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>ajax</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

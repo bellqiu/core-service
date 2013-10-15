@@ -166,7 +166,6 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						icon : '/resources/ext/resources/images/edit.png',
 						tooltip : 'Edit Product',
 						id : 'editProduct'
-
 					}]
 				}],
 				bbar : {

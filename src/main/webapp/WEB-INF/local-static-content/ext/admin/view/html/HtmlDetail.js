@@ -64,7 +64,13 @@ Ext.define('AM.view.html.HtmlDetail', {
 						fieldLabel : 'Content',
 						name : 'content',
 						xtype : 'htmleditor',
-						width : 850
+						width : 950,
+						plugins: new Ext.ux.plugins.HtmlEditorImageInsert({
+		                    popTitle: 'Image url?',
+		                    popMsg: 'Please insert an image URL...',
+		                    popWidth: 400/*,
+		                    popValue: 'http://www.google.gr/intl/en_com/images/logo_plain.png'*/
+		                })
 					}]
 				} ]
 			} ]

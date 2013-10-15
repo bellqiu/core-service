@@ -45,12 +45,12 @@ Ext.define('AM.view.html.HtmlManager', {
 						regexText : 'Only for characters',
 						width : 250
 
-					}, {
+					}, /*{
 						margin : 5,
 						fieldLabel : 'Content',
 						name : 'content',
 						width : 250
-					}, {
+					}, */{
 						margin : 5,
 						xtype : 'panel',
 						border : 0,

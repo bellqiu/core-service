@@ -35,12 +35,15 @@ public class ProductDirectService {
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.FORM_LOAD)
 	@Secured("ADMIN")
+	@Transactional(readOnly=true)
 	public ProductDetailDTO loadProduct(@RequestParam("id") long id, @RequestParam(value="isCopy", required=false, defaultValue="false") boolean isCopy){
 		
 		ProductDetailDTO detailDTO = productService.getProductDetail(id);
 		
 		if(null == detailDTO){
 			detailDTO = new ProductDetailDTO();
+		} else if(isCopy) {
+			detailDTO.resetId();
 		}
 		
 		return detailDTO;

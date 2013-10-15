@@ -146,7 +146,13 @@ Ext.define('AM.view.product.Edit', {
 					layout : 'fit',
 					items : {
 						xtype : 'htmleditor',
-						name : 'detail'
+						name : 'detail',
+						plugins: new Ext.ux.plugins.HtmlEditorImageInsert({
+		                    popTitle: 'Image url?',
+		                    popMsg: 'Please insert an image URL...',
+		                    popWidth: 400/*,
+		                    popValue: 'http://www.google.gr/intl/en_com/images/logo_plain.png'*/
+		                })
 					}
 				}, {
 					title : 'Category',
@@ -309,6 +315,9 @@ Ext.define('AM.view.product.Edit', {
 			} ],
 
 			buttons : [ {
+				text : 'Copy',
+				itemId :'copyProduct'
+			}, {
 				text : 'Save',
 				itemId :'saveProduct'
 			}, {
