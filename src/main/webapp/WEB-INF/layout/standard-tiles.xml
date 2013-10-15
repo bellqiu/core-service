@@ -22,35 +22,47 @@
 			<put-attribute name="bestSelling" value="/WEB-INF/jsp/body/bestSelling.jsp"></put-attribute>
 			<put-attribute name="featuredProducts" value="/WEB-INF/jsp/body/featuredProducts.jsp"></put-attribute>
 		</definition>
-      <!-- Pages -->
-        <definition name="home" extends="standardLayout" >
+		
+		<definition name="headerFooter" extends="standardLayout" >
         	  <put-attribute name="header" value="home.header.module"/>
+        </definition>
+		
+      <!-- Pages -->
+        <definition name="home" extends="headerFooter" >
         	  <put-attribute name="body" value="home.body.module"/>
         </definition>
         
-        <definition name="myOrder" extends="standardLayout" >
+        <definition name="productDetail" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/productDetail.jsp"/>
+        </definition>
+        
+        <definition name="myOrder" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/myOrder.jsp"/>
         </definition>
         
-        <definition name="cacheManager" extends="standardLayout" >
+        <definition name="cacheManager" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/cacheManager.jsp"/>
         </definition>
         
-        <definition name="newAccount" extends="standardLayout" >
+        <definition name="newAccount" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
         </definition>
         
         
        <!-- Errors --> 
-        <definition name="500" extends="standardLayout" >
+        <definition name="500" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/500.jsp"/>
         </definition>
         
-        <definition name="loginRequired" extends="standardLayout" >
+        <definition name="404" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/404.jsp"/>
+        </definition>
+        
+        <definition name="loginRequired" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
         </definition>
         
-        <definition name="accessDenied" extends="standardLayout" >
+        <definition name="accessDenied" extends="headerFooter" >
         	 <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
         	  <!-- <put-attribute name="body" value="/WEB-INF/jsp/body/accessDenied.jsp"/> -->
         </definition>
@@ -58,5 +70,7 @@
         
         <!-- Admin Web -->
 		<definition name="admin_console" template="/WEB-INF/layout/admin_layout.jsp"></definition>
+		
+		<definition name="admin_cache" template="/WEB-INF/layout/cache.jsp"></definition>
 		
 </tiles-definitions>

@@ -219,6 +219,10 @@ public class ProductService {
 		
 		return existingOption;
 	}
+	
+	public boolean exist(String productName){
+		return null == getProductByName(productName)? false: true;
+	}
 
 	private Product getProductByName(String name) {
 		Product product = null;

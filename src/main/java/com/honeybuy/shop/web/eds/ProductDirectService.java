@@ -35,7 +35,7 @@ public class ProductDirectService {
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.FORM_LOAD)
 	@Secured("ADMIN")
-	public ProductDetailDTO loadProduct(@RequestParam("id") long id){
+	public ProductDetailDTO loadProduct(@RequestParam("id") long id, @RequestParam(value="isCopy", required=false, defaultValue="false") boolean isCopy){
 		
 		ProductDetailDTO detailDTO = productService.getProductDetail(id);
 		

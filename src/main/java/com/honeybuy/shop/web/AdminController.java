@@ -4,9 +4,15 @@
  */
 package com.honeybuy.shop.web;
 
+import java.io.IOException;
+
+import net.sf.ehcache.CacheManager;
+
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 
@@ -17,15 +23,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 @Secured("ADMIN")
 public class AdminController {
-	@RequestMapping("/cacheManager")
-	public String cacheManager(){
-		
-		return "cacheManager";
-	}
-	
+
 	@RequestMapping("/console")
-	public String console(){
-		
+	public String console() {
+
 		return "admin_console";
+	}
+
+	@RequestMapping("/cache/list")
+	public String listCache(Model model) throws IOException {
+		model.addAttribute("cache", CacheManager.getInstance().getCacheNames());
+		
+		return "admin_cache";
+	}
+
+	@RequestMapping("/cache/remove")
+	public String removeCacheCache(Model model, @RequestParam("el") String cache)
+			throws IOException {
+		CacheManager.getInstance().getCache(cache).removeAll();
+		return "redirect:/admin/cache/list";
 	}
 }
