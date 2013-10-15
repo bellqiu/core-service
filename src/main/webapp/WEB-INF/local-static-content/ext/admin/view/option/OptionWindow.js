@@ -21,9 +21,7 @@ Ext.define('AM.view.option.OptionWindow', {
 			itemId : 'productOptionForm',
 			paramsAsHash: true,
 			api : {
-				// The server-side method to call for load() requests
-				load : 'productDirectService.loadProduct',
-				submit : 'productDirectService.saveDetail'
+				saveOption : 'productDirectService.saveOption'
 			},
 			fieldDefaults : {
 				labelAlign : 'left',

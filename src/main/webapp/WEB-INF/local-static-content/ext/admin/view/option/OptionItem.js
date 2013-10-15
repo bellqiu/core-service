@@ -65,7 +65,6 @@ Ext.define('AM.view.option.OptionItem', {
 							flex : 1
 						}, {
 							fieldLabel : 'Value',
-							allowBlank : false,
 							name : 'value',
 							itemId : "opItemValue",
 							xtype : 'textfield',
@@ -75,13 +74,11 @@ Ext.define('AM.view.option.OptionItem', {
 					}, {
 						fieldLabel : 'Price Change',
 						xtype : 'numberfield',
-						allowBlank : false,
 						name : 'priceChange',
 						anchor : '50%'
 					}, {
 						fieldLabel : 'Icon Url',
 						name : 'iconUrl',
-						allowBlank : false,
 						anchor : '90%'
 					} ]
 				} ]

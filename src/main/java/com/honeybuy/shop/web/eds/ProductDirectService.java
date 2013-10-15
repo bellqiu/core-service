@@ -20,6 +20,7 @@ import ch.ralscha.extdirectspring.bean.SortInfo;
 import ch.ralscha.extdirectspring.filter.Filter;
 import ch.ralscha.extdirectspring.filter.StringFilter;
 
+import com.hb.core.entity.Option;
 import com.hb.core.service.ProductService;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
@@ -87,5 +88,12 @@ public class ProductDirectService {
 	public ProductDetailDTO saveDetail(@Valid ProductDetailDTO product){
 		
 		return productService.saveProductDetail(product);
+	}
+	
+	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
+	@Secured("ADMIN")
+	public Option saveOption(@Valid Option option){
+		
+		return productService.saveOption(option);
 	}
 }

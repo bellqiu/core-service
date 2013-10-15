@@ -41,16 +41,23 @@ Ext.define('AM.view.product.TabProductDetail', {
 			},
 
 			items : [ {
-				xtype : 'container',
-				flex : 1,
-				border : false,
-				layout : 'anchor',
-				defaultType : 'textfield',
+				xtype : 'fieldset',
+				title : 'Basic Info',
+				layout : 'hbox',
 				items : [ {
-					fieldLabel : 'Name',
-					allowBlank : false,
-					name : 'name',
-					anchor : '90%'
+					flex : 2,
+					overflowY : 'auto',
+					xtype : 'container',
+					flex : 1,
+					border : false,
+					layout : 'anchor',
+					defaultType : 'textfield',
+					items : [{
+						fieldLabel : 'Name',
+						allowBlank : false,
+						name : 'name',
+						anchor : '90%'
+					}]
 				}]
 			}, {
 				xtype : 'tabpanel',

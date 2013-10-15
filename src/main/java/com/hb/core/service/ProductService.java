@@ -2,9 +2,11 @@ package com.hb.core.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -129,6 +131,93 @@ public class ProductService {
 		product = em.merge(product);
 		
 		return productDetailConverter.convert(product);
+	}
+	
+	public Option saveOption(Option option){
+		Option existing = null;
+		if(option.getId() > 0) {
+			existing = mergePropertyInOption(option);
+		} else {
+			existing = option;
+		}
+		
+		existing = em.merge(existing);
+		
+		return existing;
+	}
+
+	private Option mergePropertyInOption(Option option) {
+		Option existingOption = em.find(Option.class, option.getId());
+		if(existingOption == null) {
+			existingOption = new Option();
+		}
+		existingOption.setName(option.getName());
+		existingOption.setType(option.getType() == null ? Option.Type.TEXT : option.getType());
+		existingOption.setDefaultValue(option.getDefaultValue());
+		existingOption.setDesc(option.getDesc());
+		List<OptionItem> items = option.getItems();
+		if(items != null && items.size() > 0) {
+			List<OptionItem> existingOptionItems = existingOption.getItems();
+			Map<Long, OptionItem> itemMap = new HashMap<Long, OptionItem>();
+			for(OptionItem optionItem : existingOptionItems) {
+				itemMap.put(optionItem.getId(), optionItem);
+			}
+			Set<Long> existingIdSet = itemMap.keySet();
+			for(OptionItem optionItem : items) {
+				if(existingIdSet.contains(optionItem.getId())) {
+					OptionItem existingOptionItem = itemMap.get(optionItem.getId());
+					existingOptionItem.setDisplayName(optionItem.getDisplayName());
+					existingOptionItem.setIconUrl(optionItem.getIconUrl());
+					existingOptionItem.setPriceChange(optionItem.getPriceChange());
+					existingOptionItem.setValue(optionItem.getValue());
+					existingOptionItem.setUpdateDate(new Date());
+					List<Property> overrideProps = optionItem.getOverrideProps();
+					if(overrideProps != null && overrideProps.size() > 0) {
+						List<Property> existingOverridePropsList = existingOptionItem.getOverrideProps();
+						Map<Long, Property> propertyMap = new HashMap<Long, Property>();
+						for(Property property : existingOverridePropsList) {
+							propertyMap.put(property.getId(), property);
+						}
+						Set<Long> existingPropertyIdSet = propertyMap.keySet();
+						for(Property property : overrideProps) {
+							if(existingPropertyIdSet.contains(property.getId())) {
+								Property existingProperty = propertyMap.get(property.getId());
+								existingProperty.setName(property.getName());
+								existingProperty.setValue(property.getValue());
+								existingProperty.setDesc(property.getDesc());
+								existingProperty.setUpdateDate(new Date());
+								existingPropertyIdSet.remove(property.getId());
+							} else {
+								property.setId(0);
+								property.setCreateDate(new Date());
+								property.setUpdateDate(new Date());
+								existingOverridePropsList.add(property);
+							}
+						}
+						if(existingPropertyIdSet.size() > 0) {
+							for(Long propertyId : existingPropertyIdSet) {
+								existingOverridePropsList.remove(propertyMap.get(propertyId));
+							}
+						}
+						existingOptionItem.setOverrideProps(existingOverridePropsList);
+					}
+					existingIdSet.remove(optionItem.getId());
+				} else {
+					optionItem.setId(0);
+					optionItem.setCreateDate(new Date());
+					optionItem.setUpdateDate(new Date());
+					existingOptionItems.add(optionItem);
+				}
+			}
+			if(existingIdSet.size() > 0) {
+				for(Long optionItemId : existingIdSet) {
+					existingOptionItems.remove(itemMap.get(optionItemId));
+				}
+			}
+			existingOption.setItems(existingOptionItems);
+		}
+		
+		return existingOption;
 	}
 
 	private Product getProductByName(String name) {

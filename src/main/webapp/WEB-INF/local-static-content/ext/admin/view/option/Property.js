@@ -23,6 +23,13 @@ Ext.define('AM.view.option.Property', {
 				border : 0,
 				store : propertyStore,
 				itemId : 'property',
+				viewConfig: {
+			        plugins: {
+			            ddGroup: 'property-row-to-row',
+			            ptype: 'gridviewdragdrop',
+			            enableDrop: true
+			        }
+			    },
 				plugins : [ {
 					ptype : 'cellediting',
 					clicksToEdit : 2,

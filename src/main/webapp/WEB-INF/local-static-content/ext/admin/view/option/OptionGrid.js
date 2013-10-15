@@ -23,6 +23,13 @@ Ext.define('AM.view.option.OptionGrid', {
 				border : 0,
 				store : optionStore,
 				itemId : 'option',
+				viewConfig: {
+	                plugins: {
+	                    ddGroup: 'option-row-to-row',
+	                    ptype: 'gridviewdragdrop',
+	                    enableDrop: true
+	                }
+	            },
 				plugins : [ {
 					ptype : 'cellediting',
 					clicksToEdit : 2,

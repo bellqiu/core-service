@@ -107,8 +107,9 @@ Ext.define('AM.controller.TabProduct', {
 	},
 
 	synchronizeGrid : function(btn) {
-
-		btn.up('gridpanel').getStore().sync();
+		var store=btn.up('gridpanel').getStore();
+		store.sync();
+		store.load();
 	},
 
 	searchTabProduct : function(btn) {

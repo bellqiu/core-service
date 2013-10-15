@@ -25,44 +25,35 @@ Ext.define('AM.view.product.TabProductManager', {
 				xtype : 'form',
 				id : 'searchTabProductForm',
 				items : [ {
-					xtype : 'fieldset',
-					scroll : true,
-					margin : '10',
-					padding : 5,
-					height : 70,
-					title : 'Tab Product filters',
-					layout : {
-						type : 'table',
-						columns : 2
-					},
+					xtype : 'container',
+					flex : 1,
+					border : false,
+					itemId : 'optionItem',
+					layout : 'anchor',
 					defaultType : 'textfield',
-					items : [ {
-						margin : 5,
-						fieldLabel : 'Name',
-						name : 'name',
-						regex : /^\w+$/,
-						regexText : 'Only for characters',
-						width : 250
+					items : [{
 
-					}, {
-						margin : 5,
-						xtype : 'panel',
-						border : 0,
-						defaults : {
-							border : 0,
-							margin : 2
+						xtype : 'fieldset',
+						scroll : true,
+						margin : '10',
+						padding : 5,
+						height : 70,
+						title : 'Tab Product filters',
+						layout : {
+							type : 'table',
+							columns : 2
 						},
+						defaultType : 'textfield',
 						items : [ {
-							xtype : 'button',
-							text : 'Search',
-							id : 'searchTabProduct'
-						}, {
-							xtype : 'button',
-							text : 'Reset',
-							id : 'resetTabProduct'
-						} ]
-					} ]
+							margin : 5,
+							fieldLabel : 'Name',
+							name : 'name',
+							regex : /^\w+$/,
+							regexText : 'Only for characters',
+							width : 250
 
+						}]
+					}]
 				} ]
 			},
 

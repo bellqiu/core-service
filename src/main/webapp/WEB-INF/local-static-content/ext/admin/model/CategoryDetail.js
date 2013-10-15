@@ -11,7 +11,8 @@
            {name:'description',type:'string'},
            {name:'name',type:'string'},
            {name:'type',type:'string'},
-           {name:'parentId',type:'int'}
+           {name:'parentId',type:'int'},
+           {name:'description',type:'string'}
         ],
         idProperty: 'id'
 });

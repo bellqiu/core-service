@@ -71,6 +71,7 @@ Ext.define('AM.controller.Product', {
 		    width: 500,
 		    parentComponentId : btn.up("producteditor").getId()
 		});
+		optionWin.getOption().id = 0; 
 		optionWin.show();
 		optionWin.center();
 	},
@@ -361,20 +362,15 @@ Ext.define('AM.controller.Product', {
 			option.optionItemId.push(editor.getId());
 		}
 		contentPanel.setActiveTab(0);
-		option.columnId = index;
 	},
 	
 	saveOption : function(btn){
 		var optionwindow = btn.up("productoptionwindow");
 		var optionForm = optionwindow.down("form#productOptionForm").getForm();
-		var productEditor = Ext.getCmp(optionwindow.parentComponentId);
-		var optionItemPanel = optionwindow.down("tabpanel#optionItemPanel");
-		var product = productEditor.getProduct();
 		var optionOverider = optionForm.getValues();
 		var option = optionwindow.getOption();
 		
 		var optionItems = [];
-		var options = [];
 		if(option.optionItemId != undefined) {
 			for(i = 0; i < option.optionItemId.length; i++) {
 				optionItem = Ext.getCmp(option.optionItemId[i]);
@@ -400,48 +396,54 @@ Ext.define('AM.controller.Product', {
 		} 
 		option.items = optionItems;
 
-		var optionStore = productEditor.down("gridpanel#option").getStore();
-		var optionStoreData = optionStore.getRange();
-		var existing = false;
-		var columnIndex = -1;
-		if(option.columnId != undefined) {
-			for(i = 0; i < optionStoreData.length; i++) {
-				if(option.columnId == i) {
-					existing = true;
-					columnIndex = i;
-					break;
-				}
-			}
-		}
 		option = Ext.apply(option, optionOverider);
-		if(!existing) {
-			option.columnId = 0;
-			optionStore.insert(0, option);
-		} else {
-			optionStore.removeAt(columnIndex);
-			optionStore.insert(columnIndex, option);
-		}
-		optionStore.sync();
-		optionStoreData = optionStore.getRange();
-		for(i = 0; i < optionStoreData.length; i++) {
-			options.push(optionStoreData[i].raw);
-		}
-		product.options = options;
-		
 		if(optionForm.isValid) {
-			productEditor.setLoading(true);
-			productDirectService.saveDetail(product, function(data, rs, suc){
+			optionwindow.setLoading(true);
+			productDirectService.saveOption(option, function(data, rs, suc){
 				if(suc && data){
-					optionStore.loadData(data.options);
-					optionwindow.close();
-					//productForm.setValues(data);
+					var productEditor = Ext.getCmp(optionwindow.parentComponentId);
+					var optionStore = productEditor.down("gridpanel#option").getStore();
+					var optionStoreData = optionStore.getRange();
+					var index = -1;
+					if(option.id != undefined && option.id > 0) {
+						for(i = 0; i < optionStoreData.length; i++) {
+							if(option.id == optionStoreData[i].data.id) {
+								index = i;
+								break;
+							}
+						}
+					}
+					if(index == -1) {
+						optionStore.insert(0, data);
+					} else {
+						optionStore.removeAt(index);
+						optionStore.insert(index, data);
+					}
+					optionStore.sync();
+					optionwindow.setOption(data);
+					optionForm.setValues(data);
+					option.optionItemId = [];
+					var optionItemPanel = optionwindow.down("tabpanel#optionItemPanel");
+					optionItemPanel.removeAll();
+					optionItems = data.items;
+					for(i=0;i<optionItems.length;i++) {
+						editor = Ext.create("AM.view.option.OptionItem",{
+							title  : "Option Item",
+						});
+						editor.down("form#optionItemForm").getForm().setValues(optionItems[i]);
+						editor.down("form#optionItemForm").getForm().id = optionItems[i].id;
+						propertyStore = editor.down("gridpanel#property").getStore();
+						propertyStore.loadData(optionItems[i].overrideProps);
+						optionItemPanel.insert(0, editor);
+						option.optionItemId.push(editor.getId());
+					}
+					optionItemPanel.setActiveTab(0);
 				}else if(rs && rs.type == 'exception'){
 					Ext.example.msg('<font color="red">Error</font>',
 						'<font color="red">' + rs.message
 								+ " </font>");
 				}
-			
-				productEditor.setLoading(false);
+				optionwindow.setLoading(false);
 			});
 		}
 	},
