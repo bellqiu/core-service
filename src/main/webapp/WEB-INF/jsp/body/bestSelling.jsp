@@ -8,7 +8,7 @@
 <div class="container-fluid bestSelling">
 <h1 class="heading--large">Best-selling</h1>
 	<div class="row-fluid">
-	<div class="col-md-4">
+	<div class="col-md-4 col-xs-4">
 	<ul id="bestSelling-column1" class="product-gallary">
 		<li><div class="productItem">1</div></li>
 		<li><div class="productItem">2</div></li>
@@ -20,7 +20,7 @@
 	<div id="column1-prev" class="controller-prev"></div>
 	<div id="column1-next" class="controller-next"></div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4 col-xs-4">
 	<ul id="bestSelling-column2" class="product-gallary">
 		<li><div class="productItem">1</div></li>
 		<li><div class="productItem">2</div></li>
@@ -32,7 +32,7 @@
 	<div id="column2-prev" class="controller-prev"></div>
 	<div id="column2-next" class="controller-next"></div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4 col-xs-4">
 	<ul id="bestSelling-column3" class="product-gallary">
 		<li><div class="productItem">1</div></li>
 		<li><div class="productItem">2</div></li>
