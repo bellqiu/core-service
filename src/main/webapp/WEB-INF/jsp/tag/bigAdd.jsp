@@ -38,7 +38,7 @@
 </div>
 <script type="text/javascript">
 	$(".ad-slider").ready(function() {
-		$('.main-content-slider').bxSlider({
+		$('.main-content-slider').bxSlider({ 	
 			auto : true,
 			autoControls : true,
 			// 		  slideWidth: 333,

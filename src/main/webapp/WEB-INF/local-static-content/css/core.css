@@ -1,10 +1,7 @@
 body {
     color: #1A1A1A;
     font-family: "wf_SegoeUI","Segoe UI","Segoe","Segoe WP","Tahoma","Verdana","Arial","sans-serif";
-    font-size: 100%;
-    font-weight: normal;
-    line-height: 1.5;
-}
+} 
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "wf_SegoeUILight","wf_SegoeUI","Segoe UI Light","Segoe WP Light","Segoe UI","Segoe","Segoe WP","Tahoma","Verdana","Arial","sans-serif";
@@ -237,21 +234,21 @@ a:HOVER {
 .sliderContent1 {
 	background-color: #199bff;
 	min-width:980px;
-	height: 300px;
+	height: 420px;
 	margin: auto;
 }
 
 .sliderContent2 {
 	background-color: #bfff47;
 	min-width:980px;
-	height: 300px;
+	height: 420px;
 	margin: auto;
 }
 
 .sliderContent3 {
 	background-color: #ac5acc;
 	min-width:980px;
-	height: 300px;
+	height: 420px;
 	margin: auto;
 }
 
@@ -297,7 +294,14 @@ a:HOVER {
 	width: auto;
 }
 
+
 .footer {
 	background-color: #EEEEEE;
 	height: 300px;
 }
+
+/**************Start Product************/
+.mainContainer{
+	margin: auto;
+}
+/**************End Product************/

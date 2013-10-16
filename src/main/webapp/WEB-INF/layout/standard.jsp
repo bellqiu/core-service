@@ -15,10 +15,11 @@
 		<!-- Import css/js -->
 		<style type="text/css">
 				  @import url("/resources/css/reset.css");
-				  @import url("/resources/css/smoothness/jquery-ui-1.10.3.custom.css");
+				  @import url("/resources/css/smoothness/jquery-ui-1.10.3.custom.css"); 
 				  @import url("/resources/css/reset.css");
 				  @import url("/resources/bxslider/jquery.bxslider.css");
-				  @import url("/resources/bootstrap/bootstrap-responsive.css");
+				  @import url("/resources/bootstrap/css/bootstrap.css");
+				  
 			<c:forEach items="${site.css }" var="css">
 		   		 @import url("/resources/${css}");
 			</c:forEach>
@@ -28,6 +29,8 @@
 		<script src="/resources/js/jquery-1.9.1.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
 		<script src="/resources/bxslider/jquery.bxslider.js" type="text/javascript"></script>
+		<script src="/resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+		
 		
 		<c:forEach items="${site.js }" var="js">
 			<script src="${site.resourceServer}${site.webResourcesFolder}${js}" type="text/javascript"></script>
