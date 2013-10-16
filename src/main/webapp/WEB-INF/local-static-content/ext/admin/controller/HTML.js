@@ -130,14 +130,6 @@ Ext.define('AM.controller.HTML', {
 				filtered = true;
 			}
 
-			if (filters.content.length > 0) {
-				filterObj.push({
-					property : 'content',
-					value : filters.content
-				});
-				filtered = true;
-			}
-
 			if (filtered) {
 				store.clearFilter(true);
 				store.filter(filterObj);

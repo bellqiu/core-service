@@ -178,16 +178,11 @@ public class ProductDetailDTO {
 	
 	public void resetId() {
 		this.id = 0;
-		if (categories != null) {
-			for (CategoryTreeDTO categoryDTO : categories) {
-				categoryDTO.setId(0);
-			}
-		}
-		if (images != null) {
+		/*if (images != null) {
 			for (Image image : images) {
 				image.setId(0);
 			}
-		}
+		}*/
 		if (options != null) {
 			for (Option option : options) {
 				option.setId(0);
@@ -208,12 +203,6 @@ public class ProductDetailDTO {
 				property.setId(0);
 			}
 		}
-		if (relatedProducts != null) {
-			for(TabProductDTO tabProductDTO : relatedProducts) {
-				tabProductDTO.setId(0);
-			}
-		}
-		
 	}
 	
 }

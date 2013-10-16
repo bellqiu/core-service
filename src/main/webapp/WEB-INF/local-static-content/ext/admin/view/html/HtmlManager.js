@@ -45,45 +45,24 @@ Ext.define('AM.view.html.HtmlManager', {
 						regexText : 'Only for characters',
 						width : 250
 
-					}, /*{
-						margin : 5,
-						fieldLabel : 'Content',
-						name : 'content',
-						width : 250
-					}, */{
+					}, {
 						margin : 5,
 						xtype : 'panel',
 						border : 0,
-						colspan : 2,
-						layout : {
-							type : 'hbox',
-							align : 'middle',
-							pack : 'center'
-						},
 						defaults : {
 							border : 0,
 							margin : 2
 						},
 						items : [ {
-							flex : 2
+							xtype : 'button',
+							text : 'Search',
+							id : 'searchHtml',
+							flex : 1
 						}, {
-							flex : 2,
-							defaults : {
-								border : 0,
-								margin : 2
-							},
-							items : [ {
-								xtype : 'button',
-								text : 'Search',
-								id : 'searchHtml',
-								flex : 1
-							}, {
-								xtype : 'button',
-								text : 'Reset',
-								id : 'resetHtml',
-								flex : 1
-							} ]
-
+							xtype : 'button',
+							text : 'Reset',
+							id : 'resetHtml',
+							flex : 1
 						} ]
 					} ]
 
@@ -118,19 +97,19 @@ Ext.define('AM.view.html.HtmlManager', {
 						xtype : 'textfield',
 						allowBlank : false
 					}
-				}, {
+				}, /*{
 					text : "Content",
 					dataIndex : "content",
 					renderer : function(value) {
 						len = value.length;
 						// TODO trim the content
-						/*if(len > 25) {
-							value = escape(value.subString(0,25));
-						}*/
+						//if(len > 25) {
+						//	value = escape(value.subString(0,25));
+						//}
 			            return value;
 			        }, 
 					flex : 2
-				}, {
+				}, */{
 					text : "Update Date",
 					dataIndex : "updateDate",
 					type : 'date',
