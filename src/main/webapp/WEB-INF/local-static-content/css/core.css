@@ -347,4 +347,8 @@ a:HOVER {
 .ProductImageRegion a.bx-next{
 	margin-right: -50px;
 }
+
+.width50{
+	width: 50px!important;
+}
 /**************End Product************/

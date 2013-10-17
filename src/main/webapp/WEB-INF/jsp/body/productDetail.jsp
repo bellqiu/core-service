@@ -111,10 +111,13 @@
 								<option>Size 3</option>
 							</select>
 							
-							<script type="text/javascript">
-								$("#sizePicker").selectpicker();
-							</script>
-							
+						</div>
+					</div>
+					
+					<div class="row padding10">
+						<div class="col-md-3 col-xs-3">Qty:</div>
+						<div class="col-md-9 col-xs-9">
+							<input type="text" class="form-control width50" value="1">
 						</div>
 					</div>
 				</div>

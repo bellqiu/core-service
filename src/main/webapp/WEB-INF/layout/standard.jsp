@@ -50,5 +50,10 @@
 	<div class="row-fluid">
 		<tiles:insertAttribute name="footer"/>
 	</div>
+	
+	<script type="text/javascript">
+		$(".selectpicker").selectpicker();
+	</script>
+	
 </body>
 </html>
