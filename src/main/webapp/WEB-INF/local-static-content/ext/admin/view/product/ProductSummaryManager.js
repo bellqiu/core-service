@@ -62,6 +62,13 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						name : 'actualPrice',
 						width : 250
 					}, {
+						xtype: 'checkbox',
+						margin : 5,
+						fieldLabel : 'Active Product',
+						name : 'active',
+						checked : 'true',
+						width : 250
+					}, /*{
 						margin : 5,
 						xtype : 'panel',
 						border : 0,
@@ -95,6 +102,25 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 								flex : 1
 							} ]
 
+						} ]
+					},*/{
+						margin : 5,
+						xtype : 'panel',
+						border : 0,
+						defaults : {
+							border : 0,
+							margin : 2
+						},
+						items : [ {
+							xtype : 'button',
+							text : 'Search',
+							id : 'searchProductSummary',
+							flex : 1
+						}, {
+							xtype : 'button',
+							text : 'reset',
+							id : 'resetProductSummary',
+							flex : 1
 						} ]
 					} ]
 
@@ -166,6 +192,10 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						icon : '/resources/ext/resources/images/edit.png',
 						tooltip : 'Edit Product',
 						id : 'editProduct'
+					}, {
+						icon : '/resources/ext/resources/images/delete.gif',
+						tooltip : 'Delete Product',
+						id : 'deleteProduct'
 					}]
 				}],
 				bbar : {

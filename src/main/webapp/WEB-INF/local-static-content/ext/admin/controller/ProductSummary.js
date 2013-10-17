@@ -26,7 +26,7 @@ Ext.define('AM.controller.ProductSummary', {
 			}, 
 			
 			'productsummarymanager gridpanel actioncolumn' : {
-				click : this.editProduct
+				click : this.acitonProduct
 			}
 			
 		});
@@ -74,6 +74,19 @@ Ext.define('AM.controller.ProductSummary', {
 				});
 				filtered = true;
 			}
+			active=btn.up('form#searchProductSummaryForm').down('checkbox').getValue();
+			if (active) {
+				filterObj.push({
+					property : 'active',
+					value : 'true',
+				});
+			} else {
+				filterObj.push({
+					property : 'active',
+					value : 'false',
+				});
+			}
+			filtered = true;
 
 			if (filtered) {
 				store.clearFilter(true);
@@ -94,29 +107,57 @@ Ext.define('AM.controller.ProductSummary', {
 		this.getProductSummaryStore().load();
 	}, 
 	
-	editProduct : function(view, cell, row, col, e) {
-		view.getSelectionModel().select(row, false);
-		var contentPanel = view.up("viewport").down("tabpanel#mainContainer");
-		var editor = Ext.create("AM.view.product.Edit", {
-			title : 'Edit Product'
-		});
-		var productForm = editor.down("form");
+	acitonProduct : function(view, cell, row, col, e) {
+		var m = e.getTarget().src.match(/.*\/images\/(\w+)\.\w+\b/);
+		if (m) {
+			view.getSelectionModel().select(row, false)
+			switch (m[1]) {
+			case 'edit':
+				var contentPanel = view.up("viewport").down("tabpanel#mainContainer");
+				var editor = Ext.create("AM.view.product.Edit", {
+					title : 'Edit Product'
+				});
+				var productForm = editor.down("form");
 
-		contentPanel.insert(0, editor);
-		contentPanel.setActiveTab(0);
+				contentPanel.insert(0, editor);
+				contentPanel.setActiveTab(0);
 		
-		productForm.load({
-			// pass 2 arguments to server side getBasicInfo
-			// method (len=2)
-			params : {
-				id : view.getSelectionModel().getSelection()[0]
-				.get('id')
-			},
-			success : function (form, action){
-				productForm.up("producteditor").setProduct(action.result.data);
-				productForm.getForm().setValues(action.result.data);
+				productForm.load({
+					params : {
+						id : view.getSelectionModel().getSelection()[0]
+						.get('id')
+					},
+					success : function (form, action){
+						productForm.up("producteditor").setProduct(action.result.data);
+						productForm.getForm().setValues(action.result.data);
+					}
+				});
+				break;
+			case 'delete':
+				Ext.MessageBox.confirm('Delete', 'Are you sure ?',
+						function(btn) {
+							if (btn === 'yes') {
+								store = view.getStore();
+								product = view.getSelectionModel().getSelection()[0].data;
+								productDirectService.setProductAsDelete(product, function(data, rs, suc){
+									if(suc && data){
+										view.getStore().remove(view.getSelectionModel()
+												.getSelection()[0]);
+									}else if(rs && rs.type == 'exception'){
+										Ext.example.msg('<font color="red">Error</font>',
+												'<font color="red">' + rs.message
+												+ " </font>");3
+									}
+				
+								});
+							} else {
+								Ext.example.msg('Cancel', 'Delete canceled');
+							}
+						});
+
+				break;
 			}
-		})
+		}
 	}
 
 });

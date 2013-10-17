@@ -99,4 +99,12 @@ public class ProductDirectService {
 		
 		return productService.saveOption(option);
 	}
+	
+	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
+	@Secured("ADMIN")
+	public ProductSummaryDTO setProductAsDelete(ProductSummaryDTO productSummaryDTO) {
+		productSummaryDTO = productService.setProductAsDelete(productSummaryDTO);
+		
+		return productSummaryDTO;
+	}
 }

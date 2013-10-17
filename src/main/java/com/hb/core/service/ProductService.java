@@ -21,6 +21,7 @@ import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
 import com.hb.core.convert.Converter;
 import com.hb.core.entity.Category;
+import com.hb.core.entity.Component;
 import com.hb.core.entity.HTML;
 import com.hb.core.entity.Image;
 import com.hb.core.entity.Option;
@@ -66,7 +67,14 @@ public class ProductService {
 				if ("price".equalsIgnoreCase(param)
 						|| "actualPrice".equalsIgnoreCase(param)) {
 					ql.append(param +" = :" + param + " ");
-				}else{
+				} else if("active".equalsIgnoreCase(param)) {
+					boolean active = Boolean.valueOf(filters.get(param));
+					if(active) {
+						ql.append("status = :status ");
+					} else {
+						ql.append("status != :status ");
+					}
+				} else{
 					ql.append(param +" like :"+param +" ");
 				}
 				if(item.hasNext()){
@@ -91,7 +99,10 @@ public class ProductService {
 					|| "actualPrice".equalsIgnoreCase(key)) {
 				query.setParameter(key, Double.valueOf(paramEntry.getValue()));
 				count.setParameter(key, Double.valueOf((paramEntry.getValue())));
-			}else{
+			} else if("active".equalsIgnoreCase(key)) {
+				query.setParameter("status", Component.Status.ACTIVE);
+				count.setParameter("status", Component.Status.ACTIVE);
+			} else {
 				query.setParameter(key, "%" + paramEntry.getValue() + "%");
 				count.setParameter(key, "%" + paramEntry.getValue() + "%");
 			}
@@ -306,5 +317,21 @@ public class ProductService {
 		product.getManuals().put("A11", html1);
 		product.getManuals().put("B22", html2);
 		em.merge(product);
+	}
+	
+	
+	public ProductSummaryDTO setProductAsDelete(ProductSummaryDTO productSummaryDTO){
+		Product product;
+		if(productSummaryDTO.getId() < 1 || (product = getProductById(productSummaryDTO.getId())) == null){
+			throw new CoreServiceException("Product does not exist");
+		}
+		Product productByName = getProductByName(productSummaryDTO.getName());
+		if(null != productByName && productByName.getId() != product.getId()){
+			throw new CoreServiceException("Product already exist with name is " + productSummaryDTO.getName());
+		}
+		Product transf = productSummaryConverter.transf(productSummaryDTO);
+		transf.setStatus(Component.Status.DELETED);
+		product = em.merge(transf);
+		return productSummaryConverter.convert(product);
 	}
 }

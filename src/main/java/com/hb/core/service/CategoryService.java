@@ -161,4 +161,10 @@ public class CategoryService {
 		em.remove(category);
 	}
 
+	public List<String> getAllCategoryName() {
+		String sqlForAllCategoryName = "select name from Category ";
+		TypedQuery<String> cateogryNames = em.createQuery(sqlForAllCategoryName, String.class);
+		List<String> allCategoryNames = cateogryNames.getResultList();
+		return allCategoryNames;
+	}
 }

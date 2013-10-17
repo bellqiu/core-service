@@ -98,4 +98,13 @@ public class CategoryDirectService {
 		categoryService.destory(categoryTreeDTO.getId());
 	}
 	
+	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
+	@Transactional(readOnly=true)
+	public List<String> loadAllCategoryName(){
+		
+		List<String> categoryNames = categoryService.getAllCategoryName();
+		
+		return categoryNames;
+	}
+	
 }
