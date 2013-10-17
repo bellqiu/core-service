@@ -28,6 +28,15 @@ public class HomeController {
 		return "redirect:/home";
 	}
 	
+	@RequestMapping("/404")
+	public String notFount(){
+		return "404";
+	}
+	
+	@RequestMapping("/500")
+	public String serverError(){
+		return "500";
+	}
 	
 	@RequestMapping("/iWantAnError")
 	public String iWantAnError(){
