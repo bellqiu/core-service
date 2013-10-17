@@ -9,9 +9,7 @@
 	<div class="row">
 		<div class="col-md-7 col-xs-7 padding10 ProductImageRegion">
 			<div class="row">
-				<div class="col-md-1 col-xs-1" >
-					Buttons
-				</div>
+				<div class="col-md-1 col-xs-1">Buttons</div>
 				<div class="col-md-11 col-xs-11">
 					<ul class="bxslider">
 						<li class="ProductImageContainer">1</li>
@@ -58,12 +56,78 @@
 					controls : true,
 					slideWidth : 50,
 					pager : false,
-					maxSlides : 9,
+					maxSlides : 8,
 					slideMargin : 5
 				});
 			</script>
 
 		</div>
-		<div class="col-md-5 col-xs-5 padding10">asdas</div>
+		<div class="col-md-5 col-xs-5 padding10">
+			<div class="row ">
+				<div class="col-md-12 col-xs-12">
+					<h1>Surface 2</h1>
+				</div>
+				<div class="col-md-12 col-xs-12 padding10">
+					<b>$549.00</b>
+				</div>
+				<div class="col-md-12 col-xs-12 padding10">
+					<p>Now free with Surface 2 200 GB of SkyDrive storage2, and
+						unlimited Skype minutes3. Ships by October 25</p>
+				</div>
+				<div class="col-md-12 col-xs-12 ">
+					<div class="row padding10">
+						<div class="col-md-3 col-xs-3">desc</div>
+						<div class="col-md-9 col-xs-9">Thin, light tablet with up to
+							10-hour battery life1</div>
+					</div>
+					<div class="row padding10">
+						<div class="col-md-3 col-xs-3">Property 2</div>
+						<div class="col-md-9 col-xs-9">Property 2 Property 2
+							Property 2</div>
+					</div>
+				</div>
+
+				<div class="col-md-12 col-xs-12 ">
+					<div class="row padding10">
+						<div class="col-md-3 col-xs-3">Select Model:</div>
+						<div class="col-md-9 col-xs-9">
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn  btn-info"> <input type="radio"
+									name="options" id="option1"> Option 1
+								</label> <label class="btn  btn-info"> <input type="radio"
+									name="options" id="option2"> Option 2
+								</label> <label class="btn  btn-info"> <input type="radio"
+									name="options" id="option3"> Option 3
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="row padding10">
+						<div class="col-md-3 col-xs-3">Select Size:</div>
+						<div class="col-md-9 col-xs-9">
+							<select class="selectpicker" id="sizePicker" data-style="btn-info">
+								<option>Size 1</option>
+								<option>Size 2</option>
+								<option>Size 3</option>
+							</select>
+							
+							<script type="text/javascript">
+								$("#sizePicker").selectpicker();
+							</script>
+							
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<div class="col-md-12 col-xs-12 padding10">
+					<button type="button" data-loading-text="Processing.."
+						class="btn btn-danger">Add to Cart</button>
+				</div>
+
+			</div>
+		</div>
 	</div>
 </div>
