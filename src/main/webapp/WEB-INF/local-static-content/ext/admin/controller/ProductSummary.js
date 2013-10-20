@@ -27,6 +27,10 @@ Ext.define('AM.controller.ProductSummary', {
 			
 			'productsummarymanager gridpanel actioncolumn' : {
 				click : this.acitonProduct
+			},
+			
+			'productsummarymanager form#searchProductSummaryForm combo' : {
+				afterrender : this.beforeadd
 			}
 			
 		});
@@ -148,16 +152,45 @@ Ext.define('AM.controller.ProductSummary', {
 												'<font color="red">' + rs.message
 												+ " </font>");3
 									}
-				
 								});
 							} else {
 								Ext.example.msg('Cancel', 'Delete canceled');
 							}
 						});
-
 				break;
 			}
 		}
+	},
+	
+	beforeadd : function (form){
+		console.log("OK1");
+		var store = form.getStore();
+		/*da=categoryDirectService.loadAllCategoryName(function(data, rs, suc){
+			if(suc && data){
+				console.log("OK2");
+				var categoryNames = [];
+				for(var index in data) {
+					var rec = {};
+					rec["name"] = data[index];
+					rec["type"] = data[index];
+					var rec = new Ext.data.Record(myArray)
+					categoryNames.push(rec);
+				}
+				store.loadData([{name:1},{name:2}]);
+				//store.sync();
+				//store.loadData(data);
+			}else if(rs && rs.type == 'exception'){
+				Ext.example.msg('<font color="red">Error</font>',
+						'<font color="red">' + rs.message
+								+ " </font>");3
+			}
+			
+		});*/
+		var myArray = {};
+		myArray["name"]="a";
+		myArray["type"]="b";
+		store.add(myArray);
+		console.log("OK3");
 	}
 
 });

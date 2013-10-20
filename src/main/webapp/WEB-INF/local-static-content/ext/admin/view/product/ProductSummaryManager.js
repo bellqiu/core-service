@@ -8,6 +8,14 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 	closable : true,
 	border : 0,
 	initComponent : function() {
+		var cateogryNameStore = Ext.create("Ext.data.ArrayStore", {
+	    	storeId: 'cateogryNameStore',
+	    	fields: [
+	    	         {name:'name',type:'string'}
+	    	],
+	    	data : [],
+			//buffered : false,
+		});
 		this.items = [ {
 			xtype : 'panel',
 			layout : 'fit',
@@ -24,6 +32,9 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 			items : [ {
 				xtype : 'form',
 				id : 'searchProductSummaryForm',
+				api : {
+					load : 'productDirectService.loadProductCategory',
+				},
 				items : [ {
 					xtype : 'fieldset',
 					scroll : true,
@@ -67,6 +78,16 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						fieldLabel : 'Active Product',
 						name : 'active',
 						checked : 'true',
+						width : 250
+					}, {
+						margin : 5,
+						fieldLabel : 'Category',
+						xtype : 'combo',
+						stateful : true,
+						store : 'cateogryNameStore',
+						name : 'categoryName',
+						displayField : 'name',
+						valueField : 'type',
 						width : 250
 					}, /*{
 						margin : 5,
