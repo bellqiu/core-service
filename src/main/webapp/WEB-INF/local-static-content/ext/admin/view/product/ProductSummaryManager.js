@@ -11,9 +11,11 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 		var cateogryNameStore = Ext.create("Ext.data.ArrayStore", {
 	    	storeId: 'cateogryNameStore',
 	    	fields: [
-	    	         {name:'name',type:'string'}
+	    	         {name:'name'}
 	    	],
 	    	data : [],
+	    	load : function( store, records, successful, eOpts ) {
+	    	}
 			//buffered : false,
 		});
 		this.items = [ {
@@ -40,7 +42,7 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					scroll : true,
 					margin : '10',
 					padding : 5,
-					height : 150,
+					height : 180,
 					title : 'Product Summary filters',
 					layout : {
 						type : 'table',
@@ -87,9 +89,9 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						store : 'cateogryNameStore',
 						name : 'categoryName',
 						displayField : 'name',
-						valueField : 'type',
+						valueField : 'name',
 						width : 250
-					}, /*{
+					}, {
 						margin : 5,
 						xtype : 'panel',
 						border : 0,
@@ -123,25 +125,6 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 								flex : 1
 							} ]
 
-						} ]
-					},*/{
-						margin : 5,
-						xtype : 'panel',
-						border : 0,
-						defaults : {
-							border : 0,
-							margin : 2
-						},
-						items : [ {
-							xtype : 'button',
-							text : 'Search',
-							id : 'searchProductSummary',
-							flex : 1
-						}, {
-							xtype : 'button',
-							text : 'reset',
-							id : 'resetProductSummary',
-							flex : 1
 						} ]
 					} ]
 

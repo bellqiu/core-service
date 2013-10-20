@@ -59,6 +59,11 @@ public class ProductService {
 	
 	public ExtDirectStoreReadResult<ProductSummaryDTO> storeQuery(int start, int max, String sort, String dir, Map<String,String> filters){
 		StringBuffer ql = new StringBuffer("");
+		String categoryName = null;
+		if(filters.containsKey("categoryName")) {
+			categoryName = filters.get("categoryName");
+			filters.remove("categoryName");
+		}
 		if(!filters.isEmpty()){
 			ql.append(" where ");
 			Iterator<String> item = filters.keySet().iterator();
@@ -111,7 +116,19 @@ public class ProductService {
 		List<Product> resultList = query.getResultList();
 		List<ProductSummaryDTO> productDTOList = new ArrayList<ProductSummaryDTO>(resultList.size());
 		for(Product product : resultList) {
-			productDTOList.add(productSummaryConverter.convert(product));
+			if(categoryName != null) {
+				List<Category> categories = product.getCategories();
+				if(categories != null && categories.size() > 0) {
+					for(Category category : categories) {
+						if(categoryName.equalsIgnoreCase(category.getName())) {
+							productDTOList.add(productSummaryConverter.convert(product));
+							break;
+						}
+					}
+				}
+			} else {
+				productDTOList.add(productSummaryConverter.convert(product));
+			}
 		}
 		return new ExtDirectStoreReadResult<ProductSummaryDTO>(totalCount, productDTOList);
 	}

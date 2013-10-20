@@ -30,7 +30,8 @@ Ext.define('AM.controller.ProductSummary', {
 			},
 			
 			'productsummarymanager form#searchProductSummaryForm combo' : {
-				afterrender : this.beforeadd
+				//render : this.beforeadd,
+				afterrender : this.afterrender
 			}
 			
 		});
@@ -91,6 +92,13 @@ Ext.define('AM.controller.ProductSummary', {
 				});
 			}
 			filtered = true;
+			
+			if (filters.categoryName.length > 0) {
+				filterObj.push({
+					property : 'categoryName',
+					value : filters.categoryName
+				});
+			}
 
 			if (filtered) {
 				store.clearFilter(true);
@@ -162,35 +170,23 @@ Ext.define('AM.controller.ProductSummary', {
 		}
 	},
 	
-	beforeadd : function (form){
-		console.log("OK1");
+	afterrender : function (form){
 		var store = form.getStore();
-		/*da=categoryDirectService.loadAllCategoryName(function(data, rs, suc){
+		categoryDirectService.loadAllCategoryName(function(data, rs, suc){
 			if(suc && data){
-				console.log("OK2");
-				var categoryNames = [];
 				for(var index in data) {
 					var rec = {};
 					rec["name"] = data[index];
-					rec["type"] = data[index];
-					var rec = new Ext.data.Record(myArray)
-					categoryNames.push(rec);
+					store.add(rec);
 				}
-				store.loadData([{name:1},{name:2}]);
-				//store.sync();
-				//store.loadData(data);
+				/*store.loadData([{name:"1", type: "2"}]);*/
 			}else if(rs && rs.type == 'exception'){
 				Ext.example.msg('<font color="red">Error</font>',
 						'<font color="red">' + rs.message
 								+ " </font>");3
 			}
 			
-		});*/
-		var myArray = {};
-		myArray["name"]="a";
-		myArray["type"]="b";
-		store.add(myArray);
-		console.log("OK3");
+		});
 	}
 
 });
