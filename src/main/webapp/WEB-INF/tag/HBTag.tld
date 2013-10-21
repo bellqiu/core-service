@@ -17,7 +17,7 @@
 		</attribute>
 	</tag>
 	<tag>
-		<name>bigAdd</name>
+		<name>htmltag</name>
 		<tagclass>com.honeybuy.shop.web.tag.HtmlTag</tagclass>
 		<bodycontent>empty</bodycontent>
 		<attribute>

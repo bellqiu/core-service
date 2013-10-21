@@ -38,7 +38,7 @@
 			
 			var site = <%= stringWriter.getBuffer().toString()%> ;
 		</script>
-		<script src="/resources/ext/ext-all-debug.js" type="text/javascript"></script>
+		<script src="/resources/ext/ext-all.js" type="text/javascript"></script>
 		<script src="/api.js" type="text/javascript"></script>
 		<script type="text/javascript" src="/resources/ext/ux/upload/plupload/js/plupload.js"></script>
 		<script type="text/javascript" src="/resources/ext/ux/upload/plupload/js/plupload.html4.js"></script>

@@ -44,82 +44,84 @@ Ext.define('AM.view.category.Edit', {
 				},
 				items : [ {
 					xtype : 'fieldset',
-					width : 600,
-					flex : 1,
-					/*layout : {
-						type : 'table',
-						columns : 1
-					},*/
-
-					layout : 'anchor',
-					items : [
-					  {
-						name : 'id',
-						xtype : 'textfield',
-						hidden: true
-					}, {
-						fieldLabel : 'Parent Id',
-						name : 'parentId',
-						xtype : 'textfield',
-						anchor : '90%',
-					}, {
-						fieldLabel : 'Page Title',
-						name : 'pageTitle',
-						xtype : 'textfield',
-						anchor : '90%',
-					},{
-						fieldLabel : 'Related Keyword',
-						name : 'relatedKeyword',
-						xtype : 'textfield',
-						anchor : '90%'
-					}, {
-						fieldLabel : 'Description',
-						name : 'description',
-						xtype : 'textarea',
-						anchor : '90%'
-					}, {
-						fieldLabel : 'Name',
-						name : 'name',
-						xtype : 'textfield',
-						regex : /^[\w\-]+$/,
-						regexText : 'Only for characters',
-						anchor : '90%'
-					}, {
-						fieldLabel : 'Display Name',
-						name : 'displayName',
-						xtype : 'textfield',
-						anchor : '90%'
-					}, {
-						fieldLabel : 'Type',
-						name : 'type',
-						xtype : 'combo',
-						displayField : 'name',
-						valueField : 'type',
-						typeAhead : true,
-						triggerAction : 'all',
-						store : 'CategoryType',
-						allowBlank : false
-					},{
-						fieldLabel : 'Icon Url',
-						name : 'iconUrl',
-						xtype : 'textfield',
-						anchor : '90%'
-					},{
-						fieldLabel : 'Url',
-						name : 'url',
-						xtype : 'textfield',
-						anchor : '90%'
-					}, {
-						fieldLabel : 'Market Content',
-						name : 'marketContent',
-						xtype : 'htmleditor',
-						anchor : '90%',
-						plugins: new Ext.ux.plugins.HtmlEditorImageInsert({
-		                    popTitle: 'Image url?',
-		                    popMsg: 'Please insert an image URL...',
-		                    popWidth: 400/*,
-		                    popValue: 'http://www.google.gr/intl/en_com/images/logo_plain.png'*/
-		                })
+					layout : 'hbox',
+					flex : 2,
+					overflowY : 'auto',
+					items : [{
+						xtype : 'container',
+						flex : 1,
+						border : false,
+						layout : 'anchor',
+						defaultType : 'textfield',
+						items : [{
+							name : 'id',
+							xtype : 'textfield',
+							hidden: true
+						}, {
+							fieldLabel : 'Parent Id',
+							name : 'parentId',
+							xtype : 'textfield',
+							anchor : '90%',
+						}, {
+							fieldLabel : 'Page Title',
+							name : 'pageTitle',
+							xtype : 'textfield',
+							anchor : '90%',
+						},{
+							fieldLabel : 'Related Keyword',
+							name : 'relatedKeyword',
+							xtype : 'textfield',
+							anchor : '90%'
+						}, {
+							fieldLabel : 'Description',
+							name : 'description',
+							xtype : 'textarea',
+							anchor : '90%'
+						}, {
+							fieldLabel : 'Name',
+							name : 'name',
+							xtype : 'textfield',
+							regex : /^[\w\-]+$/,
+							regexText : 'Only for characters',
+							anchor : '90%'
+						}, {
+							fieldLabel : 'Display Name',
+							name : 'displayName',
+							xtype : 'textfield',
+							anchor : '90%'
+						}, {
+							fieldLabel : 'Type',
+							name : 'type',
+							xtype : 'combo',
+							displayField : 'name',
+							valueField : 'type',
+							typeAhead : true,
+							triggerAction : 'all',
+							store : 'CategoryType',
+							allowBlank : false
+						},{
+							fieldLabel : 'Icon Url',
+							name : 'iconUrl',
+							xtype : 'textfield',
+							anchor : '90%'
+						},{
+							fieldLabel : 'Url',
+							name : 'url',
+							xtype : 'textfield',
+							anchor : '90%'
+						}, {
+							fieldLabel : 'Market Content',
+							name : 'marketContent',
+							xtype : 'htmleditor',
+							anchor : '90%',
+							plugins: new Ext.ux.plugins.HtmlEditorImageInsert({
+			                    popTitle: 'Image url?',
+			                    popMsg: 'Please insert an image URL...',
+			                    popWidth: 400/*,
+			                    popValue: 'http://www.google.gr/intl/en_com/images/logo_plain.png'*/
+			                })
+						}
+						]
 					}]
 				} ]
 			} ]
