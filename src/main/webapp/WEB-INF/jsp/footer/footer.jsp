@@ -1,2 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<div class="footer">footer</div>
+<%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb" %>
+<div class="footer">
+	<hb:htmltag htmlKey="FOOTER"/>
+</div>
