@@ -42,10 +42,11 @@ Ext.define('AM.view.html.HtmlDetail', {
 				},
 				items : [ {
 					xtype : 'fieldset',
-					layout : {
+					/*layout : {
 						type : 'table',
 						columns : 1
-					},
+					},*/
+					layout : 'anchor',
 					
 					items : [
 					  {
@@ -59,12 +60,13 @@ Ext.define('AM.view.html.HtmlDetail', {
 						regex : /^\w+$/,
 						regexText : 'Only for characters',
 						allowBlank : false,
-						flex : 1
+						anchor : '90%'
 					}, {
 						fieldLabel : 'Content',
 						name : 'content',
 						xtype : 'htmleditor',
-						width : 950,
+						anchor : '90%',
+						height : 400,
 						plugins: new Ext.ux.plugins.HtmlEditorImageInsert({
 		                    popTitle: 'Image url?',
 		                    popMsg: 'Please insert an image URL...',

@@ -33,48 +33,62 @@ Ext.define('AM.view.category.Edit', {
 				},
 				defaults : {
 					border : 0,
-					anchor : '100%'
+					anchor : '100%',
+					align : 'stretch'
 				},
 				fieldDefaults : {
 					labelAlign : 'left',
-					labelWidth : 115,
+					//labelWidth : 115,
 					msgTarget : 'side',
-					margin : 5
+					//margin : 5
 				},
 				items : [ {
 					xtype : 'fieldset',
-					layout : {
+					width : 600,
+					flex : 1,
+					/*layout : {
 						type : 'table',
 						columns : 1
-					},
+					},*/
 
+					layout : 'anchor',
 					items : [
 					  {
 						name : 'id',
 						xtype : 'textfield',
 						hidden: true
-					} ,{
+					}, {
 						fieldLabel : 'Parent Id',
 						name : 'parentId',
 						xtype : 'textfield',
-						flex : 1
-					} ,{
+						anchor : '90%',
+					}, {
+						fieldLabel : 'Page Title',
+						name : 'pageTitle',
+						xtype : 'textfield',
+						anchor : '90%',
+					},{
+						fieldLabel : 'Related Keyword',
+						name : 'relatedKeyword',
+						xtype : 'textfield',
+						anchor : '90%'
+					}, {
+						fieldLabel : 'Description',
+						name : 'description',
+						xtype : 'textarea',
+						anchor : '90%'
+					}, {
 						fieldLabel : 'Name',
 						name : 'name',
 						xtype : 'textfield',
 						regex : /^[\w\-]+$/,
 						regexText : 'Only for characters',
-						flex : 1
+						anchor : '90%'
 					}, {
 						fieldLabel : 'Display Name',
 						name : 'displayName',
 						xtype : 'textfield',
-						flex : 1
-					}, {
-						fieldLabel : 'Description',
-						name : 'description',
-						xtype : 'textarea',
-						flex : 1
+						anchor : '90%'
 					}, {
 						fieldLabel : 'Type',
 						name : 'type',
@@ -89,27 +103,23 @@ Ext.define('AM.view.category.Edit', {
 						fieldLabel : 'Icon Url',
 						name : 'iconUrl',
 						xtype : 'textfield',
-						flex : 1
+						anchor : '90%'
 					},{
 						fieldLabel : 'Url',
 						name : 'url',
 						xtype : 'textfield',
-						flex : 1
-					},{
-						fieldLabel : 'Page Title',
-						name : 'pageTitle',
-						xtype : 'textfield',
-						flex : 1
-					},{
-						fieldLabel : 'Related Keyword',
-						name : 'relatedKeyword',
-						xtype : 'textfield',
-						flex : 1
-					},{
+						anchor : '90%'
+					}, {
 						fieldLabel : 'Market Content',
 						name : 'marketContent',
 						xtype : 'htmleditor',
-						width : 600
+						anchor : '90%',
+						plugins: new Ext.ux.plugins.HtmlEditorImageInsert({
+		                    popTitle: 'Image url?',
+		                    popMsg: 'Please insert an image URL...',
+		                    popWidth: 400/*,
+		                    popValue: 'http://www.google.gr/intl/en_com/images/logo_plain.png'*/
+		                })
 					}]
 				} ]
 			} ]
