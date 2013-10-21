@@ -28,6 +28,8 @@ Ext.define('AM.controller.Product', {
 				click : this.copyProduct
 			},'producteditor button#saveProduct' : {
 				click : this.submitProduct
+			},'producteditor button#reloadProduct' : {
+				click : this.reloadProduct
 			},'producteditor gridpanel#image' : {
 				cellkeydown : this.bindDeleteKey
 			},'producteditor gridpanel#manual' : {
@@ -489,5 +491,28 @@ Ext.define('AM.controller.Product', {
 			}
 		})
 	}, 
+	
+	reloadProduct : function(reloadButton) {
+		Ext.MessageBox.confirm('Reload', 'Are you sure ? Changes which are not saved will be lost.',
+			function(btn) {
+				if (btn === 'yes') {
+					var productEditor = reloadButton.up("producteditor");
+					var productForm = productEditor.down("form#productForm").getForm();
+					
+					var product = productEditor.getProduct();
+					productForm.load({
+						params : {
+							id : product.id
+						},
+						success : function (form, action){
+							productEditor.setProduct(action.result.data);
+							productForm.setValues(action.result.data);
+						}
+					});
+				} else {
+					Ext.example.msg('Cancel', 'Reload canceled');
+				}
+			});
+	}
 	
 });
