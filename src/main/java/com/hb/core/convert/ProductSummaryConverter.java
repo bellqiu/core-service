@@ -6,6 +6,8 @@ import java.util.Iterator;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.util.CollectionUtils;
+
 import com.hb.core.entity.Category;
 import com.hb.core.entity.Product;
 import com.hb.core.shared.dto.ProductSummaryDTO;
@@ -48,6 +50,10 @@ public class ProductSummaryConverter implements Converter<ProductSummaryDTO, Pro
 		summaryDTO.setPrice(p.getPrice());
 		summaryDTO.setTags(p.getTags());
 		summaryDTO.setTitle(p.getTitle());
+		
+		if(!CollectionUtils.isEmpty(p.getImages())){
+			summaryDTO.setImageURL(p.getImages().get(0).getThumbnailUrl());
+		}
 		
 		return summaryDTO;
 	}

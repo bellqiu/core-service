@@ -251,6 +251,15 @@ public class ProductService {
 	public boolean exist(String productName){
 		return null == getProductByName(productName)? false: true;
 	}
+	
+	public ProductDetailDTO getProductDetailByName(String name){
+		Product product = getProductByName(name);
+		if(null != product){
+			return productDetailConverter.convert(product);
+		}
+		
+		return null;
+	}
 
 	private Product getProductByName(String name) {
 		Product product = null;

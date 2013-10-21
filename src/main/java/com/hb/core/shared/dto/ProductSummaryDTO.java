@@ -12,6 +12,8 @@ public class ProductSummaryDTO {
 	
 	private String abstractText;
 	
+	private String imageURL;
+	
 	private String title;
 	
 	private double price;
@@ -102,6 +104,14 @@ public class ProductSummaryDTO {
 
 	public void setCategoryBreadcrumb(String categoryBreadcrumb) {
 		this.categoryBreadcrumb = categoryBreadcrumb;
+	}
+
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 	
 	

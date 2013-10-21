@@ -11,17 +11,22 @@
 		maxElementsOnDisk="1" />
 		
 	<cache name="SettingServiceCacheWraper_getStringValue" eternal="false"
-		timeToLiveSeconds="6000" maxElementsInMemory="1"
+		timeToLiveSeconds="6000" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
-		maxElementsOnDisk="1" />
+		maxElementsOnDisk="10000" />
 		
 	<cache name="ProductNameExisting" eternal="false"
-		timeToLiveSeconds="6000" maxElementsInMemory="1"
+		timeToLiveSeconds="6000" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
-		maxElementsOnDisk="1" />	
+		maxElementsOnDisk="100000" />	
 		
 	<cache name="HtmlServiceCacheWraper_getStringValue" eternal="false"
-		timeToLiveSeconds="6000" maxElementsInMemory="1"
+		timeToLiveSeconds="6000" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
-		maxElementsOnDisk="1" />
+		maxElementsOnDisk="99999" />
+		
+		<cache name="Product" eternal="false"
+		timeToLiveSeconds="6000" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="99999" />
 </ehcache>

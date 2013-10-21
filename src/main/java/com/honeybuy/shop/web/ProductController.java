@@ -31,7 +31,7 @@ public class ProductController {
 			return "404";
 		}
 		
-		model.addAttribute("productName", productName);
+		model.addAttribute("currentProductDetail", productService.getProductDetailByName(productName));
 		
 		return "productDetail";
 	}
