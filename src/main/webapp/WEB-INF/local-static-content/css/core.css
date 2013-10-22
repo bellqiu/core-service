@@ -249,27 +249,28 @@ a:HOVER {
 }
 
 .ad-slider{
-	min-width:980px;
+	width: 1280px;
+	margin: auto;
 }
 
 .sliderContent1 {
 	background-color: #199bff;
 	min-width:980px;
-	height: 420px;
+	height: 540px;
 	margin: auto;
 }
 
 .sliderContent2 {
 	background-color: #bfff47;
 	min-width:980px;
-	height: 420px;
+	height: 540px;
 	margin: auto;
 }
 
 .sliderContent3 {
 	background-color: #ac5acc;
 	min-width:980px;
-	height: 420px;
+	height: 540px;
 	margin: auto;
 }
 
