@@ -72,7 +72,11 @@ Ext
 									params : {
 										id : view.getSelectionModel().getSelection()[0].get('id'),
 										parent : 0
+									},
+									success : function (form, action){
+										editor.setTitle("C-" + action.result.data.name);
 									}
+									
 								})
 								break;
 							case 'delete':
@@ -93,16 +97,15 @@ Ext
 					},
 
 					saveCategory : function(btn) {
-						btn
-								.up("categoryeditor")
+						btn.up("categoryeditor")
 								.down("form")
 								.getForm()
 								.submit(
 										{
 
 											success : function(form, action) {
-												form
-														.setValues(action.result.resultForm);
+												form.setValues(action.result.resultForm);
+												btn.up("categoryeditor").setTitle("C-" + action.result.resultForm.name);
 											},
 										});
 					},

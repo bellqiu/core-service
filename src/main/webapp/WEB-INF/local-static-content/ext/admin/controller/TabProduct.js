@@ -55,7 +55,7 @@ Ext.define('AM.controller.TabProduct', {
 						"tabpanel#mainContainer");
 				// TODO
 				var editor = Ext.create("AM.view.product.TabProductDetail", {
-					title : 'Edit TabProduct'
+					//title : 'Edit TabProduct'
 				});
 				
 				contentPanel.insert(0, editor);
@@ -74,6 +74,7 @@ Ext.define('AM.controller.TabProduct', {
 					success : function (form, action){
 						productForm.up("tabproducteditor").setTabproduct(action.result.data);
 						productForm.getForm().setValues(action.result.data);
+						editor.setTitle("T-" + action.result.data.name);
 					}
 				})
 				break;
@@ -232,6 +233,7 @@ Ext.define('AM.controller.TabProduct', {
 				if(suc && data){
 					productForm.findField("name").up("tabproducteditor").setTabproduct(data);
 					productForm.setValues(data);
+					tabproductEditor.setTitle("T-" + data.name);
 				}else if(rs && rs.type == 'exception'){
 					Ext.example.msg('<font color="red">Error</font>',
 							'<font color="red">' + rs.message

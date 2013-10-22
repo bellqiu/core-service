@@ -159,7 +159,7 @@ Ext.define('AM.controller.HTML', {
 						"tabpanel#mainContainer");
 
 				var editor = Ext.create("AM.view.html.HtmlDetail", {
-					title : 'Edit HTML'
+					//title : 'Edit HTML'
 				});
 
 				contentPanel.insert(0, editor);
@@ -173,6 +173,9 @@ Ext.define('AM.controller.HTML', {
 					params : {
 						id : view.getSelectionModel().getSelection()[0]
 								.get('id')
+					},
+					success : function (form, action){
+						editor.setTitle("H-" + action.result.data.name);
 					}
 				})
 				break;
@@ -198,6 +201,7 @@ Ext.define('AM.controller.HTML', {
 
 			success : function(form, action) {
 				form.setValues(action.result.resultForm);
+				btn.up("html_editor").setTitle("H-" + action.result.resultForm.name);
 			},
 		});
 	}

@@ -144,6 +144,7 @@ Ext.define('AM.controller.Product', {
 				if(suc && data){
 					productForm.findField("name").up("producteditor").setProduct(data);
 					productForm.setValues(data);
+					productEditor.setTitle("P-" + data.name);
 				}else if(rs && rs.type == 'exception'){
 					Ext.example.msg('<font color="red">Error</font>',
 							'<font color="red">' + rs.message

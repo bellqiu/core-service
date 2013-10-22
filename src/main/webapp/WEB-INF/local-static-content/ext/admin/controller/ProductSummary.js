@@ -142,6 +142,7 @@ Ext.define('AM.controller.ProductSummary', {
 					success : function (form, action){
 						productForm.up("producteditor").setProduct(action.result.data);
 						productForm.getForm().setValues(action.result.data);
+						editor.setTitle("P-" + action.result.data.name);
 					}
 				});
 				break;
