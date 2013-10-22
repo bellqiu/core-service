@@ -246,14 +246,17 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 			}
 		}
 		
-		
 		product.setRelatedProducts(new ArrayList<TabProduct>());
 		if(null != productDetailDTO.getRelatedProducts()){
 			for (TabProductDTO tabProductDTO : productDetailDTO.getRelatedProducts()) {
-				product.getRelatedProducts().add(tabProductConverter.transf(tabProductDTO));
+				TabProduct tabProduct = em.find(TabProduct.class, tabProductDTO.getId());
+				if(tabProduct != null) {
+					product.getRelatedProducts().add(tabProduct);
+				} else {
+					product.getRelatedProducts().add(tabProductConverter.transf(tabProductDTO));
+				}
 			}
 		}
-		
 		
 		return product;
 	}
