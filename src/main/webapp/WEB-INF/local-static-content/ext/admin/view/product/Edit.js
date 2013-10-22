@@ -130,6 +130,11 @@ Ext.define('AM.view.product.Edit', {
 						name : 'abstractText',
 						xtype : 'textarea',
 						anchor : '90%'
+					}, {
+						fieldLabel : 'SKU',
+						name : 'sku',
+						xtype : 'textarea',
+						anchor : '90%'
 					} ]
 				} ]
 			}, {

@@ -50,6 +50,7 @@ public class ProductSummaryConverter implements Converter<ProductSummaryDTO, Pro
 		summaryDTO.setPrice(p.getPrice());
 		summaryDTO.setTags(p.getTags());
 		summaryDTO.setTitle(p.getTitle());
+		summaryDTO.setSku(p.getSku());
 		
 		if(!CollectionUtils.isEmpty(p.getImages())){
 			summaryDTO.setImageURL(p.getImages().get(0).getThumbnailUrl());
@@ -82,6 +83,7 @@ public class ProductSummaryConverter implements Converter<ProductSummaryDTO, Pro
 		product.setPrice(pto.getPrice());
 		product.setTags(pto.getTags());
 		product.setTitle(pto.getTitle());
+		product.setSku(pto.getSku());
 		product.setCreateDate(product.getCreateDate() == null ? new Date() : product.getCreateDate());
 		product.setUpdateDate(new Date());
 		

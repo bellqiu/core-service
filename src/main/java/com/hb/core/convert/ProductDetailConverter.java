@@ -73,6 +73,8 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 		
 		detailDTO.setOverrideUrl(product.getOverrideUrl());
 		
+		detailDTO.setSku(product.getSku());
+		
 		detailDTO.setPrice(product.getPrice());
 		
 		detailDTO.setProps(product.getProps());
@@ -126,8 +128,9 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 		
 		product.setTitle(productDetailDTO.getTitle());
 		
-		product.setCategories(new ArrayList<Category>());
+		product.setSku(productDetailDTO.getSku());
 		
+		product.setCategories(new ArrayList<Category>());
 		if(null != productDetailDTO.getCategories()){
 			for (CategoryTreeDTO c : productDetailDTO.getCategories()) {
 				product.getCategories().add(categoryTreeConverter.transf(c));

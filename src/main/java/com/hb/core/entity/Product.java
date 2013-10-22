@@ -56,6 +56,9 @@ public class Product extends Component{
 	@Column(name="override_url")
 	private String overrideUrl;
 	
+	@Column(name="sku")
+	private String sku;
+	
 	@Column(name="name")
 	private String name;
 	
@@ -168,6 +171,14 @@ public class Product extends Component{
 
 	public void setOverrideUrl(String overrideUrl) {
 		this.overrideUrl = overrideUrl;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+	public String getSku() {
+		return sku;
 	}
 
 	public List<Image> getImages() {

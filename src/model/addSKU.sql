@@ -1,0 +1,1 @@
+alter table product add column (sku varchar(255));

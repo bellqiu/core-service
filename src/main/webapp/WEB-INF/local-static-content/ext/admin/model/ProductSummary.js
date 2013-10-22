@@ -10,7 +10,8 @@
            {name:'keywords',type:'String'},
            {name:'tags',type:'String'},
            {name:'abstractText',type:'String'},
-           {name:'overrideUrl',type:'String'}
+           {name:'overrideUrl',type:'String'},
+           {name:'sku',type:'String'}
         ],
         idProperty: 'id'
     });

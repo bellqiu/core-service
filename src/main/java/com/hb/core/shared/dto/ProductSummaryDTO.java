@@ -22,6 +22,8 @@ public class ProductSummaryDTO {
 	
 	private String overrideUrl;
 	
+	private String sku;
+	
 	private String name;
 	
 	private String categoryBreadcrumb;
@@ -88,6 +90,14 @@ public class ProductSummaryDTO {
 
 	public void setOverrideUrl(String overrideUrl) {
 		this.overrideUrl = overrideUrl;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+	public String getSku() {
+		return sku;
 	}
 
 	public String getName() {
