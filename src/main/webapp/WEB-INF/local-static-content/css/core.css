@@ -165,6 +165,19 @@ a:HOVER {
     width: 130px;
 }
 
+.top-level-navigator-item a{
+	display: block;
+    font-size: 100%;
+    height: 100%;
+    text-align: center;
+	text-decoration: none;
+	color: black;
+}
+
+.top-level-navigator-item a:HOVER{
+	color: #1570A6;
+}
+
 .specialOffer{
 	border-bottom: 0.1em solid #D8D8D8;
     margin: 30px auto auto;
