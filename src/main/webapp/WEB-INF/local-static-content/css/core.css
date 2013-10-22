@@ -127,7 +127,6 @@ a:HOVER {
 }
 
 .category-content{
-	min-height: 300px;
 	width: 100%;
 	position: absolute;
 	left: 0;
@@ -178,6 +177,7 @@ a:HOVER {
 	margin-right: 107px;
     text-align: center;
 }
+
 .subCategory{
 	margin: 30px auto auto;
     max-width: 1200px;
@@ -196,7 +196,17 @@ a:HOVER {
     font-size: 1em;
     font-weight: normal;
     line-height: 1.25em;
-    margin-bottom: 0.65em;
+    margin-bottom: 1em;
+}
+
+.l2Category a{
+	color: black;
+	font-size: 1.2em;
+}
+
+.l2Category a:HOVER{
+	color: #1570A6;
+	text-decoration:none;
 }
 
 .l3Category{

@@ -41,15 +41,10 @@
 		$('.main-content-slider').bxSlider({ 	
 			auto : true,
 			autoControls : true,
-			// 		  slideWidth: 333,
-			// 		  minSlides: 2,
-			// 		  maxSlides: 3,
-			// 		  slideMargin: 5
-			mode : 'horizontal',
+			mode : 'fade',
 			useCSS : false,
 			infiniteLoop : true,
-			easing : 'easeOutElastic',
-			speed : 3000
+			pause : 3000
 		});
 	});
 </script>
