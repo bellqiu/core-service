@@ -167,6 +167,7 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 						for(OptionItem optionItem : existingOptionItems) {
 							itemMap.put(optionItem.getId(), optionItem);
 						}
+						existingOptionItems.clear();
 						Set<Long> existingIdSet = itemMap.keySet();
 						for(OptionItem optionItem : items) {
 							if(existingIdSet.contains(optionItem.getId())) {
@@ -183,6 +184,7 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 									for(Property property : existingOverridePropsList) {
 										propertyMap.put(property.getId(), property);
 									}
+									existingOverridePropsList.clear();
 									Set<Long> existingPropertyIdSet = propertyMap.keySet();
 									for(Property property : overrideProps) {
 										if(existingPropertyIdSet.contains(property.getId())) {
@@ -191,7 +193,7 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 											existingProperty.setValue(property.getValue());
 											existingProperty.setDesc(property.getDesc());
 											existingProperty.setUpdateDate(new Date());
-											existingPropertyIdSet.remove(property.getId());
+											existingOverridePropsList.add(existingProperty);
 										} else {
 											property.setId(0);
 											property.setCreateDate(new Date());
@@ -199,14 +201,12 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 											existingOverridePropsList.add(property);
 										}
 									}
-									if(existingPropertyIdSet.size() > 0) {
-										for(Long propertyId : existingPropertyIdSet) {
-											existingOverridePropsList.remove(propertyMap.get(propertyId));
-										}
-									}
 									existingOptionItem.setOverrideProps(existingOverridePropsList);
+								} else {
+									//existingOptionItem.setOverrideProps(new ArrayList<Property>());
+									existingOptionItem.getOverrideProps().clear();
 								}
-								existingIdSet.remove(optionItem.getId());
+								existingOptionItems.add(existingOptionItem);
 							} else {
 								optionItem.setId(0);
 								optionItem.setCreateDate(new Date());
@@ -214,12 +214,10 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 								existingOptionItems.add(optionItem);
 							}
 						}
-						if(existingIdSet.size() > 0) {
-							for(Long optionItemId : existingIdSet) {
-								existingOptionItems.remove(itemMap.get(optionItemId));
-							}
-						}
 						existingOption.setItems(existingOptionItems);
+					} else {
+						//existingOption.setItems(new ArrayList<OptionItem>());
+						existingOption.getItems().clear();
 					}
 				} else {
 					existingOption = option;
