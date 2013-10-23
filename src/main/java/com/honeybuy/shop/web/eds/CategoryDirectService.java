@@ -19,6 +19,8 @@ import com.hb.core.exception.CoreServiceException;
 import com.hb.core.service.CategoryService;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
+import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.RegexUtils;
 
 @Service
 @Transactional
@@ -65,8 +67,14 @@ public class CategoryDirectService {
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.FORM_POST)
 	public ExtDirectFormPostResult saveDetail(@Valid CategoryDetailDTO categoryDetailDTO, BindingResult result){
+		String name = categoryDetailDTO.getName();
+		RegexUtils.replaceSpecialChar(name, Constants.SPECIAL_CHAR_REPLACEMENT);
+		categoryDetailDTO.setName(name);
+		if(!result.hasErrors() && name == null) {
+			result.rejectValue("name", null, "Category name should be alphanum");
+		}
 		if (!result.hasErrors()) {
-			if (categoryDetailDTO.getId()< 1 && categoryService.getCategoryByName(categoryDetailDTO.getName()) != null) {
+			if (categoryDetailDTO.getId()< 1 && categoryService.getCategoryByName(name) != null) {
 				result.rejectValue("name", null, "Category already taken");
 			}
 		}
@@ -86,6 +94,7 @@ public class CategoryDirectService {
 		cADetailDTO.setName(categoryTreeDTO.getName());
 		cADetailDTO.setDisplayName(categoryTreeDTO.getDisplayName());
 		cADetailDTO = categoryService.saveCategoryDetail(cADetailDTO);*/
+		categoryTreeDTO.setName(RegexUtils.replaceSpecialChar(categoryTreeDTO.getName(), Constants.SPECIAL_CHAR_REPLACEMENT));
 		categoryService.saveCategoryTree(categoryTreeDTO);
 		return categoryTreeDTO;
 	}

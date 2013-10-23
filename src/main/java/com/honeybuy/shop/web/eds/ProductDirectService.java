@@ -24,6 +24,8 @@ import com.hb.core.entity.Option;
 import com.hb.core.service.ProductService;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
+import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.RegexUtils;
 
 @Service
 @Transactional
@@ -81,6 +83,7 @@ public class ProductDirectService {
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
 	@Secured("ADMIN")
 	public ProductSummaryDTO update(ProductSummaryDTO productSummaryDTO) {
+		productSummaryDTO.setName(RegexUtils.replaceSpecialChar(productSummaryDTO.getName(), Constants.SPECIAL_CHAR_REPLACEMENT));
 		productSummaryDTO = productService.update(productSummaryDTO);
 		
 		return productSummaryDTO;
@@ -89,7 +92,7 @@ public class ProductDirectService {
 	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
 	@Secured("ADMIN")
 	public ProductDetailDTO saveDetail(@Valid ProductDetailDTO product){
-		
+		product.setName(RegexUtils.replaceSpecialChar(product.getName(), Constants.SPECIAL_CHAR_REPLACEMENT));
 		return productService.saveProductDetail(product);
 	}
 	

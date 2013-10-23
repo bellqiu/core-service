@@ -89,8 +89,17 @@ Ext.define('AM.view.product.Edit', {
 						name : 'title',
 						anchor : '90%'
 					}, {
-						fieldLabel : 'Override Url',
-						name : 'overrideUrl',
+						fieldLabel : 'Keywords',
+						name : 'keywords',
+						anchor : '90%'
+					}, {
+						fieldLabel : 'Tags',
+						name : 'tags',
+						anchor : '90%'
+					}, {
+						fieldLabel : 'Abstract Text',
+						name : 'abstractText',
+						xtype : 'textarea',
 						anchor : '90%'
 					}, {
 						xtype : 'container',
@@ -116,26 +125,15 @@ Ext.define('AM.view.product.Edit', {
 						} ]
 
 					}, {
-						fieldLabel : 'Keywords',
-						name : 'keywords',
-						xtype : 'textarea',
-						anchor : '90%'
-					}, {
-						fieldLabel : 'Tags',
-						name : 'tags',
-						xtype : 'textarea',
-						anchor : '90%'
-					}, {
-						fieldLabel : 'Abstract Text',
-						name : 'abstractText',
-						xtype : 'textarea',
+						fieldLabel : 'Override Url',
+						name : 'overrideUrl',
 						anchor : '90%'
 					}, {
 						fieldLabel : 'SKU',
 						name : 'sku',
 						xtype : 'textarea',
 						anchor : '90%'
-					} ]
+					}]
 				} ]
 			}, {
 				xtype : 'tabpanel',
