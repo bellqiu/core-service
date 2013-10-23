@@ -32,6 +32,10 @@
         	  <put-attribute name="body" value="home.body.module"/>
         </definition>
         
+        <definition name="registerAndLogin" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/registerAndLogin.jsp"/>
+        </definition>
+        
         <definition name="productDetail" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/productDetail.jsp"/>
         </definition>

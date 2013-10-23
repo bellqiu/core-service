@@ -13,4 +13,5 @@
 		<div class="header-searchBox">
 			<input title="Search by keyword" id="searchBox" class="ui-autocomplete-input" autocomplete="off">
 		</div>
+		<div style="clear:both"></div>
 	</div>

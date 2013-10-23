@@ -16,7 +16,6 @@
 		<style type="text/css">
 				  @import url("/resources/css/reset.css");
 				  @import url("/resources/css/smoothness/jquery-ui-1.10.3.custom.css"); 
-				  @import url("/resources/css/reset.css");
 				  @import url("/resources/bxslider/jquery.bxslider.css");
 				  @import url("/resources/bootstrap/css/bootstrap.css");
 				  @import url("/resources/bootstrap/bootstrap-select.css");
@@ -32,7 +31,7 @@
 		<script src="/resources/bxslider/jquery.bxslider.js" type="text/javascript"></script>
 		<script src="/resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 		<script src="/resources/bootstrap/bootstrap-select.js" type="text/javascript"></script>
-		
+		<script src="/resources/js/jqBootstrapValidation.js" type="text/javascript"></script>
 		
 		<c:forEach items="${site.js }" var="js">
 			<script src="${site.resourceServer}${site.webResourcesFolder}${js}" type="text/javascript"></script>
