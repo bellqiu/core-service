@@ -8,11 +8,6 @@ ul {
 	margin: 0px;
 }
 
-input[type="text"], input[type="password"], input[type="email"]{
-	height: 30px;
-	width: 206px;
-}
-
 a {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     color: #1570A6;
@@ -26,6 +21,10 @@ a {
 a:HOVER {
 	color: #1570A6;
 	text-decoration: underline;
+}
+
+input[type=password]{
+	width: 100%;
 }
 
 .light-gray-background{
@@ -240,9 +239,8 @@ a:HOVER {
 .bodyContent{
 	max-width: 1200px;
 	min-height:980px;
-	margin: auto;
+	margin: 50px auto auto;
 	padding: 0px;
-	margin-top: 10px;
 }
 
 .bx-wrapper .bx-viewport {
@@ -388,4 +386,5 @@ a:HOVER {
 
 .signUpOrLoginBody{
 	width: 100%;
+	padding-top: 20px;
 }
