@@ -3,10 +3,10 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <header>
 <div class="container-fluid header">
-	<div class="row-fluid">
+	<div class="row">
 		<tiles:insertAttribute name="dockbar"/>
 	</div>
-	<div class="row-fluid main-header">
+	<div class="row main-header">
 	<tiles:insertAttribute name="mainHeader"/>
 	</div>
 	

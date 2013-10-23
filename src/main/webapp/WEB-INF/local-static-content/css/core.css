@@ -274,13 +274,12 @@ input[type=password]{
 }
 
 .spotlight .productItem {
-	background-color: #DEDEDE;
 	height: 200px;
-	width: 230px;
+	padding: 5px;
 }
 
 .spotlight{
-	width:100%;
+	width:100%;	
 }
 
 .controller-prev{
@@ -304,11 +303,8 @@ input[type=password]{
 }
 
 .featuredProducts .productItem {
-	background-color: #DEDEDE;
 	height: 200px;
-	width: 285px;
-	float: left;
-	margin-right: 15px;
+	padding: 5px;
 }
 
 .bxslider li {

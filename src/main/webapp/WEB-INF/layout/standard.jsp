@@ -38,15 +38,15 @@
 		</c:forEach>
 </head>
 <body>
-	<div class="row-fluid">
+	<div class="row">
 		<tiles:insertAttribute name="header"/>
 	</div>
 
-	<div class="row-fluid">
+	<div class="row">
 		<tiles:insertAttribute name="body"/>
 	</div>
 
-	<div class="row-fluid">
+	<div class="row">
 		<tiles:insertAttribute name="footer"/>
 	</div>
 	
