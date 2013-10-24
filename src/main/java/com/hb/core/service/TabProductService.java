@@ -119,6 +119,15 @@ public class TabProductService {
 		return em.find(TabProduct.class, id);
 	}
 	
+	public TabProductDTO getTabProductDTOByName(String name) {
+		
+		TabProduct product = getTabProductByName(name);
+		if(null != product) {
+			return tabProductConverter.convert(product);
+		}
+		return null;
+	}
+	
 	public TabProductDTO getTabProductDTOById(long id) {
 		if(id > 0) {
 			TabProduct tabproduct = em.find(TabProduct.class, id);

@@ -31,4 +31,16 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	
+	<tag>
+		<name>tabProduct</name>
+		<tagclass>com.honeybuy.shop.web.tag.TabedProduct</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>tabKey</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
 </taglib>

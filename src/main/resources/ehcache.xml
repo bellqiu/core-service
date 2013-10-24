@@ -25,8 +25,15 @@
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
-		<cache name="Product" eternal="false"
+	<cache name="Product" eternal="false"
 		timeToLiveSeconds="6000" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
+		
+	<cache name="TabProduct" eternal="false"
+		timeToLiveSeconds="6000" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="99999" />
+	
+	
 </ehcache>
