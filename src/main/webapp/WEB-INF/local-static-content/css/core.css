@@ -162,11 +162,9 @@ input[type=password]{
 }
 
 .top-level-navigator-item{
+	margin: 5px 20px;
 	display: inline-block;
-    margin: 0;
     font-size: 1.6em;
-    margin-right: 5px;
-    width: 130px;
 }
 
 .top-level-navigator-item a{
