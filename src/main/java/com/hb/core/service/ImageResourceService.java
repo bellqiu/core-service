@@ -46,7 +46,7 @@ public class ImageResourceService {
 	
 	public static String IMG_HOST = "IMG_HOST_KEY";
 	
-	public static String CONVERT_PATTERN = "${src}  -quality 80 ( -clone 0 -trim -thumbnail ${largsize} )  ( -clone 0 -trim -thumbnail ${thumbnailsize} )  ( -clone 0 -trim -thumbnail ${logosize} )   ( -clone 0 -trim -thumbnail ${smailsize} ) ( -clone 0 -trim -thumbnail ${iconsize} ) ${output}";
+	public static String CONVERT_PATTERN = "${src}  -quality 80 ( -clone 0  -set option:distort:viewport  \"%[fx:min(w,h)]x%[fx:min(w,h)]+%[fx:max((w-h)/2,0)]+%[fx:max((h-w)/2,0)]\" -filter point -distort SRT 0 )  ( -clone 1 -trim -thumbnail ${largsize} )  ( -clone 2 -trim -thumbnail ${thumbnailsize} )  ( -clone 2 -trim -thumbnail ${logosize} )   ( -clone 2 -trim -thumbnail ${smailsize} ) ( -clone 2 -trim -thumbnail ${iconsize} ) ${output}";
 
 	public String retriveFileExtendedName(String filename) {
 		String extendedName = "";
@@ -122,11 +122,11 @@ public class ImageResourceService {
 		}
 
 		image.setNoChangeUrl(newFileName + "-0." + extendName);
-		image.setLargerUrl(newFileName + "-1." + extendName);
-		image.setThumbnailUrl(newFileName + "-2." + extendName);
-		image.setSmallUrl(newFileName + "-3." + extendName);
-		image.setLogoUrl(newFileName + "-4." + extendName);
-		image.setIconUrl(newFileName + "-5." + extendName);
+		image.setLargerUrl(newFileName + "-2." + extendName);
+		image.setThumbnailUrl(newFileName + "-3." + extendName);
+		image.setSmallUrl(newFileName + "-4." + extendName);
+		image.setLogoUrl(newFileName + "-5." + extendName);
+		image.setIconUrl(newFileName + "-6." + extendName);
 		image = em.merge(image);
 
 		return image;

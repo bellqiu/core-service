@@ -156,7 +156,7 @@
 									${subProd.abstractText }
 								</p>
 								<p>
-									<a href="/xx" class="btn btn-primary">Add to Cart</a> 
+									<a href="/cart/add?productId=${subProd.id }" class="btn btn-primary">Add to Cart</a> 
 								</p>
 							</div>
 						</div>
