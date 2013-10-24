@@ -59,6 +59,9 @@ public class Category  extends Component{
 	@Column(name = "type")
 	private Type type = Type.NAVIGATION;
 	
+	@Column(name = "priority")
+	private int priority;
+	
 	@ManyToOne(optional=true)
 	@JoinColumn(name="parent_id")
 	private Category parent;
@@ -139,6 +142,14 @@ public class Category  extends Component{
 
 	public void setType(Type type) {
 		this.type = type;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+	public int getPriority() {
+		return priority;
 	}
 
 	public String getName() {

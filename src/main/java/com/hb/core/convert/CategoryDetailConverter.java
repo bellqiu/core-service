@@ -32,6 +32,7 @@ public class CategoryDetailConverter implements
 		categoryDetailDTO.setRelatedKeyword(category.getRelatedKeyword());
 		categoryDetailDTO.setUrl(category.getUrl());
 		categoryDetailDTO.setDescription(category.getDescription());
+		categoryDetailDTO.setPriority(category.getPriority());
 		categoryDetailDTO.setId(category.getId());
 		categoryDetailDTO.setParentId(category.getParent() != null ? category
 				.getParent().getId() : 0);
@@ -69,6 +70,7 @@ public class CategoryDetailConverter implements
 		category.setRelatedKeyword(categoryDetailDTO.getRelatedKeyword());
 		category.setUrl(categoryDetailDTO.getUrl());
 		category.setDescription(categoryDetailDTO.getDescription());
+		category.setPriority(categoryDetailDTO.getPriority());
 		return category;
 	}
 

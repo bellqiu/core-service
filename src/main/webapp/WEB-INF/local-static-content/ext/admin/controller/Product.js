@@ -62,6 +62,10 @@ Ext.define('AM.controller.Product', {
 				click : this.addProperty
 			}, 'productoptionwindow productpropertyitem gridpanel#property' : {
 				cellkeydown : this.bindDeleteKey
+			}, 'productoptionwindow productpropertyitem textfield#opItemName' : {
+				keydown : this.keyup,
+				keyup : this.keyup,
+				dirtychange : this.keyup
 			}
 			
 		});
@@ -487,6 +491,10 @@ Ext.define('AM.controller.Product', {
 					Ext.example.msg('Cancel', 'Reload canceled');
 				}
 			});
+	}, 
+	
+	keyup : function(e, eOpts ) {
+		console.log("OK");
 	}
 	
 });

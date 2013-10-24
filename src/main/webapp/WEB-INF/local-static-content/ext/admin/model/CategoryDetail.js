@@ -12,7 +12,8 @@
            {name:'name',type:'string'},
            {name:'type',type:'string'},
            {name:'parentId',type:'int'},
-           {name:'description',type:'string'}
+           {name:'description',type:'string'},
+           {name:'priority',type:'int'}
         ],
         idProperty: 'id'
 });

@@ -62,6 +62,7 @@ Ext.define('AM.view.option.OptionItem', {
 							name : 'displayName',
 							itemId : "opItemName",
 							xtype : 'textfield',
+							enableKeyEvents : true,
 							flex : 1
 						}, {
 							fieldLabel : 'Value',

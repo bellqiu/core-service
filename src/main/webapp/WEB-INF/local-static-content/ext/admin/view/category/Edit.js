@@ -99,7 +99,13 @@ Ext.define('AM.view.category.Edit', {
 							triggerAction : 'all',
 							store : 'CategoryType',
 							allowBlank : false
-						},{
+						}, {
+							fieldLabel : 'Priority',
+							name : 'priority',
+							xtype : 'numberfield',
+							decimalPrecision : 0,
+							flex : 1
+						}, {
 							fieldLabel : 'Icon Url',
 							name : 'iconUrl',
 							xtype : 'textfield',

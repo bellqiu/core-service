@@ -28,6 +28,8 @@ public class CategoryDetailDTO {
 	
 	private Type type = Type.NAVIGATION;
 	
+	private int priority;
+	
 	private long parentId;
 	
 	public CategoryDetailDTO() {
@@ -121,7 +123,13 @@ public class CategoryDetailDTO {
 		this.type = type;
 	}
 
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
 
+	public int getPriority() {
+		return priority;
+	}
 
 	public long getId() {
 		return id;
