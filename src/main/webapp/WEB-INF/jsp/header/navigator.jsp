@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<div class="row-fluid navigator">
+<%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb" %>
+<hb:catlog parentId="0" level="1"/>
+<!-- List of Root -->
+<!-- 	<div class="row-fluid navigator">
 		<div class="top-level-navigator">
 			<ul class="top-level-navigator-list">
 				<li class="top-level-navigator-item">
@@ -29,6 +32,7 @@
 	</div>
 	<div class="menu-line"></div>
 	<div class="menu-content">
+	
 		<div id="category-content1" class="category-content">
 			<div class="specialOffer">
 				<div class="special-item">
@@ -218,4 +222,4 @@
 				});
 			});
 		});
-	</script>
+	</script> -->

@@ -57,7 +57,7 @@ Ext.define('AM.view.html.HtmlDetail', {
 						fieldLabel : 'Name',
 						name : 'name',
 						xtype : 'textfield',
-						regex : /^\w+$/,
+						regex : /^[\w\-\s]+$/,
 						regexText : 'Only for characters',
 						allowBlank : false,
 						anchor : '90%'

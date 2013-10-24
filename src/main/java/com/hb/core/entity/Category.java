@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @NamedQueries(value=
 {
-	@NamedQuery(name="QueryCategoryByName", query="select c from Category as c where name=:name"),
-	@NamedQuery(name="QueryTopCategories", query="select c from Category as c where parent is null")
+	@NamedQuery(name="QueryCategoryByName", query="select c from Category as c where name=:name "),
+	@NamedQuery(name="QueryTopCategories", query="select c from Category as c where parent is null order by priority, name ")
 })
 public class Category  extends Component{
 

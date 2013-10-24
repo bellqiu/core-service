@@ -107,7 +107,6 @@ public class CategoryService {
 	}
 
 	private Category getCategoryById(long id) {
-
 		return em.find(Category.class, id);
 	}
 
@@ -160,7 +159,7 @@ public class CategoryService {
 		Category category = em.find(Category.class, id);
 		em.remove(category);
 	}
-
+	
 	public List<String> getAllCategoryName() {
 		String sqlForAllCategoryName = "select name from Category ";
 		TypedQuery<String> cateogryNames = em.createQuery(sqlForAllCategoryName, String.class);

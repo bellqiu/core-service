@@ -27,6 +27,8 @@ public class CategoryTreeConverter implements Converter<CategoryTreeDTO, Categor
 		categoryTreeDTO.setLeaf(category.getSubCategory() == null || category.getSubCategory().size() < 1 );
 		categoryTreeDTO.setName(category.getName());
 		categoryTreeDTO.setType(category.getType());
+		categoryTreeDTO.setIconUrl(category.getIconUrl());
+		categoryTreeDTO.setUrl(category.getUrl());
 		
 		Category parent = category.getParent();
 		
@@ -56,6 +58,8 @@ public class CategoryTreeConverter implements Converter<CategoryTreeDTO, Categor
 		category.setName(categoryTreeDTO.getName());
 		category.setType(categoryTreeDTO.getType());
 		category.setDisplayName(categoryTreeDTO.getDisplayName());
+		category.setIconUrl(categoryTreeDTO.getIconUrl());
+		category.setUrl(categoryTreeDTO.getUrl());
 		
 		if(categoryTreeDTO.getParentId() > 0 ){
 			category.setParent(em.find(Category.class, categoryTreeDTO.getParentId()));

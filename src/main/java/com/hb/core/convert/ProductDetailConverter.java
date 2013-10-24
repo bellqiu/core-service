@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +16,6 @@ import com.hb.core.entity.Component;
 import com.hb.core.entity.HTML;
 import com.hb.core.entity.Image;
 import com.hb.core.entity.Option;
-import com.hb.core.entity.OptionItem;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.Property;
 import com.hb.core.entity.TabProduct;
@@ -155,7 +153,7 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 		if(null != productDetailDTO.getOptions()){
 			for (Option option : productDetailDTO.getOptions()) {
 				Option existingOption = em.find(Option.class, option.getId());
-				if(existingOption != null) {
+				if(existingOption != null) {/*
 					existingOption.setName(option.getName());
 					existingOption.setType(option.getType() == null ? Option.Type.TEXT : option.getType());
 					existingOption.setDefaultValue(option.getDefaultValue());
@@ -219,7 +217,7 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 						//existingOption.setItems(new ArrayList<OptionItem>());
 						existingOption.getItems().clear();
 					}
-				} else {
+				*/} else {
 					existingOption = option;
 					existingOption.setCreateDate(new Date());
 				}

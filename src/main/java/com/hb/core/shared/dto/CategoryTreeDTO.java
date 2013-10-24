@@ -9,6 +9,8 @@ public class CategoryTreeDTO {
 	private String name;
 	private String displayName;
 	private Category.Type type = Category.Type.NAVIGATION;
+	private String iconUrl;
+	private String url;
 	
 	private long parentId;
 	
@@ -47,6 +49,22 @@ public class CategoryTreeDTO {
 
 	public void setType(Category.Type type) {
 		this.type = type;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
+	}
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 
 	public boolean isLeaf() {
