@@ -105,7 +105,7 @@
 								</div>
 							</div>
 						</c:if>
-						<c:if test="${opt.type=='MULTI_TEXT_LIST' }">
+						<c:if test="${opt.type=='SINGLE_TEXT_LIST' }">
 							<div class="col-md-3 col-xs-3">${opt.name }:</div>
 							<div class="col-md-9 col-xs-9">
 								<select class="selectpicker" id="sizePicker" name="${opt.id }"
