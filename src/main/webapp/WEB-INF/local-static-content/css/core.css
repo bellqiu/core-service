@@ -341,8 +341,9 @@ input[type=password]{
 
 .ProductImageContainer{
 	display: block;
-	width: 590px;
-	height: 590px;
+	width: 580px;
+	height: 580px;
+	overflow: hidden;
 }
 .ProductImageController{
 	display: block;

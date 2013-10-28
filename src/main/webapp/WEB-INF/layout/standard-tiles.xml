@@ -40,6 +40,10 @@
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/productDetail.jsp"/>
         </definition>
         
+         <definition name="categoryIndex" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/categoryIndex.jsp"/>
+        </definition>
+        
         <definition name="myOrder" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/myOrder.jsp"/>
         </definition>
