@@ -8,7 +8,7 @@ import com.hb.core.entity.HTML;
 import com.hb.core.service.HtmlService;
 
 @Service
-public class HtmlServiceCacheWraper {
+public class HtmlServiceCacheWrapper {
 	
 	@Autowired
 	private HtmlService htmlService;

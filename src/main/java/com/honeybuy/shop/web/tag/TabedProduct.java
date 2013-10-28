@@ -5,8 +5,8 @@ import javax.servlet.ServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hb.core.shared.dto.TabProductDTO;
-import com.honeybuy.shop.web.cache.ProductServiceCacheWraper;
-import com.honeybuy.shop.web.cache.SettingServiceCacheWraper;
+import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
+import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 
 public class TabedProduct extends AbstractHBTag{
 	
@@ -20,10 +20,10 @@ public class TabedProduct extends AbstractHBTag{
 	 */
 	
 	@Autowired
-	private SettingServiceCacheWraper settingService;
+	private SettingServiceCacheWrapper settingService;
 	
 	@Autowired
-	private ProductServiceCacheWraper productService;
+	private ProductServiceCacheWrapper productService;
 	
 	private String tabKey;
 

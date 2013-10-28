@@ -5,14 +5,14 @@ import javax.servlet.ServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hb.core.entity.HTML;
-import com.honeybuy.shop.web.cache.HtmlServiceCacheWraper;
+import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 
 public class HtmlTag extends AbstractHBTag{
 	
 	private static final long serialVersionUID = 4262739972508526664L;
 
 	@Autowired
-	private HtmlServiceCacheWraper htmlService;
+	private HtmlServiceCacheWrapper htmlService;
 	
 	private String htmlKey;
 	
@@ -42,11 +42,11 @@ public class HtmlTag extends AbstractHBTag{
 		htmlKey = null;
 	}
 	
-	public HtmlServiceCacheWraper getSettingService() {
+	public HtmlServiceCacheWrapper getSettingService() {
 		return htmlService;
 	}
 
-	public void setHtmlService(HtmlServiceCacheWraper htmlService) {
+	public void setHtmlService(HtmlServiceCacheWrapper htmlService) {
 		this.htmlService = htmlService;
 	}
 

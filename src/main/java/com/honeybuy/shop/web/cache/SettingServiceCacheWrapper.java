@@ -9,7 +9,7 @@ import com.hb.core.service.SettingService;
 
 @Service
 @Transactional(readOnly=true)
-public class SettingServiceCacheWraper {
+public class SettingServiceCacheWrapper {
 	@Autowired
 	private SettingService settingService;
 	

@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.hb.core.entity.HTML;
-import com.honeybuy.shop.web.cache.HtmlServiceCacheWraper;
-import com.honeybuy.shop.web.cache.SettingServiceCacheWraper;
+import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
+import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 
 public class BigAdd extends AbstractHBTag{
 	
@@ -20,10 +20,10 @@ public class BigAdd extends AbstractHBTag{
 	private static final long serialVersionUID = -6291125879700376692L;
 	
 	@Autowired
-	private SettingServiceCacheWraper settingService;
+	private SettingServiceCacheWrapper settingService;
 	
 	@Autowired
-	private HtmlServiceCacheWraper htmlService;
+	private HtmlServiceCacheWrapper htmlService;
 	
 	private String settingKey;
 
@@ -57,11 +57,11 @@ public class BigAdd extends AbstractHBTag{
 		settingKey = null;
 	}
 	
-	public SettingServiceCacheWraper getSettingService() {
+	public SettingServiceCacheWrapper getSettingService() {
 		return settingService;
 	}
 
-	public void setSettingService(SettingServiceCacheWraper settingService) {
+	public void setSettingService(SettingServiceCacheWrapper settingService) {
 		this.settingService = settingService;
 	}
 

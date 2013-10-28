@@ -149,6 +149,28 @@ public class CategoryService {
 
 		return treeDTOs;
 	}
+	
+	public List<CategoryTreeDTO> getSpecialCategoryTree(int id) {
+		List<CategoryTreeDTO> treeDTOs = new ArrayList<CategoryTreeDTO>();
+
+		if (id > 0) {
+			Category c = getCategoryById(id);
+			if (null != c) {
+				List<Category> categories = c.getSubCategory();
+				if (null != categories) {
+					for (Category category : categories) {
+						if(category.getType().equals(Category.Type.SPECIAL_OFFER)) {
+							CategoryTreeDTO categoryTreeDTO = categoryTreeConverter
+									.convert(category);
+							treeDTOs.add(categoryTreeDTO);
+						}
+					}
+				}
+			}
+		}
+
+		return treeDTOs;
+	}
 
 	public void destory(Category category) {
 		category = em.merge(category);

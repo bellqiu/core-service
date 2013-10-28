@@ -25,7 +25,12 @@
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
-	<cache name="CategoryServiceCacheWraper_getCategoryTree" eternal="false"
+	<cache name="GetSpecialCategoryTree" eternal="false"
+		timeToLiveSeconds="6000" maxElementsInMemory="9999"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="99999" />
+		
+	<cache name="GetCategoryTree" eternal="false"
 		timeToLiveSeconds="6000" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
@@ -39,6 +44,7 @@
 		timeToLiveSeconds="6000" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
+		
 	
 	
 </ehcache>

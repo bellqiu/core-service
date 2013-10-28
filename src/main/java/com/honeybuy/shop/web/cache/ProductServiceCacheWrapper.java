@@ -12,7 +12,7 @@ import com.hb.core.shared.dto.TabProductDTO;
 
 @Service
 @Transactional(readOnly=true)
-public class ProductServiceCacheWraper {
+public class ProductServiceCacheWrapper {
 	@Autowired
 	private ProductService productService;
 	

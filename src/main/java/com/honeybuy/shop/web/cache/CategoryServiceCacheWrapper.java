@@ -10,14 +10,23 @@ import com.hb.core.service.CategoryService;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 
 @Service
-public class CategoryServiceCacheWraper {
+public class CategoryServiceCacheWrapper {
 	
 	@Autowired
 	private CategoryService categoryService;
 	
-	@Cacheable(cacheName="CategoryServiceCacheWraper_getCategoryTree")
-	public List<CategoryTreeDTO> getCategoryTree(Integer id){
+	@Cacheable(cacheName="GetCategoryTree")
+	public List<CategoryTreeDTO> getCategoryTree(int id){
 		List<CategoryTreeDTO> categoryTree = categoryService.getCategoryTree(id);
+		if(categoryTree.size() > 12) {
+			return categoryTree.subList(0, 12);
+		}
+		return categoryTree;
+	}
+	
+	@Cacheable(cacheName="GetSpecialCategoryTree")
+	public List<CategoryTreeDTO> getSpecialCategoryTree(int id){
+		List<CategoryTreeDTO> categoryTree = categoryService.getSpecialCategoryTree(id);
 		if(categoryTree.size() > 12) {
 			return categoryTree.subList(0, 12);
 		}

@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.honeybuy.shop.web.cache.ProductServiceCacheWraper;
+import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 
 /**
  * 
@@ -22,7 +22,7 @@ import com.honeybuy.shop.web.cache.ProductServiceCacheWraper;
 public class ProductController {
 	
 	@Autowired
-	private ProductServiceCacheWraper productService;
+	private ProductServiceCacheWrapper productService;
 	
 	@RequestMapping("/{productName}")
 	public String productDetail(@PathVariable("productName") String productName, Model model){

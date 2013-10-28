@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 
-public class CategoryTag extends AbstractHBTag{
+public class SpecialOffTag extends AbstractHBTag{
 	
 	private static final long serialVersionUID = 4262739972508526664L;
 
@@ -18,8 +18,6 @@ public class CategoryTag extends AbstractHBTag{
 	private CategoryServiceCacheWrapper categoryService;
 	
 	private String parentId;
-	
-	private String level;
 	
 	@Override
 	public String handle(ServletRequest request) {
@@ -30,24 +28,18 @@ public class CategoryTag extends AbstractHBTag{
 		}
 		
 		List<CategoryTreeDTO> categoryTree = categoryService.getCategoryTree(id);
-		request.setAttribute("catlogs", categoryTree);
-		if("2".equals(level)) {
-			return "catloglevle2";
-		} else if("3".equals(level)) {
-			return "catloglevle3";
-		}
-		return "catloglevle1";
+		request.setAttribute("specialcatlogs", categoryTree);
+		return "specialOffer";
 	}
 	
 	@Override
 	public void clean(ServletRequest request) {
-		request.removeAttribute("catlogs");
+		//request.removeAttribute("htmlContent");
 	}
 	
 	@Override
 	public void release() {
 		parentId = null;
-		level = null;
 	}
 	
 	public CategoryServiceCacheWrapper getSettingService() {
@@ -66,12 +58,4 @@ public class CategoryTag extends AbstractHBTag{
 		this.parentId = parentId;
 	}
 
-	public void setLevel(String level) {
-		this.level = level;
-	}
-
-	public String getLevel() {
-		return level;
-	}
-	
 }
