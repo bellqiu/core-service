@@ -68,7 +68,7 @@ public class CategoryDirectService {
 	@ExtDirectMethod(value=ExtDirectMethodType.FORM_POST)
 	public ExtDirectFormPostResult saveDetail(@Valid CategoryDetailDTO categoryDetailDTO, BindingResult result){
 		String name = categoryDetailDTO.getName();
-		RegexUtils.replaceSpecialChar(name, Constants.SPECIAL_CHAR_REPLACEMENT);
+		name = RegexUtils.replaceSpecialChar(name, Constants.SPECIAL_CHAR_REPLACEMENT);
 		categoryDetailDTO.setName(name);
 		if(!result.hasErrors() && name == null) {
 			result.rejectValue("name", null, "Category name should be alphanum");

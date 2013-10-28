@@ -200,10 +200,10 @@ input[type=password]{
 }
 
 .subCategory-list{
-	float: left;
+	/* float: left;
     margin-left: 2%;
     margin-right: 15%;
-    position: relative;
+    position: relative; */
 }
 
 .l2Category{

@@ -37,10 +37,10 @@
 				</div>
 				<div style="clear:both"></div>
 			</div>
-		<div class="subCategory">
+		<div class="subCategory row">
 			<c:forEach items="${catlogs}" var="item" varStatus="stat">
-				<div class="subCategory-list">
-					<h2 class="l2Category"><a href="${item.url }">${item.name }</a></h2>
+				<div class="subCategory-list col-xs-3">
+					<h2 class="l2Category"><a href="/c/${item.name }">${item.displayName }</a></h2>
 					<hb:catlog parentId="${item.id }" level="3"/>
 				</div>
 			</c:forEach>
