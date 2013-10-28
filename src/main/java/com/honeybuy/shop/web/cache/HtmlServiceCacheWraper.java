@@ -13,7 +13,7 @@ public class HtmlServiceCacheWraper {
 	@Autowired
 	private HtmlService htmlService;
 	
-	@Cacheable(cacheName="HtmlServiceCacheWraper_getStringValue")
+	@Cacheable(cacheName="html")
 	public HTML getHTML(String key){
 		return htmlService.getHTML(key);
 	}

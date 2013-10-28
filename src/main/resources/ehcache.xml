@@ -10,7 +10,7 @@
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="1" />
 		
-	<cache name="SettingServiceCacheWraper_getStringValue" eternal="false"
+	<cache name="html" eternal="false"
 		timeToLiveSeconds="6000" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="10000" />
@@ -20,7 +20,7 @@
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="100000" />	
 		
-	<cache name="HtmlServiceCacheWraper_getStringValue" eternal="false"
+	<cache name="setting" eternal="false"
 		timeToLiveSeconds="6000" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />

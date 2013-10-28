@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.hb.core.entity.HTML;
-import com.hb.core.service.HtmlService;
+import com.honeybuy.shop.web.cache.HtmlServiceCacheWraper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWraper;
 
 public class BigAdd extends AbstractHBTag{
@@ -23,7 +23,7 @@ public class BigAdd extends AbstractHBTag{
 	private SettingServiceCacheWraper settingService;
 	
 	@Autowired
-	private HtmlService htmlService;
+	private HtmlServiceCacheWraper htmlService;
 	
 	private String settingKey;
 
