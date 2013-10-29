@@ -56,6 +56,10 @@
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/shoppingcatPayment.jsp"/>
         </definition>
         
+         <definition name="freedomPage" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/freedomPage.jsp"/>
+        </definition>
+        
         <definition name="myOrder" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/myOrder.jsp"/>
         </definition>
