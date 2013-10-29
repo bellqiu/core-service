@@ -1,6 +1,8 @@
 package com.hb.core.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hb.core.convert.Converter;
 import com.hb.core.entity.Category;
+import com.hb.core.entity.Category.Type;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
@@ -150,6 +153,49 @@ public class CategoryService {
 		return treeDTOs;
 	}
 	
+	private static final Comparator<Category> categoryComparator = new Comparator<Category>(){
+
+		@Override
+		public int compare(Category o1, Category o2) {
+			if(o1.getPriority() != o2.getPriority()) {
+				return o1.getPriority() - o2.getPriority();
+			} 
+			return o1.getName().compareTo(o2.getName());
+		}};
+		
+	public List<CategoryTreeDTO> getNomalCategoryTree(int id) {
+		List<CategoryTreeDTO> treeDTOs = new ArrayList<CategoryTreeDTO>();
+
+		if (id < 1) {
+			List<Category> categories = getTopCategories();
+			if (null != categories) {
+				for (Category category : categories) {
+					CategoryTreeDTO categoryTreeDTO = categoryTreeConverter
+							.convert(category);
+					treeDTOs.add(categoryTreeDTO);
+				}
+			}
+		} else {
+			Category c = getCategoryById(id);
+			if (null != c) {
+				List<Category> categories = c.getSubCategory();
+				if (null != categories) {
+					Collections.sort(categories, categoryComparator);
+					for (Category category : categories) {
+						Type type = category.getType();
+						if(Category.Type.NAVIGATION.equals(type) || Category.Type.LINK.equals(type)) {
+							CategoryTreeDTO categoryTreeDTO = categoryTreeConverter
+									.convert(category);
+							treeDTOs.add(categoryTreeDTO);
+						}
+					}
+				}
+			}
+		}
+
+		return treeDTOs;
+	}
+	
 	public List<CategoryTreeDTO> getSpecialCategoryTree(int id) {
 		List<CategoryTreeDTO> treeDTOs = new ArrayList<CategoryTreeDTO>();
 
@@ -158,8 +204,9 @@ public class CategoryService {
 			if (null != c) {
 				List<Category> categories = c.getSubCategory();
 				if (null != categories) {
+					Collections.sort(categories, categoryComparator);
 					for (Category category : categories) {
-						if(category.getType().equals(Category.Type.SPECIAL_OFFER)) {
+						if(Category.Type.SPECIAL_OFFER.equals(category.getType())) {
 							CategoryTreeDTO categoryTreeDTO = categoryTreeConverter
 									.convert(category);
 							treeDTOs.add(categoryTreeDTO);

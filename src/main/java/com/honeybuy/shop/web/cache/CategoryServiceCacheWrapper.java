@@ -17,7 +17,7 @@ public class CategoryServiceCacheWrapper {
 	
 	@Cacheable(cacheName="GetCategoryTree")
 	public List<CategoryTreeDTO> getCategoryTree(int id){
-		List<CategoryTreeDTO> categoryTree = categoryService.getCategoryTree(id);
+		List<CategoryTreeDTO> categoryTree = categoryService.getNomalCategoryTree(id);
 		if(categoryTree.size() > 12) {
 			return categoryTree.subList(0, 12);
 		}

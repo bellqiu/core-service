@@ -4,44 +4,14 @@
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb" %>
 		
 	<!-- TODO add specialOffer tag -->
-			<div class="specialOffer">
-				<div class="special-item">
-				<a href="#">
-					<img alt="" src="http://dri2.img.digitalrivercontent.net/Storefront/Site/msusa/images/promo/en-US-Global_NAV_Surface.png">
-					<p>category name</p>
-				</a>
-				</div>
-				<div class="special-item">
-				<a href="#">
-					<img alt="" src="http://dri2.img.digitalrivercontent.net/Storefront/Site/msusa/images/promo/en-US-Global_NAV_Surface.png">
-					<p>category name</p>
-				</a>
-				</div>
-				<div class="special-item">
-				<a href="#">
-					<img alt="" src="http://dri2.img.digitalrivercontent.net/Storefront/Site/msusa/images/promo/en-US-Global_NAV_Surface.png">
-					<p>category name</p>
-				</a>
-				</div>
-				<div class="special-item">
-				<a href="#">
-					<img alt="" src="http://dri2.img.digitalrivercontent.net/Storefront/Site/msusa/images/promo/en-US-Global_NAV_Surface.png">
-					<p>category name</p>
-				</a>
-				</div>
-				<div class="special-item">
-				<a href="#">
-					<img alt="" src="http://dri2.img.digitalrivercontent.net/Storefront/Site/msusa/images/promo/en-US-Global_NAV_Surface.png">
-					<p>category name</p>
-				</a>
-				</div>
-				<div style="clear:both"></div>
-			</div>
-		<div class="subCategory">
-			<c:forEach items="${catlogs}" var="item" varStatus="stat">
-				<div class="subCategory-list">
-					<h2 class="l2Category"><a href="${item.url }">${item.name }</a></h2>
-					<hb:catlog parentId="${item.id }" level="3"/>
-				</div>
-			</c:forEach>
+<div class="specialOffer">
+	<c:forEach items="${specialcatlogs }" var="item" varStatus="stat">
+		<div class="special-item">
+			<a href="/c/${item.name }">
+				<img alt="" src="${item.iconUrl }">
+				<p>${item.displayName }</p>
+			</a>
 		</div>
+	</c:forEach>
+	<div style="clear:both"></div>
+</div>

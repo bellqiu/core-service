@@ -3,6 +3,13 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<ul>
 		<c:forEach items="${catlogs}" var="item" varStatus="stat">
-			<li class="l3Category"><a href="/c/${item.name }">${item.displayName }</a></li>
+			<c:choose>
+				<c:when test="${item.type == 'NAVIGATION' }">
+					<li class="l3Category"><a href="/c/${item.name }">${item.displayName }</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="l3Category"><a href="${item.url }">${item.displayName }</a></li>
+				</c:otherwise>
+			</c:choose>
 		</c:forEach>
 	</ul>

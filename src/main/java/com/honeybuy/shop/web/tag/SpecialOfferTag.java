@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 
-public class SpecialOffTag extends AbstractHBTag{
+public class SpecialOfferTag extends AbstractHBTag{
 	
 	private static final long serialVersionUID = 4262739972508526664L;
 
@@ -27,14 +27,14 @@ public class SpecialOffTag extends AbstractHBTag{
 			id = Integer.valueOf(parentId); 
 		}
 		
-		List<CategoryTreeDTO> categoryTree = categoryService.getCategoryTree(id);
+		List<CategoryTreeDTO> categoryTree = categoryService.getSpecialCategoryTree(id);
 		request.setAttribute("specialcatlogs", categoryTree);
 		return "specialOffer";
 	}
 	
 	@Override
 	public void clean(ServletRequest request) {
-		//request.removeAttribute("htmlContent");
+		request.removeAttribute("specialcatlogs");
 	}
 	
 	@Override

@@ -26,12 +26,12 @@
 	<div class="menu-content">
 		<c:forEach items="${catlogs}" var="item" varStatus="stat">
 			<c:choose>
-			<c:when test="${item.type == 'NAVIGATION' || item.type == 'SPECIAL_OFFER' }">
-				<div id="category-content${stat.index}" class="category-content">
-					<!-- TODO add specialOffer tag -->
-					<hb:catlog parentId="${item.id }" level="2"/>
-				</div>
-			</c:when>
+				<c:when test="${item.type == 'NAVIGATION' || item.type == 'SPECIAL_OFFER' }">
+					<div id="category-content${stat.index}" class="category-content">
+						<hb:specialcatlog parentId="${item.id }"/>
+						<hb:catlog parentId="${item.id }" level="2"/>
+					</div>
+				</c:when>
 			</c:choose>
 		</c:forEach>
 		<div style="clear:both"></div>

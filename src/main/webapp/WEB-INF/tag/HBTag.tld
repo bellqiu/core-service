@@ -60,6 +60,17 @@
 	</tag>
 	
 	<tag>
+		<name>specialcatlog</name>
+		<tagclass>com.honeybuy.shop.web.tag.SpecialOfferTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>parentId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
 		<name>cleanCache</name>
 		<tagclass>com.honeybuy.shop.web.tag.CleanCache</tagclass>
 		<bodycontent>empty</bodycontent>
