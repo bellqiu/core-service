@@ -4,13 +4,15 @@
 <!DOCTYPE>
 <html>
 <head>
-		<title><tiles:getAsString name="title" /> - ${site.siteName } </title>
+		<title>${pageMeta.title } </title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<meta content="" name="keywords">
 		<meta content="" name="description">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta content="${pageMeta.keywords }" name="keywords">
+		<meta content="${pageMeta.description }" name="description">
 		
 		<!-- Import css/js -->
 		<style type="text/css">

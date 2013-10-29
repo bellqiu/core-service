@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.googlecode.ehcache.annotations.Cacheable;
 import com.hb.core.service.CategoryService;
+import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 
 @Service
+@Transactional(readOnly=true)
 public class CategoryServiceCacheWrapper {
 	
 	@Autowired
@@ -31,5 +34,10 @@ public class CategoryServiceCacheWrapper {
 			return categoryTree.subList(0, 12);
 		}
 		return categoryTree;
+	}
+	
+	@Cacheable(cacheName="CategoryDetail")
+	public CategoryDetailDTO getCategoryDetailByName(String name){
+		return getCategoryDetailByName(name);
 	}
 }

@@ -123,6 +123,10 @@ public class CategoryService {
 	public CategoryDetailDTO getCategoryDetailDTOById(long id) {
 		return categoryDetailConverter.convert(getCategoryById(id));
 	}
+	
+	public CategoryDetailDTO getCategoryDetailDTOByName(String name) {
+		return categoryDetailConverter.convert(getCategoryByName(name));
+	}
 
 	public List<CategoryTreeDTO> getCategoryTree(int id) {
 		List<CategoryTreeDTO> treeDTOs = new ArrayList<CategoryTreeDTO>();

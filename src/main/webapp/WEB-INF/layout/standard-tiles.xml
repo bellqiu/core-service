@@ -4,7 +4,6 @@
 <tiles-definitions>   
 	<!-- Parents -->     
         <definition name="standardLayout" template="/WEB-INF/layout/standard.jsp" >
-        	 <put-attribute name="title" value="HB"/>
         	 <put-attribute name="header" value="/WEB-INF/jsp/header/head.jsp"/>
         	 <put-attribute name="body" value="/WEB-INF/jsp/body/blank.jsp"/>
         	 <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
