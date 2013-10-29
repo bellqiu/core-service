@@ -44,7 +44,7 @@
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
-			<mvc:mapping path="/c/*" />
+			<mvc:mapping path="/c/**" />
 			<bean class="com.honeybuy.shop.web.interceptor.PageMetaInterceptor">
 				<property name="pageType" value="category"></property>
 			</bean>

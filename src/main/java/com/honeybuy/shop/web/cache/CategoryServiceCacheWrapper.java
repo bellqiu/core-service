@@ -38,6 +38,6 @@ public class CategoryServiceCacheWrapper {
 	
 	@Cacheable(cacheName="CategoryDetail")
 	public CategoryDetailDTO getCategoryDetailByName(String name){
-		return getCategoryDetailByName(name);
+		return categoryService.getCategoryDetailDTOByName(name);
 	}
 }

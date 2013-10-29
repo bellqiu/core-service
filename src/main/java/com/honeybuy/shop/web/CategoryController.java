@@ -37,6 +37,7 @@ public class CategoryController {
 		}
 		
 		model.addAttribute("currentCategoryDetail", categoryDetailDTO);
+		model.addAttribute("currentCategoryPageIndex", page);
 		
 		return "categoryIndex";
 	}
