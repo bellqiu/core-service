@@ -28,23 +28,28 @@ public class ShoppinController {
 	private ProductServiceCacheWrapper productService;
 	
 	@RequestMapping("/sp/shoppingcart/list")
-	public String shopingcat( Model model){
-		return "shopingcat";
+	public String shoppingcat( Model model){
+		return "shoppingcat";
 	}
 	
-	@RequestMapping("/c/shoppingcart/add/{productId}")
+	@RequestMapping("/sp/shoppingcart/add/{productId}")
 	public String addToCart(@PathVariable("productId") long productId, @RequestParam("option") String optionJson, Model model){
 		return "redirect:/sp/shoppingcart/list";
 	}
 	
 	@RequestMapping("/sp/shoppingcart/address/{orderId}")
 	public String finishOrderInfo(@PathVariable("orderId") long orderId, Model model){
-		return "shopingcatAddress";
+		return "shoppingcatAddress";
 	}
 	
 	@RequestMapping("/sp/shoppingcart/checkout/{orderId}")
-	public String checkout(@PathVariable("orderId") long orderId, Model model){
-		return "shopingcatAddress";
+	public String cartToCheckout(@PathVariable("orderId") long orderId, Model model){
+		return "redirect:/sp/shoppingcart/payment/"+orderId;
+	}
+	
+	@RequestMapping("/sp/shoppingcart/payment/{orderId}")
+	public String cartToPay(@PathVariable("orderId") long orderId, Model model){
+		return "shoppingcatPayment";
 	}
 	
 }

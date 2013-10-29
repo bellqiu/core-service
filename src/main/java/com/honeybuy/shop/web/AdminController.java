@@ -47,6 +47,6 @@ public class AdminController {
 	public String removeCacheCache(Model model, @RequestParam("el") String cache)
 			throws IOException {
 		cacheManager.getCache(cache).removeAll();
-		return "redirect:/admin/cache/list";
+		return "forward:/admin/cache/list";
 	}
 }

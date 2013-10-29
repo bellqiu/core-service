@@ -44,6 +44,18 @@
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/categoryIndex.jsp"/>
         </definition>
         
+         <definition name="shoppingcat" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/shoppingcat.jsp"/>
+        </definition>
+        
+         <definition name="shoppingcatAddress" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/shoppingcatAddress.jsp"/>
+        </definition>
+        
+         <definition name="shoppingcatPayment" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/shoppingcatPayment.jsp"/>
+        </definition>
+        
         <definition name="myOrder" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/myOrder.jsp"/>
         </definition>

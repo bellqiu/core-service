@@ -34,7 +34,10 @@ public abstract class AbstractHBTag extends TagSupport {
 	@Override
 	public int doStartTag() throws JspException {
 		try {
-			pageContext.include("/WEB-INF/jsp/tag/"+handle(pageContext.getRequest())+".jsp", true);
+			String jspName = handle(pageContext.getRequest());
+			if(null != jspName){
+				pageContext.include("/WEB-INF/jsp/tag/"+jspName+".jsp", true);
+			}
 		} catch (Exception e) {
 			throw new CoreServiceException(e);
 		}

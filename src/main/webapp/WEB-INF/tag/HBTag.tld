@@ -58,4 +58,10 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	
+	<tag>
+		<name>cleanCache</name>
+		<tagclass>com.honeybuy.shop.web.tag.CleanCache</tagclass>
+		<bodycontent>empty</bodycontent>
+	</tag>
 </taglib>
