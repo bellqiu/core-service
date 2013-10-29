@@ -240,8 +240,7 @@ input[type=password]{
 }
 
 .bodyContent{
-	max-width: 1200px;
-	min-height:980px;
+	min-width: 1170px;
 	margin: 50px auto auto;
 	padding: 0px;
 }
@@ -384,7 +383,19 @@ input[type=password]{
 
 /*************Register Or Login Start*************/
 
-.signUpOrLoginBody{
-	width: 100%;
-	padding-top: 20px;
+.signUpOrLoginBody {
+	padding: 20px;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background-color: #FFFFFF;
+	border-color: #DDDDDD #DDDDDD rgba(0, 0, 0, 0);
+	border-image: none;
+	border-style: solid;
+	border-width: 1px;
+	border-bottom-color:#DDDDDD;
+	border-top:none;
+	color: #555555;
+	cursor: default;
 }

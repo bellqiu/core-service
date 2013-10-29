@@ -1,6 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<div class="container-fluid body">
-	<div class="bodyContent">
+<div class="container bodyContent">
 	    <ul id="signUpOrLoginTab" class="nav nav-tabs">
 		    <li class="active">
 		    	<a href="#login">Sign In</a>
@@ -9,8 +8,8 @@
 		    	<a href="#signUp">Sign Up</a>
 		    </li>
 	    </ul>
-	    <div id="signUpOrLoginTab" class="signUpOrLoginBody tab-content">
-	    	<div id="login" class="tab-pane fade active in">
+	    <div id="signUpOrLoginTab" class="row signUpOrLoginBody tab-content">
+	    	<div id="login" class="col-sm-12 col-md-12 tab-pane fade active in">
 				<form class="form-horizontal" role="form">
 					<div class="form-group">
 						<label class="col-lg-2 control-label" for="loginUsername">Email</label>
@@ -42,14 +41,14 @@
                     </div>
 				</form>
 			</div>
-	    	<div id="signUp" class="tab-pane fade">
+	    	<div id="signUp" class="col-sm-12 col-md-12 tab-pane fade">
 	    	<legend>To obtain a HoneyStore account</legend>
 	    	<form action="" class="form-horizontal">
                    <div class="form-group">
                        <label for="regUsername" class="col-lg-2 control-label">Email</label>
                        <div class="col-lg-10">
                            <input class="form-control" type="email" id="regUsername" name="regUsername" required>
-                           <p class="help-block">Email address we can contact you on</p>
+                           <p class="help-block"></p>
                        </div>
                    </div>
                    <div class="form-group">
@@ -84,7 +83,6 @@
                </form>
 	    	</div>
 	    </div>
-	</div>
 </div>
 <script type="text/javascript">
 $(".bodyContent").ready(function(){
