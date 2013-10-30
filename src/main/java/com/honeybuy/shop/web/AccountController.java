@@ -39,7 +39,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="/newAccount", method=RequestMethod.POST)
-	public String newAccountPost(Model model, @RequestParam("username") String username, @RequestParam("password")String password){
+	public String newAccountPost(Model model, @RequestParam("regUsername") String username, @RequestParam("regPassword")String password){
 		UserDTO user = userService.newUser(username, password);
 		
 		model.addAttribute("createdUser", user);
