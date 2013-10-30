@@ -14,14 +14,14 @@
 					<div class="form-group">
 						<label class="col-lg-2 control-label" for="loginUsername">Email</label>
 						<div class="col-lg-10">
-							<input class="form-control" type="email" id="loginUsername" placeholder="Email" required >
+							<input class="form-control" name="loginUsername" type="email" id="loginUsername" placeholder="Email" required >
 							<p class="help-block"></p>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-lg-2 control-label" for="loginPassword">Password</label>
 						<div class="col-lg-10">
-							<input class="form-control" type="password" id="loginPassword" placeholder="Password">
+							<input class="form-control" type="password" name="loginPassword" id="loginPassword" placeholder="Password">
 							<p class="help-block"></p>
 						</div>
 					</div>
