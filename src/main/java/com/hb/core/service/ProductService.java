@@ -150,7 +150,7 @@ public class ProductService {
 	
 	public ProductDetailDTO saveProductDetail(ProductDetailDTO detailDTO){
 		Product existing = getProductByName(detailDTO.getName());
-		if ((null != existing && detailDTO.getId() < 1 ) || (null != existing && existing.getId() != detailDTO.getId())) {
+		if ((null != existing || detailDTO.getId() < 1 ) || (null != existing && existing.getId() != detailDTO.getId())) {
 			throw new CoreServiceException("Product name already exist");
 		}
 		
