@@ -4,6 +4,8 @@
  */
 package com.honeybuy.shop.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hb.core.shared.dto.CategoryDetailDTO;
+import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 
@@ -35,6 +38,21 @@ public class CategoryController {
 		if(null == categoryDetailDTO){
 			return "404";
 		}
+		
+		long categoryId = categoryDetailDTO.getId();
+		int totalCount = productService.getProductCountByCategoryId(categoryId);
+		int max = 24;
+		
+		int start = page * max;
+		if(start >= totalCount) {
+			page = 0;
+			start = 0;
+		}
+		List<ProductSummaryDTO> productSummaryList = productService.getAllProductByCategoryId(categoryId, start, max);
+		if(productSummaryList.size() < max) {
+			
+		}
+		System.out.println(productSummaryList);
 		
 		model.addAttribute("currentCategoryDetail", categoryDetailDTO);
 		model.addAttribute("currentCategoryPageIndex", page);

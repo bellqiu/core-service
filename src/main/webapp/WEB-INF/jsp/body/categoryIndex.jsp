@@ -10,8 +10,8 @@
 		</div>
 		<div class="col-xs-9">
 			<div class="row">
-				<div class="col-xs-4">Showing Results 1 - 36 of 1,863</div>
-				<div class="col-xs-4">&nbsp;</div>
+				<div class="pagination col-xs-4">Showing Results 1 - 36 of 1,863</div>
+				<div class="pagination col-xs-4">&nbsp;</div>
 				<div class="col-xs-4">
 					<ul class="pagination">
   						<li><a href="#">&laquo;</a></li>

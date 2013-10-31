@@ -356,4 +356,25 @@ public class ProductService {
 		product = em.merge(transf);
 		return productSummaryConverter.convert(product);
 	}
+	
+	public List<ProductSummaryDTO> getAllProductByCategoryId(long id, int start, int max) {
+		String queryString = "select p from Product p, Category c where c.id = :id and c member of p.categories";
+		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
+		query.setParameter("id", id);
+		query.setFirstResult(start);
+		query.setMaxResults(max);
+		List<Product> resultList = query.getResultList();
+		List<ProductSummaryDTO> productSummaryList = new ArrayList<ProductSummaryDTO>(resultList.size());
+		for(Product p : resultList) {
+			productSummaryList.add(productSummaryConverter.convert(p));
+		}
+		return productSummaryList;
+	}
+
+	public int getProductCountByCategoryId(long id) {
+		String queryString = "select count(p.id) from Product p, Category c where c.id = :id and c member of p.categories";
+		TypedQuery<Long> count = em.createQuery(queryString, Long.class);
+		count.setParameter("id", id);
+		return count.getSingleResult().intValue();
+	}
 }
