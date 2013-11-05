@@ -27,7 +27,7 @@ public class ProductSummaryDTO {
 	private String name;
 	
 	private String categoryBreadcrumb;
-
+	
 	public long getId() {
 		return id;
 	}

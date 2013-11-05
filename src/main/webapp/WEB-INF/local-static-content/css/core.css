@@ -399,3 +399,7 @@ input[type=password]{
 	color: #555555;
 	cursor: default;
 }
+
+.pagination > li > a {
+  padding: 4px 8px;
+}
