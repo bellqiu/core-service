@@ -284,6 +284,17 @@ input[type=password]{
 	width:100%;	
 }
 
+.bestSelling {
+	height: 200px;
+	padding: 5px;
+	width:100%;
+}
+
+.bestSelling img{
+	width: 380px;
+	height: 200px;
+}
+
 .controller-prev{
 	float: left;
 	margin-left: 20px;

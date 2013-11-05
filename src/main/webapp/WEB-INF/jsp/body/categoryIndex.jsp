@@ -22,7 +22,7 @@
 								<li class="disabled"><a href="#">&lt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/c/${currentCategoryDetail.name }/${currentCategoryPageIndex-1}">&lt;</a></li>
+								<li><a href="${site.resourceServer}/c/${currentCategoryDetail.name }/${currentCategoryPageIndex-1}">&lt;</a></li>
 							</c:otherwise>
 							</c:choose>
   							<!-- <li><a href="#">&laquo;</a></li> -->
@@ -34,10 +34,10 @@
   									<c:otherwise>
   										<c:choose>
   										<c:when test="${item == currentCategoryPageIndex}">
-  										<li class="active"><a href="/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
+  										<li class="active"><a href="${site.resourceServer}/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
   										</c:when>
   										<c:otherwise>
-  										<li><a href="/c/${currentCategoryDetail.name }/${item}">${item+1}</a></li>
+  										<li><a href="${site.resourceServer}/c/${currentCategoryDetail.name }/${item}">${item+1}</a></li>
   										</c:otherwise>
   										</c:choose>
   									</c:otherwise>
@@ -49,7 +49,7 @@
 								<li class="disabled"><a href="#">&gt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/c/${currentCategoryDetail.name }/${currentCategoryPageIndex+1}">&gt;</a></li>
+								<li><a href="${site.resourceServer}/c/${currentCategoryDetail.name }/${currentCategoryPageIndex+1}">&gt;</a></li>
 							</c:otherwise>
 							</c:choose>
 						</ul>
@@ -62,10 +62,10 @@
 						<c:forEach items="${productSummary }" var="item">
 							<div class="col-xs-4">
 								<div class="thumbnail">
-      							<img src="/rs/img/${item.imageURL }" alt="...">
+      							<img src="${site.resourceServer}/rs/img/${item.imageURL }" alt="...">
       							<div class="caption">
         						<!-- <h3>Thumbnail label</h3> -->
-        						<p><a href="/${item.name }">${item.title }</a></p>
+        						<p><a href="${site.resourceServer}/${item.name }">${item.title }</a></p>
       							</div>
    		 						</div>
 							</div>
@@ -80,7 +80,7 @@
 								<li class="disabled"><a href="#">&lt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/c/${currentCategoryDetail.name }/${currentCategoryPageIndex-1}">&lt;</a></li>
+								<li><a href="${site.resourceServer}/c/${currentCategoryDetail.name }/${currentCategoryPageIndex-1}">&lt;</a></li>
 							</c:otherwise>
 							</c:choose>
   							<!-- <li><a href="#">&laquo;</a></li> -->
@@ -92,10 +92,10 @@
   									<c:otherwise>
   										<c:choose>
   										<c:when test="${item == currentCategoryPageIndex}">
-  										<li class="active"><a href="/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
+  										<li class="active"><a href="${site.resourceServer}/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
   										</c:when>
   										<c:otherwise>
-  										<li><a href="/c/${currentCategoryDetail.name }/${item}">${item+1}</a></li>
+  										<li><a href="${site.resourceServer}/c/${currentCategoryDetail.name }/${item}">${item+1}</a></li>
   										</c:otherwise>
   										</c:choose>
   									</c:otherwise>
@@ -107,7 +107,7 @@
 								<li class="disabled"><a href="#">&gt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/c/${currentCategoryDetail.name }/${currentCategoryPageIndex+1}">&gt;</a></li>
+								<li><a href="${site.resourceServer}/c/${currentCategoryDetail.name }/${currentCategoryPageIndex+1}">&gt;</a></li>
 							</c:otherwise>
 							</c:choose>
 						</ul>

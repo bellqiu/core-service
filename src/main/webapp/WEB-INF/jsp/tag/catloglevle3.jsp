@@ -5,7 +5,7 @@
 		<c:forEach items="${catlogs}" var="item" varStatus="stat">
 			<c:choose>
 				<c:when test="${item.type == 'NAVIGATION' }">
-					<li class="l3Category"><a href="/c/${item.name }">${item.displayName }</a></li>
+					<li class="l3Category"><a href="${site.resourceServer}/c/${item.name }">${item.displayName }</a></li>
 				</c:when>
 				<c:otherwise>
 					<li class="l3Category"><a href="${item.url }">${item.displayName }</a></li>
