@@ -190,6 +190,7 @@ Ext.define('AM.view.product.Edit', {
 									{
 										xtype: 'uploadbutton',
 										text : 'Upload Image',
+										itemId : 'uploadImage',
 										// singleFile: true,
 										plugins : [ {
 											ptype : 'ux.upload.window',

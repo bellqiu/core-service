@@ -24,6 +24,9 @@ Ext.define('AM.controller.Product', {
 				render : this.initCategoryDragAndDrop,
 				beforeDestroy : this.distoryCategoryView
 			},
+			'producteditor uploadbutton#uploadImage' : {
+				click : this.uploadImage,
+			},
 			'producteditor button#copyProduct' : {
 				click : this.copyProduct
 			},'producteditor button#saveProduct' : {
@@ -62,10 +65,6 @@ Ext.define('AM.controller.Product', {
 				click : this.addProperty
 			}, 'productoptionwindow productpropertyitem gridpanel#property' : {
 				cellkeydown : this.bindDeleteKey
-			}, 'productoptionwindow productpropertyitem textfield#opItemName' : {
-				keydown : this.keyup,
-				keyup : this.keyup,
-				dirtychange : this.keyup
 			}
 			
 		});
@@ -493,8 +492,8 @@ Ext.define('AM.controller.Product', {
 			});
 	}, 
 	
-	keyup : function(e, eOpts ) {
-		console.log("OK");
+	uploadImage : function(btn) {
+		btn.uploader.removeAll();
 	}
 	
 });
