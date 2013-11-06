@@ -2,6 +2,7 @@ package com.honeybuy.shop.web.tag;
 
 import javax.servlet.ServletRequest;
 
+import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hb.core.shared.dto.TabProductDTO;
@@ -26,12 +27,18 @@ public class TabedProduct extends AbstractHBTag{
 	private ProductServiceCacheWrapper productService;
 	
 	private String tabKey;
+	
+	private String jspPage;
 
 	@Override
 	public String handle(ServletRequest request) {
 		TabProductDTO productDTO = productService.getTabProductByName(tabKey);
 		
 		request.setAttribute("tabProduct", productDTO);
+		
+		if(!StringUtils.isEmpty(jspPage)) {
+			return jspPage;
+		}
 		
 		return "tabProduct";
 	}
@@ -52,6 +59,14 @@ public class TabedProduct extends AbstractHBTag{
 
 	public void setTabKey(String tabKey) {
 		this.tabKey = tabKey;
+	}
+
+	public void setJspPage(String jspPage) {
+		this.jspPage = jspPage;
+	}
+
+	public String getJspPage() {
+		return jspPage;
 	}
 	
 
