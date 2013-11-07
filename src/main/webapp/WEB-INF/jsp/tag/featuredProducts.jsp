@@ -12,7 +12,7 @@
 			</a>
 			</div>
 			<div>
-				Product1
+				<a href="${site.resourceServer}/${product.name}">${product.title}</a>
 			</div>
 		</div>
 	</c:forEach>

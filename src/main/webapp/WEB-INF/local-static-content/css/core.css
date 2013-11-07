@@ -284,10 +284,17 @@ input[type=password]{
 	width:100%;	
 }
 
+.spotlightheader{
+	max-width:1250px;
+	margin:0 auto 0px
+}
+
 .bestSelling {
-	height: 200px;
+	height: 300px;
 	padding: 5px;
 	width:100%;
+	max-width:1250px;
+	margin:0 auto 0px
 }
 
 .bestSelling img{
@@ -313,6 +320,8 @@ input[type=password]{
 
 .featuredProducts{
 	margin-bottom: 100px;
+	max-width:1250px;
+	margin:0 auto 0px
 }
 
 .featuredProducts .productItem {
