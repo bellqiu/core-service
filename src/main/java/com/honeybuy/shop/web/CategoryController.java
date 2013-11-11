@@ -4,7 +4,6 @@
  */
 package com.honeybuy.shop.web;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,13 +86,13 @@ public class CategoryController {
 			model.addAttribute("resultTotal", totalCount);
 			model.addAttribute("totalPage", totalPage);
 			model.addAttribute("pageIds", pageIds);
-			model.addAttribute("currentCategoryDetail", categoryDetailDTO);
 			model.addAttribute("productSummary", productSummaryList);
-			model.addAttribute("currentCategoryPageIndex", page);
 			model.addAttribute("noproduct", false);
 		} else {
 			model.addAttribute("noproduct", true);
 		}
+		model.addAttribute("currentCategoryDetail", categoryDetailDTO);
+		model.addAttribute("currentCategoryPageIndex", page);
 		return "categoryIndex";
 	}
 	

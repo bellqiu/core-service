@@ -377,4 +377,18 @@ public class ProductService {
 		count.setParameter("id", id);
 		return count.getSingleResult().intValue();
 	}
+	
+	public double getLowestPriceByCategoryId(long id) {
+		String queryString = "select min(p.actualPrice) from Product p, Category c where c.id = :id and c member of p.categories";
+		TypedQuery<Double> query = em.createQuery(queryString, Double.class);
+		query.setParameter("id", id);
+		return query.getSingleResult();
+	}
+	
+	public double getHighestPriceByCategoryId(long id) {
+		String queryString = "select max(p.actualPrice) from Product p, Category c where c.id = :id and c member of p.categories";
+		TypedQuery<Double> query = em.createQuery(queryString, Double.class);
+		query.setParameter("id", id);
+		return query.getSingleResult();
+	}
 }
