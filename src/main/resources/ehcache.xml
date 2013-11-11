@@ -59,6 +59,9 @@
 		timeToLiveSeconds="5" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
-	
+	<cache name="allCurrency" eternal="false"
+		timeToLiveSeconds="6000" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="99999" />
 	
 </ehcache>

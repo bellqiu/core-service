@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 	@NamedQuery(name="QueryCurrencyByName", query="select c from Currency as c where name=:name"),
 	@NamedQuery(name="QueryCurrencyByCode", query="select c from Currency as c where code=:code"),
 	@NamedQuery(name="countAllCurrency", query="select count(c.id) from Currency as c"),
+	@NamedQuery(name="retrieveAllCurrency", query="select c from Currency as c order by c.name"),
 })
 public class Currency extends Component{
 

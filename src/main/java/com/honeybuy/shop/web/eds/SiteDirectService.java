@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.googlecode.ehcache.annotations.Cacheable;
+import com.hb.core.entity.Currency;
+import com.hb.core.service.CurrencyService;
 import com.hb.core.service.SettingService;
 import com.hb.core.shared.dto.SiteDTO;
 
@@ -27,6 +29,9 @@ public class SiteDirectService{
 	
 	@Autowired
 	private SettingService settingService;
+	
+	@Autowired
+	private CurrencyService currencyService;
 
 	@Cacheable(cacheName="siteDTO")
 	public SiteDTO getSite() {
@@ -47,6 +52,11 @@ public class SiteDirectService{
 		
 		
 		return siteDTO;
+	}
+	
+	@Cacheable(cacheName="allCurrency")
+	public List<Currency> getAllCurrency(){
+		return currencyService.getAllCurrency();
 	}
 
 }

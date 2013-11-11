@@ -1,6 +1,7 @@
 package com.hb.core.service;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -41,6 +42,11 @@ public class CurrencyService {
 	public long getCurrencyCount(){
 		TypedQuery<Long> query = em.createNamedQuery("countAllCurrency", Long.class);
 		return query.getSingleResult();
+	}
+	
+	public List<Currency> getAllCurrency(){
+		TypedQuery<Currency> query = em.createNamedQuery("retrieveAllCurrency", Currency.class);
+		return query.getResultList();
 	}
 	
 	
