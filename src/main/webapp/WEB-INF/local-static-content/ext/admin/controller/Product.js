@@ -306,16 +306,16 @@ Ext.define('AM.controller.Product', {
 			notifyDrop : function(ddSource, e, data) {
 				var store = grid.getStore();
 				var manual = ddSource.dragData.records[0].data;
-				var data = store.getRange();
+				var dataRange = store.getRange();
 				var existing = false;
-				for(var i = 0; i < data.length; i++){
-					if(	data[i].data.id  == manual.id){
+				for(var i = 0; i < dataRange.length; i++){
+					if(	dataRange[i].data.id  == manual.id){
 						existing = true;
 						break;
 					}
 				}
 				if(!existing){
-					manual.key = "";
+					manual.key = manual.name;
 					store.add(manual);
 					return true;
 				}
