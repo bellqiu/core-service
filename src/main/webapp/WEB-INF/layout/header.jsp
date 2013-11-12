@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <header>
-<div class="container-fluid header">
-	<div class="row">
+<div class="row">
 		<tiles:insertAttribute name="dockbar"/>
-	</div>
+</div>
+<div class="row header">
 	<div class="row main-header">
 	<tiles:insertAttribute name="mainHeader"/>
 	</div>
