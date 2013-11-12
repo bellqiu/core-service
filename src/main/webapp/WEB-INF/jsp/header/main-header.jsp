@@ -13,7 +13,7 @@
 		<div class="header-searchBox">
 			<div>
 				<input title="Search by keyword" id="searchBox" >
-				<input type="image" class="searchBoxCtr" title="Search by keyword" src="/resources/css/img/search.ltr.png">
+				<span class="glyphicon glyphicon-search"></span>
 			</div>
 		</div>
 		<div style="clear:both"></div>
