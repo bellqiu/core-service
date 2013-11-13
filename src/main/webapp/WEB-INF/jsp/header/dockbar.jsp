@@ -11,7 +11,7 @@
 				<div class="btn-group">
 					<button type="button" class="btn">
 						<img alt="" src="/resources/css/img/${defaultCurrency.code }.png">
-						${defaultCurrency.name } (Currency)
+						${defaultCurrency.name }
 					</button>
 					<button type="button" class="btn dropdown-toggle"
 						data-toggle="dropdown">
@@ -21,7 +21,8 @@
 					<ul class="dropdown-menu" role="menu">
 						<c:forEach items="${currencies }" var="currency">
 							<li><a href="?currency=${currency.code }"><img alt=""
-									src="/resources/css/img/${currency.code }.png"><span>${currency.name }</a></li>
+									src="/resources/css/img/${currency.code }.png" /><span>${currency.name }</span></a>
+							</li>
 						</c:forEach>
 					</ul>
 				</div>
