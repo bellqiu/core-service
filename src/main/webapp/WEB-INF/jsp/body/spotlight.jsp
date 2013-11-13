@@ -13,9 +13,10 @@ $(".spotlight").ready(function(){
 	  
 	  $('.spotlight .product-gallary').bxSlider({
 		  captions: true,
-		  slideWidth: 180,
+		  slideWidth: 208,
 		  maxSlides: 5,
-		  slideMargin: 10
+		  slideMargin: 10,
+		  pager : false
 		});
 	});
 </script>

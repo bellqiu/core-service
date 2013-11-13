@@ -36,7 +36,7 @@ public abstract class AbstractHBTag extends TagSupport {
 		try {
 			String jspName = handle(pageContext.getRequest());
 			if(null != jspName){
-				pageContext.include("/WEB-INF/jsp/tag/"+jspName+".jsp", true);
+				pageContext.include("/WEB-INF/jsp/tag/"+jspName+".jsp",false);
 			}
 		} catch (Exception e) {
 			throw new CoreServiceException(e);

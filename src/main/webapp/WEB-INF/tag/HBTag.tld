@@ -80,4 +80,15 @@
 		<tagclass>com.honeybuy.shop.web.tag.CleanCache</tagclass>
 		<bodycontent>empty</bodycontent>
 	</tag>
+	
+	<tag>
+		<name>printPrice</name>
+		<tagclass>com.honeybuy.shop.web.tag.PrintPriceTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>price</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

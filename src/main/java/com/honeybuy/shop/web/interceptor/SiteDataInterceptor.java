@@ -35,7 +35,7 @@ public class SiteDataInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		Currency defaultCurrency = (Currency) request.getSession().getAttribute("defaultCurrency");
+		Currency defaultCurrency = (Currency) request.getSession().getAttribute(DEFAULT_CURRENCY_ATTR);
 		
 		List<Currency> currencies = siteService.getAllCurrency();
 

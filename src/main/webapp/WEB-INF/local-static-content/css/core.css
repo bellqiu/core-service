@@ -79,25 +79,26 @@ input[type=password] {
 	color: #1570A6
 }
 
-.dockbar-menu li a span{
+.dockbar-menu li a span {
 	padding-left: 5px;
 	float: left;
 }
 
-.dockbar-menu li .btn span.glyphicon{
+.dockbar-menu li .btn span.glyphicon {
 	margin: 2px;
 }
 
-.dockbar-menu li a{
+.dockbar-menu li a {
 	height: 30px;
 	display: block;
 }
-.dockbar-menu a img{
+
+.dockbar-menu a img {
 	margin-top: 4px;
 	float: left;
 }
 
-.header-searchBox .glyphicon-search{
+.header-searchBox .glyphicon-search {
 	color: #1570A6;
 }
 
@@ -155,6 +156,7 @@ input[type=password] {
 .header {
 	margin-top: 50px;
 }
+
 .header-logo {
 	float: left;
 	width: 200px;
@@ -197,6 +199,7 @@ input[type=password] {
 	margin-top: 3px;
 	cursor: pointer;
 }
+
 .header-searchBox  .searchBoxCtr {
 	margin-top: 2px;
 	outline: none;
@@ -327,7 +330,7 @@ input[type=password] {
 }
 
 .bodyContent {
-	min-width: 1170px;
+	width: 1170px;
 	margin: 50px auto auto;
 	padding: 0px;
 }
@@ -340,9 +343,11 @@ input[type=password] {
 	width: 1280px;
 	margin: auto;
 }
-.main-content-slider{
+
+.main-content-slider {
 	height: 540px;
 }
+
 .sliderContent1 {
 	background-color: #199bff;
 	min-width: 980px;
@@ -364,16 +369,15 @@ input[type=password] {
 	margin: auto;
 }
 
-.spotlight .productItem {
-	padding: 5px;
+.productItem {
+	padding: 13px;
 }
 
 .spotlight {
-	width: 100%;
 	padding-top: 20px;
 }
 
-.leftNav li{
+.leftNav li {
 	line-height: 30px;
 }
 
@@ -383,7 +387,6 @@ input[type=password] {
 }
 
 .bestSelling {
-	height: 300px;
 	padding: 5px;
 	width: 100%;
 	max-width: 1250px;
@@ -391,6 +394,7 @@ input[type=password] {
 }
 
 .bestSelling img {
+	
 }
 
 .controller-prev {
@@ -403,14 +407,15 @@ input[type=password] {
 	margin-right: 20px;
 }
 
-.bestSelling{
+.bestSelling {
 	margin-bottom: 30px;
 }
 
 .bestSelling .productItem {
+	
 }
 
-.featuredProducts{
+.featuredProducts {
 	height: 300px;
 	margin-bottom: 100px;
 	max-width: 1250px;
@@ -516,4 +521,39 @@ input[type=password] {
 
 .pagination>li>a {
 	padding: 4px 8px;
+}
+
+.activeprice {
+	color: red;
+	font-weight: bold;
+	margin: 2px;
+}
+
+.priceDeprecated {
+	color: gray;
+	text-decoration: line-through;
+}
+
+.sales-logo {
+	background: url("/resources/css/img/sales_bg.png") no-repeat scroll 0 0
+		transparent;
+	height: 65px;
+	position: absolute;
+	right: -0px;
+	top: -0px;
+	width: 65px;
+}
+
+.sales-logo label {
+	font-size: 9px;
+	color: white;
+	margin: 10px 20px;
+}
+
+.sales-logo label.percentage {
+	font-size: 22px;
+	color: white;
+	margin-top: -10px; margin-left : 13px;
+	font-weight: bold;
+	margin-left: 13px;
 }

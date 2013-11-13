@@ -13,22 +13,16 @@
 	<ul id="bestSelling-column1" class="product-gallary">
 		<hb:tabProduct tabKey="BEST_PRODUCT1"/>
 	</ul>
-	<div id="column1-prev" class="controller-prev"></div>
-	<div id="column1-next" class="controller-next"></div>
 	</div>
 	<div class="col-md-4 col-xs-4">
 	<ul id="bestSelling-column2" class="product-gallary">
 		<hb:tabProduct tabKey="BEST_PRODUCT2"/>
 	</ul>
-	<div id="column2-prev" class="controller-prev"></div>
-	<div id="column2-next" class="controller-next"></div>
 	</div>
 	<div class="col-md-4 col-xs-4">
 	<ul id="bestSelling-column3" class="product-gallary">
 		<hb:tabProduct tabKey="BEST_PRODUCT3"/>
 	</ul>
-	<div id="column3-prev" class="controller-prev"></div>
-	<div id="column3-next" class="controller-next"></div>
 	</div>
 	</div>
 </div>
@@ -36,39 +30,36 @@
 <script type="text/javascript">
 $(".bestSelling").ready(function(){
   $('#bestSelling-column1').bxSlider({
-	  nextSelector: '#column1-next',
-	  prevSelector: '#column1-prev',
-	  nextText: '<span class="glyphicon glyphicon-chevron-up"></span>',
-	  prevText: '<span class="glyphicon glyphicon-chevron-down"></span>',
 	  mode: 'vertical',
 	  maxSlides: 2,
 	  slideWidth: 230,
 	  slideMargin: 20,
 	  auto : true,
+	  randomStart:true,
+	  controls: false,
+	  pager : false
 	});
   
   $('#bestSelling-column2').bxSlider({
-	  nextSelector: '#column2-next',
-	  prevSelector: '#column2-prev',
-	  nextText: '<span class="glyphicon glyphicon-chevron-up"></span>',
-	  prevText: '<span class="glyphicon glyphicon-chevron-down"></span>',
 	  mode: 'vertical',
 	  maxSlides: 2,
 	  slideWidth: 230,
 	  slideMargin: 20,
 	  auto : true,
+	  randomStart:true,
+	  controls: false,
+	  pager : false
 	});
   
   $('#bestSelling-column3').bxSlider({
-	  nextSelector: '#column3-next',
-	  prevSelector: '#column3-prev',
-	  nextText: '<span class="glyphicon glyphicon-chevron-up"></span>',
-	  prevText: '<span class="glyphicon glyphicon-chevron-down"></span>',
 	  mode: 'vertical',
 	  maxSlides: 2,
 	  slideWidth: 230,
 	  slideMargin: 20,
 	  auto : true,
+	  randomStart:true,
+	  controls: false,
+	  pager : false
 	});
 });
 </script>
