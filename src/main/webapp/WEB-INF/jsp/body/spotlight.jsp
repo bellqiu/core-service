@@ -13,7 +13,7 @@ $(".spotlight").ready(function(){
 	  
 	  $('.spotlight .product-gallary').bxSlider({
 		  captions: true,
-		  slideWidth: 230,
+		  slideWidth: 180,
 		  maxSlides: 5,
 		  slideMargin: 10
 		});

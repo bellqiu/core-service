@@ -18,6 +18,4 @@
 	</c:forEach>
 	</div>
 </div>
-		<li><div class="productItem">
-			
-		</div></li>
+		

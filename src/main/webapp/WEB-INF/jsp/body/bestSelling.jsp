@@ -38,34 +38,37 @@ $(".bestSelling").ready(function(){
   $('#bestSelling-column1').bxSlider({
 	  nextSelector: '#column1-next',
 	  prevSelector: '#column1-prev',
-	  nextText: 'Down',
-	  prevText: 'Up',
+	  nextText: '<span class="glyphicon glyphicon-chevron-up"></span>',
+	  prevText: '<span class="glyphicon glyphicon-chevron-down"></span>',
 	  mode: 'vertical',
 	  maxSlides: 2,
-	  slideWidth: 390,
-	  slideMargin: 20
+	  slideWidth: 230,
+	  slideMargin: 20,
+	  auto : true,
 	});
   
   $('#bestSelling-column2').bxSlider({
 	  nextSelector: '#column2-next',
 	  prevSelector: '#column2-prev',
-	  nextText: 'Down',
-	  prevText: 'Up',
+	  nextText: '<span class="glyphicon glyphicon-chevron-up"></span>',
+	  prevText: '<span class="glyphicon glyphicon-chevron-down"></span>',
 	  mode: 'vertical',
 	  maxSlides: 2,
-	  slideWidth: 390,
-	  slideMargin: 20
+	  slideWidth: 230,
+	  slideMargin: 20,
+	  auto : true,
 	});
   
   $('#bestSelling-column3').bxSlider({
 	  nextSelector: '#column3-next',
 	  prevSelector: '#column3-prev',
-	  nextText: 'Down',
-	  prevText: 'Up',
+	  nextText: '<span class="glyphicon glyphicon-chevron-up"></span>',
+	  prevText: '<span class="glyphicon glyphicon-chevron-down"></span>',
 	  mode: 'vertical',
 	  maxSlides: 2,
-	  slideWidth: 390,
-	  slideMargin: 20
+	  slideWidth: 230,
+	  slideMargin: 20,
+	  auto : true,
 	});
 });
 </script>

@@ -365,12 +365,16 @@ input[type=password] {
 }
 
 .spotlight .productItem {
-	height: 200px;
 	padding: 5px;
 }
 
 .spotlight {
 	width: 100%;
+	padding-top: 20px;
+}
+
+.leftNav li{
+	line-height: 30px;
 }
 
 .spotlightheader {
@@ -387,8 +391,6 @@ input[type=password] {
 }
 
 .bestSelling img {
-	width: 380px;
-	height: 200px;
 }
 
 .controller-prev {
@@ -401,10 +403,11 @@ input[type=password] {
 	margin-right: 20px;
 }
 
+.bestSelling{
+	margin-bottom: 30px;
+}
+
 .bestSelling .productItem {
-	background-color: #DEDEDE;
-	height: 200px;
-	width: 380px;
 }
 
 .featuredProducts{
