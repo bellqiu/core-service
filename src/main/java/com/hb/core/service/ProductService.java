@@ -382,13 +382,15 @@ public class ProductService {
 		String queryString = "select min(p.actualPrice) from Product p, Category c where c.id = :id and c member of p.categories";
 		TypedQuery<Double> query = em.createQuery(queryString, Double.class);
 		query.setParameter("id", id);
-		return query.getSingleResult();
+		Double result  = query.getSingleResult();
+		return result == null ? 0.0 : result;
 	}
 	
 	public double getHighestPriceByCategoryId(long id) {
 		String queryString = "select max(p.actualPrice) from Product p, Category c where c.id = :id and c member of p.categories";
 		TypedQuery<Double> query = em.createQuery(queryString, Double.class);
 		query.setParameter("id", id);
-		return query.getSingleResult();
+		Double result  = query.getSingleResult();
+		return result == null ? 0.0 : result;
 	}
 }

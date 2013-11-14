@@ -46,4 +46,14 @@ public class ProductServiceCacheWrapper {
 	public List<ProductSummaryDTO> getAllProductByCategoryId(long id, int start, int max) {
 		return productService.getAllProductByCategoryId(id, start, max);
 	}
+	
+	@Cacheable(cacheName="LowestPriceInCategory")
+	public double getLowestPriceByCategoryId(long id) {
+		return productService.getLowestPriceByCategoryId(id);
+	}
+	
+	@Cacheable(cacheName="HighestPriceInCategory")
+	public double getHighestPriceByCategoryId(long id) {
+		return productService.getHighestPriceByCategoryId(id);
+	}
 }

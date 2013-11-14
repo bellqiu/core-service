@@ -3,10 +3,30 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="container mainContainer">
-	${currentCategoryDetail.name }
 	<div class="row">
 		<div class="col-xs-3">
-			<h1>Left Panel Content</h1>
+			<div>&nbsp;</div>
+			<div id="price-search">
+				<p>
+  					<label for="amount">Price range:</label>
+  					<input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+				</p>
+				<div id="slider-range"></div>
+			</div>
+			<div>&nbsp;</div>
+			<div id="keyword-search">
+				<div class="ui-widget">
+  					<label for="keyword">Keywords: </label>
+  					<input id="keyword" />
+				</div>
+			</div>
+			<div>&nbsp;</div>
+			<div id="tag-search">
+				<div class="ui-widget">
+  					<label for="tag">Tags: </label>
+  					<input id="tag" />
+				</div>
+			</div>
 		</div>
 		<div class="col-xs-9">
 			<c:choose>
@@ -123,3 +143,108 @@
 		</div>
 	</div>
 </div>
+
+<script>
+  $(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: ${lowestPrice},
+      max: ${highestPrice},
+      values: [ ${lowestPrice}, ${highestPrice} ], 
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    
+    $( "#keyword" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            //url: "http://ws.geonames.org/searchJSON",
+            url: "/ajax/test?startWith=aa",
+            dataType: "jsonp",
+            data: {
+              featureClass: "P",
+              style: "full",
+              maxRows: 12,
+              name_startWith: request.term
+            },
+            /* success: function( data ) {
+              response( $.map( data.geonames, function( item ) {
+                return {
+                  label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+                  value: item.name
+                }
+              }));
+            } */
+            success: function( data ) {
+                response( $.map( data, function( item ) {
+                  return {
+                    label: item,
+                    value: item
+                  }
+                }));
+              }
+          });
+      },
+      minLength: 2,
+      select: function( event, ui ) {
+    	  // TODO add logic for the select item
+        console.log( ui.item ?
+          "Selected: " + ui.item.label :
+          "Nothing selected, input was " + this.value);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+      });
+    
+    $( "#tag" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: "http://ws.geonames.org/searchJSON",
+            dataType: "jsonp",
+            data: {
+              featureClass: "P",
+              style: "full",
+              maxRows: 12,
+              name_startWith: request.term
+            },
+            success: function( data ) {
+              response( $.map( data.geonames, function( item ) {
+                return {
+                  label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+                  value: item.name
+                }
+              }));
+            }
+          });
+      },
+      minLength: 2,
+      select: function( event, ui ) {
+    	  // TODO add logic for the select item
+        console.log( ui.item ?
+          "Selected: " + ui.item.label :
+          "Nothing selected, input was " + this.value);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+      });
+  });
+</script>
+  
+<style>
+  .ui-autocomplete-loading {
+    background: white url('/resources/bxslider/images/bx_loader.gif') right center no-repeat;
+  }
+  #keyword { width: 90% }
+  #tag { width: 90% }
+  </style>

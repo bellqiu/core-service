@@ -7,11 +7,15 @@ package com.honeybuy.shop.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
@@ -93,12 +97,40 @@ public class CategoryController {
 		}
 		model.addAttribute("currentCategoryDetail", categoryDetailDTO);
 		model.addAttribute("currentCategoryPageIndex", page);
+		
+		
+		double lowestPrice = productService.getLowestPriceByCategoryId(categoryId);
+		double highestPrice = productService.getHighestPriceByCategoryId(categoryId);
+		model.addAttribute("lowestPrice", lowestPrice);
+		model.addAttribute("highestPrice", highestPrice);
+		
 		return "categoryIndex";
 	}
 	
 	@RequestMapping("/c/{categoryName}")
 	public String productDetail(@PathVariable("categoryName") String categoryName, Model model){
 		return "forward:/c/"+categoryName+"/0";
+	}
+	
+	@RequestMapping(value = "/ajax/{categoryName}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getProductNames(
+			@PathVariable("categoryName") String categoryName,
+			@RequestParam(value = "startWith", required = false) final String startWith) {
+		if(StringUtils.isEmpty(startWith)) {
+			return null;
+		}
+		CategoryDetailDTO categoryDetailDTO =  categoryService.getCategoryDetailByName(categoryName);
+		if(null == categoryDetailDTO){
+			return null;
+		}
+		long categoryId = categoryDetailDTO.getId();
+		List<String> productName = new ArrayList<String>();
+		productName.add("aaaa");
+		productName.add("bbbb");
+		productName.add("ccc");
+		
+		return productName;
 	}
 	
 }
