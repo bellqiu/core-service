@@ -357,10 +357,10 @@ public class ProductService {
 		return productSummaryConverter.convert(product);
 	}
 	
-	public List<ProductSummaryDTO> getAllProductByCategoryId(long id, int start, int max) {
+	public List<ProductSummaryDTO> getAllProductByCategoryId(long categoryId, int start, int max) {
 		String queryString = "select p from Product p, Category c where c.id = :id and c member of p.categories";
 		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
-		query.setParameter("id", id);
+		query.setParameter("id", categoryId);
 		query.setFirstResult(start);
 		query.setMaxResults(max);
 		List<Product> resultList = query.getResultList();
@@ -371,26 +371,42 @@ public class ProductService {
 		return productSummaryList;
 	}
 
-	public int getProductCountByCategoryId(long id) {
+	public int getProductCountByCategoryId(long categoryId) {
 		String queryString = "select count(p.id) from Product p, Category c where c.id = :id and c member of p.categories";
 		TypedQuery<Long> count = em.createQuery(queryString, Long.class);
-		count.setParameter("id", id);
+		count.setParameter("id", categoryId);
 		return count.getSingleResult().intValue();
 	}
 	
-	public double getLowestPriceByCategoryId(long id) {
+	public double getLowestPriceByCategoryId(long categoryId) {
 		String queryString = "select min(p.actualPrice) from Product p, Category c where c.id = :id and c member of p.categories";
 		TypedQuery<Double> query = em.createQuery(queryString, Double.class);
-		query.setParameter("id", id);
+		query.setParameter("id", categoryId);
 		Double result  = query.getSingleResult();
 		return result == null ? 0.0 : result;
 	}
 	
-	public double getHighestPriceByCategoryId(long id) {
+	public double getHighestPriceByCategoryId(long categoryId) {
 		String queryString = "select max(p.actualPrice) from Product p, Category c where c.id = :id and c member of p.categories";
 		TypedQuery<Double> query = em.createQuery(queryString, Double.class);
-		query.setParameter("id", id);
+		query.setParameter("id", categoryId);
 		Double result  = query.getSingleResult();
 		return result == null ? 0.0 : result;
+	}
+
+	public List<String> getProductName(long categoryId, String columnName, String value) {
+		String queryString = null;
+		if("keywords".equalsIgnoreCase(columnName)) {
+			queryString = "select p.name from Product p, Category c where c.id = :id and lower(p.keywords) like :key and c member of p.categories";
+		} else if("tags".equalsIgnoreCase(columnName)) {
+			queryString = "select p.name from Product p, Category c where c.id = :id and lower(p.tags) like :key and c member of p.categories";
+		}
+		if(queryString == null) {
+			return null;
+		}
+		TypedQuery<String> query = em.createQuery(queryString, String.class);
+		query.setParameter("id", categoryId);
+		query.setParameter("key", "%" + value.toLowerCase() + "%" );
+		return query.getResultList();
 	}
 }

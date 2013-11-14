@@ -9,7 +9,7 @@
 			<div id="price-search">
 				<p>
   					<label for="amount">Price range:</label>
-  					<input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+  					<input type="text" id="amount" disabled="disabled" style="border: 0; color: #f6931f; font-weight: bold;" />
 				</p>
 				<div id="slider-range"></div>
 			</div>
@@ -161,32 +161,22 @@
     $( "#keyword" ).autocomplete({
         source: function( request, response ) {
           $.ajax({
-            //url: "http://ws.geonames.org/searchJSON",
-            url: "/ajax/test?startWith=aa",
+            url: "/ajax/c/${currentCategoryDetail.name}",
             dataType: "jsonp",
             data: {
-              featureClass: "P",
-              style: "full",
+              key: "keyword",
               maxRows: 12,
-              name_startWith: request.term
+              startWith: request.term
             },
-            /* success: function( data ) {
-              response( $.map( data.geonames, function( item ) {
+            success: function( data ) {
+              response( $.map( data, function( item ) {
                 return {
-                  label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
-                  value: item.name
+                  label: item,
+                  value: item
                 }
               }));
-            } */
-            success: function( data ) {
-                response( $.map( data, function( item ) {
-                  return {
-                    label: item,
-                    value: item
-                  }
-                }));
-              }
-          });
+            } 
+          }); 
       },
       minLength: 2,
       select: function( event, ui ) {

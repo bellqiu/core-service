@@ -56,4 +56,9 @@ public class ProductServiceCacheWrapper {
 	public double getHighestPriceByCategoryId(long id) {
 		return productService.getHighestPriceByCategoryId(id);
 	}
+	
+	@Cacheable(cacheName="SearchProductName")
+	public List<String> getProductName(long id, String columnName, String value) {
+		return productService.getProductName(id, columnName, value);
+	}
 }

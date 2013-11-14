@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cxf.common.util.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -112,12 +113,14 @@ public class CategoryController {
 		return "forward:/c/"+categoryName+"/0";
 	}
 	
-	@RequestMapping(value = "/ajax/{categoryName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/ajax/c/{categoryName}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> getProductNames(
+	public String getProductNames(
 			@PathVariable("categoryName") String categoryName,
-			@RequestParam(value = "startWith", required = false) final String startWith) {
-		if(StringUtils.isEmpty(startWith)) {
+			@RequestParam(value = "startWith", required = false) final String startWith,
+			@RequestParam(value = "callback", required = false) final String callback,
+			@RequestParam(value = "key", required = false) final String key) {
+		if(StringUtils.isEmpty(startWith) || StringUtils.isEmpty(callback) || StringUtils.isEmpty(key)) {
 			return null;
 		}
 		CategoryDetailDTO categoryDetailDTO =  categoryService.getCategoryDetailByName(categoryName);
@@ -125,12 +128,23 @@ public class CategoryController {
 			return null;
 		}
 		long categoryId = categoryDetailDTO.getId();
-		List<String> productName = new ArrayList<String>();
+		List<String> productName = productService.getProductName(categoryId, key, startWith);
+		if(productName == null) {
+			return null;
+		}
 		productName.add("aaaa");
 		productName.add("bbbb");
-		productName.add("ccc");
-		
-		return productName;
+		productName.add("cccc");
+		StringBuffer sb = new StringBuffer(callback);
+		sb.append("(");
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			sb.append(mapper.writeValueAsString(productName));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		sb.append(");");
+		return sb.toString();
 	}
 	
 }
