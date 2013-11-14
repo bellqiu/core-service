@@ -31,7 +31,7 @@ public class ShoppinController {
 	public String shoppingcat( Model model){
 		return "shoppingcat";
 	}
-	
+	 	
 	@RequestMapping("/sp/shoppingcart/add/{productId}")
 	public String addToCart(@PathVariable("productId") long productId, @RequestParam("option") String optionJson, Model model){
 		return "redirect:/sp/shoppingcart/list";
