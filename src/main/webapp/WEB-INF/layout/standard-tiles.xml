@@ -90,6 +90,8 @@
         	  <!-- <put-attribute name="body" value="/WEB-INF/jsp/body/accessDenied.jsp"/> -->
         </definition>
         
+         <definition name="categoryProductList" template="/WEB-INF/jsp/body/category/categoryProductList.jsp" >
+        </definition>
         
         <!-- Admin Web -->
 		<definition name="admin_console" template="/WEB-INF/layout/admin_layout.jsp"></definition>

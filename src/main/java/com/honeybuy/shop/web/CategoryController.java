@@ -113,6 +113,11 @@ public class CategoryController {
 		return "forward:/c/"+categoryName+"/0";
 	}
 	
+	@RequestMapping("/seach/c/test")
+	public String searchCategoryProductList(Model model){
+		return "categoryProductList";
+	}
+	
 	@RequestMapping(value = "/ajax/c/{categoryName}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getProductNames(
@@ -130,7 +135,8 @@ public class CategoryController {
 		long categoryId = categoryDetailDTO.getId();
 		List<String> productName = productService.getProductName(categoryId, key, startWith);
 		if(productName == null) {
-			return null;
+			productName = new ArrayList<String>();
+			//return null;
 		}
 		productName.add("aaaa");
 		productName.add("bbbb");

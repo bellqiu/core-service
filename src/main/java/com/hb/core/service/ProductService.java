@@ -13,6 +13,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -408,5 +409,24 @@ public class ProductService {
 		query.setParameter("id", categoryId);
 		query.setParameter("key", "%" + value.toLowerCase() + "%" );
 		return query.getResultList();
+	}
+	
+	public List<String> searchProductByCriteria(long categoryId, double minPrice, double maxPrice, String tag, String keyword) {
+		StringBuffer query = new StringBuffer();
+		query.append("select p.name from Product p, Category c where c.id = :id and c member of p.categories and p.actualPrice between :minPrice and :maxPrice ");
+		if(!StringUtils.isEmpty(tag)) {
+			query.append("and p.tags like :tag ");
+		} 
+		if(!StringUtils.isEmpty(keyword)) {
+			query.append("and p.tags like :tag ");
+		} 
+		if("keywords".equalsIgnoreCase(tag)) {
+			//queryString = "select p.name from Product p, Category c where c.id = :id and lower(p.keywords) like :key and c member of p.categories";
+		} else if("tags".equalsIgnoreCase(keyword)) {
+		}
+		TypedQuery<String> result = em.createQuery(query.toString(), String.class);
+		result.setParameter("id", "");
+		result.setParameter("key", "%" + keyword.toLowerCase() + "%" );
+		return result.getResultList();
 	}
 }
