@@ -189,7 +189,7 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					flex : 2,
 				}, {
 					xtype : 'actioncolumn',
-					width : 30,
+					width : 40,
 					sortable : false,
 					menuDisabled : true,
 					items : [ {
@@ -201,6 +201,11 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						tooltip : 'Delete Product',
 						id : 'deleteProduct'
 					}]
+				}, {
+					text : "",
+					width : 10,
+					sortable : false,
+					menuDisabled : true,
 				}],
 				bbar : {
 					xtype : 'pagingtoolbar',

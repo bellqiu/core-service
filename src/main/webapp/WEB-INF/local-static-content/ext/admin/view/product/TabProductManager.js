@@ -96,7 +96,7 @@ Ext.define('AM.view.product.TabProductManager', {
 					}
 				}, {
 					xtype : 'actioncolumn',
-					width : 50,
+					width : 40,
 					sortable : false,
 					menuDisabled : true,
 					items : [ {
@@ -109,6 +109,11 @@ Ext.define('AM.view.product.TabProductManager', {
 						tooltip : 'Delete Tab Product',
 						id : 'deleteTabProduct'
 					} ]
+				}, {
+					text : "",
+					width : 10,
+					sortable : false,
+					menuDisabled : true,
 				}],
 				bbar : {
 					xtype : 'pagingtoolbar',

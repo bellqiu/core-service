@@ -123,7 +123,7 @@ Ext.define('AM.view.html.HtmlManager', {
 					flex : 1.5
 				}, {
 					xtype : 'actioncolumn',
-					width : 30,
+					width : 40,
 					sortable : false,
 					menuDisabled : true,
 					items : [ {
@@ -136,7 +136,12 @@ Ext.define('AM.view.html.HtmlManager', {
 						tooltip : 'Delete HTML',
 						id : 'deleteHTML'
 					} ]
-				} ],
+				}, {
+					text : "",
+					width : 10,
+					sortable : false,
+					menuDisabled : true,
+				}],
 				bbar : {
 					xtype : 'pagingtoolbar',
 					pageSize : 30,

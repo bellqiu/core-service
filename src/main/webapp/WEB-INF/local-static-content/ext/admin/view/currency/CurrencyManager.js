@@ -142,13 +142,18 @@ Ext.define('AM.view.currency.CurrencyManager', {
 					flex : 1.5
 				}, {
 					xtype : 'actioncolumn',
-					width : 30,
+					width : 20,
 					sortable : false,
 					menuDisabled : true,
 					items : [ {
 						icon : '/resources/ext/resources/images/delete.gif',
 						tooltip : 'Delete Currency'
 					} ]
+				}, {
+					text : "",
+					width : 10,
+					sortable : false,
+					menuDisabled : true,
 				} ],
 				bbar : {
 					xtype : 'pagingtoolbar',

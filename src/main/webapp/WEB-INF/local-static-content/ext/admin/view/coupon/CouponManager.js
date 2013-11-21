@@ -117,7 +117,7 @@ Ext.define('AM.view.coupon.CouponManager', {
 					}
 				}, {
 					xtype : 'actioncolumn',
-					width : 30,
+					width : 40,
 					sortable : false,
 					menuDisabled : true,
 					items : [ {
@@ -130,7 +130,12 @@ Ext.define('AM.view.coupon.CouponManager', {
 						tooltip : 'Delete Coupon',
 						id : 'deleteCoupon'
 					} ]
-				} ],
+				}, {
+					text : "",
+					width : 10,
+					sortable : false,
+					menuDisabled : true,
+				}],
 				bbar : {
 					xtype : 'pagingtoolbar',
 					pageSize : 30,
