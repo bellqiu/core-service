@@ -239,4 +239,16 @@ public class CategoryService {
 		List<String> allCategoryNames = cateogryNames.getResultList();
 		return allCategoryNames;
 	}
+
+	public List<String> getCategoryBreadcrumbById(long categoryId) {
+		long id = categoryId;
+		Category category = getCategoryById(id);
+		List<String> categoryBreadcrumbs = new ArrayList<String>();
+		while(category != null) {
+			categoryBreadcrumbs.add(category.getName());
+			category = category.getParent();
+		}
+		Collections.reverse(categoryBreadcrumbs);
+		return categoryBreadcrumbs;
+	}
 }

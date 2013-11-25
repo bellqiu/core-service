@@ -171,7 +171,8 @@ public class ImageResourceService {
 		bufferedReader.close();
 		
 		if(null != line){
-			throw  new CoreServiceException(line);
+			//throw  new CoreServiceException(line);
+			logger.warn(line);
 		}
 		
 	}

@@ -105,6 +105,9 @@ public class CategoryController {
 		model.addAttribute("lowestPrice", lowestPrice);
 		model.addAttribute("highestPrice", highestPrice);
 		
+		List<String> categoryBreadcrumb = categoryService.getCategoryBreadcrumb(categoryId);
+		model.addAttribute("categoryBreadcrumbs", categoryBreadcrumb);
+		
 		return "categoryIndex";
 	}
 	

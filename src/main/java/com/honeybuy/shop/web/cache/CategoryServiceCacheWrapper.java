@@ -40,4 +40,9 @@ public class CategoryServiceCacheWrapper {
 	public CategoryDetailDTO getCategoryDetailByName(String name){
 		return categoryService.getCategoryDetailDTOByName(name);
 	}
+
+	@Cacheable(cacheName="CategoryBreadcrumb")
+	public List<String> getCategoryBreadcrumb(long id) {
+		return categoryService.getCategoryBreadcrumbById(id);
+	}
 }

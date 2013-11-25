@@ -359,7 +359,7 @@ public class ProductService {
 	}
 	
 	public List<ProductSummaryDTO> getAllProductByCategoryId(long categoryId, int start, int max) {
-		String queryString = "select p from Product p, Category c where c.id = :id and c member of p.categories";
+		String queryString = "select p from Product p, Category c where c.id = :id and p.status = 'ACTIVE' and c member of p.categories";
 		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
 		query.setParameter("id", categoryId);
 		query.setFirstResult(start);
@@ -373,7 +373,7 @@ public class ProductService {
 	}
 
 	public int getProductCountByCategoryId(long categoryId) {
-		String queryString = "select count(p.id) from Product p, Category c where c.id = :id and c member of p.categories";
+		String queryString = "select count(p.id) from Product p, Category c where c.id = :id and p.status = 'ACTIVE' and c member of p.categories";
 		TypedQuery<Long> count = em.createQuery(queryString, Long.class);
 		count.setParameter("id", categoryId);
 		return count.getSingleResult().intValue();
