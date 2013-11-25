@@ -8,7 +8,7 @@
 		<div class="subCategory-list col-xs-3">
 			<c:choose>
 				<c:when test="${item.type == 'NAVIGATION' }">
-					<h2 class="l2Category"><a href="${site.resourceServer}/c/${item.name }">${item.displayName }</a></h2>
+					<h2 class="l2Category"><a href="${site.domain}/c/${item.name }">${item.displayName }</a></h2>
 					<hb:catlog parentId="${item.id }" level="3"/>
 				</c:when>
 				<c:otherwise>

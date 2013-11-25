@@ -557,3 +557,7 @@ input[type=password] {
 	font-weight: bold;
 	margin-left: 13px;
 }
+
+.categoryTitle {
+	margin-left: 2em;
+}

@@ -7,7 +7,7 @@
 <div class="specialOffer">
 	<c:forEach items="${specialcatlogs }" var="item" varStatus="stat">
 		<div class="special-item">
-			<a href="${site.resourceServer}/c/${item.name }">
+			<a href="${site.domain}/c/${item.name }">
 				<img alt="" src="${item.iconUrl }">
 				<p>${item.displayName }</p>
 			</a>

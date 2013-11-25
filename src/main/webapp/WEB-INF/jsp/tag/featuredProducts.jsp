@@ -7,12 +7,12 @@
 	<c:forEach items="${tabProduct.products }" var="product">
 		<div class="productItem col-xs-3">
 			<div>
-			<a href="${site.resourceServer}/${product.name}" title="${product.title}">
+			<a href="${site.domain}/${product.name}" title="${product.title}">
 				<img alt="${product.title }" src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${product.imageURL}" />
 			</a>
 			</div>
 			<div>
-				<a href="${site.resourceServer}/${product.name}">${product.title}</a>
+				<a href="${site.domain}/${product.name}">${product.title}</a>
 			</div>
 		</div>
 	</c:forEach>
