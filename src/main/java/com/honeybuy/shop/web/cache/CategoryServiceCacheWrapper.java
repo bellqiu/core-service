@@ -19,7 +19,7 @@ public class CategoryServiceCacheWrapper {
 	private CategoryService categoryService;
 	
 	@Cacheable(cacheName="GetCategoryTree")
-	public List<CategoryTreeDTO> getCategoryTree(int id){
+	public List<CategoryTreeDTO> getCategoryTree(long id){
 		List<CategoryTreeDTO> categoryTree = categoryService.getNomalCategoryTree(id);
 		if(categoryTree.size() > 12) {
 			return categoryTree.subList(0, 12);
@@ -28,7 +28,7 @@ public class CategoryServiceCacheWrapper {
 	}
 	
 	@Cacheable(cacheName="GetSpecialCategoryTree")
-	public List<CategoryTreeDTO> getSpecialCategoryTree(int id){
+	public List<CategoryTreeDTO> getSpecialCategoryTree(long id){
 		List<CategoryTreeDTO> categoryTree = categoryService.getSpecialCategoryTree(id);
 		if(categoryTree.size() > 12) {
 			return categoryTree.subList(0, 12);
@@ -44,5 +44,14 @@ public class CategoryServiceCacheWrapper {
 	@Cacheable(cacheName="CategoryBreadcrumb")
 	public List<String> getCategoryBreadcrumb(long id) {
 		return categoryService.getCategoryBreadcrumbById(id);
+	}
+	
+	@Cacheable(cacheName="GetSubCateogries")
+	public List<CategoryTreeDTO> getSubCateogries(long id){
+		List<CategoryTreeDTO> categoryTree = categoryService.getCategoryTree(id);
+		/*if(categoryTree.size() > 12) {
+			return categoryTree.subList(0, 12);
+		}*/
+		return categoryTree;
 	}
 }

@@ -128,7 +128,7 @@ public class CategoryService {
 		return categoryDetailConverter.convert(getCategoryByName(name));
 	}
 
-	public List<CategoryTreeDTO> getCategoryTree(int id) {
+	public List<CategoryTreeDTO> getCategoryTree(long id) {
 		List<CategoryTreeDTO> treeDTOs = new ArrayList<CategoryTreeDTO>();
 
 		if (id < 1) {
@@ -167,7 +167,7 @@ public class CategoryService {
 			return o1.getName().compareTo(o2.getName());
 		}};
 		
-	public List<CategoryTreeDTO> getNomalCategoryTree(int id) {
+	public List<CategoryTreeDTO> getNomalCategoryTree(long id) {
 		List<CategoryTreeDTO> treeDTOs = new ArrayList<CategoryTreeDTO>();
 
 		if (id < 1) {
@@ -200,7 +200,7 @@ public class CategoryService {
 		return treeDTOs;
 	}
 	
-	public List<CategoryTreeDTO> getSpecialCategoryTree(int id) {
+	public List<CategoryTreeDTO> getSpecialCategoryTree(long id) {
 		List<CategoryTreeDTO> treeDTOs = new ArrayList<CategoryTreeDTO>();
 
 		if (id > 0) {

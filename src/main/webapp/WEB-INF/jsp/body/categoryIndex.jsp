@@ -26,6 +26,16 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-3">
+		<div>
+			<ul>
+			<c:forEach items="${subCateogries}" var="item" varStatus="stat">
+				<li class="subCategories">
+					<a href="${site.domain}/c/${item.name}">${item.displayName}</a>
+				</li>
+			</c:forEach>
+			</ul>
+		</div>
+		<div>
 		<form role="form">
 			<div>&nbsp;</div>
 			<input id="minPrice" type="hidden" name="minPrice" />
@@ -55,6 +65,7 @@
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>
 		</div>
+		</div>
 		<div class="col-xs-9" id="categoryProductListContainer">
 			<jsp:include page="/WEB-INF/jsp/body/category/categoryProductList.jsp"></jsp:include>
 		</div>
@@ -76,7 +87,8 @@
       },
       stop: function( event, ui ) {
     	  console.log("OK");
-    	  $("#categoryProductListContainer").html("").load("/seach/c/test");
+    	  /* TODO add logic for search
+    	  $("#categoryProductListContainer").html("").load("/seach/c/test"); */
       }
     
     });

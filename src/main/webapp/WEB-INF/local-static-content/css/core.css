@@ -561,3 +561,10 @@ input[type=password] {
 .categoryTitle {
 	margin-left: 2em;
 }
+
+.subCategories {
+	margin: 3px;
+}
+.subCategories>a {
+	color: #e81123;
+}

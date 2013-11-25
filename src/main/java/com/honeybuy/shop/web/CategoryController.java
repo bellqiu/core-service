@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hb.core.shared.dto.CategoryDetailDTO;
+import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
@@ -107,6 +108,9 @@ public class CategoryController {
 		
 		List<String> categoryBreadcrumb = categoryService.getCategoryBreadcrumb(categoryId);
 		model.addAttribute("categoryBreadcrumbs", categoryBreadcrumb);
+		
+		List<CategoryTreeDTO> subCateogries = categoryService.getSubCateogries(categoryId);
+		model.addAttribute("subCateogries", subCateogries);
 		
 		return "categoryIndex";
 	}
