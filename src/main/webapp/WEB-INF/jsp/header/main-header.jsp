@@ -13,7 +13,7 @@
 		<div class="header-searchBox">
 		<form id="search-form" role="form" action="${site.domain}/search/product">
 			<div>
-				<input title="Search by keyword" id="searchValue" name="searchValue" >
+				<input title="Search by keyword" id="searchBox" name="searchValue" >
 				<span id="search-glyphicon" class="glyphicon glyphicon-search"></span>
 			</div>
 		</form>
