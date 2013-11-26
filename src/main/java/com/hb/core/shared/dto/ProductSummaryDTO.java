@@ -1,5 +1,7 @@
 package com.hb.core.shared.dto;
 
+import java.util.Date;
+
 public class ProductSummaryDTO {
 	
 	public static final String CAT_SPLIT_IN_BREADCRUMB = ">";
@@ -28,6 +30,16 @@ public class ProductSummaryDTO {
 	
 	private String categoryBreadcrumb;
 	
+	private Date createDate; 
+	
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	public long getId() {
 		return id;
 	}

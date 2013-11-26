@@ -11,7 +11,8 @@
            {name:'tags',type:'String'},
            {name:'abstractText',type:'String'},
            {name:'overrideUrl',type:'String'},
-           {name:'sku',type:'String'}
+           {name:'sku',type:'String'},
+           {name:'createDate', type:'date', defaultValue : 0 , convert : function(v,record){return new Date(v)}},
         ],
         idProperty: 'id'
     });

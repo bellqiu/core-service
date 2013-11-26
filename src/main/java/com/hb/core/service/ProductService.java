@@ -429,4 +429,43 @@ public class ProductService {
 		result.setParameter("key", "%" + keyword.toLowerCase() + "%" );
 		return result.getResultList();
 	}
+	
+	public int searchCountByKey(String key) {
+		int count = 0;
+		try {
+			long id = Long.valueOf(key);
+			Product productById = getProductById(id);
+			if(productById != null) {
+				count ++;
+			}
+		} catch(NumberFormatException e) {
+		}
+		String query = "select count(p.id) from Product p where lower(p.keywords) like :keyword or lower(p.tags) like :tags ";
+		TypedQuery<Long> result = em.createQuery(query, Long.class);
+		result.setParameter("keyword", "%" + key.toLowerCase() + "%");
+		result.setParameter("tags", "%" + key.toLowerCase() + "%");
+		count += result.getSingleResult().intValue();
+		return count;
+	}
+
+	public List<ProductSummaryDTO> searchProductByKey(String key) {
+		List<ProductSummaryDTO> list = new ArrayList<ProductSummaryDTO>();
+		try {
+			long id = Long.valueOf(key);
+			Product productById = getProductById(id);
+			if(productById != null) {
+				list.add(productSummaryConverter.convert(productById));
+			}
+		} catch(NumberFormatException e) {
+		}
+		String query = "select p from Product p where lower(p.keywords) like :keyword or lower(p.tags) like :tags ";
+		TypedQuery<Product> result = em.createQuery(query, Product.class);
+		result.setParameter("keyword", "%" + key.toLowerCase() + "%");
+		result.setParameter("tags", "%" + key.toLowerCase() + "%");
+		List<Product> resultList = result.getResultList();
+		for(Product p : resultList) {
+			list.add(productSummaryConverter.convert(p));
+		}
+		return list;
+	}
 }

@@ -188,6 +188,12 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					dataIndex : "categoryBreadcrumb",
 					flex : 2,
 				}, {
+					text : "Create Date",
+					dataIndex : "createDate",
+					type : 'date',
+					renderer : Ext.util.Format.dateRenderer('m/d/Y H:i:s'),
+					flex : 1.5
+				}, {
 					xtype : 'actioncolumn',
 					width : 40,
 					sortable : false,

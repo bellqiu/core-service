@@ -568,3 +568,7 @@ input[type=password] {
 .subCategories>a {
 	color: #e81123;
 }
+
+.productThumbnail {
+	height: 353px;
+}

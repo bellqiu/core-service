@@ -51,6 +51,7 @@ public class ProductSummaryConverter implements Converter<ProductSummaryDTO, Pro
 		summaryDTO.setTags(p.getTags());
 		summaryDTO.setTitle(p.getTitle());
 		summaryDTO.setSku(p.getSku());
+		summaryDTO.setCreateDate(p.getCreateDate());
 		
 		if(!CollectionUtils.isEmpty(p.getImages())){
 			summaryDTO.setImageURL(p.getImages().get(0).getThumbnailUrl());

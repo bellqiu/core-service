@@ -61,4 +61,23 @@ public class ProductServiceCacheWrapper {
 	public List<String> getProductName(long id, String columnName, String value) {
 		return productService.getProductName(id, columnName, value);
 	}
+	
+	@Cacheable(cacheName="SearchProductCountByKey")
+	public int searchProductCountByKey(String key) {
+		return productService.searchCountByKey(key);
+	}
+	
+	@Cacheable(cacheName="SearchProductByKey")
+	public List<ProductSummaryDTO> searchProductByKey(String key, int start, int max) {
+		List<ProductSummaryDTO> productByKey = productService.searchProductByKey(key);
+		int size = productByKey.size();
+		if(size <= start) {
+			return null;
+		}
+		if(size >= (start + max)) {
+			return productByKey.subList(start, start + max);
+		} else {
+			return productByKey.subList(start, size);
+		}
+	}
 }

@@ -11,10 +11,19 @@
 		<!-- <div class="header-logo">logo</div>
 		<div class="header-banner">banner</div> -->
 		<div class="header-searchBox">
+		<form id="search-form" role="form" action="${site.domain}/search/product">
 			<div>
-				<input title="Search by keyword" id="searchBox" >
-				<span class="glyphicon glyphicon-search"></span>
+				<input title="Search by keyword" id="searchValue" name="searchValue" >
+				<span id="search-glyphicon" class="glyphicon glyphicon-search"></span>
 			</div>
+		</form>
 		</div>
 		<div style="clear:both"></div>
 	</div>
+
+<script>
+ $("#search-glyphicon").click(
+		 function(bt) {
+			 $("#search-form").submit();
+		 })
+</script>

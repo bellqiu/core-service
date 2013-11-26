@@ -54,7 +54,7 @@
 					
 					<div class="row">
 						<c:forEach items="${productSummary }" var="item">
-							<div class="col-xs-4">
+							<div class="col-xs-4 productThumbnail">
 								<div class="thumbnail">
 								<a href="${site.resourceServer}/${item.name }" title="${item.title }">
       							<img src="${site.resourceServer}/rs/img/${item.imageURL }" alt="${item.title }">
