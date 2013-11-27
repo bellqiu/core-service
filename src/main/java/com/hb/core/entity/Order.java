@@ -12,12 +12,19 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name="HB_Order")
+@NamedQueries(value=
+{
+	@NamedQuery(name="QueryOnShoppingOrderByTrackingId", query="select o from Order where trackingId=:trackingId and user is null and orderStatus='ONSHOPPING'"),
+	@NamedQuery(name="QueryOnShoppingOrderByTrackingIdAndUserEmail", query="select o from Order where trackingId=:trackingId and user.email=:email and orderStatus='ONSHOPPING'")
+})
 public class Order extends Component{
 
 	/**
@@ -34,6 +41,9 @@ public class Order extends Component{
 	@ManyToOne(optional=true, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="User_id")
 	private User user;
+	
+	@Column(name="orderSN")
+	private String orderSN;
 	
 	@Column(name="tacking_id")
 	private String trackingId;
@@ -180,6 +190,14 @@ public class Order extends Component{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getOrderSN() {
+		return orderSN;
+	}
+
+	public void setOrderSN(String orderSN) {
+		this.orderSN = orderSN;
 	}
 
 }

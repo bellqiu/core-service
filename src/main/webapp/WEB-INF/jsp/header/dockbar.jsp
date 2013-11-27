@@ -39,9 +39,8 @@
 								Dropdown</span>
 						</button>
 						 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Orders</a></li>
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Profile</a></li>
 						    <li role="presentation" class="divider"></li>
 						    <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
 						  </ul>
