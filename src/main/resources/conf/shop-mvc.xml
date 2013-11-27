@@ -44,6 +44,12 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/resources/**"/>
+			<bean class="com.honeybuy.shop.web.interceptor.TrackingCookieInterceptor"></bean>
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/resources/**"/>
 			<bean class="com.honeybuy.shop.web.interceptor.UserDetailInterceptor"></bean>
 		</mvc:interceptor>
 
