@@ -28,23 +28,29 @@
 				</div>
 			</li>
 			<li>
-				<div class="btn-group">
-					<button type="button" class="btn">
-						<span>User</span><span class="glyphicon glyphicon-info-sign"></span>
-					</button>
-					<button type="button" class="btn dropdown-toggle"
-						data-toggle="dropdown">
-						<span class="caret"></span> <span class="sr-only">Toggle
-							Dropdown</span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">User</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-					</ul>
-				</div>
+				<c:if test="${not empty currentUser }">
+					<div class="btn-group">
+						<button type="button" class="btn">
+							<span>${currentUser.username }</span><span class="glyphicon glyphicon-user"></span>
+						</button>
+						<button type="button" class="btn dropdown-toggle"
+							data-toggle="dropdown">
+							<span class="caret"></span> <span class="sr-only">Toggle
+								Dropdown</span>
+						</button>
+						 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+						    <li role="presentation" class="divider"></li>
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+						  </ul>
+					</div>
+				</c:if>
+				<c:if test="${empty currentUser }">
+					<a href="/ac/login" class="btn"><span
+					class="glyphicon glyphicon-user"></span><span>Login</span></a>
+				</c:if>
 			</li>
 			<li class=""><a href="http://www.google.com"
 				class="btn-group btn open"><span

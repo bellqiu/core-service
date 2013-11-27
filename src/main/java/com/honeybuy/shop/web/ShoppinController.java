@@ -21,14 +21,13 @@ import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
  */
 @Controller
 @RequestMapping("")
-@Secured("USER")
 public class ShoppinController {
 	
 	@Autowired
 	private ProductServiceCacheWrapper productService;
 	
 	@RequestMapping("/sp/shoppingcart/list")
-	public String shoppingcat( Model model){
+	public String shoppingcat(Model model){
 		return "shoppingcat";
 	}
 	 	

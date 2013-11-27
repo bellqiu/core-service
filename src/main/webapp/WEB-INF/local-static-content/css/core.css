@@ -69,6 +69,11 @@ input[type=password] {
 	padding-top: 8px
 }
 
+.dockbar-menu .divider{
+	width: 100%;
+}
+
+
 .dockbar-menu .btn-group {
 	z-index: 999999;
 }
