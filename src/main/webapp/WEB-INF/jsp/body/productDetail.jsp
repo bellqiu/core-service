@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="hb" uri="/WEB-INF/tag/HBTag.tld"%>
 <div class="container mainContainer">
 	<ol class="breadcrumb margin0 whiteBackground">
 		<c:forEach items="${currentProductDetail.categories}"
@@ -58,10 +59,12 @@
 					<h1>${currentProductDetail.title}</h1>
 				</div>
 				<div class="col-md-12 col-xs-12 padding10">
-					<b class="priceDuplicate"> <fmt:formatNumber
-							value="${currentProductDetail.price }"></fmt:formatNumber>
-					</b> <b class="priceActive"><fmt:formatNumber
-							value="${currentProductDetail.actualPrice }"></fmt:formatNumber>
+					<b class="priceDuplicate"> 
+					
+					<hb:printPrice price="${currentProductDetail.price }"/>
+					
+					</b> <b class="priceActive">
+						<hb:printPrice price="${currentProductDetail.actualPrice }"/>
 
 					</b>
 				</div>

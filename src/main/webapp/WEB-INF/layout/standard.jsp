@@ -34,6 +34,7 @@
 		<script src="/resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 		<script src="/resources/bootstrap/bootstrap-select.js" type="text/javascript"></script>
 		<script src="/resources/js/jqBootstrapValidation.js" type="text/javascript"></script>
+		<script src="/resources/js/require.js" type="text/javascript"></script>
 		
 		<c:forEach items="${site.js }" var="js">
 			<script src="${site.resourceServer}${site.webResourcesFolder}${js}" type="text/javascript"></script>
