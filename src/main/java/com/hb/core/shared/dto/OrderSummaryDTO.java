@@ -5,6 +5,7 @@ public class OrderSummaryDTO {
 	private String trackingId;
 	private String orderSN;
 	private String status;
+	private String sourceId;
 	private float amount;
 	
 	public String getUseremail() {
@@ -36,5 +37,11 @@ public class OrderSummaryDTO {
 	}
 	public void setAmount(float amount) {
 		this.amount = amount;
+	}
+	public String getSourceId() {
+		return sourceId;
+	}
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
 	}
 }

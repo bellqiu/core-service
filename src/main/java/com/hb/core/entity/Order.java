@@ -48,6 +48,9 @@ public class Order extends Component{
 	@Column(name="tacking_id")
 	private String trackingId;
 	
+	@Column(name="source_Id")
+	private String sourceId;
+	
 	@OneToMany(targetEntity=OrderItem.class,orphanRemoval=true, cascade={CascadeType.ALL})
 	@JoinColumn(name="Order_id")
 	private List<OrderItem> items = new ArrayList<OrderItem>();

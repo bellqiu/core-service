@@ -29,6 +29,8 @@ public class OrderDetailDTO {
 	
 	private Status orderStatus;
 	
+	private String sourceId;
+	
 	private List<OrderItemDTO> items;
 
 	public long getId() {
@@ -133,6 +135,14 @@ public class OrderDetailDTO {
 
 	public void setItems(List<OrderItemDTO> items) {
 		this.items = items;
+	}
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
 	}
 	
 }
