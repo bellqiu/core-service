@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hb.core.shared.dto.TabProductDTO;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
-import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 
 public class TabedProduct extends AbstractHBTag{
 	
@@ -15,13 +14,6 @@ public class TabedProduct extends AbstractHBTag{
 	 * 
 	 */
 	private static final long serialVersionUID = -6141222023233739141L;
-
-	/**
-	 * 
-	 */
-	
-	@Autowired
-	private SettingServiceCacheWrapper settingService;
 	
 	@Autowired
 	private ProductServiceCacheWrapper productService;

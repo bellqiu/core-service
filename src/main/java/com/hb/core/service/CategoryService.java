@@ -251,4 +251,21 @@ public class CategoryService {
 		Collections.reverse(categoryBreadcrumbs);
 		return categoryBreadcrumbs;
 	}
+
+	public List<CategoryTreeDTO> getCategoryTreeByName(List<String> parentNames) {
+		if(parentNames == null || parentNames.size() == 0) {
+			return getCategoryTree(0);
+		}
+		List<CategoryTreeDTO> results = new ArrayList<CategoryTreeDTO>();
+		for(String name : parentNames) {
+			Category category = getCategoryByName(name);
+			if(category != null) {
+				List<Category> subCategory = category.getSubCategory();
+				for(Category sub : subCategory) {
+					results.add(categoryTreeConverter.convert(sub));
+				}
+			}
+		}
+		return results;
+	}
 }

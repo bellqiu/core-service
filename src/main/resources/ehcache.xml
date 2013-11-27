@@ -85,7 +85,12 @@
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
-	<cache name="GetSubCateogries" eternal="false"
+	<cache name="GetSubCategories" eternal="false"
+		timeToLiveSeconds="120" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="99999" />
+	
+	<cache name="GetSubCategoryByName" eternal="false"
 		timeToLiveSeconds="120" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />

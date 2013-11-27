@@ -91,4 +91,15 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	
+	<tag>
+		<name>subCategory</name>
+		<tagclass>com.honeybuy.shop.web.tag.ChildCategoryTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>settingKey</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

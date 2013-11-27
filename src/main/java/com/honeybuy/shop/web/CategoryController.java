@@ -109,7 +109,7 @@ public class CategoryController {
 		List<String> categoryBreadcrumb = categoryService.getCategoryBreadcrumb(categoryId);
 		model.addAttribute("categoryBreadcrumbs", categoryBreadcrumb);
 		
-		List<CategoryTreeDTO> subCateogries = categoryService.getSubCateogries(categoryId);
+		List<CategoryTreeDTO> subCateogries = categoryService.getSubCategories(categoryId);
 		model.addAttribute("subCateogries", subCateogries);
 		
 		return "categoryIndex";
