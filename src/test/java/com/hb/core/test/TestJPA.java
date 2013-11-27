@@ -1,71 +1,60 @@
 package com.hb.core.test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.hb.core.entity.Option;
-import com.hb.core.entity.OptionItem;
-import com.hb.core.entity.Setting;
+import com.hb.core.entity.Order;
+import com.hb.core.entity.OrderItem;
+import com.hb.core.entity.Product;
+import com.hb.core.entity.SelectedOpts;
 import com.hb.core.entity.User;
-import com.hb.core.service.AccountService;
-import com.hb.core.service.SettingService;
+import com.hb.core.service.OrderService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:conf/applicationContext.xml"})
+@ContextConfiguration({"classpath:applicationContext-test.xml"})
 public class TestJPA {
 	
 	@Autowired
-	private AccountService userService;
+	private OrderService orderService;
 	
-	@Autowired
-	private SettingService settingService;
 	
 	@PersistenceContext
 	private EntityManager em;
 	
-	@Test
+/*	@Test
 	public void test(){
-		User user = new User();
-		user.setPassword("1111");
-		user.setEmail("1@1.com");
-		userService.newUser(user);
-	}
-	
-
-	@Test
-	public void test2(){
-		User user = userService.getUserById(1L);
-		System.out.println(user.getId()+"###########################################");
-	}
-	
-	@Test
-	public void test3(){
-		Setting setting = settingService.getSetting("XXXX", Setting.Type.STRING);
+		Order order = new Order();
+		order.setBillingAddress("billingAddress");
+		order.setCouponCode("couponCode");
+		order.setCouponCutOff(0.1f);
+		order.setCurrency("USD");
+		order.setCustomerMsg("customerMsg");
+		order.setDeliveryPrice(0.2f);
+		order.setUser(em.find(User.class, 1l));
 		
-		Assert.assertEquals(setting.getValue(), "dddd");
+		for (int i = 0; i < 2; i++) {
+			
+			OrderItem item = new OrderItem();
+			item.setProduct(em.find(Product.class, Long.valueOf(6 + 1)));
+			
+			SelectedOpts selectedOpts = new SelectedOpts();
+			selectedOpts.setValue("test" + i);
+			
+			item.getSelectedOpts().add(selectedOpts);
+			
+			order.getItems().add(item);
+		}
+		
+		orderService.saveOrUpdate(order);
 	}
-	
-	@Test
-	public void save() {
-		Option option = em.find(Option.class, 1L);
-		System.out.println(option.getName());
-		List<OptionItem> items = new ArrayList<OptionItem>();
-		option.setItems(items);
-	}
-	
+	*/
 	
 	
 }

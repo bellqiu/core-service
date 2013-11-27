@@ -1,7 +1,23 @@
 package com.hb.core.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name="HB_Order")
 public class Order extends Component{
 
 	/**
@@ -9,27 +25,46 @@ public class Order extends Component{
 	 */
 	private static final long serialVersionUID = 8785205423133606769L;
 	
+	@Column(name="shipping_address")
 	private String shippingAddress;
+	
+	@Column(name="billing_address")
 	private String billingAddress;
 	
-	private long userId;
+	@ManyToOne(optional=true, cascade={CascadeType.REFRESH})
+	@JoinColumn(name="User_id")
+	private User user;
 	
-	private List<OrderItem> items;
+	@Column(name="tacking_id")
+	private String trackingId;
 	
+	@OneToMany(targetEntity=OrderItem.class,orphanRemoval=true, cascade={CascadeType.ALL})
+	@JoinColumn(name="Order_id")
+	private List<OrderItem> items = new ArrayList<OrderItem>();
+	
+	@Column(name="currency")
 	private String currency;
 	
+	@Column(name="delivery_price")
 	private float deliveryPrice;
 	
+	@Column(name="customer_msg")
 	private String customerMsg;
 	
+	@Column(name="shipping_method")
 	private String shippingMethod;
 	
+	@Column(name="coupon_cut_off")
 	private float couponCutOff;
 	
+	@Column(name="coupon_code")
 	private String couponCode;
 	
+	@Column(name="trace_info")
 	private String traceInfo;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name="order_status")
 	private Status orderStatus = Status.ONSHOPPING; 
 	
 	public static enum Status{
@@ -130,12 +165,21 @@ public class Order extends Component{
 		this.orderStatus = orderStatus;
 	}
 
-	public long getUserId() {
-		return userId;
+
+	public String getTrackingId() {
+		return trackingId;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setTrackingId(String trackingId) {
+		this.trackingId = trackingId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
