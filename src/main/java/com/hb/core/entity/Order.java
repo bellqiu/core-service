@@ -20,11 +20,11 @@ import javax.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name="HB_Order")
-@NamedQueries(value=
+/*@NamedQueries(value=
 {
 	@NamedQuery(name="QueryOnShoppingOrderByTrackingId", query="select o from Order where trackingId=:trackingId and user is null and orderStatus='ONSHOPPING'"),
 	@NamedQuery(name="QueryOnShoppingOrderByTrackingIdAndUserEmail", query="select o from Order where trackingId=:trackingId and user.email=:email and orderStatus='ONSHOPPING'")
-})
+})*/
 public class Order extends Component{
 
 	/**
