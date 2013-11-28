@@ -13,6 +13,7 @@ public class PrintPriceTag extends AbstractHBTag{
 	private static final long serialVersionUID = 4262739972508526664L;
 
 	private double price;
+	private boolean withCurrency = true;
 
 	@Override
 	public String handle(ServletRequest request) {
@@ -22,6 +23,7 @@ public class PrintPriceTag extends AbstractHBTag{
 		String strPrice = numberFormat.format(newPrice);
 		request.setAttribute("__price", strPrice);
 		request.setAttribute("__currency", currency);
+		request.setAttribute("__withCurrency", withCurrency);
 		return "printPrice";
 	}
 	
@@ -29,6 +31,8 @@ public class PrintPriceTag extends AbstractHBTag{
 	public void clean(ServletRequest request) {
 		request.removeAttribute("__price");
 		request.removeAttribute("__currency");
+		request.removeAttribute("__withCurrency");
+		withCurrency = true;
 	}
 
 	public double getPrice() {
@@ -42,6 +46,14 @@ public class PrintPriceTag extends AbstractHBTag{
 		NumberFormat numberFormat = new DecimalFormat("#,###,##0.00");
 		String strPrice = numberFormat.format(90);
 		System.out.println(strPrice);
+	}
+
+	public boolean isWithCurrency() {
+		return withCurrency;
+	}
+
+	public void setWithCurrency(boolean withCurrency) {
+		this.withCurrency = withCurrency;
 	}
 
 }

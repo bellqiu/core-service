@@ -1,12 +1,16 @@
 package com.honeybuy.shop.web.cache;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.googlecode.ehcache.annotations.Cacheable;
+import com.hb.core.entity.Currency;
+import com.hb.core.entity.Option;
+import com.hb.core.entity.OptionItem;
 import com.hb.core.service.ProductService;
 import com.hb.core.service.TabProductService;
 import com.hb.core.shared.dto.ProductDetailDTO;
@@ -30,6 +34,31 @@ public class ProductServiceCacheWrapper {
 	@Cacheable(cacheName="Product")
 	public ProductDetailDTO getProductDetailByName(String name){
 		return productService.getProductDetailByName(name);
+	}
+	
+	public ProductDetailDTO compupterProductByOptsAndCurrency(ProductDetailDTO productDetailDTO, Map<String, String> params, Currency currency){
+		
+		List<Option> opts = productDetailDTO.getOptions();
+		
+		
+		
+		if(null != opts){
+			for (Option option : opts) {
+				if(params.containsKey(String.valueOf(option.getId()))){
+					
+					String paramValue = params.get(String.valueOf(option.getId()));
+					
+					List<OptionItem> optItems = option.getItems();
+					/*
+					if(){
+						
+					}*/
+				}
+			}
+		}
+		
+		
+		return productDetailDTO;
 	}
 	
 	@Cacheable(cacheName="TabProduct")

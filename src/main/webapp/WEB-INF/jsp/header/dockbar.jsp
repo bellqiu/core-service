@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="hb" uri="/WEB-INF/tag/HBTag.tld"%>
 <div class="dockbar">
 	<div class="span4 offset8">
 		<ul class="dockbar-menu">
@@ -10,8 +11,9 @@
 			<li>
 				<div class="btn-group">
 					<button type="button" class="btn">
-						<img alt="" src="/resources/css/img/${defaultCurrency.code }.png">
-						${defaultCurrency.name }
+					
+						<img alt="" src="/resources/css/img/${sessionScope.defaultCurrency.code }.png">
+						${sessionScope.defaultCurrency.name }
 					</button>
 					<button type="button" class="btn dropdown-toggle"
 						data-toggle="dropdown">

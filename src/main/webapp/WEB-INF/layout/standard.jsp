@@ -30,6 +30,7 @@
 		
 		<script src="/resources/js/jquery-1.9.1.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
+		<script src="/resources/js/jquery.cookie.js" type="text/javascript"></script>
 		<script src="/resources/bxslider/jquery.bxslider.js" type="text/javascript"></script>
 		<script src="/resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 		<script src="/resources/bootstrap/bootstrap-select.js" type="text/javascript"></script>
@@ -55,6 +56,7 @@
 	
 	<script type="text/javascript">
 		$(".selectpicker").selectpicker();
+		$(".wantTooltip").tooltip();
 	</script>
 	
 </body>

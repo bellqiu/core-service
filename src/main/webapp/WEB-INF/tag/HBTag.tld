@@ -90,6 +90,11 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+		<attribute>
+			<name>withCurrency</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 	
 	<tag>
@@ -98,6 +103,17 @@
 		<bodycontent>empty</bodycontent>
 		<attribute>
 			<name>settingKey</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>printCurrency</name>
+		<tagclass>com.honeybuy.shop.web.tag.PrintCurrencyTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>symbol</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

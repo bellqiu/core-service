@@ -3,6 +3,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="hb" uri="/WEB-INF/tag/HBTag.tld"%>
+<script type="text/javascript">
+var productName = "${currentProductDetail.name}";
+</script>
+<script src="/resources/js/ProductPageMain.js" type="text/javascript"></script>
 <div class="container mainContainer">
 	<ol class="breadcrumb margin0 whiteBackground">
 		<c:forEach items="${currentProductDetail.categories}"
@@ -83,7 +87,6 @@
 				
 
 				<div class="col-md-12 col-xs-12 ">
-
 					<c:forEach items="${currentProductDetail.options }" var="opt">
 						<c:if test="${opt.type=='SINGLE_ICON_LIST' }">
 							<div class="row padding10">
@@ -92,15 +95,15 @@
 									<div class="btn-group" data-toggle="buttons">
 										<c:forEach items="${opt.items }" var="item">
 											<c:if test="${item.value!=opt.defaultValue }">
-												<label class="btn  btn-info"> <input type="radio"
-													name="${opt.id }" value="${item.value}">
+												<label class="btn  btn-info product_opts_input_wrap wantTooltip" data-toggle="tooltip" title='<c:if test="${item.priceChange > 0.1}">(+<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if><c:if test="${item.priceChange < (-0.1)}">(<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if>'> <input type="radio"
+													name="${opt.id }" value="${item.value}" class="product_opts_input">
 													${item.displayName}
 												</label>
 											</c:if>
 											<c:if test="${item.value==opt.defaultValue }">
-												<label class="btn  btn-info active"> <input
+												<label class="btn  btn-info active product_opts_input_wrap wantTooltip" data-toggle="tooltip" title='<c:if test="${item.priceChange > 0.1}">(+<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if><c:if test="${item.priceChange < (-0.1)}">(<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if>'> <input
 													type="radio" checked="checked" name="${opt.id }"
-													value="${item.value}"> ${item.displayName}
+													value="${item.value}" class="product_opts_input"> ${item.displayName}
 												</label>
 											</c:if>
 										</c:forEach>
@@ -111,14 +114,30 @@
 						<c:if test="${opt.type=='SINGLE_TEXT_LIST' }">
 							<div class="col-md-3 col-xs-3">${opt.name }:</div>
 							<div class="col-md-9 col-xs-9">
-								<select class="selectpicker" id="sizePicker" name="${opt.id }"
-									data-style="btn-info">
+								<select class="selectpicker product_opts_select" id="sizePicker" name="${opt.id }"
+									data-style="btn-info" >
 									<c:forEach items="${opt.items }" var="item">
 										<c:if test="${item.value!=opt.defaultValue }">
-											<option value="${item.value}">${item.displayName}</option>
+											<option value="${item.value}">${item.displayName}
+												
+												<c:if test="${item.priceChange > 0.1}">
+														(+
+															<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>
+														)
+													</c:if>
+													
+													<c:if test="${item.priceChange < (-0.1)}">
+														(	<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>
+														)
+													</c:if>
+											
+											</option>
 										</c:if>
 										<c:if test="${item.value==opt.defaultValue }">
-											<option value="${item.value}" selected="selected">${item.displayName}</option>
+											<option value="${item.value}" selected="selected">${item.displayName}
+											
+												<c:if test="${item.priceChange > 0.1}">(+<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if><c:if test="${item.priceChange < (-0.1)}">(<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if>
+											</option>
 										</c:if>
 									</c:forEach>
 								</select>
