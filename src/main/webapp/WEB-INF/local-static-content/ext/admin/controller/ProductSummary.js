@@ -167,6 +167,10 @@ Ext.define('AM.controller.ProductSummary', {
 							}
 						});
 				break;
+			case 'pop': 
+				var win=window.open("/"+view.getSelectionModel().getSelection()[0].get("name"), '_blank');
+				win.focus();
+				break;
 			}
 		}
 	},

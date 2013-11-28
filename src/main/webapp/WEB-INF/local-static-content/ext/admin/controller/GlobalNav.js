@@ -127,6 +127,18 @@ Ext.define('AM.controller.GlobalNav', {
     			tabpanel.setActiveTab(0);
     		}
     		
+    	} else if(opt == 'order'){
+    		
+    		var tabpanel = combo.up("viewport").down("tabpanel#managerContainer");
+    		
+    		if(tabpanel.down("ordermanager")){
+    			tabpanel.setActiveTab(tabpanel.down("ordermanager"));
+    		}else{
+    			var view = Ext.widget('ordermanager');
+    			tabpanel.insert(0, view);
+    			tabpanel.setActiveTab(0);
+    		}
+    		
     	} else {
     		Ext.Msg.alert('Status', 'No operation');
     	}

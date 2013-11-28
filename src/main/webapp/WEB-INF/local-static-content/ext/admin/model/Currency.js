@@ -8,7 +8,7 @@
            {name:'code',type:'string'},
            {name:'name',type:'string'},
            {name:'defaultCurrency',type:'boolean'},
-           {name:'exchangeRateBaseOnDefault',type:'float'},
+           {name:'exchangeRateBaseOnDefault',type:'float'}
         ],
         idProperty: 'id'
     });

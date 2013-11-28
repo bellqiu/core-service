@@ -195,10 +195,14 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					flex : 1.5
 				}, {
 					xtype : 'actioncolumn',
-					width : 40,
+					width : 60,
 					sortable : false,
 					menuDisabled : true,
 					items : [ {
+						icon : '/resources/ext/resources/images/pop.png',
+						tooltip : 'View Product',
+						id : 'viewProduct'
+					}, {
 						icon : '/resources/ext/resources/images/edit.png',
 						tooltip : 'Edit Product',
 						id : 'editProduct'

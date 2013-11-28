@@ -105,6 +105,14 @@ public class Order extends Component{
 	public void setBillingAddress(String billingAddress) {
 		this.billingAddress = billingAddress;
 	}
+	
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
 
 	public List<OrderItem> getItems() {
 		return items;

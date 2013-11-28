@@ -1,6 +1,7 @@
 package com.hb.core.shared.dto;
 
 public class OrderSummaryDTO {
+	private long id;
 	private String useremail;
 	private String trackingId;
 	private String orderSN;
@@ -8,6 +9,12 @@ public class OrderSummaryDTO {
 	private String sourceId;
 	private float amount;
 	
+	public void setId(long id) {
+		this.id = id;
+	}
+	public long getId() {
+		return id;
+	}
 	public String getUseremail() {
 		return useremail;
 	}

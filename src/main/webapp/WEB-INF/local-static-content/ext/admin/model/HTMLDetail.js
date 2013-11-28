@@ -3,7 +3,7 @@
         fields: [
            {name:'id',type:'int'},
            {name:'content',type:'string'},
-           {name:'name',type:'string'},
+           {name:'name',type:'string'}
         ],
         idProperty: 'id'
     });

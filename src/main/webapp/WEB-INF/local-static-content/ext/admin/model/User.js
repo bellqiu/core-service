@@ -7,7 +7,7 @@
            {name:'enabled',type:'boolean'},
            {name:'roles',type:'string', convert : function(v,record){
         	   return Ext.Array.from(v);
-           }},
+           }}
         ],
         idProperty: 'id'
     });
