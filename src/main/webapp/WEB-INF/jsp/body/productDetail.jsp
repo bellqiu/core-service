@@ -65,11 +65,25 @@ var productName = "${currentProductDetail.name}";
 				<div class="col-md-12 col-xs-12 padding10">
 					<b class="priceDuplicate"> 
 					
-					<hb:printPrice price="${currentProductDetail.price }"/>
-					
+					<hb:printPrice price="${currentProductDetail.price }"/> 
+					<span class="productChangedPrice">
+						<c:if test="${currentProductProductChange.priceChange > 0.1 }">
+							+<hb:printPrice price="${currentProductProductChange.priceChange}" withCurrency="false"/> 
+						</c:if>
+						<c:if test="${currentProductProductChange.priceChange < (-0.1) }">
+							<hb:printPrice price="${currentProductProductChange.priceChange}" withCurrency="false"/> 
+						</c:if>
+					</span>
 					</b> <b class="priceActive">
-						<hb:printPrice price="${currentProductDetail.actualPrice }"/>
-
+						<hb:printPrice price="${currentProductDetail.actualPrice}"/>
+							<span class="productChangedPrice">
+							<c:if test="${currentProductProductChange.priceChange > 0.1 }">
+							+<hb:printPrice price="${currentProductProductChange.priceChange }" withCurrency="false"/> 
+							</c:if>
+							<c:if test="${currentProductProductChange.priceChange < (-0.1) }">
+								<hb:printPrice price="${currentProductProductChange.priceChange }" withCurrency="false"/> 
+							</c:if>
+						</span>
 					</b>
 				</div>
 				<div class="col-md-12 col-xs-12 padding10">
@@ -88,19 +102,20 @@ var productName = "${currentProductDetail.name}";
 
 				<div class="col-md-12 col-xs-12 ">
 					<c:forEach items="${currentProductDetail.options }" var="opt">
+						<c:set var="optIdString">${opt.id }</c:set>
 						<c:if test="${opt.type=='SINGLE_ICON_LIST' }">
 							<div class="row padding10">
 								<div class="col-md-3 col-xs-3">${opt.name }:</div>
 								<div class="col-md-9 col-xs-9">
 									<div class="btn-group" data-toggle="buttons">
 										<c:forEach items="${opt.items }" var="item">
-											<c:if test="${item.value!=opt.defaultValue }">
+											<c:if test="${(currentProductProductChange.selectedOptOriginal[optIdString] != null && currentProductProductChange.selectedOptOriginal[optIdString] != item.value) || (currentProductProductChange.selectedOptOriginal[optIdString] == null && item.value!=opt.defaultValue)}">
 												<label class="btn  btn-info product_opts_input_wrap wantTooltip" data-toggle="tooltip" title='<c:if test="${item.priceChange > 0.1}">(+<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if><c:if test="${item.priceChange < (-0.1)}">(<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if>'> <input type="radio"
 													name="${opt.id }" value="${item.value}" class="product_opts_input">
 													${item.displayName}
 												</label>
 											</c:if>
-											<c:if test="${item.value==opt.defaultValue }">
+											<c:if test="${currentProductProductChange.selectedOptOriginal[optIdString] == item.value || (currentProductProductChange.selectedOptOriginal[optIdString] == null && item.value==opt.defaultValue)}">
 												<label class="btn  btn-info active product_opts_input_wrap wantTooltip" data-toggle="tooltip" title='<c:if test="${item.priceChange > 0.1}">(+<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if><c:if test="${item.priceChange < (-0.1)}">(<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if>'> <input
 													type="radio" checked="checked" name="${opt.id }"
 													value="${item.value}" class="product_opts_input"> ${item.displayName}
@@ -117,7 +132,7 @@ var productName = "${currentProductDetail.name}";
 								<select class="selectpicker product_opts_select" id="sizePicker" name="${opt.id }"
 									data-style="btn-info" >
 									<c:forEach items="${opt.items }" var="item">
-										<c:if test="${item.value!=opt.defaultValue }">
+										<c:if test="${(currentProductProductChange.selectedOptOriginal[optIdString] != null && currentProductProductChange.selectedOptOriginal[optIdString] != item.value) || (currentProductProductChange.selectedOptOriginal[optIdString] == null && item.value!=opt.defaultValue)}">
 											<option value="${item.value}">${item.displayName}
 												
 												<c:if test="${item.priceChange > 0.1}">
@@ -133,7 +148,7 @@ var productName = "${currentProductDetail.name}";
 											
 											</option>
 										</c:if>
-										<c:if test="${item.value==opt.defaultValue }">
+										<c:if test="${currentProductProductChange.selectedOptOriginal[optIdString] == item.value || (currentProductProductChange.selectedOptOriginal[optIdString] == null && item.value==opt.defaultValue)}">
 											<option value="${item.value}" selected="selected">${item.displayName}
 											
 												<c:if test="${item.priceChange > 0.1}">(+<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if><c:if test="${item.priceChange < (-0.1)}">(<hb:printPrice price="${item.priceChange}" withCurrency="false"/><hb:printCurrency/>)</c:if>

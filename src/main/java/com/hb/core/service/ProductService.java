@@ -13,10 +13,10 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
@@ -30,8 +30,10 @@ import com.hb.core.entity.OptionItem;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.Property;
 import com.hb.core.exception.CoreServiceException;
+import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
+import com.honeybuy.shop.util.ParamValueUtils;
 
 @Transactional
 @Service
@@ -44,6 +46,63 @@ public class ProductService {
 	
 	@Autowired
 	private Converter<ProductSummaryDTO, Product> productSummaryConverter;
+	
+	
+	public ProductChangeDTO compupterProductChangeByOptsAndCurrency(ProductDetailDTO productDetailDTO, String optParams){
+		
+		Map<String, String> params = ParamValueUtils.parseParamString(optParams);
+		
+		ProductChangeDTO changeDTO = new ProductChangeDTO();
+		
+		List<Option> opts = productDetailDTO.getOptions();
+		
+		Map<String, String> overridePropsMap = new HashMap<String, String>();
+		
+		float priceChange = 0f;
+		
+		List<String> selectedOpts = new ArrayList<String>();
+		
+		if(null != opts){
+			for (Option option : opts) {
+				if(params.containsKey(String.valueOf(option.getId())) || !StringUtils.isEmpty(option.getDefaultValue())){
+					
+					String paramValue = params.get(String.valueOf(option.getId()));
+					
+					if(StringUtils.isEmpty(paramValue)){
+						paramValue = option.getDefaultValue();
+					}
+					
+					List<OptionItem> optItems = option.getItems();
+					if(null != optItems){
+						for (OptionItem optionItem : optItems) {
+							if(!StringUtils.isEmpty(paramValue) && paramValue.equals(optionItem.getValue())){
+								priceChange += optionItem.getPriceChange();
+								selectedOpts.add(option.getName()+" : "+ paramValue);
+								List<Property> overrideProps = optionItem.getOverrideProps();
+								if(null != overrideProps){
+									for (Property property : overrideProps) {
+										if("_PRODUCT_URL".equals(property.getName())){
+											changeDTO.setProductUrlChange(property.getValue());
+										}else{
+											overridePropsMap.put(property.getName(), property.getValue());
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		changeDTO.setOptionParam(optParams);
+		changeDTO.setPriceChange(priceChange);
+		changeDTO.setSelectedOpts(selectedOpts);
+		changeDTO.setPropertiesChanges(overridePropsMap);
+		
+		
+		return changeDTO;
+	}
 	
 	public ProductDetailDTO getProductDetail(long productId){
 		

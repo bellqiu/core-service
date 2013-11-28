@@ -1,9 +1,13 @@
 package com.hb.core.shared.dto;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.honeybuy.shop.util.ParamValueUtils;
 
 public class ProductChangeDTO {
 	
@@ -44,6 +48,27 @@ public class ProductChangeDTO {
 	public void setOptionParam(String optionParam) {
 		this.optionParam = optionParam;
 	}
-	
+	public String getStrPriceChange() {
+		NumberFormat numberFormat = new DecimalFormat("###,###,###,###,##0.00");
+		
+		return numberFormat.format(priceChange);
+	}
+	public Map<String,String> getSelectedOptOriginal() {
+		Map<String,String> paramMap = ParamValueUtils.parseParamString(optionParam);
+		Map<Integer,String> opts= new HashMap<Integer,String>();
+		
+		for (String key : paramMap.keySet()) {
+			int id = 0 ; 
+			try {
+				id = Integer.valueOf(key);
+			} catch (NumberFormatException e) {
+			}
+			if(id > 0){
+				opts.put(id, paramMap.get(key));
+			}
+		}
+		
+		return paramMap;
+	}
 	
 }

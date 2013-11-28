@@ -3,7 +3,7 @@
 		function() {
 			var shopping = {};
 			
-			shopping.selectOption = function(productName, optionId, value){
+			shopping.selectOption = function(productName, optionId, value, callBack){
 				
 				var options = $.cookie("productOpts");
 				
@@ -22,9 +22,22 @@
 				}
 				
 				optsJson[optionId] = value;
+				
+				var paramStr =  $.param(optsJson);
+				
+				if(callBack){
+					$.ajax({
+						dataType : "json",
+						url : "/json/productChange/"+productName,
+						data : {productOpts: paramStr},
+						success : callBack
+						
+					});
+					/*$.getJSON("/json/productChange/"+productName, callBack);*/
+				}
 					
 				$.removeCookie('productOpts');
-				$.cookie("productOpts", $.param(optsJson), { expires: 7, path: '/'+ productName} );
+				$.cookie("productOpts", paramStr, { expires: 7, path: '/'+ productName} );
 				
 			};
 			
