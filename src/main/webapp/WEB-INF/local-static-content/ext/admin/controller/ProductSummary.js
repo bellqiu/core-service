@@ -79,6 +79,13 @@ Ext.define('AM.controller.ProductSummary', {
 				});
 				filtered = true;
 			}
+			if (filters.sku.length > 0) {
+				filterObj.push({
+					property : 'sku',
+					value : filters.sku
+				});
+				filtered = true;
+			}
 			active=btn.up('form#searchProductSummaryForm').down('checkbox').getValue();
 			if (active) {
 				filterObj.push({

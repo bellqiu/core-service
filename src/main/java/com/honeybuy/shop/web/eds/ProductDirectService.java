@@ -62,8 +62,11 @@ public class ProductDirectService {
 		String dir = "DESCENDING";
 		if(!sorts.isEmpty()){
 			SortInfo sortInfo = sorts.get(0);
-			sort = sortInfo.getProperty();
-			dir = sortInfo.getDirection().toString();
+			String sortProperty = sortInfo.getProperty();
+			if(!"categoryBreadcrumb".equalsIgnoreCase(sortProperty)) {
+				sort = sortProperty;
+				dir = sortInfo.getDirection().toString();
+			} else {}
 		}
 		
 		Map<String,String> filters = new HashMap<String, String>();

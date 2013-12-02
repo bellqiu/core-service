@@ -46,7 +46,7 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					title : 'Product Summary filters',
 					layout : {
 						type : 'table',
-						columns : 2
+						columns : 2,
 					},
 					defaultType : 'textfield',
 					items : [ {
@@ -55,32 +55,30 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						name : 'name',
 						regex : /^\w+$/,
 						regexText : 'Only for characters',
-						width : 250
+						width : 350
 
 					}, {
 						margin : 5,
 						fieldLabel : 'Title',
 						name : 'title',
-						width : 250
+						width : 350
 					}, {
 						xtype: 'numberfield',
 						margin : 5,
 						fieldLabel : 'Price',
 						name : 'price',
-						width : 250
+						width : 350
 					}, {
 						xtype: 'numberfield',
 						margin : 5,
 						fieldLabel : 'Actual Price',
 						name : 'actualPrice',
-						width : 250
+						width : 350
 					}, {
-						xtype: 'checkbox',
 						margin : 5,
-						fieldLabel : 'Active Product',
-						name : 'active',
-						checked : 'true',
-						width : 250
+						fieldLabel : 'SKU',
+						name : 'sku',
+						width : 350
 					}, {
 						margin : 5,
 						fieldLabel : 'Category',
@@ -90,24 +88,23 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						name : 'categoryName',
 						displayField : 'name',
 						valueField : 'name',
-						width : 250
+						width : 350
+					}, {
+						xtype: 'checkbox',
+						margin : 5,
+						fieldLabel : 'Active Product',
+						name : 'active',
+						checked : 'true',
+						width : 350
 					}, {
 						margin : 5,
 						xtype : 'panel',
 						border : 0,
-						colspan : 2,
-						layout : {
-							type : 'hbox',
-							align : 'middle',
-							pack : 'center'
-						},
 						defaults : {
 							border : 0,
 							margin : 2
 						},
 						items : [ {
-							flex : 2
-						}, {
 							flex : 2,
 							defaults : {
 								border : 0,
@@ -182,6 +179,14 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					editor : {
 						xtype : 'numberfield',
 						allowBlank : false
+					}
+				}, {
+					text : "SKU",
+					dataIndex : "sku",
+					flex : 1,
+					editor : {
+						xtype : 'textfield',
+						allowBlank : true
 					}
 				}, {
 					text : "Breadcrumb",
