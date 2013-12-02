@@ -5,6 +5,7 @@
 <%@taglib prefix="hb" uri="/WEB-INF/tag/HBTag.tld"%>
 <script type="text/javascript">
 var productName = "${currentProductDetail.name}";
+var productOpts = "${currentProductOptions}";
 </script>
 <script src="/resources/js/ProductPageMain.js" type="text/javascript"></script>
 <div class="container mainContainer">
@@ -100,7 +101,7 @@ var productName = "${currentProductDetail.name}";
 				
 				
 
-				<div class="col-md-12 col-xs-12 ">
+				<div class="col-md-12 col-xs-12 productOptionRegion">
 					<c:forEach items="${currentProductDetail.options }" var="opt">
 						<c:set var="optIdString">${opt.id }</c:set>
 						<c:if test="${opt.type=='SINGLE_ICON_LIST' }">
@@ -163,7 +164,7 @@ var productName = "${currentProductDetail.name}";
 					<div class="row padding10">
 						<div class="col-md-3 col-xs-3">Qty:</div>
 						<div class="col-md-9 col-xs-9">
-							<input type="text" class="form-control width50" value="1">
+							<input type="text" class="form-control width50" id="productAmountCustom" value="1">
 						</div>
 					</div>
 				</div>
@@ -172,8 +173,13 @@ var productName = "${currentProductDetail.name}";
 
 
 				<div class="col-md-12 col-xs-12 padding10">
-					<button type="button" data-loading-text="Processing.."
-						class="btn btn-danger">Add to Cart</button>
+					<form action="/sp/shoppingcart/add" id="add2cartForm" method="post">
+						<input name="productName" value="" type="hidden" id="productNameSubmitInput">
+						<input name="productOpts" value="" type="hidden" id="productOptsSubmitInput">
+						<input name="productAmount" value="" type="hidden" id="productAmountSubmitInput">
+						<button type="button" data-loading-text="Processing.."
+							class="btn btn-danger" id="add2cartButton">Add to Cart</button>
+					</form>
 				</div>
 
 			</div>

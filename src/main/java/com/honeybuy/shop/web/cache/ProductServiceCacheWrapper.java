@@ -1,6 +1,8 @@
 package com.honeybuy.shop.web.cache;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,12 +31,15 @@ public class ProductServiceCacheWrapper {
 	}
 	
 	@Cacheable(cacheName="Product")
-	public ProductDetailDTO getProductDetailByName(String name){
-		return productService.getProductDetailByName(name);
-	}
-	
-	public ProductChangeDTO compupterProductChangeByOptsAndCurrency(ProductDetailDTO productDetailDTO, String optParams){
-		return productService.compupterProductChangeByOptsAndCurrency(productDetailDTO, optParams);
+	public Map<ProductDetailDTO, ProductChangeDTO> getProductDetailByName(String name, String optParams ){
+		
+		 ProductDetailDTO detail = productService.getProductDetailByName(name);
+		 
+		 Map<ProductDetailDTO, ProductChangeDTO> rs = new HashMap<ProductDetailDTO, ProductChangeDTO>();
+		 
+		 rs.put(detail, productService.compupterProductChangeByOptsAndCurrency(detail.getName(), optParams));
+		 
+		 return rs;
 	}
 	
 	@Cacheable(cacheName="TabProduct")

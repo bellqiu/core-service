@@ -6,7 +6,7 @@ h1,h2,h3,h4,h5,h6 {
 	font-family: "wf_SegoeUILight", "wf_SegoeUI", "Segoe UI Light",
 		"Segoe WP Light", "Segoe UI", "Segoe", "Segoe WP", "Tahoma", "Verdana",
 		"Arial", "sans-serif";
-	font-weight: 300;
+	font-weight: 300;.sliderContent2
 }
 
 ul {
@@ -354,21 +354,18 @@ input[type=password] {
 }
 
 .sliderContent1 {
-	background-color: #199bff;
 	min-width: 980px;
 	height: 540px;
 	margin: auto;
 }
 
 .sliderContent2 {
-	background-color: #bfff47;
 	min-width: 980px;
 	height: 540px;
 	margin: auto;
 }
 
 .sliderContent3 {
-	background-color: #ac5acc;
 	min-width: 980px;
 	height: 540px;
 	margin: auto;
@@ -581,3 +578,35 @@ input[type=password] {
 .red{
 	color: red;
 }
+/******************************Loading mask ******************************************/
+
+.loadmask {
+    z-index: 100;
+    position: absolute;
+    top:0;
+    left:0;
+    -moz-opacity: 0.5;
+    opacity: .50;
+    filter: alpha(opacity=50);
+    background-color: #CCC;
+    width: 100%;
+    height: 100%;
+    zoom: 1;
+}
+.loadmask-msg {
+	z-index: 20001;
+	position: absolute;
+}
+.loadmask-msg div {
+    cursor:wait;
+}
+.masked {
+    overflow: hidden !important;
+}
+.masked-relative {
+    position: relative !important;
+}
+.masked-hidden {
+    visibility: hidden !important;
+}
+/******************************END mask ******************************************/

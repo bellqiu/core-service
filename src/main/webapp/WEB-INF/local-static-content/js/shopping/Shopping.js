@@ -24,6 +24,7 @@
 				optsJson[optionId] = value;
 				
 				var paramStr =  $.param(optsJson);
+				window.productOpts = paramStr;
 				
 				if(callBack){
 					$.ajax({
@@ -40,6 +41,7 @@
 				$.cookie("productOpts", paramStr, { expires: 7, path: '/'+ productName} );
 				
 			};
+		
 			
 	        return shopping;
 	    }

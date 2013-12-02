@@ -25,7 +25,7 @@ public class UserDetailInterceptor extends HandlerInterceptorAdapter{
 			ModelAndView modelAndView) throws Exception {
 		UserDetails details = UserUtils.getCurrentUser();
 		if(null != details){
-			modelAndView.addObject("currentUser", details);
+			request.setAttribute("currentUser", details);
 		}
 	}
 

@@ -48,7 +48,9 @@ public class ProductService {
 	private Converter<ProductSummaryDTO, Product> productSummaryConverter;
 	
 	
-	public ProductChangeDTO compupterProductChangeByOptsAndCurrency(ProductDetailDTO productDetailDTO, String optParams){
+	public ProductChangeDTO compupterProductChangeByOptsAndCurrency(String proudctName, String optParams){
+		
+		ProductDetailDTO productDetailDTO = getProductDetailByName(proudctName);
 		
 		Map<String, String> params = ParamValueUtils.parseParamString(optParams);
 		
@@ -60,7 +62,7 @@ public class ProductService {
 		
 		float priceChange = 0f;
 		
-		List<String> selectedOpts = new ArrayList<String>();
+		Map<String, Float> selectedOpts = new HashMap<String, Float>();
 		
 		if(null != opts){
 			for (Option option : opts) {
@@ -77,7 +79,7 @@ public class ProductService {
 						for (OptionItem optionItem : optItems) {
 							if(!StringUtils.isEmpty(paramValue) && paramValue.equals(optionItem.getValue())){
 								priceChange += optionItem.getPriceChange();
-								selectedOpts.add(option.getName()+" : "+ paramValue);
+								selectedOpts.put(option.getName()+" : "+ paramValue, optionItem.getPriceChange());
 								List<Property> overrideProps = optionItem.getOverrideProps();
 								if(null != overrideProps){
 									for (Property property : overrideProps) {

@@ -9,6 +9,7 @@
 	</appender>
 
 	<logger name="org.springframework.beans.TypeConverterDelegate" level="INFO" />
+	<logger name="org.hibernate" level="ERROR" />	
 		
 	<root level="INFO">
 		<appender-ref ref="CONSOLE" /> 

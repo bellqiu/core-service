@@ -4,6 +4,8 @@
  */
 package com.honeybuy.shop.web;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +51,11 @@ public class ProductController {
 			return "404";
 		}
 		
-		ProductDetailDTO productDetailDTO = productService.getProductDetailByName(productName);
+		Map<ProductDetailDTO, ProductChangeDTO> productRequestDetail= productService.getProductDetailByName(productName, optParams);
 		
-		model.addAttribute("currentProductDetail", productDetailDTO);
-		model.addAttribute("currentProductProductChange", productService.compupterProductChangeByOptsAndCurrency(productDetailDTO, optParams));
+		model.addAttribute("currentProductDetail", productRequestDetail.keySet().iterator().next());
+		model.addAttribute("currentProductProductChange", productRequestDetail.values().iterator().next());
+		model.addAttribute("currentProductOptions", optParams);
 		
 		return "productDetail";
 	}
@@ -70,8 +73,8 @@ public class ProductController {
 			return new ProductChangeDTO();
 		}
 		
-		ProductDetailDTO productDetailDTO = productServiceNoCache.getProductDetailByName(productName);
-		ProductChangeDTO changeDTO = productServiceNoCache.compupterProductChangeByOptsAndCurrency(productDetailDTO, optParams);
+		Map<ProductDetailDTO, ProductChangeDTO> productRequestDetail = productService.getProductDetailByName(productName, optParams);
+		ProductChangeDTO changeDTO = productRequestDetail.values().iterator().next();
 		changeDTO.setPriceChange(changeDTO.getPriceChange() * currency.getExchangeRateBaseOnDefault());
 		
 		return changeDTO;

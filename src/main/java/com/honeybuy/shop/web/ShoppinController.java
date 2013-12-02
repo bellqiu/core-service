@@ -4,8 +4,9 @@
  */
 package com.honeybuy.shop.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,8 @@ import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 @RequestMapping("")
 public class ShoppinController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(ShoppinController.class);
+	
 	@Autowired
 	private ProductServiceCacheWrapper productService;
 	
@@ -31,8 +34,12 @@ public class ShoppinController {
 		return "shoppingcat";
 	}
 	 	
-	@RequestMapping("/sp/shoppingcart/add/{productId}")
-	public String addToCart(@PathVariable("productId") long productId, @RequestParam("option") String optionJson, Model model){
+	@RequestMapping("/sp/shoppingcart/add")
+	public String addToCart(@RequestParam("productName") String productName, @RequestParam("productOpts") String options, 
+							@RequestParam("productAmount") int amount, Model model){
+		
+		logger.info("add to cart productName={}, options={}, amount={}", new Object[]{productName, options, amount});
+		
 		return "redirect:/sp/shoppingcart/list";
 	}
 	

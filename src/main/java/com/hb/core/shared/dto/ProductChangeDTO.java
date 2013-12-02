@@ -14,7 +14,7 @@ public class ProductChangeDTO {
 	private float priceChange;
 	private String productUrlChange;
 	private Map<String, String> propertiesChanges = new HashMap<String, String>();
-	private List<String> selectedOpts = new ArrayList<String>();
+	private Map<String, Float> selectedOpts = new HashMap<String, Float>();
 	private String optionParam="";
 
 	public float getPriceChange() {
@@ -36,10 +36,10 @@ public class ProductChangeDTO {
 	public void setPropertiesChanges(Map<String, String> propertiesChanges) {
 		this.propertiesChanges = propertiesChanges;
 	}
-	public List<String> getSelectedOpts() {
+	public Map<String, Float> getSelectedOpts() {
 		return selectedOpts;
 	}
-	public void setSelectedOpts(List<String> selectedOpts) {
+	public void setSelectedOpts(Map<String, Float>selectedOpts) {
 		this.selectedOpts = selectedOpts;
 	}
 	public String getOptionParam() {
