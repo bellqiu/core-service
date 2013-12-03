@@ -1,9 +1,15 @@
 package com.hb.core.shared.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ProductSummaryDTO {
+public class ProductSummaryDTO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4356127548130667738L;
+
 	public static final String CAT_SPLIT_IN_BREADCRUMB = ">";
 	
 	private long id;

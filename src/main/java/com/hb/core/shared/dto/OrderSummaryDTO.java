@@ -1,6 +1,12 @@
 package com.hb.core.shared.dto;
 
-public class OrderSummaryDTO {
+import java.io.Serializable;
+
+public class OrderSummaryDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1268641590914658136L;
 	private long id;
 	private String useremail;
 	private String trackingId;

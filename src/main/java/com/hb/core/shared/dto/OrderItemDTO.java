@@ -1,9 +1,15 @@
 package com.hb.core.shared.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class OrderItemDTO {
+public class OrderItemDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1713501806086077572L;
+
 	private int quantity;
 	
 	private float finalPrice;

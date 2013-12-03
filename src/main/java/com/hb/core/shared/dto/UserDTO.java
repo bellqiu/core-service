@@ -1,14 +1,20 @@
 package com.hb.core.shared.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
 
+
 import org.hibernate.validator.constraints.Email;
 
-public class UserDTO {
+public class UserDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4471936854609700424L;
 	private long id;
 	@Email
 	@NotNull

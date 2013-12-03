@@ -1,5 +1,6 @@
 package com.hb.core.shared.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +13,13 @@ import com.hb.core.entity.Image;
 import com.hb.core.entity.Option;
 import com.hb.core.entity.OptionItem;
 import com.hb.core.entity.Property;
-public class ProductDetailDTO {
+public class ProductDetailDTO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4912723761760950630L;
+
 	private long id;
 	
 	private String keywords;

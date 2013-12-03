@@ -1,12 +1,19 @@
 package com.hb.core.shared.dto;
 
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import com.hb.core.entity.Category.Type;
 
-public class CategoryDetailDTO {
+public class CategoryDetailDTO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7549463999823462567L;
+
 	private long id;
 	
 	private String displayName;

@@ -1,16 +1,19 @@
 package com.hb.core.shared.dto;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.honeybuy.shop.util.ParamValueUtils;
 
-public class ProductChangeDTO {
+public class ProductChangeDTO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7229801382939214276L;
 	private float priceChange;
 	private String productUrlChange;
 	private Map<String, String> propertiesChanges = new HashMap<String, String>();
@@ -55,19 +58,6 @@ public class ProductChangeDTO {
 	}
 	public Map<String,String> getSelectedOptOriginal() {
 		Map<String,String> paramMap = ParamValueUtils.parseParamString(optionParam);
-		Map<Integer,String> opts= new HashMap<Integer,String>();
-		
-		for (String key : paramMap.keySet()) {
-			int id = 0 ; 
-			try {
-				id = Integer.valueOf(key);
-			} catch (NumberFormatException e) {
-			}
-			if(id > 0){
-				opts.put(id, paramMap.get(key));
-			}
-		}
-		
 		return paramMap;
 	}
 	

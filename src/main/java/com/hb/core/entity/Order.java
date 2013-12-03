@@ -23,7 +23,7 @@ import javax.persistence.Table;
 @NamedQueries(value=
 {
 	@NamedQuery(name="QueryOnShoppingOrderByTrackingId", query="select o from Order as o where o.trackingId=:trackingId and o.user is null and o.orderStatus='ONSHOPPING'"),
-	@NamedQuery(name="QueryOnShoppingOrderByTrackingIdAndUserEmail", query="select o from Order as o where o.trackingId=:trackingId and o.user.email=:email and o.orderStatus='ONSHOPPING'")
+	@NamedQuery(name="QueryOnShoppingOrderByUserEmail", query="select o from Order as o where o.user.email=:email and o.orderStatus='ONSHOPPING'")
 })
 public class Order extends Component{
 

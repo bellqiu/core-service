@@ -4,10 +4,10 @@
  */
 package com.honeybuy.shop.web;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +33,8 @@ import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 @RequestMapping("")
 public class ProductController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+	
 	@Autowired
 	private ProductServiceCacheWrapper productService;
 
@@ -51,10 +53,10 @@ public class ProductController {
 			return "404";
 		}
 		
-		Map<ProductDetailDTO, ProductChangeDTO> productRequestDetail= productService.getProductDetailByName(productName, optParams);
-		
-		model.addAttribute("currentProductDetail", productRequestDetail.keySet().iterator().next());
-		model.addAttribute("currentProductProductChange", productRequestDetail.values().iterator().next());
+		ProductDetailDTO productDetailDTO= productService.getProductDetailByName(productName);
+		ProductChangeDTO changeDTO = productService.getProductDetailChangeByNameAndParams(productName, optParams);
+		model.addAttribute("currentProductDetail", productDetailDTO);
+		model.addAttribute("currentProductProductChange", changeDTO);
 		model.addAttribute("currentProductOptions", optParams);
 		
 		return "productDetail";
@@ -73,9 +75,12 @@ public class ProductController {
 			return new ProductChangeDTO();
 		}
 		
-		Map<ProductDetailDTO, ProductChangeDTO> productRequestDetail = productService.getProductDetailByName(productName, optParams);
-		ProductChangeDTO changeDTO = productRequestDetail.values().iterator().next();
+		ProductChangeDTO changeDTO = productService.getProductDetailChangeByNameAndParams(productName, optParams);
+		
+		logger.info("getPrice Change, priceChange={}", changeDTO.getPriceChange());
+		
 		changeDTO.setPriceChange(changeDTO.getPriceChange() * currency.getExchangeRateBaseOnDefault());
+		
 		
 		return changeDTO;
 	}

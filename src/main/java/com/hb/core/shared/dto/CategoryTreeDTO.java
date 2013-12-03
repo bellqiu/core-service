@@ -1,10 +1,16 @@
 package com.hb.core.shared.dto;
 
+import java.io.Serializable;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.hb.core.entity.Category;
 @JsonIgnoreProperties(ignoreUnknown = true, value={"parentId"})
-public class CategoryTreeDTO {
+public class CategoryTreeDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1028413191935287435L;
 	private long id;
 	private String name;
 	private String displayName;

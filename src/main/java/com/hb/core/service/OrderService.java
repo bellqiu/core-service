@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
@@ -25,6 +30,8 @@ import com.hb.core.shared.dto.OrderSummaryDTO;
 @Service
 public class OrderService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+	
 	@PersistenceContext
 	private EntityManager em;
 	
@@ -32,17 +39,72 @@ public class OrderService {
 	private Converter<OrderSummaryDTO, Order> orderSummaryConverter;
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private Converter<OrderDetailDTO, Order> orderDetailConverter;
 	
 	public OrderDetailDTO add2Cart(long productId, Map<String,String> opts, String trackingId, String userEmail, int quantity){
-		return null;
+		
+		Order order = getCartOnShoppingOrder(trackingId, userEmail);
+		
+		if(null == order){
+			order = new Order();
+			order.setOrderSN(UUID.randomUUID().toString());
+			order.setTrackingId(trackingId);
+			
+			if(!StringUtils.isEmpty(userEmail)){
+				order.setUser(userService.getUser(userEmail));
+				
+			}
+		}
+		
+		
+		return orderDetailConverter.convert(order);
 	}
 	
 	public OrderDetailDTO modifyCart(long productId, String trackingId, String userEmail,  int quantity){
 		return null;
 	}
 	
+	private Order getCartOnShoppingOrder(String trackingId, String userEmail){
+		List<Order> orders = null;
+		
+		if (!StringUtils.isEmpty(userEmail)) {
+
+			TypedQuery<Order> query = em.createNamedQuery(
+					"QueryOnShoppingOrderByUserEmail", Order.class);
+
+			query.setParameter("email", userEmail);
+
+			orders = query.getResultList();
+
+		} else if (!StringUtils.isEmpty(trackingId)) {
+			TypedQuery<Order> query = em.createNamedQuery(
+					"QueryOnShoppingOrderByTrackingId", Order.class);
+
+			query.setParameter("trackingId", trackingId);
+
+			orders = query.getResultList();
+		}
+		
+		if(null != orders && !orders.isEmpty()){
+			return orders.get(0);
+		}
+		return null;
+	}
+	
+	@Transactional(readOnly=true)
 	public OrderDetailDTO getCart(String trackingId, String userEmail){
+		
+		logger.debug("Retrieve cart, trackingId={}, userEmail={}", new Object[]{trackingId,userEmail});
+		
+		Order order = getCartOnShoppingOrder(trackingId, userEmail);
+		
+		if(null != order ){
+			return orderDetailConverter.convert(order);
+		}
+		
 		return null;
 	}
 	

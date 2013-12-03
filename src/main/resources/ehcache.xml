@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
-	monitoring="autodetect" dynamicConfig="true">
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" 
+	updateCheck="false"
+	monitoring="autodetect">
 	<diskStore path="/home/project/data" />
 	<defaultCache eternal="true" maxElementsInMemory="50"
 		memoryStoreEvictionPolicy="LFU" />
@@ -38,7 +39,13 @@
 	<cache name="Product" eternal="false"
 		timeToLiveSeconds="5" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
-		maxElementsOnDisk="99999" />
+		maxElementsOnDisk="99999" copyOnRead="true"	copyOnWrite="true" />
+		
+	<cache name="ProductChange" eternal="false"
+		timeToLiveSeconds="5" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="99999" copyOnWrite="true"
+		copyOnRead="true"	/>
 		
 	<cache name="TabProduct" eternal="false"
 		timeToLiveSeconds="5" maxElementsInMemory="10000"

@@ -12,8 +12,12 @@ import java.util.List;
  * @author <link href="wan-shan.zhu@hp.com">Spark Zhu</link>
  * @version 1.0
  */
-public class SiteDTO {
+public class SiteDTO implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1612935927984874635L;
 	private List<String> css;
 	private List<String> js;
 	private String resourceServer;

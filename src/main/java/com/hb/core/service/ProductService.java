@@ -60,8 +60,6 @@ public class ProductService {
 		
 		Map<String, String> overridePropsMap = new HashMap<String, String>();
 		
-		float priceChange = 0f;
-		
 		Map<String, Float> selectedOpts = new HashMap<String, Float>();
 		
 		if(null != opts){
@@ -78,7 +76,6 @@ public class ProductService {
 					if(null != optItems){
 						for (OptionItem optionItem : optItems) {
 							if(!StringUtils.isEmpty(paramValue) && paramValue.equals(optionItem.getValue())){
-								priceChange += optionItem.getPriceChange();
 								selectedOpts.put(option.getName()+" : "+ paramValue, optionItem.getPriceChange());
 								List<Property> overrideProps = optionItem.getOverrideProps();
 								if(null != overrideProps){
@@ -98,7 +95,11 @@ public class ProductService {
 		}
 		
 		changeDTO.setOptionParam(optParams);
-		changeDTO.setPriceChange(priceChange);
+		
+		for (Float priceChange : selectedOpts.values()) {
+			changeDTO.setPriceChange(changeDTO.getPriceChange()+priceChange);
+		}
+		
 		changeDTO.setSelectedOpts(selectedOpts);
 		changeDTO.setPropertiesChanges(overridePropsMap);
 		

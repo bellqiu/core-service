@@ -1,10 +1,17 @@
 package com.hb.core.shared.dto;
 
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
-public class HtmlDetailDTO {
+public class HtmlDetailDTO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4396064107680646360L;
+
 	private long id;
 	
 	@NotNull

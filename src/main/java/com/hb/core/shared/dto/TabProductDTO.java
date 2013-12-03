@@ -1,9 +1,14 @@
 package com.hb.core.shared.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabProductDTO {
+public class TabProductDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2288702782278664274L;
 	private long id;
 	private String name;
 	

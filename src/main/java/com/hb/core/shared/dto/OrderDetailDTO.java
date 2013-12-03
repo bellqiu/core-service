@@ -1,11 +1,17 @@
 package com.hb.core.shared.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.hb.core.entity.Order.Status;
 
-public class OrderDetailDTO {
+public class OrderDetailDTO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6451416827762217309L;
+
 	private long id;
 	
 	private String orderSN;

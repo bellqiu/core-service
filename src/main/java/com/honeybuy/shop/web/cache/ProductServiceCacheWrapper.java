@@ -1,9 +1,9 @@
 package com.honeybuy.shop.web.cache;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +19,9 @@ import com.hb.core.shared.dto.TabProductDTO;
 @Service
 @Transactional(readOnly=true)
 public class ProductServiceCacheWrapper {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductServiceCacheWrapper.class);
+	
 	@Autowired
 	private ProductService productService;
 	
@@ -31,15 +34,24 @@ public class ProductServiceCacheWrapper {
 	}
 	
 	@Cacheable(cacheName="Product")
-	public Map<ProductDetailDTO, ProductChangeDTO> getProductDetailByName(String name, String optParams ){
+	public ProductDetailDTO getProductDetailByName(String name){
+		
+		logger.debug("HIT get getProductDetailByName={}", name);
 		
 		 ProductDetailDTO detail = productService.getProductDetailByName(name);
 		 
-		 Map<ProductDetailDTO, ProductChangeDTO> rs = new HashMap<ProductDetailDTO, ProductChangeDTO>();
 		 
-		 rs.put(detail, productService.compupterProductChangeByOptsAndCurrency(detail.getName(), optParams));
+		 return detail;
+	}
+	
+	@Cacheable(cacheName="ProductChange")
+	public ProductChangeDTO getProductDetailChangeByNameAndParams(String name, String optParams ){
+		
+		logger.debug("HIT get getProductDetailChangeByName={}, param={}", new Object[]{name,optParams});
+		
+		 ProductChangeDTO detail = productService.compupterProductChangeByOptsAndCurrency(name, optParams);
 		 
-		 return rs;
+		 return detail;
 	}
 	
 	@Cacheable(cacheName="TabProduct")
