@@ -21,7 +21,7 @@ Ext.define('AM.view.order.OrderDetail', {
 		this.items = [ {
 			border : 0,
 			xtype : 'form',
-			itemId : 'orderForm',
+			itemId : 'orderDetailForm',
 			paramsAsHash: true,
 			api : {
 				// The server-side method to call for load() requests
@@ -106,7 +106,7 @@ Ext.define('AM.view.order.OrderDetail', {
 				xtype : 'fieldset',
 				title : 'Option Info',
 				layout : 'hbox',
-				height : 110,
+				height : '110',
 				items : [ {
 					xtype : 'container',
 					flex : 1,
@@ -131,7 +131,7 @@ Ext.define('AM.view.order.OrderDetail', {
 					}, {
 						xtype : 'button',
 						text : 'Save',
-						items : 'saveOrder',
+						itemId : 'saveOrder',
 						flex : 1
 					}]
 				} ]
@@ -141,11 +141,13 @@ Ext.define('AM.view.order.OrderDetail', {
 				itemId : 'productInfo',
 				layout : 'vbox',
 				defaults : {
+					width : '100%',
 					align : 'stretch'
 				},
 				flex : 2,
 				overflowY : 'auto',
-				items : [{
+				items : [/*{
+					
 					xtype : 'orderproductinfo',
 				}, {
 					xtype : 'orderproductinfo'
@@ -171,7 +173,7 @@ Ext.define('AM.view.order.OrderDetail', {
 					xtype : 'orderproductinfo'
 				}, {
 					xtype : 'orderproductinfo'
-				}]
+				}*/]
 			} ]
 		} ];
 		

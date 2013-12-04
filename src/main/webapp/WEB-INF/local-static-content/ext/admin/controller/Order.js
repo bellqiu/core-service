@@ -29,22 +29,23 @@ Ext.define('AM.controller.Order', {
 				click : this.saveHTML
 			},
 			
-			'html_editor form' : {
+			'ordereditor form#orderDetailForm' : {
 				beforeaction : this.beforeaction,
 				actioncomplete : this.actioncomplete,
 				actionfailed : this.actionfailed
-			}*/
+			}
+			 */
 
 		});
 	},
 
 	actioncomplete : function(form) {
-		form.findField("id").up("html_editor").setLoading(
+		form.findField("orderSN").up("ordereditor").setLoading(
 				false);
 	},
 
 	actionfailed : function(form, action) {
-		form.findField("id").up("html_editor").setLoading(
+		form.findField("orderSN").up("ordereditor").setLoading(
 				false);
 		Ext.example.msg('<font color="red">Error</font>',
 				'<font color="red">' + action.type
@@ -52,7 +53,7 @@ Ext.define('AM.controller.Order', {
 	},
 
 	beforeaction : function(form) {
-		form.findField("id").up("html_editor").setLoading(
+		form.findField("orderSN").up("ordereditor").setLoading(
 				true, true);
 	},
 
@@ -125,7 +126,7 @@ Ext.define('AM.controller.Order', {
 		var editor = Ext.create("AM.view.order.OrderDetail", {
 			title : 'Edit Order'
 		});
-		var orderForm = editor.down("form");
+		var orderForm = editor.down("form#orderDetailForm");
 
 		contentPanel.insert(0, editor);
 		contentPanel.setActiveTab(0);
@@ -137,7 +138,31 @@ Ext.define('AM.controller.Order', {
 			success : function (form, action){
 				editor.setOrder(action.result.data);
 				orderForm.getForm().setValues(action.result.data);
-				editor.setTitle("O-" + action.result.data.orderSN);
+				editor.setTitle('O-' + action.result.data.orderSN);
+				var productItems = action.result.data.items;
+				for(var i = 0; i < productItems.length; i++) {
+					var productContainer = editor.down('container#productInfo');
+					var pInfoEditor = Ext.create('AM.view.order.OrderProductInfo', {
+					});
+					var imgPanel = pInfoEditor.down('panel#imagePanel');
+					imgPanel.html = '<a href="' + site.domain + '/' + productItems[i].productSummary.name  + '"><img src="' + site.resourceServer + site.webResourcesFolder + site.productImageResourcesFolder + "/"+ productItems[i].productSummary.imageURL + '" width="100px" target="_blank"/></a>';
+					var pTitle = pInfoEditor.down('label#productTitle');
+					//pTitle.html = '<a href="' + site.domain + '/' + productItems[i].productSummary.name  + '">' + productItems[i].productSummary.title + '</a>';
+					pTitle.setText(productItems[i].productSummary.title);
+					productContainer.add(pInfoEditor);
+					var pQuantity = pInfoEditor.down('label#quantityValue');
+					pQuantity.setText(productItems[i].quantity);
+					
+					var pOptContainer = pInfoEditor.down('container#selectedOpts');
+					var pSelectedOpts = productItems[i].selectedOpts;
+					for(var k in pSelectedOpts) {
+						var labelOpt = Ext.create('Ext.form.Label', {
+							shrinkWrap : 2,
+							text : k + '(' + pSelectedOpts[k] + ')'
+						});
+						pOptContainer.add(labelOpt)
+					}
+				}
 			}
 		});*/
    },/*function(view, cell, row, col, e) {

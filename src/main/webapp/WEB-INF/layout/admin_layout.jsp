@@ -47,7 +47,12 @@
 		<script type="text/javascript" src="/resources/ext/ux/upload/plupload/js/plupload.silverlight.js"></script>
 		<script type="text/javascript" src="/resources/ext/ux/shared/examples.js"></script>	
 		<script src="/resources/ext/Admin.js" type="text/javascript"></script>
-		
+		<style type="text/css">
+			.redBackgroud{
+				background: red;
+			}
+			
+		</style>
 </head>
 <body>
 </body>
