@@ -1,10 +1,9 @@
 package com.hb.core.convert;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,9 +22,6 @@ public class OrderDetailConverter implements
 	public OrderDetailConverter() {
 	}
 
-	@PersistenceContext
-	private EntityManager em;
-	
 	@Autowired
 	private Converter<ProductSummaryDTO, Product> productSummaryConverter;
 
@@ -57,9 +53,9 @@ public class OrderDetailConverter implements
 			orderItemDTO.setQuantity(orderItem.getQuantity());
 			orderItemDTO.setProductSummary(productSummaryConverter.convert(orderItem.getProduct()));
 			List<SelectedOpts> selectedOpts = orderItem.getSelectedOpts();
-			List<String> options = new ArrayList<String>();
+			Map<String, Float> options = new HashMap<String, Float>();
 			for(SelectedOpts selectOpt : selectedOpts) {
-				options.add(selectOpt.getValue());
+				options.put(selectOpt.getValue(), selectOpt.getPriceChange());
 			}
 			orderItemDTO.setSelectedOpts(options);
 			items.add(orderItemDTO);

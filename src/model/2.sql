@@ -1,0 +1,1 @@
+alter table selectedopts add column (price_change DECIMAL(10,2));

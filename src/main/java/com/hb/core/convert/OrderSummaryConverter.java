@@ -1,18 +1,11 @@
 package com.hb.core.convert;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import com.hb.core.entity.Order;
 import com.hb.core.entity.User;
 import com.hb.core.shared.dto.OrderSummaryDTO;
 
 @org.springframework.stereotype.Component
 public class OrderSummaryConverter implements Converter<OrderSummaryDTO, Order>{
-	
-	@PersistenceContext
-	private EntityManager em;
-	
 
 	@Override
 	public OrderSummaryDTO convert(Order order) {

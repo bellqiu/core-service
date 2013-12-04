@@ -16,6 +16,7 @@ public class SelectedOpts extends Component{
 	@Column(name="value")
 	private String value;
 	
+	@Column(name="price_change")
 	private float priceChange;
 
 	public String getValue() {
