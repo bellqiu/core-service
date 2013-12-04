@@ -1,11 +1,11 @@
 package com.hb.core.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -46,6 +46,9 @@ public class OrderService {
 	private UserService userService;
 	
 	@Autowired
+	private SettingService settingService;
+	
+	@Autowired
 	private ProductService productService;
 	
 	@Autowired
@@ -68,7 +71,7 @@ public class OrderService {
 			logger.debug("No existing Shopping cart found");
 			order = new Order();
 			order.setCreateDate(new Date());
-			order.setOrderSN(UUID.randomUUID().toString());
+			//order.setOrderSN(UUID.randomUUID().toString());
 			order.setTrackingId(trackingId);
 			order.setCurrency(currencyCode);
 			if(!StringUtils.isEmpty(userEmail)){
@@ -125,6 +128,13 @@ public class OrderService {
 		order.setUpdateDate(new Date());
 		
 		order = em.merge(order);
+		
+		if(StringUtils.isEmpty(order.getOrderSN())){
+			String prefix = settingService.getStringValue("ORDERSN_PREFIX", "ORDER");
+			String orderDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+			order.setOrderSN(prefix+"-"+orderDate+"-"+order.getId());
+		}
+		
 		em.persist(order);
 		em.flush();
 		return orderDetailConverter.convert(order);
