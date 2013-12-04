@@ -22,8 +22,8 @@ import org.hibernate.annotations.IndexColumn;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NamedQueries(value=
 	{
-		@NamedQuery(name="QueryProductByName", query="select p from Product as p where name=:name"),
-		@NamedQuery(name="countAllProduct", query="select count(p.id) from Product as p"),
+		@NamedQuery(name="QueryProductByName", query="select p from Product as p where p.name=:name and p.status = 'ACTIVE' "),
+		@NamedQuery(name="countAllProduct", query="select count(p.id) from Product as p where p.status = 'ACTIVE' "),
 	})
 public class Product extends Component{
 

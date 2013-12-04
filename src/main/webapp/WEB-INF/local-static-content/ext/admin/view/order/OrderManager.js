@@ -92,7 +92,7 @@ Ext.define('AM.view.order.OrderManager', {
 				} ]
 			},
 
-			{
+			{	
 				flex : 1,
 				xtype : 'gridpanel',
 				border : 0,

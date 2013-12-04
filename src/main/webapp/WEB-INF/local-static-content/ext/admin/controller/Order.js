@@ -1,6 +1,6 @@
 Ext.define('AM.controller.Order', {
 	extend : 'Ext.app.Controller',
-	views : [ 'order.OrderManager'/*, 'order.OrderDetail'*/ ],
+	views : [ 'order.OrderManager', 'order.OrderDetail', 'order.OrderProductInfo' ],
 
 	models : [ 'OrderSummary' ],
 
@@ -120,8 +120,8 @@ Ext.define('AM.controller.Order', {
 		this.getOrderSummaryStore().load();
 	},
 
-	editOrder : function(view, cell, row, col, e) {
-		var contentPanel = view.up("viewport").down("tabpanel#mainContainer");
+	editOrder : function(grid, el, index){
+		var contentPanel = grid.up("viewport").down("tabpanel#mainContainer");
 		var editor = Ext.create("AM.view.order.OrderDetail", {
 			title : 'Edit Order'
 		});
@@ -132,8 +132,29 @@ Ext.define('AM.controller.Order', {
 
 		orderForm.load({
 			params : {
-				id : view.getSelectionModel().getSelection()[0]
-				.get('id')
+				id : grid.getStore().getAt(index).get('id')
+			},
+			success : function (form, action){
+				editor.setOrder(action.result.data);
+				orderForm.getForm().setValues(action.result.data);
+				editor.setTitle("O-" + action.result.data.orderSN);
+			}
+		});
+   },/*function(view, cell, row, col, e) {
+		var contentPanel = view.up("viewport").down("tabpanel#mainContainer");
+		var editor = Ext.create("AM.view.order.OrderDetail", {
+			title : 'Edit Order'
+		});
+		var orderForm = editor.down("form");
+
+		contentPanel.insert(0, editor);
+		contentPanel.setActiveTab(0);
+		var id = view.getSelectionModel().getSelection()[0].get('id');
+		console.log(id);
+
+		orderForm.load({
+			params : {
+				id : view.getSelectionModel().getSelection()[0].get('id')
 			},
 			success : function (form, action){
 				editor.setProduct(action.result.data);
@@ -141,7 +162,7 @@ Ext.define('AM.controller.Order', {
 				editor.setTitle("O-" + action.result.data.orderSN);
 			}
 		});
-	},
+	},*/
 
 	saveHTML : function(btn) {
 		btn.up("html_editor").down("form").getForm().submit({
