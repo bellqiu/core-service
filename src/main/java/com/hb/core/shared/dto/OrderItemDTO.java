@@ -2,6 +2,7 @@ package com.hb.core.shared.dto;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -18,7 +19,7 @@ public class OrderItemDTO implements Serializable{
 	
 	private ProductSummaryDTO productSummary;
 	
-	private List<String> selectedOpts;
+	private Map<String, Float> selectedOpts;
 
 	public int getQuantity() {
 		return quantity;
@@ -44,11 +45,12 @@ public class OrderItemDTO implements Serializable{
 		this.productSummary = productSummary;
 	}
 
-	public List<String> getSelectedOpts() {
+	public Map<String, Float> getSelectedOpts() {
 		return selectedOpts;
 	}
 
-	public void setSelectedOpts(List<String> selectedOpts) {
+	public void setSelectedOpts(Map<String, Float> selectedOpts) {
 		this.selectedOpts = selectedOpts;
 	}
+
 }

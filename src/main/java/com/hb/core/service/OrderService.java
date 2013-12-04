@@ -70,11 +70,15 @@ public class OrderService {
 		}
 		
 		ProductChangeDTO changeDTO = productService.compupterProductChangeByOpts(productName, optParams);
+		
+		
 		boolean existingOpts = false;
 		for (OrderItem orderItem : order.getItems()) {
-			if(changeDTO.getSelectedOpts().keySet().size() == orderItem.getSelectedOpts().size() 
+			if((changeDTO.getSelectedOpts().keySet().size() == orderItem.getSelectedOpts().size() )
 					&& orderItem.getProduct().getName().equals(productName)){
-				for (SelectedOpts selectedOpts : orderItem.getSelectedOpts()) {
+				boolean matched = true;
+				for (String optionString : changeDTO.getSelectedOpts().keySet()) {
+					
 					//selectedOpts.getValue()
 				}
 			}

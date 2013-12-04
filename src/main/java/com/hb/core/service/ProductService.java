@@ -76,7 +76,7 @@ public class ProductService {
 					if(null != optItems){
 						for (OptionItem optionItem : optItems) {
 							if(!StringUtils.isEmpty(paramValue) && paramValue.equals(optionItem.getValue())){
-								selectedOpts.put(option.getName()+" : "+ optionItem.getValue(), optionItem.getPriceChange());
+								selectedOpts.put(option.getName()+" : "+ optionItem.getDisplayName(), optionItem.getPriceChange());
 								List<Property> overrideProps = optionItem.getOverrideProps();
 								if(null != overrideProps){
 									for (Property property : overrideProps) {
