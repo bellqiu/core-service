@@ -7,11 +7,15 @@ package com.hb.core.shared.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+
 /**
  * 
  * @author <link href="wan-shan.zhu@hp.com">Spark Zhu</link>
  * @version 1.0
  */
+@JsonAutoDetect
 public class SiteDTO implements Serializable{
 
 	/**

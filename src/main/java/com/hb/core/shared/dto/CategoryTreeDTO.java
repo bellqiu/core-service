@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.hb.core.entity.Category;
 @JsonIgnoreProperties(ignoreUnknown = true, value={"parentId"})
+@JsonAutoDetect
 public class CategoryTreeDTO implements Serializable{
 	/**
 	 * 

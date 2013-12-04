@@ -6,8 +6,9 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.honeybuy.shop.util.ParamValueUtils;
-
+@JsonAutoDetect
 public class ProductChangeDTO implements Serializable{
 	
 	/**

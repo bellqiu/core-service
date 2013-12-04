@@ -2,6 +2,9 @@ package com.hb.core.shared.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+@JsonAutoDetect
 public class OrderSummaryDTO implements Serializable{
 	/**
 	 * 

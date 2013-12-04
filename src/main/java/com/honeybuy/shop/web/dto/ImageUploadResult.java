@@ -1,6 +1,7 @@
 package com.honeybuy.shop.web.dto;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import com.hb.core.entity.Image;
 
 @JsonAutoDetect

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.googlecode.ehcache.annotations.Cacheable;
 import com.hb.core.entity.HTML;
 import com.hb.core.service.HtmlService;
+import com.honeybuy.shop.util.CloneUtil;
 
 @Service
 public class HtmlServiceCacheWrapper {
@@ -15,6 +16,7 @@ public class HtmlServiceCacheWrapper {
 	
 	@Cacheable(cacheName="html")
 	public HTML getHTML(String key){
-		return htmlService.getHTML(key);
+		HTML html= htmlService.getHTML(key);
+		return CloneUtil.<HTML>cloneThroughJson(html);
 	}
 }

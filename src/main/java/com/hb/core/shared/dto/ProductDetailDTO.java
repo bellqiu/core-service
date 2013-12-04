@@ -8,11 +8,13 @@ import java.util.Map;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.hb.core.entity.HTML;
 import com.hb.core.entity.Image;
 import com.hb.core.entity.Option;
 import com.hb.core.entity.OptionItem;
 import com.hb.core.entity.Property;
+@JsonAutoDetect
 public class ProductDetailDTO implements Serializable{
 	
 	/**

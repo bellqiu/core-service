@@ -15,6 +15,8 @@ public class SelectedOpts extends Component{
 	private static final long serialVersionUID = -5825040052270112825L;
 	@Column(name="value")
 	private String value;
+	
+	private float priceChange;
 
 	public String getValue() {
 		return value;
@@ -22,6 +24,14 @@ public class SelectedOpts extends Component{
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public float getPriceChange() {
+		return priceChange;
+	}
+
+	public void setPriceChange(float priceChange) {
+		this.priceChange = priceChange;
 	}
 
 }

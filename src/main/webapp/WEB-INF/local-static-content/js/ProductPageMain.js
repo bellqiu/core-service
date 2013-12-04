@@ -6,8 +6,12 @@
 			var productChangeCallBack =  function(productChange){
 				if(productChange.priceChange > 0.1){
 					$(".productChangedPrice").html("+" + productChange.strPriceChange);
+					$(".productChangedPrice").show();
 				}else if (productChange.priceChange <  -0.1){
 					$(".productChangedPrice").html(productChange.strPriceChange);
+					$(".productChangedPrice").show();
+				}else{
+					$(".productChangedPrice").hide();
 				}
 				$(".productOptionRegion").unmask();
 			};

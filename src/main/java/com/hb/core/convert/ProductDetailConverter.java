@@ -9,6 +9,9 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hb.core.entity.Category;
@@ -26,6 +29,9 @@ import com.hb.core.shared.dto.TabProductDTO;
 @org.springframework.stereotype.Component
 public class ProductDetailConverter implements Converter<ProductDetailDTO, Product>{
 	
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductDetailConverter.class);
+	
 	@PersistenceContext
 	private EntityManager em;
 	
@@ -41,7 +47,6 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 		if(null == product){
 			return null;
 		}
-		
 		
 		ProductDetailDTO detailDTO = new ProductDetailDTO();
 		detailDTO.setAbstractText(product.getAbstractText());
@@ -59,6 +64,7 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 		detailDTO.setId(product.getId());
 		
 		detailDTO.setDetail(product.getDetail());
+		
 		detailDTO.setImages(product.getImages());
 		
 		detailDTO.setKeywords(product.getKeywords());

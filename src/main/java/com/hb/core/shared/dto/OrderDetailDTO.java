@@ -3,8 +3,9 @@ package com.hb.core.shared.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.hb.core.entity.Order.Status;
-
+@JsonAutoDetect
 public class OrderDetailDTO implements Serializable{
 	
 	/**

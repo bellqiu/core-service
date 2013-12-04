@@ -15,6 +15,7 @@ import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.hb.core.shared.dto.TabProductDTO;
+import com.honeybuy.shop.util.CloneUtil;
 
 @Service
 @Transactional(readOnly=true)
@@ -41,7 +42,7 @@ public class ProductServiceCacheWrapper {
 		 ProductDetailDTO detail = productService.getProductDetailByName(name);
 		 
 		 
-		 return detail;
+		 return CloneUtil.<ProductDetailDTO>cloneThroughJson(detail);
 	}
 	
 	@Cacheable(cacheName="ProductChange")
@@ -49,14 +50,15 @@ public class ProductServiceCacheWrapper {
 		
 		logger.debug("HIT get getProductDetailChangeByName={}, param={}", new Object[]{name,optParams});
 		
-		 ProductChangeDTO detail = productService.compupterProductChangeByOptsAndCurrency(name, optParams);
+		 ProductChangeDTO detail = productService.compupterProductChangeByOpts(name, optParams);
 		 
-		 return detail;
+		 return CloneUtil.<ProductChangeDTO>cloneThroughJson(detail);
 	}
 	
 	@Cacheable(cacheName="TabProduct")
 	public TabProductDTO getTabProductByName(String name){
-		return tabProductService.getTabProductDTOByName(name);
+		TabProductDTO dto = tabProductService.getTabProductDTOByName(name);
+		 return CloneUtil.<TabProductDTO>cloneThroughJson(dto);
 	}
 	
 	@Cacheable(cacheName="ProductCountByCategory")
@@ -66,7 +68,9 @@ public class ProductServiceCacheWrapper {
 
 	@Cacheable(cacheName="ProductSummaryByCategory")
 	public List<ProductSummaryDTO> getAllProductByCategoryId(long id, int start, int max) {
-		return productService.getAllProductByCategoryId(id, start, max);
+		List<ProductSummaryDTO> dtos = productService.getAllProductByCategoryId(id, start, max);
+		
+		 return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(dtos);
 	}
 	
 	@Cacheable(cacheName="LowestPriceInCategory")
@@ -92,14 +96,17 @@ public class ProductServiceCacheWrapper {
 	@Cacheable(cacheName="SearchProductByKey")
 	public List<ProductSummaryDTO> searchProductByKey(String key, int start, int max) {
 		List<ProductSummaryDTO> productByKey = productService.searchProductByKey(key);
+		List<ProductSummaryDTO> summaryDTOs = null;
 		int size = productByKey.size();
 		if(size <= start) {
 			return null;
 		}
 		if(size >= (start + max)) {
-			return productByKey.subList(start, start + max);
+			summaryDTOs = productByKey.subList(start, start + max);
 		} else {
-			return productByKey.subList(start, size);
+			summaryDTOs = productByKey.subList(start, size);
 		}
+		
+		 return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(summaryDTOs);
 	}
 }

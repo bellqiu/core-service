@@ -13,7 +13,6 @@ public class OrderDetailConverter implements
 	public OrderDetailConverter() {
 	}
 
-	@SuppressWarnings("unused")
 	@PersistenceContext
 	private EntityManager em;
 

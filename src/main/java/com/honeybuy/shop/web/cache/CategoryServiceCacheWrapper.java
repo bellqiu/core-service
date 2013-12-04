@@ -10,6 +10,7 @@ import com.googlecode.ehcache.annotations.Cacheable;
 import com.hb.core.service.CategoryService;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
+import com.honeybuy.shop.util.CloneUtil;
 
 @Service
 @Transactional(readOnly=true)
@@ -24,7 +25,7 @@ public class CategoryServiceCacheWrapper {
 		if(categoryTree.size() > 12) {
 			return categoryTree.subList(0, 12);
 		}
-		return categoryTree;
+		return CloneUtil.<List<CategoryTreeDTO>>cloneThroughJson(categoryTree);
 	}
 	
 	@Cacheable(cacheName="GetSpecialCategoryTree")
@@ -33,12 +34,15 @@ public class CategoryServiceCacheWrapper {
 		if(categoryTree.size() > 12) {
 			return categoryTree.subList(0, 12);
 		}
-		return categoryTree;
+		return CloneUtil.<List<CategoryTreeDTO>>cloneThroughJson(categoryTree);
 	}
 	
 	@Cacheable(cacheName="CategoryDetail")
 	public CategoryDetailDTO getCategoryDetailByName(String name){
-		return categoryService.getCategoryDetailDTOByName(name);
+		
+		CategoryDetailDTO detailDTO = categoryService.getCategoryDetailDTOByName(name);
+		
+		return CloneUtil.<CategoryDetailDTO>cloneThroughJson(detailDTO);
 	}
 
 	@Cacheable(cacheName="CategoryBreadcrumb")
@@ -52,12 +56,12 @@ public class CategoryServiceCacheWrapper {
 		/*if(categoryTree.size() > 12) {
 			return categoryTree.subList(0, 12);
 		}*/
-		return categoryTree;
+		return CloneUtil.<List<CategoryTreeDTO>>cloneThroughJson(categoryTree);
 	}
 	
 	@Cacheable(cacheName="GetSubCategoryByName")
 	public List<CategoryTreeDTO> getSubCategoryName(List<String> parentNames){
 		List<CategoryTreeDTO> categoryTree = categoryService.getCategoryTreeByName(parentNames);
-		return categoryTree;
+		return CloneUtil.<List<CategoryTreeDTO>>cloneThroughJson(categoryTree);
 	}
 }

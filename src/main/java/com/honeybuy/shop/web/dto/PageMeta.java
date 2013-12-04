@@ -1,5 +1,9 @@
 package com.honeybuy.shop.web.dto;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
+
+@JsonAutoDetect
 public class PageMeta {
 	private String title;
 	private String keywords;

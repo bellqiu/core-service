@@ -10,7 +10,6 @@ import com.hb.core.shared.dto.OrderSummaryDTO;
 @org.springframework.stereotype.Component
 public class OrderSummaryConverter implements Converter<OrderSummaryDTO, Order>{
 	
-	@SuppressWarnings("unused")
 	@PersistenceContext
 	private EntityManager em;
 	

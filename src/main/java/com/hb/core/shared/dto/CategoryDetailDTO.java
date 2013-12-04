@@ -5,8 +5,9 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.hb.core.entity.Category.Type;
-
+@JsonAutoDetect
 public class CategoryDetailDTO implements Serializable{
 	
 	/**

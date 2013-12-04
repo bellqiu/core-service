@@ -6,17 +6,14 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-
-
-import org.hibernate.validator.constraints.Email;
-
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+@JsonAutoDetect
 public class UserDTO implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4471936854609700424L;
 	private long id;
-	@Email
 	@NotNull
 	private String email;
 	private String password;

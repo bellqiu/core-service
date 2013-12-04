@@ -22,8 +22,12 @@ import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
 import com.hb.core.convert.Converter;
 import com.hb.core.entity.Order;
+import com.hb.core.entity.OrderItem;
+import com.hb.core.entity.Product;
+import com.hb.core.entity.SelectedOpts;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.shared.dto.OrderSummaryDTO;
+import com.hb.core.shared.dto.ProductChangeDTO;
 
 
 @Transactional
@@ -42,9 +46,16 @@ public class OrderService {
 	private UserService userService;
 	
 	@Autowired
+	private ProductService productService;
+	
+	@Autowired
 	private Converter<OrderDetailDTO, Order> orderDetailConverter;
 	
-	public OrderDetailDTO add2Cart(long productId, Map<String,String> opts, String trackingId, String userEmail, int quantity){
+	public OrderDetailDTO add2Cart(String productName, String optParams, String trackingId, String userEmail, int quantity, String currencyCode){
+		
+		if(!productService.exist(productName)){
+			return null;
+		}
 		
 		Order order = getCartOnShoppingOrder(trackingId, userEmail);
 		
@@ -52,15 +63,25 @@ public class OrderService {
 			order = new Order();
 			order.setOrderSN(UUID.randomUUID().toString());
 			order.setTrackingId(trackingId);
-			
+			order.setCurrency(currencyCode);
 			if(!StringUtils.isEmpty(userEmail)){
 				order.setUser(userService.getUser(userEmail));
-				
 			}
 		}
 		
+		ProductChangeDTO changeDTO = productService.compupterProductChangeByOpts(productName, optParams);
+		boolean existingOpts = false;
+		for (OrderItem orderItem : order.getItems()) {
+			if(changeDTO.getSelectedOpts().keySet().size() == orderItem.getSelectedOpts().size() 
+					&& orderItem.getProduct().getName().equals(productName)){
+				for (SelectedOpts selectedOpts : orderItem.getSelectedOpts()) {
+					//selectedOpts.getValue()
+				}
+			}
+		}
 		
 		return orderDetailConverter.convert(order);
+	
 	}
 	
 	public OrderDetailDTO modifyCart(long productId, String trackingId, String userEmail,  int quantity){

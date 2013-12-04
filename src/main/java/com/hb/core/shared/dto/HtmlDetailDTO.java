@@ -5,6 +5,9 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+@JsonAutoDetect
 public class HtmlDetailDTO implements Serializable{
 	
 	/**

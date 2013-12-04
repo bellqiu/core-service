@@ -16,7 +16,7 @@
 						var optionPair = optionsArray[i];
 						var optArr = optionPair.split("=");
 						if(optArr.length == 2){
-							optsJson[optArr[0]] =  optArr[1];
+							optsJson[optArr[0]] =  decodeURIComponent(optArr[1]);
 						}
 					}
 				}
