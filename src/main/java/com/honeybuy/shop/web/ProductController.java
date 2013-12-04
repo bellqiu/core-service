@@ -50,6 +50,7 @@ public class ProductController {
 		String optParams = StringUtils.isEmpty(paramOpts)? cookieOpts : paramOpts;
 		
 		if(!productService.exist(productName)){
+			logger.warn("Product: {} is not existing", productName);
 			return "404";
 		}
 		
