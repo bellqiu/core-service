@@ -1,13 +1,13 @@
 package com.hb.core.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -53,6 +53,11 @@ public class OrderService {
 	
 	public OrderDetailDTO add2Cart(String productName, String optParams, String trackingId, String userEmail, int quantity, String currencyCode){
 		
+		logger.debug("Add to card, productName={}, trackingId={},  userEmail={}, quantity={}, currencyCode={}", new Object[]{
+				productName , optParams, trackingId, userEmail, quantity, currencyCode
+				
+		});
+		
 		if(!productService.exist(productName)){
 			return null;
 		}
@@ -60,7 +65,9 @@ public class OrderService {
 		Order order = getCartOnShoppingOrder(trackingId, userEmail);
 		
 		if(null == order){
+			logger.debug("No existing Shopping cart found");
 			order = new Order();
+			order.setCreateDate(new Date());
 			order.setOrderSN(UUID.randomUUID().toString());
 			order.setTrackingId(trackingId);
 			order.setCurrency(currencyCode);
@@ -70,11 +77,11 @@ public class OrderService {
 		}
 		
 		ProductChangeDTO changeDTO = productService.compupterProductChangeByOpts(productName, optParams);
-		boolean existingOpts = false;
+		boolean existing = false;
 		for (OrderItem orderItem : order.getItems()) {
 			if((changeDTO.getSelectedOpts().keySet().size() == orderItem.getSelectedOpts().size() )
 					&& orderItem.getProduct().getName().equals(productName)){
-				boolean match = true;
+				boolean match = true ; 
 				for (SelectedOpts selectedOpts : orderItem.getSelectedOpts()) {
 					if(!changeDTO.getSelectedOpts().keySet().contains(selectedOpts.getValue())){
 						match = false;
@@ -82,12 +89,44 @@ public class OrderService {
 				}
 				
 				if(match){
-					existingOpts = true;
+					existing = true;
+					logger.debug("Existing orderItem found");
+					orderItem.setQuantity(orderItem.getQuantity() + quantity);
+					orderItem.setUpdateDate(new Date());
+					break;
 				}
 				
 			}
 		}
 		
+		Product product = productService.getProductByName(productName);
+		
+		if(!existing){
+			logger.debug("New orderItem ");
+			OrderItem orderItem = new OrderItem();
+			orderItem.setCreateDate(new Date());
+			orderItem.setProduct(product);
+			orderItem.setQuantity(quantity);
+			
+			for (String optString : changeDTO.getSelectedOpts().keySet()) {
+				SelectedOpts selectedOpts = new SelectedOpts();
+				selectedOpts.setValue(optString);
+				selectedOpts.setPriceChange(changeDTO.getSelectedOpts().get(optString));
+				selectedOpts.setCreateDate(new Date());
+				selectedOpts.setUpdateDate(new Date());
+				
+				orderItem.getSelectedOpts().add(selectedOpts);
+			}
+			
+			orderItem.setFinalPrice((float)(product.getActualPrice() + changeDTO.getPriceChange()));
+			order.getItems().add(orderItem);
+		}
+		
+		order.setUpdateDate(new Date());
+		
+		order = em.merge(order);
+		em.persist(order);
+		em.flush();
 		return orderDetailConverter.convert(order);
 	
 	}
@@ -195,6 +234,24 @@ public class OrderService {
 			detail = orderDetailConverter.convert(order);
 		}
 		return detail;
+	}
+
+	public OrderDetailDTO assign(String trackingId, String username) {
+		if(null != trackingId){
+			OrderDetailDTO detailDTO = getCart(trackingId, null);
+			if(null != detailDTO){
+				Order order = em.find(Order.class, detailDTO.getId());
+				if(!StringUtils.isEmpty(username)){
+					order.setUser(userService.getUser(username));
+				}
+				order = em.merge(order);
+				em.persist(order);
+				em.flush();
+				return orderDetailConverter.convert(order);
+			}
+		}
+		
+		return null;
 	}
 
 }

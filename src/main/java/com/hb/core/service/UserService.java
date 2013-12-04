@@ -34,7 +34,7 @@ public class UserService {
 	
 	public UserDTO getUserByName(String name) {
 		UserDTO userDTO = userConverter.convert(getUser(name));
-		if(userDTO == null) {
+		/*if(userDTO == null) {
 			// TODO need to remove when before code is release
 			// This is for default login user
 			for (int i = 0; i < 3; i++) {
@@ -58,7 +58,7 @@ public class UserService {
 					break;
 				}
 			}
-		}
+		}*/
 		return userDTO;
 	}
 

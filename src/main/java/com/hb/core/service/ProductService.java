@@ -320,7 +320,7 @@ public class ProductService {
 		return null;
 	}
 
-	private Product getProductByName(String name) {
+	protected Product getProductByName(String name) {
 		Product product = null;
 		
 		try {

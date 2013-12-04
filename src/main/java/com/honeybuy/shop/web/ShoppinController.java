@@ -7,13 +7,19 @@ package com.honeybuy.shop.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hb.core.entity.Currency;
+import com.hb.core.service.OrderService;
+import com.honeybuy.shop.util.UserUtils;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
+import com.honeybuy.shop.web.interceptor.SessionAttribute;
 
 /**
  * 
@@ -29,6 +35,9 @@ public class ShoppinController {
 	@Autowired
 	private ProductServiceCacheWrapper productService;
 	
+	@Autowired
+	private OrderService orderService;
+	
 	@RequestMapping("/sp/shoppingcart/list")
 	public String shoppingcat(Model model){
 		return "shoppingcat";
@@ -36,9 +45,15 @@ public class ShoppinController {
 	 	
 	@RequestMapping("/sp/shoppingcart/add")
 	public String addToCart(@RequestParam("productName") String productName, @RequestParam("productOpts") String options, 
-							@RequestParam("productAmount") int amount, Model model){
+							@RequestParam("productAmount") int amount, Model model, 
+							@CookieValue(defaultValue="", required=false, value="trackingId")String trackingId,
+							@SessionAttribute("defaultCurrency")Currency currency){
 		
 		logger.info("add to cart productName={}, options={}, amount={}", new Object[]{productName, options, amount});
+		
+		UserDetails details = UserUtils.getCurrentUser();
+		
+		orderService.add2Cart(productName, options, trackingId, details == null ? null : details.getUsername(), amount, currency.getCode());
 		
 		return "redirect:/sp/shoppingcart/list";
 	}

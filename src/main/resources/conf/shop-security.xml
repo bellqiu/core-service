@@ -21,7 +21,7 @@
 							 default-target-url="/home" 
 							 login-processing-url="/hb_login" 
 							 username-parameter="username"
-							 password-parameter="password" /> 
+							 password-parameter="password" authentication-success-handler-ref="loginSuccessHandler" /> 
 		
 		<security:remember-me  />
 		
@@ -41,6 +41,7 @@
 	
 	
 	<bean id="userDetailsService" class="com.honeybuy.shop.sercurity.HBUserDetailService"></bean>
+	<bean id="loginSuccessHandler" class="com.honeybuy.shop.sercurity.LoginSuccessHandler"></bean>
 
 	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
 		<constructor-arg>
