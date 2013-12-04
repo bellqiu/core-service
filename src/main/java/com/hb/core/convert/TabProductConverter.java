@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hb.core.entity.Component;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.TabProduct;
 import com.hb.core.shared.dto.ProductSummaryDTO;
@@ -37,7 +38,9 @@ public class TabProductConverter implements Converter<TabProductDTO, TabProduct>
 			dto.setName(tp.getName());
 			if(null != tp.getProducts()){
 				for (Product p : tp.getProducts()) {
-					dto.getProducts().add(productSummaryConverter.convert(p));
+					if(Component.Status.ACTIVE.equals(p.getStatus())){
+						dto.getProducts().add(productSummaryConverter.convert(p));
+					}
 				}
 			}
 		}

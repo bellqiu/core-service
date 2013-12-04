@@ -129,7 +129,7 @@ Ext.define('AM.controller.Order', {
 
 		contentPanel.insert(0, editor);
 		contentPanel.setActiveTab(0);
-
+/*
 		orderForm.load({
 			params : {
 				id : grid.getStore().getAt(index).get('id')
@@ -139,7 +139,7 @@ Ext.define('AM.controller.Order', {
 				orderForm.getForm().setValues(action.result.data);
 				editor.setTitle("O-" + action.result.data.orderSN);
 			}
-		});
+		});*/
    },/*function(view, cell, row, col, e) {
 		var contentPanel = view.up("viewport").down("tabpanel#mainContainer");
 		var editor = Ext.create("AM.view.order.OrderDetail", {

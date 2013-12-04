@@ -131,7 +131,7 @@ Ext.define('AM.view.order.OrderDetail', {
 					}, {
 						xtype : 'button',
 						text : 'Save',
-						id : 'saveOrder',
+						items : 'saveOrder',
 						flex : 1
 					}]
 				} ]
