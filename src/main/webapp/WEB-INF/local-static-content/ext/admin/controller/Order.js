@@ -25,10 +25,10 @@ Ext.define('AM.controller.Order', {
 				click : this.refreshOrder
 			},
 			
-			/*'html_editor button#saveHTML' : {
-				click : this.saveHTML
-			},
-			
+			'ordereditor button#saveOrder' : {
+				click : this.updateOrder
+			}
+			/*
 			'ordereditor form#orderDetailForm' : {
 				beforeaction : this.beforeaction,
 				actioncomplete : this.actioncomplete,
@@ -165,37 +165,24 @@ Ext.define('AM.controller.Order', {
 				}
 			}
 		});
-   },/*function(view, cell, row, col, e) {
-		var contentPanel = view.up("viewport").down("tabpanel#mainContainer");
-		var editor = Ext.create("AM.view.order.OrderDetail", {
-			title : 'Edit Order'
-		});
-		var orderForm = editor.down("form");
+   },
 
-		contentPanel.insert(0, editor);
-		contentPanel.setActiveTab(0);
-		var id = view.getSelectionModel().getSelection()[0].get('id');
-		console.log(id);
-
-		orderForm.load({
-			params : {
-				id : view.getSelectionModel().getSelection()[0].get('id')
-			},
-			success : function (form, action){
-				editor.setProduct(action.result.data);
-				orderForm.getForm().setValues(action.result.data);
-				editor.setTitle("O-" + action.result.data.orderSN);
+   updateOrder : function(btn) {
+	   var editor = btn.up("ordereditor");
+	   var orderDetail = editor.getOrder();
+	   orderDetail.orderStatus = editor.down("combo#orderStatus").getValue();
+	   orderDetail.traceInfo = editor.down("textfield#traceInfo").getValue();
+	   var orderForm = editor.down("form");
+	   orderForm.setLoading(true);
+	   orderDirectService.saveOrderDetail(orderDetail, function(data, rs, suc){
+		   if(suc && data){
+			   editor.setOrder(data);
+			}else if(rs && rs.type == 'exception'){
+				Ext.example.msg('<font color="red">Error</font>',
+					'<font color="red">' + rs.message
+							+ " </font>");
 			}
-		});
-	},*/
-
-	saveHTML : function(btn) {
-		btn.up("html_editor").down("form").getForm().submit({
-
-			success : function(form, action) {
-				form.setValues(action.result.resultForm);
-				btn.up("html_editor").setTitle("H-" + action.result.resultForm.name);
-			},
-		});
+		   orderForm.setLoading(false);
+	   });
 	}
 });

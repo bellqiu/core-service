@@ -116,6 +116,7 @@ Ext.define('AM.view.order.OrderDetail', {
 					items : [ {
 						fieldLabel : 'Order Status',
 						name : 'orderStatus',
+						itemId : 'orderStatus',
 						xtype : 'combo',
 						displayField : 'name',
 						valueField : 'status',
@@ -126,6 +127,7 @@ Ext.define('AM.view.order.OrderDetail', {
 					}, {
 						fieldLabel : 'traceInfo',
 						name : 'traceInfo',
+						itemId : 'traceInfo',
 						xtype : 'textfield',
 						anchor : '90%'
 					}, {

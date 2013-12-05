@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -70,6 +72,12 @@ public class OrderDirectService {
 			throw new CoreServiceException("Order is not existing");
 		}
 	
+	}
+	
+	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
+	public OrderDetailDTO saveOrderDetail(@Valid OrderDetailDTO orderDetailDTO){
+		
+		return orderService.updateOrderDetail(orderDetailDTO);
 	}
 
 }

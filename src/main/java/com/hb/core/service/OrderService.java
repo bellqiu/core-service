@@ -25,6 +25,7 @@ import com.hb.core.entity.Order;
 import com.hb.core.entity.OrderItem;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.SelectedOpts;
+import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.shared.dto.OrderSummaryDTO;
 import com.hb.core.shared.dto.ProductChangeDTO;
@@ -262,6 +263,18 @@ public class OrderService {
 		}
 		
 		return null;
+	}
+
+	public OrderDetailDTO updateOrderDetail(OrderDetailDTO orderDetailDTO) {
+		long id = orderDetailDTO.getId();
+		Order order = null;
+		if(id > 0 && (order = em.find(Order.class, id)) != null) {
+			order.setTraceInfo(orderDetailDTO.getTraceInfo());
+			order.setOrderStatus(orderDetailDTO.getOrderStatus());
+			return orderDetailConverter.convert(em.merge(order));
+		} else {
+			throw new CoreServiceException("Order is not existing");
+		}
 	}
 
 }
