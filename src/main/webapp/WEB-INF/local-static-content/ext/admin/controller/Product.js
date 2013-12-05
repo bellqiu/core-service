@@ -75,7 +75,7 @@ Ext.define('AM.controller.Product', {
 			title  : "New Option",
 			modal  : true,
 			height: 550,
-		    width: 500,
+		    width: 700,
 		    parentComponentId : btn.up("producteditor").getId()
 		});
 		optionWin.getOption().id = 0; 
@@ -347,7 +347,7 @@ Ext.define('AM.controller.Product', {
 			title  : "Edit Option",
 			modal  : true,
 			height: 550,
-		    width: 500,
+		    width: 700,
 		    parentComponentId : grid.up("producteditor").getId()
 		});
 		var option = storeData[index].raw;

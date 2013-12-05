@@ -8,8 +8,8 @@ Ext.define('AM.view.option.OptionWindow', {
 	},
 	closable : true,
 	border : 0,
-	height : 200,
-	width : 400,
+	height : 500,
+	width: 500,
 	defaults : {
 		padding : 5,
 		border : 0
@@ -73,6 +73,7 @@ Ext.define('AM.view.option.OptionWindow', {
 						fieldLabel : 'Default Value',
 						name : 'defaultValue',
 						xtype : 'textfield',
+						labelPad : 2,
 						anchor : '90%',
 					} ]
 				} ]

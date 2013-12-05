@@ -46,7 +46,8 @@ public class Option extends Component{
 		SINGLE_TEXT_LIST,
 		MULTI_TEXT_LIST,
 		SINGLE_ICON_LIST,
-		MULTI_ICON_LIST
+		MULTI_ICON_LIST,
+		SINGLE_INPUT_CHECKBOX
 	}
 	
 	public Option() {
