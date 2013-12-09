@@ -41,6 +41,12 @@ public class Option extends Component{
 	@Column(name = "type")
 	private Type type = Type.TEXT;
 	
+	@Column(name="customize")
+	private boolean customize;
+	
+	@Column(name="htmlKey")
+	private String htmlKey;
+	
 	public static enum Type{
 		TEXT,
 		SINGLE_TEXT_LIST,
@@ -92,6 +98,22 @@ public class Option extends Component{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setCustomize(boolean customize) {
+		this.customize = customize;
+	}
+
+	public boolean isCustomize() {
+		return customize;
+	}
+
+	public void setHtmlKey(String htmlKey) {
+		this.htmlKey = htmlKey;
+	}
+
+	public String getHtmlKey() {
+		return htmlKey;
 	}
 	
 }
