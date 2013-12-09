@@ -624,7 +624,7 @@ input[type=password] {
 .shopping_cart_container{
 	width: 976px;
 	margin: auto;
-	min-height: 300px;
+	min-height: 100px;
 }
 /******************************END mask ******************************************/
 

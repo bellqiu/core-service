@@ -3,6 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="hb" uri="/WEB-INF/tag/HBTag.tld"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
+<c:if test="${(not empty currentOrder)&& (fn:length(currentOrder.items) > 0)}">
 <div class="panel panel-default">
 
 	<div class="panel-heading">Shopping cart details</div>
@@ -84,5 +86,8 @@
 				</div>
 			</div>
 	</div>
-
 </div>
+</c:if>
+<c:if test="${(empty currentOrder) || (fn:length(currentOrder.items) < 1)}">
+	<div class="alert alert-warning">Shoppingcart is empty. <a href="/home">Go to Shopping</a></div>
+</c:if>
