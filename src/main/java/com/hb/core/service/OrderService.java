@@ -286,21 +286,70 @@ public class OrderService {
 	}
 
 	public OrderDetailDTO assign(String trackingId, String username) {
-		if(null != trackingId){
-			OrderDetailDTO detailDTO = getCart(trackingId, null);
-			if(null != detailDTO){
-				Order order = em.find(Order.class, detailDTO.getId());
-				if(!StringUtils.isEmpty(username)){
-					order.setUser(userService.getUser(username));
+		Order userOrder  =  getCartOnShoppingOrder(trackingId, username);
+		if(null != trackingId && null != username){
+			Order trackingOrder = getCartOnShoppingOrder(trackingId, null);
+			List<OrderItem> newOrderItem = new ArrayList<OrderItem>();
+			if(null != trackingOrder && null != userOrder){
+				
+				for (OrderItem orderItemTracking : trackingOrder.getItems()) {
+					boolean existingItem = false;
+					for (OrderItem orderItemUser : userOrder.getItems()) {
+						if(orderItemTracking.getProduct().getId() == orderItemUser.getProduct().getId() && orderItemTracking.getSelectedOpts().size() == orderItemUser.getSelectedOpts().size()){
+							boolean optsMatches = true;
+							for (SelectedOpts optsTracking : orderItemTracking.getSelectedOpts()) {
+								boolean optsItemMatches = false;
+								for (SelectedOpts optsUser : orderItemTracking.getSelectedOpts()) {
+									if(optsTracking.getValue().equals(optsUser.getValue())){
+										optsItemMatches = true;
+									}
+								}
+								if(!optsItemMatches){
+									optsMatches = false;
+								}
+							}
+							if(optsMatches){
+								existingItem = true;
+								continue;
+							}
+							//orderItemUser.setQuantity(orderItemTracking.getQuantity()+ orderItemUser.getQuantity());
+						}
+					}
+					
+					if(!existingItem){
+						OrderItem item= new OrderItem();
+						item.setCreateDate(new Date());
+						item.setUpdateDate(new Date());
+						item.setFinalPrice(orderItemTracking.getFinalPrice());
+						item.setProduct(orderItemTracking.getProduct());
+						item.setQuantity(orderItemTracking.getQuantity());
+						List<SelectedOpts> selectedOpts = new ArrayList<SelectedOpts>();
+						
+						for (SelectedOpts opts : orderItemTracking.getSelectedOpts()) {
+							SelectedOpts newOpts = new SelectedOpts();
+							newOpts.setCreateDate(new Date());
+							newOpts.setPriceChange(opts.getPriceChange());
+							newOpts.setValue(opts.getValue());
+							newOpts.setUpdateDate(new Date());
+						}
+						
+						item.setSelectedOpts(selectedOpts);
+						newOrderItem.add(item);
+					}
 				}
-				order = em.merge(order);
-				em.persist(order);
+				
+				
+				userOrder.getItems().addAll(newOrderItem);
+				em.merge(userOrder);
+				em.persist(userOrder);
 				em.flush();
-				return orderDetailConverter.convert(order);
+				
 			}
+		
 		}
 		
-		return null;
+		return orderDetailConverter.convert(userOrder);
+	
 	}
 
 	public OrderDetailDTO updateOrderDetail(OrderDetailDTO orderDetailDTO) {
