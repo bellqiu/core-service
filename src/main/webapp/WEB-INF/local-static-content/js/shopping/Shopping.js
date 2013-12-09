@@ -41,6 +41,36 @@
 				$.cookie("productOpts", paramStr, { expires: 7, path: '/'+ productName} );
 				
 			};
+			
+			shopping.initCardEvent = function(){
+				 $(".OrderItemIncrement").each(function(index, el){
+						var itemId = $(el).attr("data-orderitemid");
+						var changes = "1";
+						shopping.modifyCart(itemId, changes, el);
+				});
+				 
+				 $(".OrderItemDecrement").each(function(index, el){
+						var itemId = $(el).attr("data-orderitemid");
+						var changes = "-1";
+						shopping.modifyCart(itemId, changes, el);
+				});
+				 
+				 $(".removeItemFromOrder").each(function(index, el){
+						var itemId = $(el).attr("data-orderitemid");
+						var changes = "ALL";
+						shopping.modifyCart(itemId, changes, el);
+				});
+			};
+			
+			shopping.modifyCart = function(itemId, changes, bindItem){
+				$(bindItem).click(function(){
+					$(".shopping_cart_container").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
+					$(".shopping_cart_container").load("/fragment/sp/shoppingcart/modify?itemId="+itemId+"&changes="+changes, function(){
+						$(".shopping_cart_container").unmask();
+						shopping.initCardEvent();
+					});
+				});
+			};
 		
 			
 	        return shopping;

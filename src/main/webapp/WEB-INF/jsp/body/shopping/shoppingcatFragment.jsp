@@ -3,7 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="hb" uri="/WEB-INF/tag/HBTag.tld"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <div class="panel panel-default">
 
 	<div class="panel-heading">Shopping cart details</div>
@@ -38,12 +37,12 @@
 						</span>
 					</div>
 					<div class="col-xs-4 order-item-control-col">
-                            <a href="javascript:void(0);" class="decrement">-</a>
-                            <input type="text" class="quantity-text" value="${item.quantity}" size="3">
-                            <a href="javascript:void(0);" class="increment">+</a>
+                            <a href="javascript:void(0);" class="decrement OrderItemDecrement" data-orderItemId="${item.id}">-</a>
+                            <input type="text" class="quantity-text OrderItemEnter" value="${item.quantity}" size="3" data-orderItemId="${item.id}">
+                            <a href="javascript:void(0);" class="increment OrderItemIncrement" data-orderItemId="${item.id}">+</a>
 					</div>
 					<div class="col-xs-4">
-						<a href="javascript:void(0);">Remove</a>
+						<a href="javascript:void(0);" class="removeItemFromOrder" data-orderItemId="${item.id}">Remove</a>
 					</div>
 				</div>
 			</div>
@@ -77,7 +76,7 @@
 				</div>
 				<div class="row order_buttons">
 					<div class="col-xs-4 ">
-						<a href="#" class="btn btn-default">Continue Shopping</a> 
+						<a href="/home" class="btn btn-default">Continue Shopping</a> 
 					</div>
 					<div class="col-xs-8  padding10">
 						<a href="#" class="btn btn-danger float_right">Process to Checkout</a> 

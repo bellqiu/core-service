@@ -11,6 +11,8 @@ public class OrderItemDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -1713501806086077572L;
+	
+	private long id;
 
 	private int quantity;
 	
@@ -50,6 +52,14 @@ public class OrderItemDTO implements Serializable{
 
 	public void setSelectedOpts(Map<String, Float> selectedOpts) {
 		this.selectedOpts = selectedOpts;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

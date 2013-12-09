@@ -142,8 +142,41 @@ public class OrderService {
 	
 	}
 	
-	public OrderDetailDTO modifyCart(long productId, String trackingId, String userEmail,  int quantity){
-		return null;
+	public OrderDetailDTO modifyCart(String trackingId, String userEmail, String orderItemId, String changes){
+		
+		Order order = getCartOnShoppingOrder(trackingId, userEmail);
+		List<OrderItem> removedItems = new ArrayList<OrderItem>();
+		if(null != order){
+			for (OrderItem orderItem : order.getItems()) {
+				if((""+orderItem.getId()).equals(orderItemId)){
+					if("ALL".equalsIgnoreCase(changes)){
+						removedItems.add(orderItem);
+					}else{
+						int quantity = 0;
+						try {
+							quantity = Integer.parseInt(changes);
+						} catch (Exception e) {
+						}
+						quantity = orderItem.getQuantity() + quantity;
+						if(quantity < 1){
+							removedItems.add(orderItem);
+						}else{
+							orderItem.setQuantity(quantity);
+						}
+					}
+				}
+			}
+		}
+		
+		for (OrderItem orderItem : removedItems) {
+			order.getItems().remove(orderItem);
+			em.remove(orderItem);
+		}
+		
+		em.persist(order);
+		em.flush();
+		
+		return orderDetailConverter.convert(order);
 	}
 	
 	public OrderDetailDTO getShoppingCart(String trackingId, String userEmail){

@@ -49,6 +49,7 @@ public class OrderDetailConverter implements
 		List<OrderItem> orderItems = order.getItems();
 		for(OrderItem orderItem : orderItems) {
 			OrderItemDTO orderItemDTO = new OrderItemDTO();
+			orderItemDTO.setId(orderItem.getId());
 			orderItemDTO.setFinalPrice(orderItem.getFinalPrice());
 			orderItemDTO.setQuantity(orderItem.getQuantity());
 			orderItemDTO.setProductSummary(productSummaryConverter.convert(orderItem.getProduct()));

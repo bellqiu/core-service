@@ -7,7 +7,11 @@
 			
 			$(".shopping_cart_container").load("/fragment/sp/shoppingcart", function(){
 				$(".shopping_cart_container").unmask();
+				
+				shopping.initCardEvent();
+				
 			});
+			
 		}
 	
 	);

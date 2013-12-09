@@ -54,10 +54,25 @@ public class ShoppinController {
 		}
 		
 		OrderDetailDTO detailDTO = orderService.getCart(trackingId, useremail);
-		
-		model.addAttribute("currentOrder", detailDTO);
+		if(null != detailDTO){
+			model.addAttribute("currentOrder", detailDTO);
+		}
 		
 		return "shoppingcatFragment";
+	}
+	
+	@RequestMapping("/fragment/sp/shoppingcart/modify")
+	public String modifyCart(Model model, @CookieValue(defaultValue="", required=false, value="trackingId")String trackingId, @RequestParam("itemId")String itemId, @RequestParam("changes")String changes){
+		UserDetails details = UserUtils.getCurrentUser();
+		
+		String useremail = null;
+		if(null != details){
+			useremail = details.getUsername();
+		}
+		
+		orderService.modifyCart(trackingId, useremail, itemId, changes);
+		
+		return "redirect:/fragment/sp/shoppingcart";
 	}
 	 	
 	@RequestMapping("/sp/shoppingcart/add")
