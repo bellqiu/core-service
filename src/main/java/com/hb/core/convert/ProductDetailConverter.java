@@ -29,6 +29,7 @@ import com.hb.core.shared.dto.TabProductDTO;
 public class ProductDetailConverter implements Converter<ProductDetailDTO, Product>{
 	
 	
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(ProductDetailConverter.class);
 	
 	@PersistenceContext
@@ -158,74 +159,10 @@ public class ProductDetailConverter implements Converter<ProductDetailDTO, Produ
 		if(null != productDetailDTO.getOptions()){
 			for (Option option : productDetailDTO.getOptions()) {
 				Option existingOption = em.find(Option.class, option.getId());
-				if(existingOption != null) {/*
-					existingOption.setName(option.getName());
-					existingOption.setType(option.getType() == null ? Option.Type.TEXT : option.getType());
-					existingOption.setDefaultValue(option.getDefaultValue());
-					existingOption.setDesc(option.getDesc());
-					List<OptionItem> items = option.getItems();
-					if(items != null && items.size() > 0) {
-						List<OptionItem> existingOptionItems = existingOption.getItems();
-						Map<Long, OptionItem> itemMap = new HashMap<Long, OptionItem>();
-						for(OptionItem optionItem : existingOptionItems) {
-							itemMap.put(optionItem.getId(), optionItem);
-						}
-						existingOptionItems.clear();
-						Set<Long> existingIdSet = itemMap.keySet();
-						for(OptionItem optionItem : items) {
-							if(existingIdSet.contains(optionItem.getId())) {
-								OptionItem existingOptionItem = itemMap.get(optionItem.getId());
-								existingOptionItem.setDisplayName(optionItem.getDisplayName());
-								existingOptionItem.setIconUrl(optionItem.getIconUrl());
-								existingOptionItem.setPriceChange(optionItem.getPriceChange());
-								existingOptionItem.setValue(optionItem.getValue());
-								existingOptionItem.setUpdateDate(new Date());
-								List<Property> overrideProps = optionItem.getOverrideProps();
-								if(overrideProps != null && overrideProps.size() > 0) {
-									List<Property> existingOverridePropsList = existingOptionItem.getOverrideProps();
-									Map<Long, Property> propertyMap = new HashMap<Long, Property>();
-									for(Property property : existingOverridePropsList) {
-										propertyMap.put(property.getId(), property);
-									}
-									existingOverridePropsList.clear();
-									Set<Long> existingPropertyIdSet = propertyMap.keySet();
-									for(Property property : overrideProps) {
-										if(existingPropertyIdSet.contains(property.getId())) {
-											Property existingProperty = propertyMap.get(property.getId());
-											existingProperty.setName(property.getName());
-											existingProperty.setValue(property.getValue());
-											existingProperty.setDesc(property.getDesc());
-											existingProperty.setUpdateDate(new Date());
-											existingOverridePropsList.add(existingProperty);
-										} else {
-											property.setId(0);
-											property.setCreateDate(new Date());
-											property.setUpdateDate(new Date());
-											existingOverridePropsList.add(property);
-										}
-									}
-									existingOptionItem.setOverrideProps(existingOverridePropsList);
-								} else {
-									//existingOptionItem.setOverrideProps(new ArrayList<Property>());
-									existingOptionItem.getOverrideProps().clear();
-								}
-								existingOptionItems.add(existingOptionItem);
-							} else {
-								optionItem.setId(0);
-								optionItem.setCreateDate(new Date());
-								optionItem.setUpdateDate(new Date());
-								existingOptionItems.add(optionItem);
-							}
-						}
-						existingOption.setItems(existingOptionItems);
-					} else {
-						//existingOption.setItems(new ArrayList<OptionItem>());
-						existingOption.getItems().clear();
-					}
-				*/} else {
+				if(existingOption == null) {
 					existingOption = option;
 					existingOption.setCreateDate(new Date());
-				}
+				} 
 				existingOption.setUpdateDate(new Date());
 				product.getOptions().add(existingOption);
 			}

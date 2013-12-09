@@ -374,6 +374,7 @@ Ext.define('AM.controller.Product', {
 		var optionwindow = btn.up("productoptionwindow");
 		var optionForm = optionwindow.down("form#productOptionForm").getForm();
 		var optionOverider = optionForm.getValues();
+		optionOverider['customize'] = optionwindow.down("checkboxfield").getValue();
 		var option = optionwindow.getOption();
 		
 		var optionItems = [];

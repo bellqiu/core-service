@@ -246,6 +246,8 @@ public class ProductService {
 		existingOption.setType(option.getType() == null ? Option.Type.TEXT : option.getType());
 		existingOption.setDefaultValue(option.getDefaultValue());
 		existingOption.setDesc(option.getDesc());
+		existingOption.setCustomize(option.isCustomize());
+		existingOption.setHtmlKey(option.getHtmlKey());
 		List<OptionItem> items = option.getItems();
 		if(items != null && items.size() > 0) {
 			List<OptionItem> existingOptionItems = existingOption.getItems();

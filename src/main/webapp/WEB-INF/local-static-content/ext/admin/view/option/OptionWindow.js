@@ -35,7 +35,7 @@ Ext.define('AM.view.option.OptionWindow', {
 				xtype : 'fieldset',
 				title : 'Option Properties',
 				layout : 'hbox',
-				height : 100,
+				height : 120,
 				overflowY : 'auto',
 				items : [ {
 					xtype : 'container',
@@ -73,8 +73,28 @@ Ext.define('AM.view.option.OptionWindow', {
 						fieldLabel : 'Default Value',
 						name : 'defaultValue',
 						xtype : 'textfield',
-						labelPad : 2,
 						anchor : '90%',
+					}, {
+						xtype : 'container',
+						layout : 'hbox',
+						anchor : '90%',
+						defaults : {
+							margin : '5 10 5 0'
+						},
+						items : [ {
+							fieldLabel : 'Customize',
+							allowBlank : false,
+							name : 'customize',
+							xtype : 'checkboxfield',
+							flex : 1
+							
+						}, {
+							fieldLabel : 'Html Key',
+							name : 'htmlKey',
+							xtype : 'textfield',
+							anchor : '90%',
+						} ]
+
 					} ]
 				} ]
 			}, {
