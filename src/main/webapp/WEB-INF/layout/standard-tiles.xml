@@ -9,6 +9,9 @@
         	 <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
         </definition>
         
+        <definition name="shoppingCartMain" template="/WEB-INF/layout/shoppingCartFragmentLayout.jsp" >
+        </definition>
+        
       <!-- Modules -->
 		<definition name="home.header.module" template="/WEB-INF/layout/header.jsp">
 			<put-attribute name="dockbar" value="/WEB-INF/jsp/header/dockbar.jsp"></put-attribute>

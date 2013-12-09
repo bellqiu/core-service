@@ -9,7 +9,7 @@
 					<c:choose>
 					<c:when test="${item.type == 'NAVIGATION' || item.type == 'SPECIAL_OFFER' }">
 						<li class="top-level-navigator-item">
-							<a aimTo="category-content${stat.index}" href="#" class="top-level-navigator-link">${item.displayName }</a>
+							<a aimTo="category-content${stat.index}" href="#" class="top-level-navigator-link ">${item.displayName }<span class="glyphicon glyphicon-chevron-down"></span> </a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -38,27 +38,45 @@
 	</div>
 	
 	<script type="text/javascript">
-		$(".top-level-navigator-item a").click(function(){
-			$(".top-level-navigator-item a").removeClass("light-gray-background");
-			//$(".category-content").slideToggle("slow");
+		
+	$(".top-level-navigator-item a").each(function(index,el){
+		$(el).click(function(){
 			var link = $(this);
-			link.addClass("light-gray-background");
 			var contentId = $(this).attr("aimTo");
 			var content = $("#"+contentId);
-			content.slideToggle("slow");
-			link.mouseout(function(){
-				$(window).click(function(e){
-					content.slideUp("slow");
-					link.removeClass("light-gray-background");
-					$(this).unbind(e);
-				});
+			$(".top-level-navigator-item a span").addClass("glyphicon-chevron-down");
+			$(".top-level-navigator-item a span").removeClass("glyphicon-chevron-up");
+			$(".category-content").each(function(index, c){
+				if($(c).attr("id")!=content.attr("id")){
+					$(c).slideUp();
+				}
 			});
-			content.mouseout(function(){
-				$(window).click(function(e){
-					content.slideUp("slow");
+			
+			content.slideToggle("slow", function(){
+				if(content.is(":visible")){
+					$(".top-level-navigator-item a").removeClass("light-gray-background ");
+					link.children("span").removeClass("glyphicon-chevron-down");
+					link.children("span").addClass("glyphicon-chevron-up");
+					link.addClass("light-gray-background");
+				}else{
 					link.removeClass("light-gray-background");
-					$(this).unbind(e);
-				});
+				}
+				
+				content.mouseout(function(){
+					$(window).click(function(e){
+						$(".top-level-navigator-item a span").addClass("glyphicon-chevron-down");
+						$(".top-level-navigator-item a span").removeClass("glyphicon-chevron-up");
+						$(".category-content").slideUp("slow");
+						link.removeClass("light-gray-background");
+						content.unbind(e);
+					});
+				});		
 			});
+			
+			
+			return false;
 		});
+		
+	});
+		
 	</script>

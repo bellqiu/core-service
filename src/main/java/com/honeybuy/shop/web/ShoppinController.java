@@ -42,6 +42,11 @@ public class ShoppinController {
 	public String shoppingcat(Model model){
 		return "shoppingcat";
 	}
+	
+	@RequestMapping("/fragment/sp/shoppingcart")
+	public String shoppingcatFragment(Model model){
+		return "shoppingcatFragment";
+	}
 	 	
 	@RequestMapping("/sp/shoppingcart/add")
 	public String addToCart(@RequestParam("productName") String productName, @RequestParam("productOpts") String options, 

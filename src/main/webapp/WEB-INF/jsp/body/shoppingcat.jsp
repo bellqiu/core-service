@@ -3,5 +3,16 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="container mainContainer">
-	shoppingcat
+	<div class="row">
+		<ol class="breadcrumb">
+  				<li><a href="${site.domain}">Home</a></li>
+  				<li class="active">Shopping Cart</li> 
+			</ol>
+	</div>
+	<div class="row shopping_cart_container">
+		<div class="emptycart">
+			processing
+		</div>
+	</div>
+	
 </div>
