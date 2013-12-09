@@ -64,4 +64,10 @@ public class CategoryServiceCacheWrapper {
 		List<CategoryTreeDTO> categoryTree = categoryService.getCategoryTreeByName(parentNames);
 		return CloneUtil.<List<CategoryTreeDTO>>cloneThroughJson(categoryTree);
 	}
+	
+	@Cacheable(cacheName="GetCategoryWithAllSubCategories")
+	public List<Long> getCategoryIdWithAllSubCategories(long id){
+		List<Long> categoryTree = categoryService.getAllSubCategoryTree(id);
+		return categoryTree;
+	}
 }

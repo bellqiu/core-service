@@ -29,6 +29,9 @@ public class ProductServiceCacheWrapper {
 	@Autowired
 	private TabProductService tabProductService;
 	
+	@Autowired
+	private CategoryServiceCacheWrapper categoryCacheService;
+	
 	@Cacheable(cacheName="ProductNameExisting")
 	public boolean exist(String name){
 		return productService.exist(name);
@@ -62,13 +65,15 @@ public class ProductServiceCacheWrapper {
 	}
 	
 	@Cacheable(cacheName="ProductCountByCategory")
-	public int getProductCountByCategoryId(long id) {
-		return productService.getProductCountByCategoryId(id);
+	public int getProductCountByCategoryId(long categoryId) {
+		List<Long> categoryIds = categoryCacheService.getCategoryIdWithAllSubCategories(categoryId);
+		return productService.getProductCountByCategoryIds(categoryIds);
 	}
 
 	@Cacheable(cacheName="ProductSummaryByCategory")
 	public List<ProductSummaryDTO> getAllProductByCategoryId(long id, int start, int max) {
-		List<ProductSummaryDTO> dtos = productService.getAllProductByCategoryId(id, start, max);
+		List<Long> categoryIds = categoryCacheService.getCategoryIdWithAllSubCategories(id);
+		List<ProductSummaryDTO> dtos = productService.getAllProductByCategoryIds(categoryIds, start, max);
 		
 		 return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(dtos);
 	}

@@ -111,4 +111,9 @@
 		timeToLiveSeconds="120" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
+		
+	<cache name="GetCategoryWithAllSubCategories" eternal="false"
+		timeToLiveSeconds="120" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="99999" />
 </ehcache>

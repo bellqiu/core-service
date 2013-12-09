@@ -47,6 +47,7 @@ public class CategoryController {
 		}
 		
 		long categoryId = categoryDetailDTO.getId();
+		
 		int totalCount = productService.getProductCountByCategoryId(categoryId);
 		int max = 24;
 		

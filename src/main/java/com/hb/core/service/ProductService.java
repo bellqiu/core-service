@@ -1,6 +1,7 @@
 package com.hb.core.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -440,6 +441,34 @@ public class ProductService {
 		String queryString = "select count(p.id) from Product p, Category c where c.id = :id and p.status = 'ACTIVE' and c member of p.categories";
 		TypedQuery<Long> count = em.createQuery(queryString, Long.class);
 		count.setParameter("id", categoryId);
+		return count.getSingleResult().intValue();
+	}
+	
+	public List<ProductSummaryDTO> getAllProductByCategoryIds(List<Long> categoryIds, int start, int max) {
+		String queryString = "select p from Product p, Category c where c.id in :id and p.status = 'ACTIVE' and c member of p.categories";
+		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
+		List<Long> list = categoryIds;
+		System.out.println(list);
+		query.setParameter("id", list);
+		query.setFirstResult(start);
+		query.setMaxResults(max);
+		List<Product> resultList = query.getResultList();
+		List<ProductSummaryDTO> productSummaryList = new ArrayList<ProductSummaryDTO>(resultList.size());
+		for(Product p : resultList) {
+			productSummaryList.add(productSummaryConverter.convert(p));
+		}
+		return productSummaryList;
+	}
+
+	public int getProductCountByCategoryIds(List<Long> categoryIds) {
+		//String queryString = "select count(p.id) from Product p, Category c where c.id IN (:idList) and p.status = 'ACTIVE' and c member of p.categories";
+		String queryString = "select count(p.id) from Product p, Category c where c.id in :id and p.status = 'ACTIVE' and c member of p.categories";
+						      //select count(p.id) from Product p, Category c where c.id in :id and p.status = 'ACTIVE' and c member of p.categories
+		TypedQuery<Long> count = em.createQuery(queryString, Long.class);
+		//List<Long> list = Arrays.asList(49L,108L);
+		List<Long> list = categoryIds;
+		System.out.println(list);
+		count.setParameter("id", list);
 		return count.getSingleResult().intValue();
 	}
 	

@@ -294,4 +294,33 @@ public class CategoryService {
 		}
 		return results;
 	}
+
+	public List<Long> getAllSubCategoryTree(long id) {
+		List<Long> ids = new ArrayList<Long>();
+
+		if (id < 1) {
+			String sqlForAllCategory = "select c.id from Category c ";
+			TypedQuery<Long> query = em.createQuery(sqlForAllCategory, Long.class);
+			List<Long> allCategoryIds = query.getResultList();
+			for (Long categoryId : allCategoryIds) {
+				ids.add(categoryId);
+			}
+		} else {
+			Category c = getCategoryById(id);
+			ids = addSubCategory(ids, c);
+		}
+
+		return ids;
+	}
+	
+	private List<Long> addSubCategory(List<Long> ids, Category parent) {
+		if (null != parent) {
+			ids.add(parent.getId());
+			List<Category> categories = parent.getSubCategory();
+			for (Category category : categories) {
+				addSubCategory(ids, category);
+			}
+		}
+		return ids;
+	}
 }
