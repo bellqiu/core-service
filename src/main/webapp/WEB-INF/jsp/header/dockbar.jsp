@@ -53,7 +53,7 @@
 					class="glyphicon glyphicon-user"></span><span>Login</span></a>
 				</c:if>
 			</li>
-			<li class=""><a href="http://www.google.com"
+			<li class=""><a href="/sp/shoppingcart/list"
 				class="btn-group btn open"><span
 					class="glyphicon glyphicon-shopping-cart"></span><span>Cart(0)</span></a></li>
 		</ul>

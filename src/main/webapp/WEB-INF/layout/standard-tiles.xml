@@ -9,7 +9,7 @@
         	 <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
         </definition>
         
-        <definition name="shoppingCartMain" template="/WEB-INF/layout/shoppingCartFragmentLayout.jsp" >
+        <definition name="shoppingCartMain" template="/WEB-INF/layout/orderFragmentLayout.jsp" >
         </definition>
         
       <!-- Modules -->
@@ -47,7 +47,7 @@
         </definition>
         
          <definition name="shoppingcat" extends="headerFooter" >
-        	  <put-attribute name="body" value="/WEB-INF/jsp/body/shoppingcat.jsp"/>
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/shopping/shoppingcat.jsp"/>
         </definition>
         
          <definition name="shoppingcatAddress" extends="headerFooter" >
@@ -72,6 +72,10 @@
         
         <definition name="newAccount" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
+        </definition>
+        
+         <definition name="shoppingcatFragment" extends="shoppingCartMain" >
+         	 <put-attribute name="orderFragmentImpl" value="/WEB-INF/jsp/body/shopping/shoppingcatFragment.jsp"/>
         </definition>
         
         

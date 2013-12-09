@@ -152,4 +152,20 @@ public class OrderDetailDTO implements Serializable{
 		this.sourceId = sourceId;
 	}
 	
+	public float getItemTotal(){
+		float price= 0f;
+		for (OrderItemDTO  itemDTO : items) {
+			price = price + (itemDTO.getFinalPrice() * itemDTO.getQuantity());
+		}
+		return price ;
+	}
+	
+	public float getGrandTotal(){
+		float price= getItemTotal();
+		
+		price = price + deliveryPrice -couponCutOff;
+		
+		return price;
+	}
+	
 }

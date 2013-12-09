@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hb.core.entity.Currency;
 import com.hb.core.service.OrderService;
+import com.hb.core.shared.dto.OrderDetailDTO;
 import com.honeybuy.shop.util.UserUtils;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 import com.honeybuy.shop.web.interceptor.SessionAttribute;
@@ -44,7 +45,18 @@ public class ShoppinController {
 	}
 	
 	@RequestMapping("/fragment/sp/shoppingcart")
-	public String shoppingcatFragment(Model model){
+	public String shoppingcatFragment(Model model, @CookieValue(defaultValue="", required=false, value="trackingId")String trackingId){
+		UserDetails details = UserUtils.getCurrentUser();
+		
+		String useremail = null;
+		if(null != details){
+			useremail = details.getUsername();
+		}
+		
+		OrderDetailDTO detailDTO = orderService.getCart(trackingId, useremail);
+		
+		model.addAttribute("currentOrder", detailDTO);
+		
 		return "shoppingcatFragment";
 	}
 	 	

@@ -146,6 +146,11 @@ public class OrderService {
 		return null;
 	}
 	
+	public OrderDetailDTO getShoppingCart(String trackingId, String userEmail){
+		Order order = getCartOnShoppingOrder(trackingId, userEmail);
+		return orderDetailConverter.convert(order);
+	}
+	
 	private Order getCartOnShoppingOrder(String trackingId, String userEmail){
 		List<Order> orders = null;
 		

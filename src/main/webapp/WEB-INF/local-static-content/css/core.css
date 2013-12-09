@@ -73,6 +73,13 @@ input[type=password] {
 	width: 100%;
 }
 
+.float_left{
+	float: left;
+}
+
+.float_right{
+	float: right;
+}
 
 .dockbar-menu .btn-group {
 	z-index: 999999;
@@ -445,7 +452,7 @@ input[type=password] {
 
 /**************Start Product************/
 .mainContainer {
-	margin: auto;
+	margin: 0 auto 20px auto;
 	min-width: 1170px;
 }
 
@@ -620,3 +627,54 @@ input[type=password] {
 	min-height: 300px;
 }
 /******************************END mask ******************************************/
+
+/****************************Order display ************************************/
+
+.order-item{
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px dashed #dddddd;
+}
+.order-item-img-col{
+	
+}
+
+.order-item-img-col img{
+	width: 120px;
+}
+
+.order-item-selection-col{
+	
+}
+.quantity-text{
+	width: 25px!important;
+	display: inline;
+}
+.order-item-selection-col .order-item-selection{
+	color: red;
+}
+
+.order-item-control-col a{
+	font-weight: bold;
+	
+}
+.under_score{
+	border-bottom: 1px dashed #dddddd;
+}
+.orderPrice-summary{
+	margin: 15px;
+	color: #FF0000;
+	padding: 2px;
+}
+
+.orderPrice-summary-all{
+	font-weight: bold;
+}
+.orderPrice-summary_value{
+	float: right;
+}
+
+.order_buttons{
+	padding: 0px 25px;	
+}
+/****************************End Order display ************************************/
