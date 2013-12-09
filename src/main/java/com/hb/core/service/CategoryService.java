@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hb.core.convert.Converter;
 import com.hb.core.entity.Category;
 import com.hb.core.entity.Category.Type;
+import com.hb.core.entity.Product;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
@@ -224,11 +225,36 @@ public class CategoryService {
 	}
 
 	public void destory(Category category) {
+		long id = category.getId();
+		String queryString = "select p from Product p, Category c where c.id = :id and c member of p.categories";
+		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
+		query.setParameter("id", id);
+		List<Product> resultList = query.getResultList();
+		for(Product p : resultList) {
+			for(Category c : p.getCategories()) {
+				if(c.getId() == id) {
+					p.getCategories().remove(c);
+					break;
+				}
+			}
+		}
 		category = em.merge(category);
 		em.remove(category);
 	}
 
 	public void destory(long id) {
+		String queryString = "select p from Product p, Category c where c.id = :id and c member of p.categories";
+		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
+		query.setParameter("id", id);
+		List<Product> resultList = query.getResultList();
+		for(Product p : resultList) {
+			for(Category c : p.getCategories()) {
+				if(c.getId() == id) {
+					p.getCategories().remove(c);
+					break;
+				}
+			}
+		}
 		Category category = em.find(Category.class, id);
 		em.remove(category);
 	}
