@@ -71,7 +71,7 @@
 							url : "/sp/shoppingcart/itemCount",
 							complete : function(response){
 								var count = parseInt(response.responseText);
-								if(count){
+								if(count || count == 0){
 									$("#ShoppingDockedbarCount").html("Cart("+count+")");
 								}
 							}
