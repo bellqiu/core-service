@@ -10,8 +10,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.hb.core.util.Constants;
+import com.honeybuy.shop.web.eds.SiteDirectService;
 
 /**
  * 
@@ -19,6 +23,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * @version 1.0
  */
 public class TrackingCookieInterceptor extends HandlerInterceptorAdapter{
+	
+	@Autowired
+	private SiteDirectService siteService;
 	
 	@Override
 	public void postHandle(HttpServletRequest request,
@@ -29,19 +36,37 @@ public class TrackingCookieInterceptor extends HandlerInterceptorAdapter{
 		Cookie[] cookies = request.getCookies();
 		
 		boolean tracked = false;
-		
+		String tackingId = null;
 		if(null != cookies){
 			for (Cookie cookie : cookies) {
-				if("trackingId".equals(cookie.getName())){
+				if(Constants.TRACKING_COOKE_ID_NAME.equals(cookie.getName())){
+					if(null != tackingId){
+						cookie.setValue(tackingId);
+					}else{
+						tackingId = cookie.getValue();
+					}
+					cookie.setPath("/");
 					tracked = true;
+					response.addCookie(cookie);
 				}
 			}
 		}
 		
 		if(!tracked){
-			Cookie trackCookie = new Cookie("trackingId", UUID.randomUUID().toString());
+			
+			Cookie trackCookie = new Cookie(Constants.TRACKING_COOKE_ID_NAME, UUID.randomUUID().toString());
 			trackCookie.setMaxAge(365*24*3600);
+			trackCookie.setPath("/");
 			response.addCookie(trackCookie);
 		}
 	}
+
+	public SiteDirectService getSiteService() {
+		return siteService;
+	}
+
+	public void setSiteService(SiteDirectService siteService) {
+		this.siteService = siteService;
+	}
+	
 }

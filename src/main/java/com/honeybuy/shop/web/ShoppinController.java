@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hb.core.entity.Currency;
 import com.hb.core.service.OrderService;
 import com.hb.core.shared.dto.OrderDetailDTO;
+import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.UserUtils;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 import com.honeybuy.shop.web.interceptor.SessionAttribute;
@@ -44,8 +46,19 @@ public class ShoppinController {
 		return "shoppingcat";
 	}
 	
+	@RequestMapping("/sp/shoppingcart/itemCount")
+	@ResponseBody
+	public int getCartItemCount(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId){
+		UserDetails details = UserUtils.getCurrentUser();
+		String useremail = null;
+		if(null != details){
+			useremail = details.getUsername();
+		}
+		return orderService.getCartItemCount(trackingId, useremail);
+	}
+	
 	@RequestMapping("/fragment/sp/shoppingcart")
-	public String shoppingcatFragment(Model model, @CookieValue(defaultValue="", required=false, value="trackingId")String trackingId){
+	public String shoppingcatFragment(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId){
 		UserDetails details = UserUtils.getCurrentUser();
 		
 		String useremail = null;
@@ -62,7 +75,7 @@ public class ShoppinController {
 	}
 	
 	@RequestMapping("/fragment/sp/shoppingcart/modify")
-	public String modifyCart(Model model, @CookieValue(defaultValue="", required=false, value="trackingId")String trackingId, @RequestParam("itemId")String itemId, @RequestParam("changes")String changes){
+	public String modifyCart(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId, @RequestParam("itemId")String itemId, @RequestParam("changes")String changes){
 		UserDetails details = UserUtils.getCurrentUser();
 		
 		String useremail = null;
@@ -78,7 +91,7 @@ public class ShoppinController {
 	@RequestMapping("/sp/shoppingcart/add")
 	public String addToCart(@RequestParam("productName") String productName, @RequestParam("productOpts") String options, 
 							@RequestParam("productAmount") int amount, Model model, 
-							@CookieValue(defaultValue="", required=false, value="trackingId")String trackingId,
+							@CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId,
 							@SessionAttribute("defaultCurrency")Currency currency){
 		
 		logger.info("add to cart productName={}, options={}, amount={}", new Object[]{productName, options, amount});

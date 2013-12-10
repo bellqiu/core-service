@@ -43,7 +43,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/resources/**" />
-			<bean class="com.honeybuy.shop.web.interceptor.SiteDataInterceptor"></bean>
+			<bean class="com.honeybuy.shop.web.interceptor.BootstrapDataInterceptor"></bean>
 		</mvc:interceptor>
 
 		<mvc:interceptor>

@@ -64,8 +64,19 @@
 			
 			shopping.modifyCart = function(itemId, changes, bindItem){
 				$(bindItem).click(function(){
+					
 					$(".shopping_cart_container").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
 					$(".shopping_cart_container").load("/fragment/sp/shoppingcart/modify?itemId="+itemId+"&changes="+changes, function(){
+						$.ajax({
+							url : "/sp/shoppingcart/itemCount",
+							complete : function(response){
+								var count = parseInt(response.responseText);
+								if(count){
+									$("#ShoppingDockedbarCount").html("Cart("+count+")");
+								}
+							}
+							
+						});
 						$(".shopping_cart_container").unmask();
 						shopping.initCardEvent();
 					});

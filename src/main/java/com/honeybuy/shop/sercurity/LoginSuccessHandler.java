@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 
 import com.hb.core.service.OrderService;
 import com.hb.core.shared.dto.OrderDetailDTO;
+import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.UserUtils;
 
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
@@ -32,7 +33,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		
 		if(null != cookies){
 			for (Cookie cookie : cookies) {
-				if("trackingId".equals(cookie.getName())){
+				if(Constants.TRACKING_COOKE_ID_NAME.equals(cookie.getName())){
 					trackingId = cookie.getValue();
 				}
 			}

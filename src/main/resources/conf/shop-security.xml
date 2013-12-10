@@ -16,14 +16,13 @@
 		<security:intercept-url pattern="/admin/**" access="ADMIN" />
 		
 		<security:http-basic/> 
-		
 		<security:form-login login-page="/ac/login" 
 							 default-target-url="/home" 
 							 login-processing-url="/hb_login" 
 							 username-parameter="username"
 							 password-parameter="password" authentication-success-handler-ref="loginSuccessHandler" /> 
 		
-		<security:remember-me  />
+		<security:remember-me authentication-success-handler-ref="loginSuccessHandler" token-validity-seconds="604800" />
 		
 		
 		<security:logout logout-success-url="/home" logout-url="/logout" delete-cookies="JSESSIONID" />

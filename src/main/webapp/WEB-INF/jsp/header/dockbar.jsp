@@ -55,7 +55,7 @@
 			</li>
 			<li class=""><a href="/sp/shoppingcart/list"
 				class="btn-group btn open"><span
-					class="glyphicon glyphicon-shopping-cart"></span><span>Cart(0)</span></a></li>
+					class="glyphicon glyphicon-shopping-cart"></span><span id="ShoppingDockedbarCount">Cart(${cartItemCount })</span></a></li>
 		</ul>
 	</div>
 </div>

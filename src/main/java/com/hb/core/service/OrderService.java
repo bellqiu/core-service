@@ -184,6 +184,19 @@ public class OrderService {
 		return orderDetailConverter.convert(order);
 	}
 	
+	
+	public int getCartItemCount(String trackingId, String userEmail){
+		Order order = getCartOnShoppingOrder(trackingId, userEmail);
+		int count = 0;
+		if(null != order){
+			for (OrderItem item : order.getItems()) {
+				count = count + item.getQuantity();
+			}
+		}
+		
+		return count;
+	}
+	
 	private Order getCartOnShoppingOrder(String trackingId, String userEmail){
 		List<Order> orders = null;
 		
