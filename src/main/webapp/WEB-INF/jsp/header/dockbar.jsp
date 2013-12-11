@@ -50,7 +50,7 @@
 				</c:if>
 				<c:if test="${empty currentUser }">
 					<a href="/ac/login" class="btn"><span
-					class="glyphicon glyphicon-user"></span><span>Login</span></a>
+					class="glyphicon glyphicon-user"></span><span>Sign In/ Sign Up</span></a>
 				</c:if>
 			</li>
 			<li class=""><a href="/sp/shoppingcart/list"
