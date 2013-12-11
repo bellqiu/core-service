@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <script src="/resources/js/ForgotPasswordPageMain.js" type="text/javascript"></script>
-<div class="container bodyContent">
+<div class="container mainContainer">
 	    <ul id="signUpOrLoginTab" class="nav nav-tabs">
 		    <li class="active">
 		    	<a href="#login">Sign In</a>

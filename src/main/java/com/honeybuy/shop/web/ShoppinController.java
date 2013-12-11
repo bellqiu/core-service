@@ -105,15 +105,23 @@ public class ShoppinController {
 	}
 	
 	@Secured("USER")
-	@RequestMapping("/sp/payment/address/{orderId}")
-	public String finishOrderInfo(@PathVariable("orderId") long orderId, Model model){
-		
-		OrderDetailDTO orderDetailDTO = orderService.getOrderDetailById(orderId);
+	@RequestMapping("/sp/payment/address")
+	public String finishOrderInfo(@RequestParam(value="orderId", required=false, defaultValue="0") long orderId, Model model){
 		
 		UserDetails details = UserUtils.getCurrentUser();
 		String useremail = null;
 		if(null != details){
 			useremail = details.getUsername();
+		}
+		
+		
+		OrderDetailDTO orderDetailDTO  = null;
+		
+	
+		if(orderId > 0){
+			orderDetailDTO = orderService.getOrderDetailById(orderId);
+		}else{
+			orderDetailDTO = orderService.getCart(null, useremail);
 		}
 		
 		if(null != orderDetailDTO && useremail.equals(orderDetailDTO.getUseremail())){
