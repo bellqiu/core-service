@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script src="/resources/js/ShoppingcartPageMain.js" type="text/javascript"></script>
 <div class="container mainContainer">
 	<div class="row">
 		<ol class="breadcrumb">
@@ -16,3 +15,4 @@
 	</div>
 	
 </div>
+<script src="/resources/js/ShoppingcartPageMain.js" type="text/javascript"></script>

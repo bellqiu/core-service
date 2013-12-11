@@ -118,7 +118,7 @@
 		maxElementsOnDisk="99999" />
 		
 	<cache name="cartItemCount" eternal="false"
-		timeToLiveSeconds="30" maxElementsInMemory="10000"
+		timeToLiveSeconds="10" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 </ehcache>

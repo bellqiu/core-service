@@ -1,24 +1,19 @@
 package com.hb.core.test;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.hb.core.entity.Order;
-import com.hb.core.entity.OrderItem;
-import com.hb.core.entity.Product;
-import com.hb.core.entity.SelectedOpts;
-import com.hb.core.entity.User;
 import com.hb.core.service.OrderService;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:applicationContext-test.xml"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration({"classpath:applicationContext-test.xml"})
 public class TestJPA {
 	
 	@Autowired
@@ -55,6 +50,23 @@ public class TestJPA {
 		orderService.saveOrUpdate(order);
 	}
 	*/
+	
+	private static String hmacSHA256(String data, String key) throws Exception {
+	    SecretKeySpec secretKey = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
+	    Mac mac = Mac.getInstance("HmacSHA256");
+	    mac.init(secretKey);
+	    byte[] hmacData = mac.doFinal(data.getBytes("UTF-8"));
+	    return new String(Base64.encodeBase64URLSafe(hmacData), "UTF-8");
+	}
+	
+	public static String encode(String key, String data) throws Exception {
+		  Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+		  SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(), "HmacSHA256");
+		  sha256_HMAC.init(secret_key);
+
+		  return Hex.encodeHexString(sha256_HMAC.doFinal(data.getBytes()));
+		}
+
 	
 	
 }

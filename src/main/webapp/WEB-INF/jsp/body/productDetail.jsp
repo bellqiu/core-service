@@ -7,7 +7,6 @@
 var productName = "${currentProductDetail.name}";
 var productOpts = "${currentProductOptions}";
 </script>
-<script src="/resources/js/ProductPageMain.js" type="text/javascript"></script>
 <div class="container mainContainer">
 	<ol class="breadcrumb margin0 whiteBackground">
 		<c:forEach items="${currentProductDetail.categories}"
@@ -210,6 +209,9 @@ var productOpts = "${currentProductOptions}";
 			</ul>
 		</c:forEach>
 	</div>
+
+<script src="/resources/js/ProductPageMain.js" type="text/javascript"></script>	
+	
 	<div class="row">
 		<h2>Details:</h2>
 		<ul id="productHTMLs" class="nav nav-tabs">
