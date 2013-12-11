@@ -60,6 +60,9 @@ var productOpts = "${currentProductOptions}";
 		<div class="col-md-5 col-xs-5 padding10">
 			<div class="row ">
 				<div class="col-md-12 col-xs-12">
+					<span class="gray">Product Id: 
+						0000${currentProductDetail.id}
+					</span>
 					<h1>${currentProductDetail.title}</h1>
 				</div>
 				<div class="col-md-12 col-xs-12 padding10">

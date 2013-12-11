@@ -96,6 +96,10 @@ input[type=password] {
 	float: left;
 }
 
+.gray{
+	color: gray;	
+}
+
 .dockbar-menu li .btn span.glyphicon {
 	margin: 2px;
 }

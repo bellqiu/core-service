@@ -67,6 +67,8 @@ public class TestJPA {
 		  return Hex.encodeHexString(sha256_HMAC.doFinal(data.getBytes()));
 		}
 
-	
+		public static void main(String[] args) {
+			System.out.println(Integer.valueOf("000000031"));
+		}
 	
 }
