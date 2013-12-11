@@ -7,12 +7,23 @@
 <c:if test="${(not empty currentOrder)&& (fn:length(currentOrder.items) > 0)}">
 <div class="panel panel-default">
 
-	<div class="panel-heading">Shopping cart details</div>
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-xs-7">
+				Cart Items
+			</div>
+			<div class="col-xs-5">
+				<div class="col-xs-6"></div>
+				<div class="col-xs-3"></div>
+				<div class="col-xs-3"></div>
+			</div>
+		</div>
+	</div>
 	<div class="panel-body">
 	
 	<c:forEach items="${currentOrder.items }" var="item">
 		<div class="row order-item">
-			<div class="col-xs-8">
+			<div class="col-xs-7">
 				<div class="row">
 					<div class="col-xs-3 order-item-img-col" >
 						<a title="${item.productSummary.title }" href="${site.domain}/${item.productSummary.name}"><img alt="${item.productSummary.title }" src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${item.productSummary.imageURL}"></a>
@@ -31,19 +42,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-5">
 				<div class="row">
-					<div class="col-xs-4 order-item-price-col">
+					<div class="col-xs-6 order-item-price-col">
 						<span class="price">
-							<hb:printPrice price="${item.quantity *  item.finalPrice}"/>
+							<hb:printPrice price="${item.finalPrice}"/> x ${item.quantity }
 						</span>
 					</div>
-					<div class="col-xs-4 order-item-control-col">
+					<div class="col-xs-3 order-item-control-col">
                             <a href="javascript:void(0);" class="decrement OrderItemDecrement" data-orderItemId="${item.id}">-</a>
                             <input type="text" class="quantity-text OrderItemEnter" value="${item.quantity}" size="3" data-orderItemId="${item.id}">
                             <a href="javascript:void(0);" class="increment OrderItemIncrement" data-orderItemId="${item.id}">+</a>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-3">
 						<a href="javascript:void(0);" class="removeItemFromOrder" data-orderItemId="${item.id}">Remove</a>
 					</div>
 				</div>
@@ -81,7 +92,7 @@
 						<a href="/home" class="btn btn-default">Continue Shopping</a> 
 					</div>
 					<div class="col-xs-8  padding10">
-						<a href="#" class="btn btn-danger float_right">Process to Checkout</a> 
+						<a href="/sp/payment/address/${currentOrder.id}" class="btn btn-danger float_right">Process to Checkout</a> 
 					</div>
 				</div>
 			</div>

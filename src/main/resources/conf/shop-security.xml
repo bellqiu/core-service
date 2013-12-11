@@ -14,13 +14,14 @@
 	<security:http access-decision-manager-ref="accessDecisionManager">
 		<security:intercept-url pattern="/od/**" access="USER" />
 		<security:intercept-url pattern="/admin/**" access="ADMIN" />
+		<security:intercept-url pattern="/sp/payment/**" access="USER" />
 		
 		<security:http-basic/> 
 		<security:form-login login-page="/ac/login" 
 							 default-target-url="/home" 
 							 login-processing-url="/hb_login" 
 							 username-parameter="username"
-							 password-parameter="password" authentication-success-handler-ref="loginSuccessHandler" /> 
+							 password-parameter="password" authentication-success-handler-ref="loginSuccessHandler" always-use-default-target="false" /> 
 		
 		<security:remember-me authentication-success-handler-ref="loginSuccessHandler" token-validity-seconds="604800" />
 		

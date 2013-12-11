@@ -7,6 +7,7 @@ package com.honeybuy.shop.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,17 +104,32 @@ public class ShoppinController {
 		return "redirect:/sp/shoppingcart/list";
 	}
 	
-	@RequestMapping("/sp/shoppingcart/address/{orderId}")
+	@Secured("USER")
+	@RequestMapping("/sp/payment/address/{orderId}")
 	public String finishOrderInfo(@PathVariable("orderId") long orderId, Model model){
+		
+		OrderDetailDTO orderDetailDTO = orderService.getOrderDetailById(orderId);
+		
+		UserDetails details = UserUtils.getCurrentUser();
+		String useremail = null;
+		if(null != details){
+			useremail = details.getUsername();
+		}
+		
+		if(null != orderDetailDTO && useremail.equals(orderDetailDTO.getUseremail())){
+			model.addAttribute("currentOrder", orderDetailDTO);
+		}
+		
 		return "shoppingcatAddress";
 	}
 	
-	@RequestMapping("/sp/shoppingcart/checkout/{orderId}")
+	
+	@RequestMapping("/sp/payment/checkout/{orderId}")
 	public String cartToCheckout(@PathVariable("orderId") long orderId, Model model){
 		return "redirect:/sp/shoppingcart/payment/"+orderId;
 	}
 	
-	@RequestMapping("/sp/shoppingcart/payment/{orderId}")
+	@RequestMapping("/sp/payment/payment/{orderId}")
 	public String cartToPay(@PathVariable("orderId") long orderId, Model model){
 		return "shoppingcatPayment";
 	}

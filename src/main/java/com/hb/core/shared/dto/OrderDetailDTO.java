@@ -17,6 +17,8 @@ public class OrderDetailDTO implements Serializable{
 	
 	private String orderSN;
 	
+	private String useremail;
+	
 	private String shippingAddress;
 	private String billingAddress;
 	
@@ -166,6 +168,14 @@ public class OrderDetailDTO implements Serializable{
 		price = price + deliveryPrice -couponCutOff;
 		
 		return price;
+	}
+
+	public String getUseremail() {
+		return useremail;
+	}
+
+	public void setUseremail(String useremail) {
+		this.useremail = useremail;
 	}
 	
 }

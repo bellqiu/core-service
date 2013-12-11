@@ -11,6 +11,7 @@ import com.hb.core.entity.Order;
 import com.hb.core.entity.OrderItem;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.SelectedOpts;
+import com.hb.core.entity.User;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.shared.dto.OrderItemDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
@@ -44,6 +45,11 @@ public class OrderDetailConverter implements
 		detailDTO.setSourceId(order.getSourceId());
 		detailDTO.setTraceInfo(order.getTraceInfo());
 		detailDTO.setTrackingId(order.getTrackingId());
+		
+		User user = order.getUser();
+		if(user != null) {
+			detailDTO.setUseremail(user.getEmail());
+		}
 		
 		List<OrderItemDTO> items = new ArrayList<OrderItemDTO>();
 		List<OrderItem> orderItems = order.getItems();
