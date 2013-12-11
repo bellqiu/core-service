@@ -40,8 +40,6 @@ Ext.define('AM.view.coupon.CouponManager', {
 						margin : 5,
 						fieldLabel : 'Code',
 						name : 'code',
-						regex : /^\w+$/,
-						regexText : 'Only for characters',
 						width : 250
 
 					}, {

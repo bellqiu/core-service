@@ -41,8 +41,6 @@ Ext.define('AM.view.user.UserManager', {
 						margin : 5,
 						fieldLabel : 'Email',
 						name : 'email',
-						regex : /^\w+$/,
-						regexText : 'Only for characters',
 						width : 250
 
 					}, {

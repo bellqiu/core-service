@@ -53,8 +53,6 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						margin : 5,
 						fieldLabel : 'Name',
 						name : 'name',
-						regex : /^\w+$/,
-						regexText : 'Only for characters',
 						width : 350
 
 					}, {

@@ -41,8 +41,6 @@ Ext.define('AM.view.setting.Manager', {
 						margin : 5,
 						fieldLabel : 'Name',
 						name : 'name',
-						regex : /^\w+$/,
-						regexText : 'Only for characters',
 						width : 250
 
 					}, {

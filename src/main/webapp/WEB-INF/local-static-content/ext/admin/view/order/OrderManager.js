@@ -41,8 +41,6 @@ Ext.define('AM.view.order.OrderManager', {
 						margin : 5,
 						fieldLabel : 'OrderSN',
 						name : 'orderSN',
-						regex : /^\w+$/,
-						regexText : 'Only for characters',
 						width : 250
 					}, {
 						margin : 5,
