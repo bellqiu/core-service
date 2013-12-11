@@ -80,7 +80,7 @@ Ext.define('AM.view.product.Edit', {
 					layout : 'anchor',
 					defaultType : 'textfield',
 					items : [ {
-						fieldLabel : 'Name',
+						fieldLabel : 'URL',
 						allowBlank : false,
 						name : 'name',
 						anchor : '90%'

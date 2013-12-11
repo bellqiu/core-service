@@ -42,7 +42,7 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					scroll : true,
 					margin : '10',
 					padding : 5,
-					height : 180,
+					height : 200,
 					title : 'Product Summary filters',
 					layout : {
 						type : 'table',
@@ -51,7 +51,14 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					defaultType : 'textfield',
 					items : [ {
 						margin : 5,
-						fieldLabel : 'Name',
+						fieldLabel : 'ID',
+						name : 'id',
+						regex : /^\d+$/,
+						regexText : 'Only for number',
+						width : 350
+					}, {
+						margin : 5,
+						fieldLabel : 'URL',
 						name : 'name',
 						width : 350
 
@@ -147,7 +154,7 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					selType : 'cellmodel'
 				},
 				columns : [ {
-					text : "Name",
+					text : "URL",
 					dataIndex : "name",
 					flex : 1,
 					editor : {

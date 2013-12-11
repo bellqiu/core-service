@@ -130,24 +130,28 @@ public class ProductService {
 		}
 		if(!filters.isEmpty()){
 			ql.append(" where ");
-			Iterator<String> item = filters.keySet().iterator();
-			while(item.hasNext()){
-				String param = item.next();
-				if ("price".equalsIgnoreCase(param)
-						|| "actualPrice".equalsIgnoreCase(param)) {
-					ql.append(param +" = :" + param + " ");
-				} else if("active".equalsIgnoreCase(param)) {
-					boolean active = Boolean.valueOf(filters.get(param));
-					if(active) {
-						ql.append("status = :status ");
-					} else {
-						ql.append("status != :status ");
+			if(filters.containsKey("id")) {
+				ql.append("id = :id ");
+			} else {
+				Iterator<String> item = filters.keySet().iterator();
+				while(item.hasNext()){
+					String param = item.next();
+					if ("price".equalsIgnoreCase(param)
+							|| "actualPrice".equalsIgnoreCase(param)) {
+						ql.append(param +" = :" + param + " ");
+					} else if("active".equalsIgnoreCase(param)) {
+						boolean active = Boolean.valueOf(filters.get(param));
+						if(active) {
+							ql.append("status = :status ");
+						} else {
+							ql.append("status != :status ");
+						}
+					} else{
+						ql.append(param +" like :"+param +" ");
 					}
-				} else{
-					ql.append(param +" like :"+param +" ");
-				}
-				if(item.hasNext()){
-					ql.append(" and ");
+					if(item.hasNext()){
+						ql.append(" and ");
+					}
 				}
 			}
 		}
@@ -162,18 +166,29 @@ public class ProductService {
 		
 		query.setFirstResult(start);
 		query.setMaxResults(max);
-		for (Map.Entry<String, String> paramEntry : filters.entrySet()) {
-			String key = paramEntry.getKey();
-			if ("price".equalsIgnoreCase(key)
-					|| "actualPrice".equalsIgnoreCase(key)) {
-				query.setParameter(key, Double.valueOf(paramEntry.getValue()));
-				count.setParameter(key, Double.valueOf((paramEntry.getValue())));
-			} else if("active".equalsIgnoreCase(key)) {
-				query.setParameter("status", Component.Status.ACTIVE);
-				count.setParameter("status", Component.Status.ACTIVE);
-			} else {
-				query.setParameter(key, "%" + paramEntry.getValue() + "%");
-				count.setParameter(key, "%" + paramEntry.getValue() + "%");
+		if(filters.containsKey("id")) {
+			String idString = filters.get("id");
+			long idNumber = 0;
+			try {
+				idNumber= Long.valueOf(idString);
+			} catch(NumberFormatException e) {
+			}
+			query.setParameter("id", idNumber);
+			count.setParameter("id", idNumber);
+		} else {
+			for (Map.Entry<String, String> paramEntry : filters.entrySet()) {
+				String key = paramEntry.getKey();
+				if ("price".equalsIgnoreCase(key)
+						|| "actualPrice".equalsIgnoreCase(key)) {
+					query.setParameter(key, Double.valueOf(paramEntry.getValue()));
+					count.setParameter(key, Double.valueOf((paramEntry.getValue())));
+				} else if("active".equalsIgnoreCase(key)) {
+					query.setParameter("status", Component.Status.ACTIVE);
+					count.setParameter("status", Component.Status.ACTIVE);
+				} else {
+					query.setParameter(key, "%" + paramEntry.getValue() + "%");
+					count.setParameter(key, "%" + paramEntry.getValue() + "%");
+				}
 			}
 		}
 		int totalCount = count.getSingleResult().intValue();

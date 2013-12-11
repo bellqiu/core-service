@@ -50,6 +50,15 @@ Ext.define('AM.controller.ProductSummary', {
 			filters = btn.up('form#searchProductSummaryForm').getForm().getValues();
 			var filterObj = [];
 			var filtered = false;
+			
+			if (filters.id.length > 0) {
+				filterObj.push({
+					property : 'id',
+					value : filters.id
+				});
+				filtered = true;
+			}
+			
 			if (filters.name.length > 0) {
 				filterObj.push({
 					property : 'name',
