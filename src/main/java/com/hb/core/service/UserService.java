@@ -179,4 +179,13 @@ public class UserService {
 		User user = getUserById(id);
 		return userConverter.convert(user);
 	}
+
+	public UserDTO forgotPassword(String username) {
+		// TODO send email
+		if("R1@hb.com".equalsIgnoreCase(username)) {
+			return new UserDTO();
+		} else {
+			return null;
+		}
+	}
 }

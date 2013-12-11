@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<script src="/resources/js/ForgotPasswordPageMain.js" type="text/javascript"></script>
 <div class="container bodyContent">
 	    <ul id="signUpOrLoginTab" class="nav nav-tabs">
 		    <li class="active">
@@ -31,6 +32,9 @@
 							<label>
 								<input name='_spring_security_remember_me' type="checkbox"> Keep me signed in
 							</label>
+						</div>
+						<div>
+							<a href="" id="forgot_password" data-toggle="modal" data-target="#forgotPaswordModal">Forgot Password</a>
 						</div>
 						</div>
 					</div>
@@ -110,6 +114,39 @@
                     </div>
 				</form>
 			</div>
+			
+			<div>
+							
+							<div class="modal fade" id="forgotPaswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+  							<div class="modal-dialog">
+    						<div class="modal-content">
+      							<div class="modal-header">
+        							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        							<h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
+      							</div>
+      							<div class="modal-body">
+      							<form id="forgotpasswordform" role="form">
+  								<div class="form-group">
+    								<label for="forgotEmail">Enter your email:</label>
+    								<input type="email" class="form-control" id="forgotEmail" placeholder="Enter email">
+    								<p class="help-block" id="forgotblock"></p>
+  								</div>
+  								</form>
+        							<!-- <p>Enter your email:</p>
+        							<p><input type="email" class="form-control" id="forgotEmail" required/></p> -->
+      							</div>
+     							<div class="modal-footer">
+     							<div class="form-group">
+        							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        							<button type="button" id="sendEmail" class="btn btn-primary">Send</button>
+        						</div>
+      							</div>
+    					</div><!-- /.modal-content -->
+  						</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+
+						</div>
+						
 	    	<div id="signUp" class="col-sm-12 col-md-12 tab-pane fade">
 	    	<legend>To obtain a HoneyStore account</legend>
 	    	<form action='/ac/newAccount' method='POST' class="form-horizontal">

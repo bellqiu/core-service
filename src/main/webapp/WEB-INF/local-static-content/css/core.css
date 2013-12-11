@@ -583,11 +583,16 @@ input[type=password] {
 }
 
 .productThumbnail {
-	height: 353px;
+	height: 320px;
 }
 
 .red{
 	color: red;
+}
+
+.category-product-img {
+	height: 235px;
+	width: 235px;
 }
 /******************************Loading mask ******************************************/
 

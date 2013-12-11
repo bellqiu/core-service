@@ -54,10 +54,10 @@
 					
 					<div class="row">
 						<c:forEach items="${productSummary }" var="item">
-							<div class="col-xs-4 productThumbnail">
-								<div class="thumbnail">
+							<div class="col-xs-4">
+								<div class="thumbnail productThumbnail">
 								<a href="${site.domain}/${item.name }" title="${item.title }">
-      							<img src="${site.resourceServer}/rs/img/${item.imageURL }" alt="${item.title }">
+      							<img src="${site.resourceServer}/rs/img/${item.imageURL }" alt="${item.title }" class="category-product-img">
 								</a>
       							<div class="caption">
         						<!-- <h3>Thumbnail label</h3> -->

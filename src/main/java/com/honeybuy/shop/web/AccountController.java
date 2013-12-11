@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.UserDTO;
@@ -45,6 +46,19 @@ public class AccountController {
 		model.addAttribute("createdUser", user);
 		
 		return "loginRequired";
+	}
+	
+	@RequestMapping(value="/json/forgotpassword", method=RequestMethod.GET)
+	@ResponseBody
+	public String forgotPassword(Model model, @RequestParam("email") String username){
+		UserDTO user = userService.forgotPassword(username);
+		
+		if(user == null) {
+			return "User is not existing";
+		} else {
+			return "Email is sent. Please check it";
+			
+		}
 	}
 	
 	
