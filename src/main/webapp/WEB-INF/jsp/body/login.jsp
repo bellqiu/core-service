@@ -42,7 +42,7 @@
                         <div class="col-lg-offset-2 col-lg-10">
                         	<div class="row">
                         		<div class="col-xs-2">
-                          		  <button type="submit" class="btn btn-default">Sign in</button>
+                          		  <button type="submit" class="btn btn-danger">Sign in</button>
                           	  </div>
                           	  	<div class="col-xs-8 ">
                           	  		<!-- <button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button> --><a href="#" id="facebookLoginWithAnotherLinkId" > Login with Facebook</a>
@@ -115,37 +115,32 @@
 				</form>
 			</div>
 			
-			<div>
-							
-							<div class="modal fade" id="forgotPaswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-  							<div class="modal-dialog">
-    						<div class="modal-content">
-      							<div class="modal-header">
-        							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        							<h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
-      							</div>
-      							<div class="modal-body">
-      							<form id="forgotpasswordform" role="form">
+			<div class="modal fade" id="forgotPaswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+  				<div class="modal-dialog">
+    				<div class="modal-content">
+      					<div class="modal-header">
+        					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        					<h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
+      					</div>
+      					<div class="modal-body" id="fogot-modal-body">
+      						<form id="forgotpasswordform" role="form">
   								<div class="form-group">
     								<label for="forgotEmail">Enter your email:</label>
     								<input type="email" class="form-control" id="forgotEmail" placeholder="Enter email">
     								<p class="help-block" id="forgotblock"></p>
+    								<div id="callbackMessage"></div>
   								</div>
-  								</form>
-        							<!-- <p>Enter your email:</p>
-        							<p><input type="email" class="form-control" id="forgotEmail" required/></p> -->
-      							</div>
-     							<div class="modal-footer">
-     							<div class="form-group">
-        							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        							<button type="button" id="sendEmail" class="btn btn-primary">Send</button>
-        						</div>
-      							</div>
-    					</div><!-- /.modal-content -->
-  						</div><!-- /.modal-dialog -->
-						</div><!-- /.modal -->
-
-						</div>
+  							</form>
+      					</div>
+     					<div class="modal-footer">
+     						<div class="form-group">
+        						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        						<button type="button" id="sendEmail" data-loading-text="Processing.." class="btn btn-danger">Send</button>
+        					</div>
+      					</div>
+    				</div><!-- /.modal-content -->
+  				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 						
 	    	<div id="signUp" class="col-sm-12 col-md-12 tab-pane fade">
 	    	<legend>To obtain a HoneyStore account</legend>

@@ -4,6 +4,9 @@
  */
 package com.honeybuy.shop.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,15 +53,18 @@ public class AccountController {
 	
 	@RequestMapping(value="/json/forgotpassword", method=RequestMethod.GET)
 	@ResponseBody
-	public String forgotPassword(Model model, @RequestParam("email") String username){
+	public Map<String, String> forgotPassword(Model model, @RequestParam("email") String username){
 		UserDTO user = userService.forgotPassword(username);
 		
+		Map<String, String> messageMap = new HashMap<String, String>();
 		if(user == null) {
-			return "User is not existing";
+			messageMap.put("status", "false");
+			messageMap.put("message", "User is not existing. Please check it.");
 		} else {
-			return "Email is sent. Please check it";
-			
+			messageMap.put("status", "true");
+			messageMap.put("message", "Email with new password is sent. Please check it.");
 		}
+		return messageMap;
 	}
 	
 	

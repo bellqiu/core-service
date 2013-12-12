@@ -5,12 +5,15 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +31,9 @@ public class UserService {
 	
 	@PersistenceContext
 	private EntityManager em;
+	
+	@Autowired
+	EmailService emailService;
 	
 	@Autowired
 	private Converter<UserDTO, User> userConverter; 
@@ -182,10 +188,25 @@ public class UserService {
 
 	public UserDTO forgotPassword(String username) {
 		// TODO send email
-		if("R1@hb.com".equalsIgnoreCase(username)) {
-			return new UserDTO();
-		} else {
+		if(StringUtils.isEmpty(username)) {
 			return null;
 		}
+		User user = getUser(username);
+		if(user != null) {
+			String randomString = new String(Base64.encodeBase64URLSafe(UUID.randomUUID().toString().getBytes()));
+			final String newPassword = randomString.substring(0, 8);
+			final String email = user.getEmail(); 
+			user.setPassword(newPassword);
+			user = em.merge(user);
+			new Thread(){
+                public void run() {
+                    try{
+						emailService.sendRecoveMail(email, newPassword);
+                    } catch (Exception e){
+                    }
+                };
+            }.start();
+		}
+		return userConverter.convert(user);
 	}
 }

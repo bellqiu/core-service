@@ -4,13 +4,14 @@
 		["/resources/js/user/ForgotPassword.js"], function(forgotpassword){
 			
 			var sendEmailCallBack =  function(sendEmail){
-				console.log("callBack");
-				block=$("#forgotblock")[0];
-				/*<div class="alert alert-warning fade in">
-		        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		        <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-		      </div>*/
-				sendEmail.responseText;
+				if(sendEmail.status == "true") {
+					$("#fogot-modal-body")[0].innerHTML="<div class='alert alert-success'>" + sendEmail.message +"</div>"
+					$("#sendEmail").hide();
+					
+				} else {
+					$("#forgotblock")[0].innerHTML="<ul role='alert' class='alert alert-danger fade in'><li><strong>" + sendEmail.message + "</strong></li></ui>";
+				}
+				$("#sendEmail").button('reset');
 			};
 			
 			$("#sendEmail").click(function(){
@@ -18,18 +19,11 @@
 				if(valid) {
 					var email = $("#forgotEmail").val();
 					if(email != "") {
-						console.log("valid");
+						$(this).button('loading');
 						forgotpassword.sendemail(email, sendEmailCallBack);
 					}
 				}
 			});
-			/*$(".shopping_cart_container").load("/fragment/sp/shoppingcart", function(){
-				$(".shopping_cart_container").unmask();
-				
-				shopping.initCardEvent();
-				
-			});*/
-			
 		}
 	
 	);

@@ -686,3 +686,13 @@ input[type=password] {
 	padding: 0px 25px;	
 }
 /****************************End Order display ************************************/
+
+/******************Start bootstrap modal component ********************************/
+.modal-backdrop{
+	z-index: 1000000!important
+}
+
+.modal{
+	z-index: 10000001!important
+}
+/******************End bootstrap modal component ********************************/

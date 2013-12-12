@@ -10,8 +10,8 @@
 						dataType : "json",
 						url : "/ac/json/forgotpassword",
 						data : {email: email},
-						complete : callBack
-						
+						//complete : callBack
+						success : callBack
 					});
 				}
 			};
