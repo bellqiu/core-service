@@ -9,7 +9,8 @@
         	 <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
         </definition>
         
-        <definition name="shoppingCartMain" template="/WEB-INF/layout/orderFragmentLayout.jsp" >
+        	
+		<definition name="shoppingCartMain" template="/WEB-INF/layout/orderFragmentLayout.jsp" >
         </definition>
         
       <!-- Modules -->
@@ -18,13 +19,14 @@
 			<put-attribute name="mainHeader" value="/WEB-INF/jsp/header/main-header.jsp"></put-attribute>
 			<put-attribute name="navigator" value="/WEB-INF/jsp/header/navigator.jsp"></put-attribute>
 		</definition>
+		
 		<definition name="home.body.module" template="/WEB-INF/layout/home-content.jsp">
 			<put-attribute name="adSlider" value="/WEB-INF/jsp/body/adSlider.jsp"></put-attribute>
 			<put-attribute name="spotlight" value="/WEB-INF/jsp/body/spotlight.jsp"></put-attribute>
 			<put-attribute name="bestSelling" value="/WEB-INF/jsp/body/bestSelling.jsp"></put-attribute>
 			<put-attribute name="featuredProducts" value="/WEB-INF/jsp/body/featuredProducts.jsp"></put-attribute>
 		</definition>
-		
+        
 		<definition name="headerFooter" extends="standardLayout" >
         	  <put-attribute name="header" value="home.header.module"/>
         </definition>
@@ -51,7 +53,7 @@
         </definition>
         
          <definition name="shoppingcatAddress" extends="headerFooter" >
-        	  <put-attribute name="body" value="/WEB-INF/jsp/body/shoppingcatAddress.jsp"/>
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/shopping/shoppingcatAddress.jsp"/>
         </definition>
         
          <definition name="shoppingcatPayment" extends="headerFooter" >
@@ -74,10 +76,9 @@
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
         </definition>
         
-         <definition name="shoppingcatFragment" extends="shoppingCartMain" >
+         <definition name="shoppingcartFragment" extends="shoppingCartMain" >
          	 <put-attribute name="orderFragmentImpl" value="/WEB-INF/jsp/body/shopping/shoppingcatFragment.jsp"/>
         </definition>
-        
         
        <!-- Errors --> 
         <definition name="500" extends="headerFooter" >

@@ -19,8 +19,9 @@
 				  @import url("/resources/css/reset.css");
 				  @import url("/resources/css/smoothness/jquery-ui-1.10.3.custom.css"); 
 				  @import url("/resources/bxslider/jquery.bxslider.css");
-				  @import url("/resources/bootstrap/css/bootstrap.css");
-				  @import url("/resources/bootstrap/bootstrap-select.css");
+				  @import url("/resources/bootstrap/css/bootstrap.min.css");
+				  @import url("/resources/bootstrap/bootstrap-select.min.css");
+				   @import url("/resources/bootstrap/css/bootstrap-formhelpers.min.css");
 				  
 			<c:forEach items="${site.css }" var="css">
 		   		 @import url("/resources/${css}");
@@ -32,9 +33,10 @@
 		<script src="/resources/js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery.loadmask.min.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery.cookie.js" type="text/javascript"></script>
-		<script src="/resources/bxslider/jquery.bxslider.js" type="text/javascript"></script>
-		<script src="/resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-		<script src="/resources/bootstrap/bootstrap-select.js" type="text/javascript"></script>
+		<script src="/resources/bxslider/jquery.bxslider.min.js" type="text/javascript"></script>
+		<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="/resources/bootstrap/js/bootstrap-formhelpers.min.js" type="text/javascript"></script>
+		<script src="/resources/bootstrap/bootstrap-select.min.js" type="text/javascript"></script>
 		<script src="/resources/js/jqBootstrapValidation.js" type="text/javascript"></script>
 		<script src="/resources/js/require.js" type="text/javascript"></script>
 		
@@ -54,7 +56,6 @@
 	<div class="row">
 		<tiles:insertAttribute name="footer"/>
 	</div>
-	
 	<script type="text/javascript">
 		$(".selectpicker").selectpicker();
 		$(".wantTooltip").tooltip();

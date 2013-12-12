@@ -453,6 +453,10 @@ input[type=password] {
 	min-width: 1024px;
 }
 
+.rowContent{
+	padding: 2px 25px;
+}
+
 /**************Start Product************/
 .mainContainer {
 	margin: 0 auto 20px auto;
@@ -629,14 +633,17 @@ input[type=password] {
 .masked-hidden {
     visibility: hidden !important;
 }
+/******************************END mask ******************************************/
+
+/****************************Order display ************************************/
 .shopping_cart_container{
 	width: 976px;
 	margin: auto;
 	min-height: 100px;
 }
-/******************************END mask ******************************************/
-
-/****************************Order display ************************************/
+.emptycart{
+	height: 250px;
+}
 
 .order-item{
 	padding-bottom: 10px;

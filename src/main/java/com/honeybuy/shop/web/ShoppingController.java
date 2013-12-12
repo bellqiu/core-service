@@ -32,9 +32,9 @@ import com.honeybuy.shop.web.interceptor.SessionAttribute;
  */
 @Controller
 @RequestMapping("")
-public class ShoppinController {
+public class ShoppingController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ShoppinController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ShoppingController.class);
 	
 	@Autowired
 	private ProductServiceCacheWrapper productService;
@@ -72,7 +72,7 @@ public class ShoppinController {
 			model.addAttribute("currentOrder", detailDTO);
 		}
 		
-		return "shoppingcatFragment";
+		return "shoppingcartFragment";
 	}
 	
 	@RequestMapping("/fragment/sp/shoppingcart/modify")
