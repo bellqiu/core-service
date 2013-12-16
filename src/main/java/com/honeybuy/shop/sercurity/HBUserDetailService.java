@@ -20,6 +20,9 @@ public class HBUserDetailService implements UserDetailsService{
 		UserDTO userDTO = userService.getUserByName(username);
 		
 		if(null == userDTO){
+			/*userDTO = new UserDTO();
+			userDTO.setEmail("ANONYMOUS");
+			userDTO.getRoles().add("ANONYMOUS");*/
 			throw new UsernameNotFoundException("User cannot find by name = [" + username + "]" );
 		}
 		

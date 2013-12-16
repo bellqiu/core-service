@@ -9,6 +9,9 @@ public interface Constants {
 	public final static String TRACKING_COOKE_ID_NAME = "hb_cart_trackingId";
 	public final static String CURRENCY_COOKE_ID_NAME = "___hbCurrencyCode";
 	
+	
+	public final static String LOGINUSER_SESSION_ATTR = "currentUser";
+	
 	public static final String DEFAULT_MAIL_CHARSET = "UTF-8";
     public static final String DEFAULT_MAIL_HOST_NAME = "smtpout.secureserver.net";
     public static final String DEFAULT_MAIL_FROM_ACCOUNT = "no-reply@honeybuy.com";

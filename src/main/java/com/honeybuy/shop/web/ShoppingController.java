@@ -21,7 +21,6 @@ import com.hb.core.entity.Currency;
 import com.hb.core.service.OrderService;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.util.Constants;
-import com.honeybuy.shop.util.UserUtils;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 import com.honeybuy.shop.web.interceptor.SessionAttribute;
 
@@ -49,8 +48,7 @@ public class ShoppingController {
 	
 	@RequestMapping("/sp/shoppingcart/itemCount")
 	@ResponseBody
-	public int getCartItemCount(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId){
-		UserDetails details = UserUtils.getCurrentUser();
+	public int getCartItemCount(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId, @SessionAttribute(required=false, value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		String useremail = null;
 		if(null != details){
 			useremail = details.getUsername();
@@ -59,8 +57,7 @@ public class ShoppingController {
 	}
 	
 	@RequestMapping("/fragment/sp/shoppingcart")
-	public String shoppingcatFragment(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId){
-		UserDetails details = UserUtils.getCurrentUser();
+	public String shoppingcatFragment(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId,  @SessionAttribute(required=false, value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		
 		String useremail = null;
 		if(null != details){
@@ -76,8 +73,7 @@ public class ShoppingController {
 	}
 	
 	@RequestMapping("/fragment/sp/shoppingcart/modify")
-	public String modifyCart(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId, @RequestParam("itemId")String itemId, @RequestParam("changes")String changes){
-		UserDetails details = UserUtils.getCurrentUser();
+	public String modifyCart(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId, @RequestParam("itemId")String itemId, @RequestParam("changes")String changes,  @SessionAttribute(required=false, value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		
 		String useremail = null;
 		if(null != details){
@@ -93,11 +89,11 @@ public class ShoppingController {
 	public String addToCart(@RequestParam("productName") String productName, @RequestParam("productOpts") String options, 
 							@RequestParam("productAmount") int amount, Model model, 
 							@CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId,
-							@SessionAttribute("defaultCurrency")Currency currency){
+							@SessionAttribute("defaultCurrency")Currency currency,
+							 @SessionAttribute(required=false, value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		
 		logger.info("add to cart productName={}, options={}, amount={}", new Object[]{productName, options, amount});
 		
-		UserDetails details = UserUtils.getCurrentUser();
 		
 		orderService.add2Cart(productName, options, trackingId, details == null ? null : details.getUsername(), amount, currency.getCode());
 		
@@ -106,9 +102,9 @@ public class ShoppingController {
 	
 	@Secured("USER")
 	@RequestMapping("/sp/payment/address")
-	public String finishOrderInfo(@RequestParam(value="orderId", required=false, defaultValue="0") long orderId, Model model){
+	public String finishOrderInfo(@RequestParam(value="orderId", required=false, defaultValue="0") long orderId, Model model, 
+			 @SessionAttribute(required=false, value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		
-		UserDetails details = UserUtils.getCurrentUser();
 		String useremail = null;
 		if(null != details){
 			useremail = details.getUsername();

@@ -38,6 +38,14 @@ public class HBUserDetail implements UserDetails, CredentialsContainer {
 		}
 
 	}
+	
+	public String getDisplayName(){
+		return username.substring(0, username.indexOf('/')==-1?username.length() : username.indexOf('/'));
+	}
+	
+	public String getType(){
+		return username.substring(username.indexOf('/')==-1?username.length() : username.indexOf('/'));
+	}
 
 	@Override
 	public void eraseCredentials() {

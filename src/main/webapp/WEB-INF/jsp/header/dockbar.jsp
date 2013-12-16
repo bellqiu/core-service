@@ -33,7 +33,11 @@
 				<c:if test="${not empty currentUser }">
 					<div class="btn-group">
 						<button type="button" class="btn">
-							<span>${currentUser.username }</span><span class="glyphicon glyphicon-user"></span>
+							<span>${currentUser.displayName }
+								<c:if test="${not empty currentUser.type }">
+									(${ currentUser.type })
+								</c:if>
+							</span><span class="glyphicon glyphicon-user"></span>
 						</button>
 						<button type="button" class="btn dropdown-toggle"
 							data-toggle="dropdown">

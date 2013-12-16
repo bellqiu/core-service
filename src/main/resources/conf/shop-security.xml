@@ -7,11 +7,17 @@
 			http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	
 	
-	<security:global-method-security secured-annotations="enabled" access-decision-manager-ref="accessDecisionManager"></security:global-method-security>
+	<security:global-method-security secured-annotations="enabled" access-decision-manager-ref="accessDecisionManager" ></security:global-method-security>
 	
-  	<security:http pattern="/login.html*" security="none"/>
+  	<security:http pattern="/ac/login*" security="none"/>
+  	<security:http pattern="/favicon.ico" security="none"/>
+  	<security:http pattern="/home" security="none"/>
+  	<security:http pattern="/resources/**" security="none"/>
   	
-	<security:http access-decision-manager-ref="accessDecisionManager">
+  	
+	<security:http access-decision-manager-ref="accessDecisionManager" auto-config="true">
+		<security:anonymous/>
+		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS"/>
 		<security:intercept-url pattern="/od/**" access="USER" />
 		<security:intercept-url pattern="/admin/**" access="ADMIN" />
 		<security:intercept-url pattern="/sp/payment/**" access="USER" />
@@ -41,7 +47,9 @@
 	
 	
 	<bean id="userDetailsService" class="com.honeybuy.shop.sercurity.HBUserDetailService"></bean>
-	<bean id="loginSuccessHandler" class="com.honeybuy.shop.sercurity.LoginSuccessHandler"></bean>
+	<bean id="loginSuccessHandler" class="com.honeybuy.shop.sercurity.LoginSuccessHandler">
+		<property name="targetUrlParameter" value="target"></property>
+	</bean>
 
 	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
 		<constructor-arg>
@@ -51,7 +59,8 @@
 						<bean class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
 							<property name="hierarchy" >
 								<value>
-									ADMIN > USER
+									ADMIN > USER 
+									USER > ROLE_ANONYMOUS
 						        </value>
 							</property>
 						</bean>

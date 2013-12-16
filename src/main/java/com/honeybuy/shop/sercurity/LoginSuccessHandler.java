@@ -15,9 +15,9 @@ import org.springframework.util.StringUtils;
 import com.hb.core.service.OrderService;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.util.Constants;
-import com.honeybuy.shop.util.UserUtils;
 
-public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
+public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler implements Constants{
+	
 	
 	@Autowired
 	private OrderService orderService;
@@ -26,6 +26,13 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 	public void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
+		
+		HBUserDetail hbUserDetail = null;
+		
+		if(authentication.getPrincipal() instanceof HBUserDetail){
+			hbUserDetail = (HBUserDetail) authentication.getPrincipal();
+			request.getSession().setAttribute(LOGINUSER_SESSION_ATTR, hbUserDetail);
+		}
 		
 		String trackingId = null;
 		
@@ -38,11 +45,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 				}
 			}
 		}
-		
 		if(!StringUtils.isEmpty(trackingId)){
 			OrderDetailDTO detailDTO = orderService.getCart(trackingId, null);
 			if(null != detailDTO){
-				orderService.assign(trackingId, UserUtils.getCurrentUser().getUsername());
+				orderService.assign(trackingId, hbUserDetail.getUsername());
 			}
 		}
 		

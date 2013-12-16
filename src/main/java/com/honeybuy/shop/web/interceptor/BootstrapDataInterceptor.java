@@ -17,7 +17,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.hb.core.entity.Currency;
 import com.hb.core.util.Constants;
-import com.honeybuy.shop.util.UserUtils;
 import com.honeybuy.shop.web.cache.OrderServiceCacheWrapper;
 import com.honeybuy.shop.web.eds.SiteDirectService;
 
@@ -26,7 +25,7 @@ import com.honeybuy.shop.web.eds.SiteDirectService;
  * @author <link href="wan-shan.zhu@hp.com">Spark Zhu</link>
  * @version 1.0
  */
-public class BootstrapDataInterceptor extends HandlerInterceptorAdapter{
+public class BootstrapDataInterceptor extends HandlerInterceptorAdapter implements Constants{
 	
 	
 	@Autowired
@@ -69,7 +68,7 @@ public class BootstrapDataInterceptor extends HandlerInterceptorAdapter{
 		
 		String email = null;
 		
-		UserDetails user = UserUtils.getCurrentUser();
+		UserDetails user = (UserDetails) request.getSession().getAttribute(Constants.LOGINUSER_SESSION_ATTR);
 		
 		if(null != user){
 			email = user.getUsername();

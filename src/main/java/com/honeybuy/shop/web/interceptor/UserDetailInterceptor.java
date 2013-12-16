@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.honeybuy.shop.util.UserUtils;
+import com.hb.core.util.Constants;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class UserDetailInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		UserDetails details = UserUtils.getCurrentUser();
+		UserDetails details = (UserDetails) request.getSession().getAttribute(Constants.LOGINUSER_SESSION_ATTR);
 		if(null != details){
 			request.setAttribute("currentUser", details);
 		}
