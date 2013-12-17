@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -105,6 +106,8 @@ public class AccountController {
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response, String username, String password) throws IOException, ServletException {
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 		Authentication authentication = authenticationManager.authenticate(authenticationToken);
+		SecurityContextHolder.setContext(SecurityContextHolder.createEmptyContext());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		loginSuccessHandler.onAuthenticationSuccess(request, response, authentication);
 	}
 	
