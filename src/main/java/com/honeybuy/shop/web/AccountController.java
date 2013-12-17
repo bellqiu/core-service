@@ -44,9 +44,6 @@ public class AccountController {
 	private UserService userService;
 	
 	@Autowired
-	SavedRequestAwareAuthenticationSuccessHandler savedRequestSuccessHandler;
-	
-	@Autowired
 	LoginSuccessHandler loginSuccessHandler;
 	
 	@Autowired
@@ -75,10 +72,13 @@ public class AccountController {
 				UserDTO user = userService.newUser(username, password);
 
 				model.addAttribute("createdUser", user);
+				
+				
 		}
 		} catch(CoreServiceException e) {
-			
-			return "redirect:/ac/login#signUpTab";
+			model.addAttribute("isSignUpPage", true);
+			model.addAttribute("isSignUpFail", true);
+			return "forward:/ac/login";
 		}
 		
 		handleLogin(request, response, username, password);
@@ -106,7 +106,6 @@ public class AccountController {
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 		Authentication authentication = authenticationManager.authenticate(authenticationToken);
 		loginSuccessHandler.onAuthenticationSuccess(request, response, authentication);
-		savedRequestSuccessHandler.onAuthenticationSuccess(request, response, authentication);
 	}
 	
 	

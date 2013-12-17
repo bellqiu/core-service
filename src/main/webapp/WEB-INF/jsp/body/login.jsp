@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="/resources/js/ForgotPasswordPageMain.js" type="text/javascript"></script>
 <div class="container mainContainer">
 	    <ul id="signUpOrLoginTab" class="nav nav-tabs">
@@ -16,7 +17,15 @@
 						<label class="col-lg-2 control-label" for="loginUsername">Email</label>
 						<div class="col-lg-10">
 							<input class="form-control" name="username" type="email" id="loginUsername" placeholder="Email" required >
-							<p class="help-block"></p>
+							<p class="help-block">
+								<c:choose>
+                           		<c:when test="${not empty param.failed and param.failed}">
+                           		<p  class='alert alert-danger fade in'>
+                           			<strong>Username or password error</strong>
+                           		</p>
+                           		</c:when>
+                           		</c:choose>
+							</p>
 						</div>
 					</div>
 					<div class="form-group">
@@ -149,7 +158,15 @@
                        <label for="regUsername" class="col-lg-2 control-label">Email</label>
                        <div class="col-lg-10">
                            <input class="form-control" type="email" id="regUsername" name="regUsername" required>
-                           <p class="help-block"></p>
+                           <p class="help-block">
+                           <c:choose>
+                           	<c:when test="${isSignUpFail}">
+                           		<p class='alert alert-danger fade in'>
+                           			<strong>Email has already been registered</strong>
+                           		</p>
+                           	</c:when>
+                           </c:choose>
+                           </p>
                        </div>
                    </div>
                    <div class="form-group">
@@ -186,6 +203,9 @@
 	    </div>
 </div>
 <script type="text/javascript">
+var isSignUpPage = ${not empty isSignUpPage? true : false};
+</script>
+<script type="text/javascript">
 $(".bodyContent").ready(function(){
 	$('#signUpOrLoginTab a').click(function (e) {
 	  // e.preventDefault();
@@ -197,6 +217,9 @@ $(".bodyContent").ready(function(){
 
 $(document).ready(function(){
 	var anchor = window.location.hash;
+	if(!anchor && isSignUpPage){
+		$('#signUpOrLoginTab a[href=#signUpTab]').tab('show') 
+	}
 	$('#signUpOrLoginTab a[href="'+anchor+'"]').tab('show') 
 }); 
 

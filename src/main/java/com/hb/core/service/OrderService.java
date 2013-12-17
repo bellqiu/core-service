@@ -69,15 +69,7 @@ public class OrderService {
 		Order order = getCartOnShoppingOrder(trackingId, userEmail);
 		
 		if(null == order){
-			logger.debug("No existing Shopping cart found");
-			order = new Order();
-			order.setCreateDate(new Date());
-			//order.setOrderSN(UUID.randomUUID().toString());
-			order.setTrackingId(trackingId);
-			order.setCurrency(currencyCode);
-			if(!StringUtils.isEmpty(userEmail)){
-				order.setUser(userService.getUser(userEmail));
-			}
+			order = newCart(trackingId, userEmail, currencyCode);
 		}
 		
 		ProductChangeDTO changeDTO = productService.compupterProductChangeByOpts(productName, optParams);
@@ -140,6 +132,21 @@ public class OrderService {
 		em.flush();
 		return orderDetailConverter.convert(order);
 	
+	}
+
+	private Order newCart(String trackingId, String userEmail,
+			String currencyCode) {
+		Order order;
+		logger.debug("No existing Shopping cart found");
+		order = new Order();
+		order.setCreateDate(new Date());
+		//order.setOrderSN(UUID.randomUUID().toString());
+		order.setTrackingId(trackingId);
+		order.setCurrency(currencyCode);
+		if(!StringUtils.isEmpty(userEmail)){
+			order.setUser(userService.getUser(userEmail));
+		}
+		return order;
 	}
 	
 	public OrderDetailDTO modifyCart(String trackingId, String userEmail, String orderItemId, String changes){
@@ -300,8 +307,13 @@ public class OrderService {
 
 	public OrderDetailDTO assign(String trackingId, String username) {
 		Order userOrder  =  getCartOnShoppingOrder(trackingId, username);
+		
+		
 		if(null != trackingId && null != username){
 			Order trackingOrder = getCartOnShoppingOrder(trackingId, null);
+			if(null == userOrder && null!=trackingOrder){
+				userOrder = newCart(trackingId, username, trackingOrder.getCouponCode());
+			}
 			List<OrderItem> newOrderItem = new ArrayList<OrderItem>();
 			if(null != trackingOrder && null != userOrder){
 				
