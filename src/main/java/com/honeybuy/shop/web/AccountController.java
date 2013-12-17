@@ -4,10 +4,21 @@
  */
 package com.honeybuy.shop.web;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +26,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hb.core.exception.CoreServiceException;
 import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.UserDTO;
+import com.honeybuy.shop.sercurity.LoginSuccessHandler;
 
 /**
  * 
@@ -30,9 +43,21 @@ public class AccountController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	SavedRequestAwareAuthenticationSuccessHandler savedRequestSuccessHandler;
+	
+	@Autowired
+	LoginSuccessHandler loginSuccessHandler;
+	
+	@Autowired
+	@Qualifier("authenticationManager")
+	private AuthenticationManager authenticationManager;
+	
 	@RequestMapping("/login")
-	public String login(){
-		
+	public String login(@RequestParam(value="type", defaultValue="default", required=false) String loginType){
+		if("facebook".equalsIgnoreCase(loginType)) {
+			
+		}
 		return "loginRequired";
 	}
 	
@@ -43,12 +68,22 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="/newAccount", method=RequestMethod.POST)
-	public String newAccountPost(Model model, @RequestParam("regUsername") String username, @RequestParam("regPassword")String password){
-		UserDTO user = userService.newUser(username, password);
+	public String newAccountPost(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam("regUsername") String username, @RequestParam("regPassword")String password) throws IOException, ServletException{
+		// TODO facebook
+		try {
+			if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)) {
+				UserDTO user = userService.newUser(username, password);
+
+				model.addAttribute("createdUser", user);
+		}
+		} catch(CoreServiceException e) {
+			
+			return "redirect:/ac/login#signUpTab";
+		}
 		
-		model.addAttribute("createdUser", user);
+		handleLogin(request, response, username, password);
 		
-		return "loginRequired";
+		return null;
 	}
 	
 	@RequestMapping(value="/json/forgotpassword", method=RequestMethod.GET)
@@ -65,6 +100,13 @@ public class AccountController {
 			messageMap.put("message", "Email with new password is sent. Please check it.");
 		}
 		return messageMap;
+	}
+	
+	private void handleLogin(HttpServletRequest request, HttpServletResponse response, String username, String password) throws IOException, ServletException {
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+		Authentication authentication = authenticationManager.authenticate(authenticationToken);
+		loginSuccessHandler.onAuthenticationSuccess(request, response, authentication);
+		savedRequestSuccessHandler.onAuthenticationSuccess(request, response, authentication);
 	}
 	
 	

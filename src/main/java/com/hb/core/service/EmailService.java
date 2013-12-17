@@ -32,8 +32,8 @@ public class EmailService {
 	SettingServiceCacheWrapper settingService;
 	
 	public void sendRecoveMail(String toEmail, String newPassword) {
-		String recoverPwdTemplate = getTemplateFromDB("MAIL_RECOVER_PASSWORD_TEMPLATE");
-		String recoverSubject = settingService.getStringValue("MAIL_RECOVER_PASSWORD_SUBJECT");
+		String recoverPwdTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECOVER_PASSWORD_TEMPLATE);
+		String recoverSubject = settingService.getStringValue(Constants.SETTING_RECOVER_PASSWORD_SUBJECT);
 		if(recoverSubject == null) {
 			recoverSubject = Constants.DEFAULT_RECOVERY_MAIL_TITLE;
 		} 
@@ -48,7 +48,24 @@ public class EmailService {
 		sendMail(recoverPwdTemplate, recoverSubject, variable, toEmail);
 	}
 	
-	public String getTemplateFromDB(String htmlKey) {
+	public void sendRegisterMail(String toEmail, String password) {
+		String registerTemplate = getTemplateFromDB(Constants.HTML_MAIL_REGISTER_TEMPLATE);
+		String recoverSubject = settingService.getStringValue(Constants.SETTING_REGISTER_SUBJECT);
+		if(recoverSubject == null) {
+			recoverSubject = Constants.DEFAULT_REGISTER_MAIL_TITLE;
+		} 
+		if(registerTemplate == null) {
+			registerTemplate = Constants.DEFAULT_REGISTER_MAIL_CONTENT;
+		}
+		
+		Map<String, Object> variable = new HashMap<String, Object>();
+		variable.put("email", toEmail);
+		variable.put("password", password);
+		
+		sendMail(registerTemplate, recoverSubject, variable, toEmail);
+	}
+	
+	private String getTemplateFromDB(String htmlKey) {
 		HTML html = htmService.getHTML(htmlKey);
 		if(html != null) {
 			return html.getContent();
@@ -62,10 +79,10 @@ public class EmailService {
     	if (mailContent != null) {
     		HtmlEmail email = new HtmlEmail();
     	    try {
-    	    	String hostname = settingService.getStringValue("MAIL_HOST_NAME");
-    			String mailAccount = settingService.getStringValue("MAIL_ACCOUNT");
-    			String mailPassword = settingService.getStringValue("MAIL_PASSWORD");
-    			String mailFrom = settingService.getStringValue("MAIL_FROM");
+    	    	String hostname = settingService.getStringValue(Constants.SETTING_MAIL_HOST_NAME);
+    			String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT);
+    			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD);
+    			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM);
     			if(hostname == null) {
     				hostname = Constants.DEFAULT_MAIL_HOST_NAME;
     			}
@@ -95,7 +112,7 @@ public class EmailService {
         }
     }
 	
-	public String parseMailContent(String templeteString,
+	private String parseMailContent(String templeteString,
 			Map<String, Object> variables) {
 		try {
 			Template tpl = new Template("mail", new StringReader(templeteString), new Configuration());

@@ -3,14 +3,14 @@
 <div class="container mainContainer">
 	    <ul id="signUpOrLoginTab" class="nav nav-tabs">
 		    <li class="active">
-		    	<a href="#login">Sign In</a>
+		    	<a href="#loginTab">Sign In</a>
 		    </li>
 		    <li>
-		    	<a href="#signUp">Sign Up</a>
+		    	<a href="#signUpTab">Sign Up</a>
 		    </li>
 	    </ul>
-	    <div id="signUpOrLoginTab" class="row signUpOrLoginBody tab-content">
-	    	<div id="login" class="col-sm-12 col-md-12 tab-pane fade active in">
+	    <div id="signUpOrLoginTabCotent" class="row signUpOrLoginBody tab-content">
+	    	<div id="loginTab" class="col-sm-12 col-md-12 tab-pane fade active in">
 				<form action='/hb_login' method='POST' class="form-horizontal" role="form">
 					<div class="form-group">
 						<label class="col-lg-2 control-label" for="loginUsername">Email</label>
@@ -142,7 +142,7 @@
   				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
 						
-	    	<div id="signUp" class="col-sm-12 col-md-12 tab-pane fade">
+	    	<div id="signUpTab" class="col-sm-12 col-md-12 tab-pane fade">
 	    	<legend>To obtain a HoneyStore account</legend>
 	    	<form action='/ac/newAccount' method='POST' class="form-horizontal">
                    <div class="form-group">
@@ -163,7 +163,7 @@
                        <label for="passwordAgain" class="col-lg-2 control-label">re-Password</label>
                        <div class="col-lg-10">
                            <input class="form-control" type="password" name="passwordAgain" id="passwordAgain" minlength="8" required>
-                           <p class="help-block">Input your password again</p>
+                           <p class="help-block" id="pwdAgainBlock">Input your password again</p>
                        </div>
                    </div>
                    <div class="form-group">
@@ -178,7 +178,7 @@
                    </div>
                    <div class="form-group">
                        <div class="col-lg-offset-2 col-lg-10">
-                           <button type="submit" class="btn btn-default">Sign up</button>
+                           <button type="submit" class="btn btn-default" id="sign-up">Sign up</button>
                        </div>
                    </div>
                </form>
@@ -188,11 +188,26 @@
 <script type="text/javascript">
 $(".bodyContent").ready(function(){
 	$('#signUpOrLoginTab a').click(function (e) {
-	    e.preventDefault();
+	  // e.preventDefault();
 	    $(this).tab('show');
-	});
+	    return false;
+	}); 
 	$("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
 });
 
+$(document).ready(function(){
+	var anchor = window.location.hash;
+	$('#signUpOrLoginTab a[href="'+anchor+'"]').tab('show') 
+}); 
+
+
+$("#sign-up").click(function(){
+	var pwd = $("#regPassword").val();
+	var pwdAgain = $("#passwordAgain").val();
+	if(pwd != pwdAgain) {
+		$("#pwdAgainBlock").html("<ul role='alert' class='alert alert-danger fade in'><li><strong>These passwords don't match.</strong></li></ui>");
+		return false;
+	}
+});
 
 </script>

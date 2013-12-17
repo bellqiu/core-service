@@ -21,4 +21,14 @@ public interface Constants {
 	public static final String DEFAULT_REGISTER_MAIL_CONTENT = "Congratulations! You r the registered user of Honey-Buy!";
 	public static final String DEFAULT_RECOVERY_MAIL_TITLE = "Your account, in Honey-Buy, is recoveried!";
 	public static final String DEFAULT_RECOVERY_MAIL_CONTENT = "Congratulations! Your new password is ";
+	
+	public static final String SETTING_MAIL_HOST_NAME = "MAIL_HOST_NAME";
+	public static final String SETTING_MAIL_ACCOUNT = "MAIL_ACCOUNT";
+	public static final String SETTING_MAIL_PASSWORD = "MAIL_PASSWORD";
+	public static final String SETTING_MAIL_FROM = "MAIL_FROM";
+	public static final String SETTING_RECOVER_PASSWORD_SUBJECT = "MAIL_RECOVER_PASSWORD_SUBJECT";
+	public static final String SETTING_REGISTER_SUBJECT = "MAIL_REGISTER_SUBJECT";
+	
+	public static final String HTML_MAIL_RECOVER_PASSWORD_TEMPLATE = "MAIL_RECOVER_PASSWORD_TEMPLATE";
+	public static final String HTML_MAIL_REGISTER_TEMPLATE = "MAIL_REGISTER_TEMPLATE";
 }

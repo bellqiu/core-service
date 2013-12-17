@@ -82,6 +82,22 @@ public class UserService {
 		user.setUpdateDate(currentDate);
 		user = em.merge(user);
 		
+		/*if(user != null) {
+			String randomString = new String(Base64.encodeBase64URLSafe(UUID.randomUUID().toString().getBytes()));
+			final String newPassword = randomString.substring(0, 8);
+			final String email = user.getEmail(); 
+			user.setPassword(newPassword);
+			user = em.merge(user);
+			new Thread(){
+                public void run() {
+                    try{
+						emailService.sendRecoveMail(email, newPassword);
+                    } catch (Exception e){
+                    }
+                };
+            }.start();
+		}*/
+		
 		return userConverter.convert(user);
 	}
 	
