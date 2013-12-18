@@ -1,6 +1,9 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script src="/resources/js/ForgotPasswordPageMain.js" type="text/javascript"></script>
+<script type="text/javascript">
+var isSignUpPage = ${not empty isSignUpPage? true : false};
+var domain = '${site.domain}';
+</script>
 <div class="container mainContainer">
 	    <ul id="signUpOrLoginTab" class="nav nav-tabs">
 		    <li class="active">
@@ -56,62 +59,7 @@
                           	  	<div class="col-xs-8 ">
                           	  		<!-- <button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button> --><a href="#" id="facebookLoginWithAnotherLinkId" > Login with Facebook</a>
                           	  		<div id="fb-root"></div>
-												<script>
-												  window.fbAsyncInit = function() {
-													  FB.init({
-													    appId      : '277233412302753',
-													    status     : true, // check login status
-													    cookie     : true, // enable cookies to allow the server to access the session
-													    xfbml      : true  // parse XFBML
-													  });
-													
-													  FB.Event.subscribe('auth.authResponseChange', function(response) {
-													    if (response.status === 'connected') {
-													    }
-													  }); 
-													 
-													  
-													  $("#facebookLoginWithAnotherLinkId").click(function(){
-														  
-														  if(!FB.getAuthResponse()){	  
-															  FB.login(function(rs){
-																  	var userId = rs.authResponse.userID;
-																  	var token = rs.authResponse.accessToken;
-																  	login(userId, token);
-															  },{scope: 'email,user_about_me,user_status'});
-														  }else{
-															  FB.logout(function(response) {
-																 FB.login(function(rs){
-																	 var userId = rs.authResponse.userID;
-																	 var token = rs.authResponse.accessToken;
-																	 login(userId, token);
-																  },{scope: 'email,user_about_me,user_status'}); 
-															  });
-														  }
-													  });
-												  };
-												  
-												  function login(userID, token){
-													  console.log("userID:["+userID+"], "+"token:["+token+"]");
-													  FB.api("/"+userID+"?fields=email,username,name", function(response) { 
-															 console.log(response);
-													  });
-												  }
-												
-												  // Load the SDK asynchronously
-												  (function(d){
-												   var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-												   if (d.getElementById(id)) {return;}
-												   js = d.createElement('script'); js.id = id; js.async = true;
-												   js.src = "//connect.facebook.net/en_US/all.js";
-												   ref.parentNode.insertBefore(js, ref);
-												  }(document));
-												
-												 
-												</script>
-												
-												
-												
+										<script src="/resources/js/FacebookLogin.js" type="text/javascript"></script>
 												<!--
 												  Below we include the Login Button social plugin. This button uses the JavaScript SDK to
 												  present a graphical Login button that triggers the FB.login() function when clicked. -->
@@ -202,35 +150,5 @@
 	    	</div>
 	    </div>
 </div>
-<script type="text/javascript">
-var isSignUpPage = ${not empty isSignUpPage? true : false};
-</script>
-<script type="text/javascript">
-$(".bodyContent").ready(function(){
-	$('#signUpOrLoginTab a').click(function (e) {
-	  // e.preventDefault();
-	    $(this).tab('show');
-	    return false;
-	}); 
-	$("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
-});
-
-$(document).ready(function(){
-	var anchor = window.location.hash;
-	if(!anchor && isSignUpPage){
-		$('#signUpOrLoginTab a[href=#signUpTab]').tab('show') 
-	}
-	$('#signUpOrLoginTab a[href="'+anchor+'"]').tab('show') 
-}); 
-
-
-$("#sign-up").click(function(){
-	var pwd = $("#regPassword").val();
-	var pwdAgain = $("#passwordAgain").val();
-	if(pwd != pwdAgain) {
-		$("#pwdAgainBlock").html("<ul role='alert' class='alert alert-danger fade in'><li><strong>These passwords don't match.</strong></li></ui>");
-		return false;
-	}
-});
-
-</script>
+<script src="/resources/js/ForgotPasswordPageMain.js" type="text/javascript"></script>
+<script src="/resources/js/LoginMain.js" type="text/javascript"></script>

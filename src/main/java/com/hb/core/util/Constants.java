@@ -12,6 +12,7 @@ public interface Constants {
 	
 	public final static String LOGINUSER_SESSION_ATTR = "currentUser";
 	
+	
 	public static final String DEFAULT_MAIL_CHARSET = "UTF-8";
     public static final String DEFAULT_MAIL_HOST_NAME = "smtpout.secureserver.net";
     public static final String DEFAULT_MAIL_FROM_ACCOUNT = "no-reply@honeybuy.com";
@@ -31,4 +32,13 @@ public interface Constants {
 	
 	public static final String HTML_MAIL_RECOVER_PASSWORD_TEMPLATE = "MAIL_RECOVER_PASSWORD_TEMPLATE";
 	public static final String HTML_MAIL_REGISTER_TEMPLATE = "MAIL_REGISTER_TEMPLATE";
+	
+	public static final String FACEBOOK_TYPE = "facebook";
+	public static final String FACEBOOK_VALIDAT_URL_PREFIX = "https://graph.facebook.com/100002077999840?method=get&pretty=0&sdk=joey";
+	public static final String SETTING_FACEBOOK_API_KEY = "FACEBOOK_API_KEY";
+	public static final String SETTING_FACEBOOK_SECRET_KEY = "FACEBOOK_SECRET_KEY";
+	public static final String DEFAULT_FACEBOOK_API_KEY = "277233412302753";
+	public static final String DEFAULT_FACEBOOK_SECRET_KEY = "92efa5dd2807209cb37b375777b21eaf";
+	
+	
 }

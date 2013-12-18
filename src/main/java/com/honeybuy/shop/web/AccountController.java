@@ -5,6 +5,9 @@
 package com.honeybuy.shop.web;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +22,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +29,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.UserDTO;
+import com.hb.core.util.Constants;
 import com.honeybuy.shop.sercurity.LoginSuccessHandler;
+import com.honeybuy.shop.util.EncodingUtils;
+import com.honeybuy.shop.util.JsonUtil;
+import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 
 /**
  * 
@@ -45,6 +53,9 @@ public class AccountController {
 	private UserService userService;
 	
 	@Autowired
+	SettingServiceCacheWrapper settingService;
+	
+	@Autowired
 	LoginSuccessHandler loginSuccessHandler;
 	
 	@Autowired
@@ -52,9 +63,29 @@ public class AccountController {
 	private AuthenticationManager authenticationManager;
 	
 	@RequestMapping("/login")
-	public String login(@RequestParam(value="type", defaultValue="default", required=false) String loginType){
-		if("facebook".equalsIgnoreCase(loginType)) {
-			
+	public String login(
+			Model model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="userId", required=false) String userId,
+			@RequestParam(value="token", required=false) String token,
+			@RequestParam(value="type", defaultValue="default", required=false) String loginType){
+		if(Constants.FACEBOOK_TYPE.equalsIgnoreCase(loginType)) {
+			if (!StringUtils.isEmpty(userId) && !StringUtils.isEmpty(token)) {
+				try {
+					String secretKey = settingService.getStringValue(Constants.SETTING_FACEBOOK_SECRET_KEY, Constants.DEFAULT_FACEBOOK_SECRET_KEY);
+					String secretProof = EncodingUtils.hmac256(secretKey, token);  
+					URL url = new URL(Constants.FACEBOOK_VALIDAT_URL_PREFIX + "&access_token=" + token + "&appsecret_proof=" + secretProof);
+					Object value = JsonUtil.getJsonFromURL(url);
+					if(value instanceof Map) {
+						Map<?,?> valueMap = (Map<?,?>) value;
+						String email = (String)valueMap.get("email");
+						UserDTO userDTO = userService.newThirdPartyUserIfNotExisting(email, Constants.FACEBOOK_TYPE);
+						handleLogin(request, response, userDTO.getEmail(), userDTO.getPassword());
+						return null;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return "loginRequired";
 	}
@@ -67,23 +98,17 @@ public class AccountController {
 	
 	@RequestMapping(value="/newAccount", method=RequestMethod.POST)
 	public String newAccountPost(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam("regUsername") String username, @RequestParam("regPassword")String password) throws IOException, ServletException{
-		// TODO facebook
 		try {
 			if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)) {
 				UserDTO user = userService.newUser(username, password);
-
 				model.addAttribute("createdUser", user);
-				
-				
-		}
+			}
 		} catch(CoreServiceException e) {
 			model.addAttribute("isSignUpPage", true);
 			model.addAttribute("isSignUpFail", true);
 			return "forward:/ac/login";
 		}
-		
 		handleLogin(request, response, username, password);
-		
 		return null;
 	}
 	

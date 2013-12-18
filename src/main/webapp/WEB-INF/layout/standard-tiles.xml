@@ -94,8 +94,8 @@
         </definition>
         
         
-        <!-- TODO <definition name="userprofile" extends="headerFooter" >
-        	  <put-attribute name="body" value="/WEB-INF/jsp/body/user.jsp"/>
+        <!-- <definition name="userprofile" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/userProfile.jsp"/>
         </definition> -->
         
         <definition name="accessDenied" extends="headerFooter" >

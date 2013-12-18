@@ -44,7 +44,7 @@ public class HBUserDetail implements UserDetails, CredentialsContainer {
 	}
 	
 	public String getType(){
-		return username.substring(username.indexOf('/')==-1?username.length() : username.indexOf('/'));
+		return username.substring(username.indexOf('/')==-1?username.length() : username.indexOf('/') + 1);
 	}
 
 	@Override

@@ -18,9 +18,11 @@
 			  
 			  if(!FB.getAuthResponse()){	  
 				  FB.login(function(rs){
+					  if(rs.authResponse) {
 					  	var userId = rs.authResponse.userID;
 					  	var token = rs.authResponse.accessToken;
 					  	login(userId, token);
+				  }
 				  },{scope: 'email,user_about_me,user_status'});
 			  }else{
 				  FB.logout(function(response) {
@@ -40,7 +42,7 @@
 				 console.log(response);
 				 console.log(domain);
 				 // TODO redirect to local login with facebook id and tooken
-				 //window.location.href=domain + "/ac/login?type=facebook&userId=" + userID + "&token=" + token;  
+				 window.location.href=domain + "/ac/login?type=facebook&userId=" + userID + "&token=" + token;  
 		  });
 	  }
 	

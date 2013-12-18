@@ -33,10 +33,7 @@ public class EmailService {
 	
 	public void sendRecoverMail(String toEmail, String newPassword) {
 		String recoverPwdTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECOVER_PASSWORD_TEMPLATE);
-		String recoverSubject = settingService.getStringValue(Constants.SETTING_RECOVER_PASSWORD_SUBJECT);
-		if(recoverSubject == null) {
-			recoverSubject = Constants.DEFAULT_RECOVERY_MAIL_TITLE;
-		} 
+		String recoverSubject = settingService.getStringValue(Constants.SETTING_RECOVER_PASSWORD_SUBJECT, Constants.DEFAULT_RECOVERY_MAIL_TITLE);
 		if(recoverPwdTemplate == null) {
 			recoverPwdTemplate = Constants.DEFAULT_RECOVERY_MAIL_CONTENT + newPassword;
 		}
@@ -50,10 +47,7 @@ public class EmailService {
 	
 	public void sendRegisterMail(String toEmail, String password) {
 		String registerTemplate = getTemplateFromDB(Constants.HTML_MAIL_REGISTER_TEMPLATE);
-		String recoverSubject = settingService.getStringValue(Constants.SETTING_REGISTER_SUBJECT);
-		if(recoverSubject == null) {
-			recoverSubject = Constants.DEFAULT_REGISTER_MAIL_TITLE;
-		} 
+		String recoverSubject = settingService.getStringValue(Constants.SETTING_REGISTER_SUBJECT, Constants.DEFAULT_REGISTER_MAIL_TITLE);
 		if(registerTemplate == null) {
 			registerTemplate = Constants.DEFAULT_REGISTER_MAIL_CONTENT;
 		}
@@ -79,22 +73,10 @@ public class EmailService {
     	if (mailContent != null) {
     		HtmlEmail email = new HtmlEmail();
     	    try {
-    	    	String hostname = settingService.getStringValue(Constants.SETTING_MAIL_HOST_NAME);
-    			String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT);
-    			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD);
-    			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM);
-    			if(hostname == null) {
-    				hostname = Constants.DEFAULT_MAIL_HOST_NAME;
-    			}
-    			if(mailAccount == null) {
-    				mailAccount = Constants.DEFAULT_MAIL_FROM_ACCOUNT;
-    			}
-    			if(mailPassword == null) {
-    				mailPassword = Constants.DEFAULT_MAIL_FROM_PASSWORD;
-    			}
-    			if(mailFrom == null) {
-    				mailFrom = Constants.DEFAULT_MAIL_FROM_ACCOUNT;
-    			}
+    	    	String hostname = settingService.getStringValue(Constants.SETTING_MAIL_HOST_NAME, Constants.DEFAULT_MAIL_HOST_NAME);
+    			String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
+    			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
+    			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
     	    	email.setHostName(hostname);
     	    	email.setAuthentication(mailAccount, mailPassword);
     	    	email.setFrom(mailFrom);

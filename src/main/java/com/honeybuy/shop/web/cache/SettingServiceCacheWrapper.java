@@ -17,4 +17,13 @@ public class SettingServiceCacheWrapper {
 	public String getStringValue(String key){
 		return settingService.getStringValue(key);
 	}
+	
+	public String getStringValue(String key, String defaultValue){
+		String value = getStringValue(key);
+		if(value == null) {
+			return defaultValue;
+		} else {
+			return value;
+		}
+	}
 }
