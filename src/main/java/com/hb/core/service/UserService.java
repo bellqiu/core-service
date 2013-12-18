@@ -82,22 +82,6 @@ public class UserService {
 		user.setUpdateDate(currentDate);
 		user = em.merge(user);
 		
-		/*if(user != null) {
-			String randomString = new String(Base64.encodeBase64URLSafe(UUID.randomUUID().toString().getBytes()));
-			final String newPassword = randomString.substring(0, 8);
-			final String email = user.getEmail(); 
-			user.setPassword(newPassword);
-			user = em.merge(user);
-			new Thread(){
-                public void run() {
-                    try{
-						emailService.sendRecoveMail(email, newPassword);
-                    } catch (Exception e){
-                    }
-                };
-            }.start();
-		}*/
-		
 		return userConverter.convert(user);
 	}
 	
@@ -217,7 +201,7 @@ public class UserService {
 			new Thread(){
                 public void run() {
                     try{
-						emailService.sendRecoveMail(email, newPassword);
+						emailService.sendRecoverMail(email, newPassword);
                     } catch (Exception e){
                     }
                 };
@@ -225,4 +209,43 @@ public class UserService {
 		}
 		return userConverter.convert(user);
 	}
+	
+	public UserDTO registerUser(final String username, final String password) {
+		if(getUser(username) != null) {
+			throw new CoreServiceException("User already exist");
+		}
+		
+		User user = new User();
+		user.setEmail(username);
+		user.setPassword(password);
+		user.setType(User.Type.USER);
+		Date currentDate = new Date();
+		user.setCreateDate(currentDate);
+		user.setUpdateDate(currentDate);
+		user = em.merge(user);
+		
+		/*if(user != null) {
+			new Thread(){
+                public void run() {
+                    try{
+						emailService.sendRegisterMail(username, password);
+                    } catch (Exception e){
+                    }
+                };
+            }.start();
+		}*/
+		
+		return userConverter.convert(user);
+	}
+	
+	public UserDTO newThirdPartyUserIfNotExisting(String username, String type) {
+		String newUsername = username + "/" + type;
+		User user = getUser(newUsername);
+		if(user == null) {
+			return newUser(newUsername, "");
+		} else {
+			return userConverter.convert(user); 
+		}
+	}
+	
 }

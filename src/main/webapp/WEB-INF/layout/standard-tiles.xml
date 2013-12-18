@@ -93,6 +93,11 @@
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
         </definition>
         
+        
+        <!-- TODO <definition name="userprofile" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/user.jsp"/>
+        </definition> -->
+        
         <definition name="accessDenied" extends="headerFooter" >
         	 <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
         	  <!-- <put-attribute name="body" value="/WEB-INF/jsp/body/accessDenied.jsp"/> -->

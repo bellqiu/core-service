@@ -31,7 +31,7 @@ public class EmailService {
 	@Autowired
 	SettingServiceCacheWrapper settingService;
 	
-	public void sendRecoveMail(String toEmail, String newPassword) {
+	public void sendRecoverMail(String toEmail, String newPassword) {
 		String recoverPwdTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECOVER_PASSWORD_TEMPLATE);
 		String recoverSubject = settingService.getStringValue(Constants.SETTING_RECOVER_PASSWORD_SUBJECT);
 		if(recoverSubject == null) {

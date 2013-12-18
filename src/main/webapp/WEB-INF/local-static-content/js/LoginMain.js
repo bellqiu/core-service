@@ -1,32 +1,30 @@
 (function($){
 	
-	requirejs(
-		["/resources/js/user/ForgotPassword.js"], function(forgotpassword){
-			
-			var sendEmailCallBack =  function(sendEmail){
-				if(sendEmail.status == "true") {
-					$("#fogot-modal-body")[0].innerHTML="<div class='alert alert-success'>" + sendEmail.message +"</div>"
-					$("#sendEmail").hide();
-					
-				} else {
-					$("#forgotblock")[0].innerHTML="<ul role='alert' class='alert alert-danger fade in'><li><strong>" + sendEmail.message + "</strong></li></ui>";
-				}
-				$("#sendEmail").button('reset');
-			};
-			
-			$("#sendEmail").click(function(){
-				var valid = $("#forgotpasswordform")[0].checkValidity();
-				if(valid) {
-					var email = $("#forgotEmail").val();
-					if(email != "") {
-						$(this).button('loading');
-						forgotpassword.sendemail(email, sendEmailCallBack);
-					}
-				}
-			});
-		}
-	
-	);
-	
-	
+		$(".bodyContent").ready(function(){
+			$('#signUpOrLoginTab a').click(function (e) {
+			  // e.preventDefault();
+			    $(this).tab('show');
+			    return false;
+			}); 
+			$("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
+		});
+
+		$(document).ready(function(){
+			var anchor = window.location.hash;
+			if(!anchor && isSignUpPage){
+				$('#signUpOrLoginTab a[href=#signUpTab]').tab('show') 
+			}
+			$('#signUpOrLoginTab a[href="'+anchor+'"]').tab('show') 
+		}); 
+
+
+		$("#sign-up").click(function(){
+			var pwd = $("#regPassword").val();
+			var pwdAgain = $("#passwordAgain").val();
+			if(pwd != pwdAgain) {
+				$("#pwdAgainBlock").html("<ul role='alert' class='alert alert-danger fade in'><li><strong>These passwords don't match.</strong></li></ui>");
+				return false;
+			}
+		});
+
 })(jQuery);
