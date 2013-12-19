@@ -116,5 +116,10 @@ public class AccountController {
 		return messageMap;
 	}
 	
+	@RequestMapping(value="/profile" , method=RequestMethod.GET)
+	public String getUserProfile(){
+		
+		return "userprofile";
+	}
 	
 }

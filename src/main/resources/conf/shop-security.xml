@@ -18,6 +18,7 @@
 	<security:http access-decision-manager-ref="accessDecisionManager" auto-config="true">
 		<security:intercept-url pattern="/od/**" access="USER" />
 		<security:intercept-url pattern="/admin/**" access="ADMIN" />
+		<security:intercept-url pattern="/ac/profile/**" access="USER" />
 		<security:intercept-url pattern="/sp/payment/**" access="USER" />
 		
 		<security:http-basic/> 
