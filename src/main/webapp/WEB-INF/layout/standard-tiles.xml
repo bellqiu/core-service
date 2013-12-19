@@ -93,6 +93,10 @@
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
         </definition>
         
+          <definition name="loging" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/loging.jsp"/>
+        </definition>
+        
         
         <!-- <definition name="userprofile" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/userProfile.jsp"/>

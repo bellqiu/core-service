@@ -42,7 +42,7 @@
 				 console.log(response);
 				 console.log(domain);
 				 // TODO redirect to local login with facebook id and tooken
-				 window.location.href=domain + "/ac/login?type=facebook&userId=" + userID + "&token=" + token;  
+				 window.location.href=window.location.protocol+"//"+window.location.host + "/ac/login?type=facebook&userId=" + userID + "&token=" + token;  
 		  });
 	  }
 	

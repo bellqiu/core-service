@@ -28,6 +28,12 @@ public class HomeController {
 		return "redirect:/home";
 	}
 	
+	
+	@RequestMapping("/loging")
+	public String loging(){
+		return "loging";
+	}
+	
 	@RequestMapping("/404")
 	public String notFount(){
 		return "404";

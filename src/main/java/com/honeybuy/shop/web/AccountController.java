@@ -5,8 +5,6 @@
 package com.honeybuy.shop.web;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +17,6 @@ import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.UserDTO;
@@ -79,8 +72,10 @@ public class AccountController {
 						Map<?,?> valueMap = (Map<?,?>) value;
 						String email = (String)valueMap.get("email");
 						UserDTO userDTO = userService.newThirdPartyUserIfNotExisting(email, Constants.FACEBOOK_TYPE);
-						handleLogin(request, response, userDTO.getEmail(), userDTO.getPassword());
-						return null;
+						
+						model.addAttribute("username", userDTO.getEmail());
+						model.addAttribute("password", userDTO.getPassword());
+						return "loging";
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -108,8 +103,11 @@ public class AccountController {
 			model.addAttribute("isSignUpFail", true);
 			return "forward:/ac/login";
 		}
-		handleLogin(request, response, username, password);
-		return null;
+		
+		model.addAttribute("username", username);
+		model.addAttribute("password", password);
+		
+		return "loging";
 	}
 	
 	@RequestMapping(value="/json/forgotpassword", method=RequestMethod.GET)
@@ -128,13 +126,13 @@ public class AccountController {
 		return messageMap;
 	}
 	
-	private void handleLogin(HttpServletRequest request, HttpServletResponse response, String username, String password) throws IOException, ServletException {
+	/*private void handleLogin(HttpServletRequest request, HttpServletResponse response, String username, String password) throws IOException, ServletException {
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 		Authentication authentication = authenticationManager.authenticate(authenticationToken);
 		SecurityContextHolder.setContext(SecurityContextHolder.createEmptyContext());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		loginSuccessHandler.onAuthenticationSuccess(request, response, authentication);
-	}
+	}*/
 	
 	
 }

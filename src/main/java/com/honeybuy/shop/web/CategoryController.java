@@ -112,7 +112,6 @@ public class CategoryController {
 		
 		List<CategoryTreeDTO> subCateogries = categoryService.getSubCategories(categoryId);
 		model.addAttribute("subCateogries", subCateogries);
-		
 		return "categoryIndex";
 	}
 	
