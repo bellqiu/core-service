@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.EncodingUtils;
 import com.honeybuy.shop.util.JsonUtil;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
+import com.honeybuy.shop.web.interceptor.SessionAttribute;
 
 /**
  * 
@@ -118,8 +120,18 @@ public class AccountController {
 	
 	@RequestMapping(value="/profile" , method=RequestMethod.GET)
 	public String getUserProfile(){
-		
 		return "userprofile";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/profile/json/changepassword" , method=RequestMethod.POST)
+	public Map<String, String> changePassword(
+			Model model, 
+			@RequestParam("oldPassword") String oldPassword,
+			@RequestParam("newPassword") String newPassword,
+			@SessionAttribute(required=false, value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details) {
+		String username = details.getUsername();
+		return userService.changePassord(username, oldPassword, newPassword);
 	}
 	
 }

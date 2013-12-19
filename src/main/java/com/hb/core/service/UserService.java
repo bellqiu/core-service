@@ -2,6 +2,7 @@ package com.hb.core.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -246,6 +247,27 @@ public class UserService {
 		} else {
 			return userConverter.convert(user); 
 		}
+	}
+
+	public Map<String, String> changePassord(String username,
+			String oldPassword, String newPassword) {
+		Map<String, String> messageMap = new HashMap<String, String>();
+		User user = getUser(username);
+		if(user == null) {
+			messageMap.put("status", "false");
+			messageMap.put("message", "User is not existing. Please check it.");
+		} else {
+			if(user.getPassword().equals(oldPassword)) {
+				user.setPassword(newPassword);
+				em.merge(user);
+				messageMap.put("status", "true");
+				messageMap.put("message", "Password is changed successfully.");
+			} else {
+				messageMap.put("status", "false");
+				messageMap.put("message", "Input password is not correct.");
+			}
+		}
+		return messageMap;
 	}
 	
 }

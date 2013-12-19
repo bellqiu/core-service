@@ -121,14 +121,14 @@ var domain = '${site.domain}';
                        <label for="regPassword" class="col-lg-2 control-label">Password</label>
                        <div class="col-lg-10">
                            <input class="form-control" type="password" name="regPassword" id="regPassword" minlength="8" required>
-                           <p class="help-block">Password should not less than 8 characters.</p>
+                           <p class="help-block"></p>
                        </div>
                    </div>
                    <div class="form-group">
                        <label for="passwordAgain" class="col-lg-2 control-label">re-Password</label>
                        <div class="col-lg-10">
-                           <input class="form-control" type="password" name="passwordAgain" id="passwordAgain" minlength="8" required>
-                           <p class="help-block" id="pwdAgainBlock">Input your password again</p>
+                           <input class="form-control" type="password" name="passwordAgain" id="passwordAgain" data-validation-matches-match="regPassword" required>
+                           <p class="help-block" id="pwdAgainBlock"></p>
                        </div>
                    </div>
                    <div class="form-group">

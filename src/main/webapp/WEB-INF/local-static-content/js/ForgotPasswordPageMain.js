@@ -15,7 +15,7 @@
 			};
 			
 			$("#sendEmail").click(function(){
-				var valid = $("#forgotpasswordform")[0].checkValidity();
+				var valid = this.form.checkValidity();
 				if(valid) {
 					var email = $("#forgotEmail").val();
 					if(email != "") {
