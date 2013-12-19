@@ -105,11 +105,75 @@
 		</div>
 		
 		<div class="panel-body">
-				<div id="countries_states2" class="bfh-selectbox bfh-countries" data-country="US" data-filter="true" data-flags="true">
+			 <div class="row rowContent">
+			 			<div class="row col-xs-2">Shipping Address:</div>
+			 			<div class="row col-xs-4">
+			 					Wienerbergstrasse 41
+								Wien 1120
+								Country: Austria
+								Phone: +43 1 340 0100 1000
+			 			</div>
+			 			<div class="row col-xs-2">
+			 				<div class="bfh-selectbox" data-name="selectbox1" >
+			 						  <div data-value="1">Select</div>
+									  <div data-value="1">Option 1111111111111111111111111111</div>
+									  <div data-value="2">Option 2</div>
+									  <div data-value="3">Option 3</div>
+									  <div data-value="4">Option 4</div>
+									  <div data-value="5">Option 5</div>
+									  <div data-value="6">Option 6</div>
+									  <div data-value="7">Option 7</div>
+									  <div data-value="8">Option 8</div>
+									  <div data-value="9">Option 9</div>
+									  <div data-value="10">Option 10</div>
+									  <div data-value="11">Option 11</div>
+									  <div data-value="12">Option 12</div>
+									  <div data-value="13">Option 13</div>
+									  <div data-value="14">Option 14</div>
+									  <div data-value="15">Option 15</div>
+								</div>
+			 			</div>
+			 			<div class="row col-xs-4">
+			 				&nbsp;&nbsp;<button class="btn btn-default">New</button>
+			 			</div>
+			 </div>
+			  <div class="row rowContent">
+			 			<div class="row col-xs-2">Billing Address:</div>
+			 			<div class="row col-xs-4">
+			 					Wienerbergstrasse 41
+								Wien 1120
+								Country: Austria
+								Phone: +43 1 340 0100 1000
+			 			</div>
+			 			<div class="row col-xs-2">
+			 				<div class="bfh-selectbox" data-name="selectbox1">
+			 						  <div data-value="1">Select</div>
+									  <div data-value="1">Option 1111111111111111111111111111</div>
+									  <div data-value="2">Option 2</div>
+									  <div data-value="3">Option 3</div>
+									  <div data-value="4">Option 4</div>
+									  <div data-value="5">Option 5</div>
+									  <div data-value="6">Option 6</div>
+									  <div data-value="7">Option 7</div>
+									  <div data-value="8">Option 8</div>
+									  <div data-value="9">Option 9</div>
+									  <div data-value="10">Option 10</div>
+									  <div data-value="11">Option 11</div>
+									  <div data-value="12">Option 12</div>
+									  <div data-value="13">Option 13</div>
+									  <div data-value="14">Option 14</div>
+									  <div data-value="15">Option 15</div>
+								</div>
+			 			</div>
+			 			<div class="row col-xs-4">
+			 				&nbsp;&nbsp; <button class="btn btn-default">New</button> &nbsp;&nbsp; <input type="checkbox"> Same as Billing Address 
+			 			</div>
+			 </div>
+			<!-- 	<div id="countries_states2" class="bfh-selectbox bfh-countries" data-country="US" data-filter="true" data-flags="true">
 				</div>
 				<br><br>
 				<div class="bfh-selectbox bfh-states" data-country="countries_states2" data-filter="true">
-				</div>
+				</div> -->
 		</div>
 	</div>
 	
@@ -122,8 +186,36 @@
 		</div>
 		
 		<div class="panel-body">
-				ZSDASDAS		
-		
+			 <div class="row rowContent">
+			 	<div class="row col-xs-3">
+			 		<input type="radio"> Standard Shipping
+			 	</div>
+			 	<div class="row col-xs-3">
+			 		Normally 4 - 6 days
+			 	</div>
+			 	<div class="row col-xs-6">
+			 		USD 25
+			 	</div>
+			 </div>		
+			  <div class="row rowContent">
+			 	<div class="row col-xs-3">
+			 		<input type="radio"> Standard Shipping
+			 	</div>
+			 	<div class="row col-xs-3">
+			 		Normally 4 - 6 days
+			 	</div>
+			 	<div class="row col-xs-6">
+			 		USD 25
+			 	</div>
+			 </div>	
+			  <div class="row rowContent">
+			  		<span>When will my order arrive?</span>	<br/>
+			  		<p>
+			  			<img src="/resources/css/img/processing-time.jpg">
+			  		</p>
+			  		Processing time is the time includes preparing your items, performing quality checks, and packing for shipment. 
+					Processing Time: 7-12 days for standard, 5-8 days for urgent(Custom-Made Items) 1-3 Days for others(Ready to Ship Items). Shipping Time: 3-5 business days.
+			  </div>
 		</div>
 	</div>
 	

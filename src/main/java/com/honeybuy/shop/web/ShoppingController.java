@@ -101,7 +101,7 @@ public class ShoppingController {
 	}
 	
 	@Secured("USER")
-	@RequestMapping("/sp/payment/address")
+	@RequestMapping("/sp/payment/paymentInfo")
 	public String finishOrderInfo(@RequestParam(value="orderId", required=false, defaultValue="0") long orderId, Model model, 
 			 @SessionAttribute(required=false, value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		

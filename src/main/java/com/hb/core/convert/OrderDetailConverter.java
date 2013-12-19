@@ -45,6 +45,7 @@ public class OrderDetailConverter implements
 		detailDTO.setSourceId(order.getSourceId());
 		detailDTO.setTraceInfo(order.getTraceInfo());
 		detailDTO.setTrackingId(order.getTrackingId());
+		detailDTO.setShippingCode(order.getShippingCode());
 		
 		User user = order.getUser();
 		if(user != null) {

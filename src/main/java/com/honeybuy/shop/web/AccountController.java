@@ -7,22 +7,32 @@ package com.honeybuy.shop.web;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hb.core.entity.Address;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.UserDTO;
@@ -45,7 +55,8 @@ public class AccountController {
 	private UserService userService;
 	
 	@Autowired
-	SettingServiceCacheWrapper settingService;
+	private SettingServiceCacheWrapper settingService;
+
 	
 	@RequestMapping("/login")
 	public String login(
@@ -132,6 +143,29 @@ public class AccountController {
 			@SessionAttribute(required=false, value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details) {
 		String username = details.getUsername();
 		return userService.changePassord(username, oldPassword, newPassword);
+	}
+	
+	@ResponseBody
+	@Secured("USER")
+	@RequestMapping(value="/address/list", method={RequestMethod.GET})
+	public List<Address> getUserAddresses(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
+		return userService.getUserAddresses(details.getUsername());
+	}
+	
+	@ResponseBody
+	@Secured("USER")
+	@RequestMapping(value="/address", method={RequestMethod.POST}, consumes="application/json")
+	public Address saveUserAddress(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details, @Valid @RequestBody Address address){
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		
+		 Set<ConstraintViolation<Address>>  violations =  validator.validate(address);
+		 
+		 if(!violations.isEmpty()){
+			 return null;
+		 }
+		
+		return userService.saveAddress(details.getUsername(), address);
 	}
 	
 }

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -16,13 +17,16 @@ public class Address extends Component{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	@NotNull
 	@Column(name="first_name")
 	private String firstName;
 	
+	@NotNull
 	@Column(name="last_name")
 	private String lastName;
-
+	
+	@NotNull
 	@Column(name="address1")
 	private String address1;
 
@@ -35,12 +39,14 @@ public class Address extends Component{
 	@Column(name="state_province")
 	private String stateProvince;
 
+	@NotNull
 	@Column(name="country_code")
 	private String countryCode;
 
 	@Column(name="postal_code")
 	private String postalCode;
 
+	@NotNull
 	@Column(name="phone")
 	private String phone;
 

@@ -53,7 +53,7 @@
         </definition>
         
          <definition name="shoppingcatAddress" extends="headerFooter" >
-        	  <put-attribute name="body" value="/WEB-INF/jsp/body/shopping/shoppingcatAddress.jsp"/>
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/shopping/shoppingPaymentInfo.jsp"/>
         </definition>
         
          <definition name="shoppingcatPayment" extends="headerFooter" >

@@ -13,7 +13,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -42,15 +41,11 @@ public class User extends Component {
 	@Column(name = "type")
 	private Type type = Type.USER;
 
-	@ManyToOne(cascade={CascadeType.ALL},optional=true)
-	@JoinColumn(name="billing_address_id", updatable=true)
-	private Address billingAddress;
-	
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="User_has_Address",
 				joinColumns=@JoinColumn(name="User_id"),
 				inverseJoinColumns=@JoinColumn(name="Address_id"))
-	private List<Address> shippingAddresses = new ArrayList<Address>();
+	private List<Address> addresses = new ArrayList<Address>();
 	
 	public static enum Type {
 		USER,
@@ -83,19 +78,12 @@ public class User extends Component {
 		this.type = type;
 	}
 
-	public void setBillingAddress(Address billingAddress) {
-		this.billingAddress = billingAddress;
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
-	public Address getBillingAddress() {
-		return billingAddress;
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
-
-	public List<Address> getShippingAddresses() {
-		return shippingAddresses;
-	}
-
-	public void setShippingAddresses(List<Address> shippingAddresses) {
-		this.shippingAddresses = shippingAddresses;
-	}
+	
 }

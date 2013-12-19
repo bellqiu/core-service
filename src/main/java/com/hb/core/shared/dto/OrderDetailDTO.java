@@ -40,6 +40,8 @@ public class OrderDetailDTO implements Serializable{
 	
 	private String sourceId;
 	
+	private String shippingCode;
+	
 	private List<OrderItemDTO> items;
 
 	public long getId() {
@@ -176,6 +178,14 @@ public class OrderDetailDTO implements Serializable{
 
 	public void setUseremail(String useremail) {
 		this.useremail = useremail;
+	}
+
+	public String getShippingCode() {
+		return shippingCode;
+	}
+
+	public void setShippingCode(String shippingCode) {
+		this.shippingCode = shippingCode;
 	}
 	
 }

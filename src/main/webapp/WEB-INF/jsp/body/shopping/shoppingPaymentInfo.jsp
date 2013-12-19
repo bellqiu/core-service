@@ -9,7 +9,7 @@
 		<ol class="breadcrumb">
   				<li><a href="${site.domain}">Home</a></li>
   				<li><a href="${site.domain}/sp/shoppingcart/list">Shopping Cart</a></li>
-  				<li class="active">Filling Address</li> 
+  				<li class="active">Complete payment info</li> 
 			</ol>
 	</div>
 	<div class="row shopping_cart_container">

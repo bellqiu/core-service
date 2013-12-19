@@ -42,6 +42,9 @@ public class Order extends Component{
 	@JoinColumn(name="User_id")
 	private User user;
 	
+	@Column(name="shippingCode")
+	private String shippingCode;
+	
 	@Column(name="orderSN")
 	private String orderSN;
 	
@@ -209,6 +212,14 @@ public class Order extends Component{
 
 	public void setOrderSN(String orderSN) {
 		this.orderSN = orderSN;
+	}
+
+	public String getShippingCode() {
+		return shippingCode;
+	}
+
+	public void setShippingCode(String shippingCode) {
+		this.shippingCode = shippingCode;
 	}
 
 }
