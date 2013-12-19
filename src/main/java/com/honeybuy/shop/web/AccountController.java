@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +26,6 @@ import com.hb.core.exception.CoreServiceException;
 import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.UserDTO;
 import com.hb.core.util.Constants;
-import com.honeybuy.shop.sercurity.LoginSuccessHandler;
 import com.honeybuy.shop.util.EncodingUtils;
 import com.honeybuy.shop.util.JsonUtil;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
@@ -47,13 +44,6 @@ public class AccountController {
 	
 	@Autowired
 	SettingServiceCacheWrapper settingService;
-	
-	@Autowired
-	LoginSuccessHandler loginSuccessHandler;
-	
-	@Autowired
-	@Qualifier("authenticationManager")
-	private AuthenticationManager authenticationManager;
 	
 	@RequestMapping("/login")
 	public String login(
@@ -125,14 +115,6 @@ public class AccountController {
 		}
 		return messageMap;
 	}
-	
-	/*private void handleLogin(HttpServletRequest request, HttpServletResponse response, String username, String password) throws IOException, ServletException {
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-		Authentication authentication = authenticationManager.authenticate(authenticationToken);
-		SecurityContextHolder.setContext(SecurityContextHolder.createEmptyContext());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		loginSuccessHandler.onAuthenticationSuccess(request, response, authentication);
-	}*/
 	
 	
 }
