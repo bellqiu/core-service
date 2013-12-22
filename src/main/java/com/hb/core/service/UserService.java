@@ -313,5 +313,9 @@ public class UserService {
 		}
 		return null;
 	}
+
+	public Address getUserAddressById(long addressId) {
+		return em.find(Address.class, addressId);
+	}
 	
 }

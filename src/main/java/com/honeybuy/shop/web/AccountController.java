@@ -154,6 +154,19 @@ public class AccountController {
 	
 	@ResponseBody
 	@Secured("USER")
+	@RequestMapping(value="/address", method={RequestMethod.GET})
+	public Address getUserAddressById(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
+			@RequestParam("id") String id){
+		long addressId = 0;
+		try {
+			addressId = Long.valueOf(id);
+		} catch(NumberFormatException e) {
+		}
+		return userService.getUserAddressById(addressId);
+	}
+	
+	@ResponseBody
+	@Secured("USER")
 	@RequestMapping(value="/address", method={RequestMethod.POST}, consumes="application/json")
 	public Address saveUserAddress(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details, @Valid @RequestBody Address address){
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
