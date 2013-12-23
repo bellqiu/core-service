@@ -1,14 +1,14 @@
 (function($){
 	
 	requirejs(
-		["/resources/js/shopping/Shopping.js"], function(shopping){
-		/*	
-			$(".shopping_cart_container").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
+		["/resources/js/shopping/Shopping.js", "/resources/js/user/Address.js"], function(shopping, userAdd){
 			
-			$(".shopping_cart_container").load("/sp/payment/fragment/address", function(){
-				$(".shopping_cart_container").unmask();
-			});*/
-			
+			$("#new_shipping_address").click(function(e){
+				
+				userAdd.saveOrupdateAddress(0, null);
+				
+				e.preventDefault();
+			});
 		}
 	
 	);

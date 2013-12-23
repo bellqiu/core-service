@@ -76,7 +76,7 @@
 		
 		<div class="panel-body">
 			 <div class="row rowContent">
-			 			<div class="row ">Shipping Address: <a>New Shipping Address</a></div>
+			 			<div class="row ">Shipping Address: <a href="#" id="new_shipping_address">New Shipping Address</a></div>
 			 			<div class="row col-xs-11 col-xs-offset-1">
 			 				<div>
 				 				<ul>
