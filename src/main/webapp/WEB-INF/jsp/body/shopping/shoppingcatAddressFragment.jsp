@@ -4,7 +4,6 @@
 <%@taglib prefix="hb" uri="/WEB-INF/tag/HBTag.tld"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions'%>
-
 <c:if
 	test="${(not empty currentOrder)&& (fn:length(currentOrder.items) > 0)}">
 	<div class="panel panel-default">
@@ -22,7 +21,6 @@
 			</div>
 		</div>
 		<div class="panel-body">
-
 			<c:forEach items="${currentOrder.items }" var="item">
 				<div class="row order-item">
 					<div class="col-xs-7">
@@ -67,7 +65,7 @@
 		</div>
 	</div>
 	
-	<div class="panel panel-default">
+	<div class="panel panel-default" id="OrderAddressPanel">
 		<div class="panel-heading">
 			<div class="row">
 				<span class="padding10">Shipping & Delivery</span>

@@ -96,6 +96,9 @@
          	 <put-attribute name="orderFragmentImpl" value="/WEB-INF/jsp/body/shopping/shoppingcatFragment.jsp"/>
         </definition>
         
+        <definition name="addressFragment" template="/WEB-INF/jsp/body/address/addressFragment.jsp" >
+        </definition>
+        
        <!-- Errors --> 
         <definition name="500" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/500.jsp"/>
