@@ -9,7 +9,7 @@
 					$.ajax({
 						dataType : "json",
 						type: "POST",
-						url : "/ac/profile/json/changepassword",
+						url : "/ac/changePwd/json/change",
 						data : {oldPassword: oldPassword, newPassword: newPassword},
 						success : callBack
 					});

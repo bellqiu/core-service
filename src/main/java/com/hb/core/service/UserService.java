@@ -295,6 +295,7 @@ public class UserService {
 						add.setPhone(address.getPhone());
 						add.setPostalCode(address.getPostalCode());
 						add.setStateProvince(address.getStateProvince());
+						add.setCreateDate(new Date());
 						add.setUpdateDate(new Date());
 						nonExistingAdd = false;
 					}

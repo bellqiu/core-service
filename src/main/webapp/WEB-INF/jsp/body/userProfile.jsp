@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container mainContainer">
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-3">
 			<div class="list-group"> 
 	 			<a href="#" id="profile" class="list-group-item active">
 	    			Main
@@ -13,7 +13,7 @@
 		
 		</div>
 		
-		<div class="col-xs-8">
+		<div class="col-xs-9">
 			<div class="profile" id="profileContent">
 				<h1>Your email is xxx@xx.com</h1>
 				<h1>User Profile Page1</h1>
@@ -63,9 +63,9 @@
 				<div>
 				<legend>Edit your addresses</legend>
 				</div>
-				<div class="row panel-group">
+				<div id="addressContainer" class="row panel-group">
 				
-				<div class="col-lg-12 panel panel-default">
+				<!-- <div class="col-lg-12 panel panel-default">
 					<div class="row form-group">
 						<label class="col-lg-2">First Name: </label>
 					 	<div class="col-lg-10">
@@ -140,7 +140,7 @@
 						Last Name......
 						</div>
 					</div>
-				</div>
+				</div> -->
 				
 				
 				</div>
@@ -182,11 +182,13 @@
 		$("#manageAddr").addClass("active");
 		$(".profile").hide();
 		$("#manageAddrContent").show(true);
+		$("#addressContainer").html("").load("/ac/address/list");
 	});
 	
 	function getAddress(id) {
 		console.log(id);
 	}
+	
 	
 </script>
 <script src="/resources/js/ProfilePageMain.js" type="text/javascript"></script>

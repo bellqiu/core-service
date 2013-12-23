@@ -26,7 +26,23 @@
 			<put-attribute name="bestSelling" value="/WEB-INF/jsp/body/bestSelling.jsp"></put-attribute>
 			<put-attribute name="featuredProducts" value="/WEB-INF/jsp/body/featuredProducts.jsp"></put-attribute>
 		</definition>
-        
+		
+		<!-- User Center -->
+		<definition name="user.center.profile" template="/WEB-INF/layout/userCenterLayout.jsp">
+			<put-attribute name="leftNav" value="/WEB-INF/jsp/body/user/leftNav.jsp"></put-attribute>
+			<put-attribute name="userContent" value="/WEB-INF/jsp/body/user/profile.jsp"></put-attribute>
+		</definition>
+		
+		<definition name="user.center.password" template="/WEB-INF/layout/userCenterLayout.jsp">
+			<put-attribute name="leftNav" value="/WEB-INF/jsp/body/user/leftNav.jsp"></put-attribute>
+			<put-attribute name="userContent" value="/WEB-INF/jsp/body/user/password.jsp"></put-attribute>
+		</definition>
+		
+		<definition name="user.center.address" template="/WEB-INF/layout/userCenterLayout.jsp">
+			<put-attribute name="leftNav" value="/WEB-INF/jsp/body/user/leftNav.jsp"></put-attribute>
+			<put-attribute name="userContent" value="/WEB-INF/jsp/body/user/address.jsp"></put-attribute>
+		</definition>
+		
 		<definition name="headerFooter" extends="standardLayout" >
         	  <put-attribute name="header" value="home.header.module"/>
         </definition>
@@ -97,6 +113,17 @@
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/loging.jsp"/>
         </definition>
         
+        <definition name="profile" extends="headerFooter" >
+        	  <put-attribute name="body" value="user.center.profile"/>
+        </definition>
+        
+		<definition name="changePwd" extends="headerFooter" >
+        	  <put-attribute name="body" value="user.center.password"/>
+        </definition>
+        
+        <definition name="address" extends="headerFooter" >
+        	  <put-attribute name="body" value="user.center.address"/>
+        </definition>
         
         <definition name="userprofile" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/userProfile.jsp"/>

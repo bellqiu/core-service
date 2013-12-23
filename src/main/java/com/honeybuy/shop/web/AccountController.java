@@ -132,13 +132,22 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="/profile" , method=RequestMethod.GET)
-	public String getUserProfile(){
-		return "userprofile";
+	public String getUserProfile(Model model){
+		model.addAttribute("page", "profile");
+		return "profile";
+	}
+	
+	@Secured("USER")
+	@RequestMapping(value="/changePwd", method=RequestMethod.GET)
+	public String changePwdPage(Model model){
+		model.addAttribute("page", "password");
+		return "changePwd";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/profile/json/changepassword" , method=RequestMethod.POST)
-	public Map<String, String> changePassword(
+	@Secured("USER")
+	@RequestMapping(value="/changePwd/json/change" , method=RequestMethod.POST)
+	public Map<String, String> changePwd(
 			Model model, 
 			@RequestParam("oldPassword") String oldPassword,
 			@RequestParam("newPassword") String newPassword,
@@ -147,11 +156,15 @@ public class AccountController {
 		return userService.changePassord(username, oldPassword, newPassword);
 	}
 	
-	@ResponseBody
 	@Secured("USER")
-	@RequestMapping(value="/address/list", method={RequestMethod.GET})
-	public ResponseResult<List<Address>> getUserAddresses(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
-		return new ResponseResult<List<Address>>(true, userService.getUserAddresses(details.getUsername()));
+	@RequestMapping(value="/address", method={RequestMethod.GET})
+	public String getUserAddresses(Model model, 
+			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
+		List<Address> userAddresses = userService.getUserAddresses(details.getUsername());
+		model.addAttribute("addresses", userAddresses);
+		model.addAttribute("addressCount", userAddresses == null ? 0 : userAddresses.size());
+		model.addAttribute("page", "address");
+		return "address";
 	}
 	
 	@ResponseBody
@@ -174,7 +187,7 @@ public class AccountController {
 	
 	@ResponseBody
 	@Secured("USER")
-	@RequestMapping(value="/address", method={RequestMethod.POST}, consumes="application/json")
+	@RequestMapping(value="/address/save", method={RequestMethod.POST}, consumes="application/json")
 	public Address saveUserAddress(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details, @Valid @RequestBody Address address){
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
@@ -187,5 +200,7 @@ public class AccountController {
 		
 		return userService.saveAddress(details.getUsername(), address);
 	}
+	
+	
 	
 }
