@@ -26,6 +26,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +41,7 @@ import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.EncodingUtils;
 import com.honeybuy.shop.util.JsonUtil;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
+import com.honeybuy.shop.web.dto.ResponseResult;
 import com.honeybuy.shop.web.interceptor.SessionAttribute;
 
 /**
@@ -148,21 +150,26 @@ public class AccountController {
 	@ResponseBody
 	@Secured("USER")
 	@RequestMapping(value="/address/list", method={RequestMethod.GET})
-	public List<Address> getUserAddresses(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
-		return userService.getUserAddresses(details.getUsername());
+	public ResponseResult<List<Address>> getUserAddresses(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
+		return new ResponseResult<List<Address>>(true, userService.getUserAddresses(details.getUsername()));
 	}
 	
 	@ResponseBody
 	@Secured("USER")
-	@RequestMapping(value="/address", method={RequestMethod.GET})
-	public Address getUserAddressById(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
-			@RequestParam("id") String id){
-		long addressId = 0;
-		try {
-			addressId = Long.valueOf(id);
-		} catch(NumberFormatException e) {
+	@RequestMapping(value="/address/{addressId:\\d+}", method={RequestMethod.GET})
+	public ResponseResult<Address> getUserAddressById(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
+			@PathVariable("addressId") long addressId){
+		
+		Address address =  userService.getUserAddressById(addressId, details.getUsername());
+		 
+		if(null == address){
+			ResponseResult<Address> addressResponse = new ResponseResult<Address>(false,null);
+			addressResponse.getMessageMap().put("Error", "Address not found");
+			
+			return addressResponse;
 		}
-		return userService.getUserAddressById(addressId);
+		
+		 return  new ResponseResult<Address>(true, address);
 	}
 	
 	@ResponseBody

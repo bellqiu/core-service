@@ -38,6 +38,12 @@ public class Order extends Component{
 	@Column(name="billing_address")
 	private String billingAddress;
 	
+	@Column(name="shipping_add_ref")
+	private long shippingAddRef;
+	
+	@Column(name="billing_add_ref")
+	private long billingAddRef;
+	
 	@ManyToOne(optional=true, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="User_id")
 	private User user;
@@ -220,6 +226,22 @@ public class Order extends Component{
 
 	public void setShippingCode(String shippingCode) {
 		this.shippingCode = shippingCode;
+	}
+
+	public long getBillingAddRef() {
+		return billingAddRef;
+	}
+
+	public void setBillingAddRef(long billingAddRef) {
+		this.billingAddRef = billingAddRef;
+	}
+
+	public long getShippingAddRef() {
+		return shippingAddRef;
+	}
+
+	public void setShippingAddRef(long shippingAddRef) {
+		this.shippingAddRef = shippingAddRef;
 	}
 
 }

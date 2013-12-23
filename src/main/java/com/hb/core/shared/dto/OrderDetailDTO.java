@@ -22,6 +22,9 @@ public class OrderDetailDTO implements Serializable{
 	private String shippingAddress;
 	private String billingAddress;
 	
+	private long shippingAddressRef;
+	private long billingAddressRef;
+	
 	private String trackingId;
 	
 	private String currency;
@@ -186,6 +189,22 @@ public class OrderDetailDTO implements Serializable{
 
 	public void setShippingCode(String shippingCode) {
 		this.shippingCode = shippingCode;
+	}
+
+	public long getShippingAddressRef() {
+		return shippingAddressRef;
+	}
+
+	public void setShippingAddressRef(long shippingAddressRef) {
+		this.shippingAddressRef = shippingAddressRef;
+	}
+
+	public long getBillingAddressRef() {
+		return billingAddressRef;
+	}
+
+	public void setBillingAddressRef(long billingAddressRef) {
+		this.billingAddressRef = billingAddressRef;
 	}
 	
 }

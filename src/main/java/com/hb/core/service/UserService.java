@@ -282,7 +282,7 @@ public class UserService {
 	public Address saveAddress(String userEmail, Address address){
 		User user = getUser(userEmail);
 		if(null != user){
-			if(address.getId() < 1 || user.getAddresses().size() < 6){
+			if(address.getId() < 1){
 				boolean nonExistingAdd = true;
 				for (Address add : user.getAddresses()) {
 					if(add.getId() == address.getId()){
@@ -314,8 +314,23 @@ public class UserService {
 		return null;
 	}
 
-	public Address getUserAddressById(long addressId) {
-		return em.find(Address.class, addressId);
+	public Address getUserAddressById(long addressId, String useremail) {
+		
+		User user = getUser(useremail);
+		
+		if(null == user || user.getAddresses()==null || user.getAddresses().size() < 1){
+			return null;
+		}
+		
+		Address address = null;
+		
+		for (Address add : user.getAddresses()) {
+			if(add.getId() == addressId){
+				address = add;
+			}
+		}
+		
+		return address;
 	}
 	
 }

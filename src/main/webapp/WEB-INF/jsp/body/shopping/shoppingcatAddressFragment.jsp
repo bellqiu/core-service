@@ -64,36 +64,6 @@
 				</div>
 
 			</c:forEach>
-		<%-- 	<div class="row">
-				<div class="row">
-					<div class="row col-xs-4  col-xs-offset-8 ">
-						<div class="row under_score orderPrice-summary">
-							<div class="row col-xs-6">Item Sub total:</div>
-							<div class="row col-xs-6 orderPrice-summary_value">
-								<hb:printPrice price="${currentOrder.itemTotal }" />
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="row col-xs-4  col-xs-offset-8 ">
-						<div class="row orderPrice-summary orderPrice-summary-all">
-							<div class="row col-xs-6">Grand Total:</div>
-							<div class="row col-xs-6 orderPrice-summary_value">
-								<hb:printPrice price="${currentOrder.grandTotal }" />
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- <div class="row order_buttons">
-					<div class="col-xs-4 ">
-						<a href="/home" class="btn btn-default">Continue Shopping</a> 
-					</div>
-					<div class="col-xs-8  padding10">
-						<a href="#" class="btn btn-danger float_right">Process to Checkout</a> 
-					</div>
-				</div> -->
-			</div> --%>
 		</div>
 	</div>
 	
@@ -106,68 +76,58 @@
 		
 		<div class="panel-body">
 			 <div class="row rowContent">
-			 			<div class="row col-xs-2">Shipping Address:</div>
-			 			<div class="row col-xs-4">
-			 					Wienerbergstrasse 41
-								Wien 1120
-								Country: Austria
-								Phone: +43 1 340 0100 1000
+			 			<div class="row ">Shipping Address: <a>New Shipping Address</a></div>
+			 			<div class="row col-xs-11 col-xs-offset-1">
+			 				<div>
+				 				<ul>
+				 					<li class="removeBorder selected">
+												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
+												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
+												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
+										</li>
+										
+									<li class="removeBorder selected">
+												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
+												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
+												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
+										</li>
+										
+									<li class="removeBorder selected">
+												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
+												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
+												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
+										</li>
+				 				</ul>
+			 				</div>
 			 			</div>
-			 			<div class="row col-xs-2">
-			 				<div class="bfh-selectbox" data-name="selectbox1" >
-			 						  <div data-value="1">Select</div>
-									  <div data-value="1">Option 1111111111111111111111111111</div>
-									  <div data-value="2">Option 2</div>
-									  <div data-value="3">Option 3</div>
-									  <div data-value="4">Option 4</div>
-									  <div data-value="5">Option 5</div>
-									  <div data-value="6">Option 6</div>
-									  <div data-value="7">Option 7</div>
-									  <div data-value="8">Option 8</div>
-									  <div data-value="9">Option 9</div>
-									  <div data-value="10">Option 10</div>
-									  <div data-value="11">Option 11</div>
-									  <div data-value="12">Option 12</div>
-									  <div data-value="13">Option 13</div>
-									  <div data-value="14">Option 14</div>
-									  <div data-value="15">Option 15</div>
-								</div>
-			 			</div>
-			 			<div class="row col-xs-4">
-			 				&nbsp;&nbsp;<button class="btn btn-default">New</button>
-			 			</div>
+			 			
 			 </div>
-			  <div class="row rowContent">
-			 			<div class="row col-xs-2">Billing Address:</div>
-			 			<div class="row col-xs-4">
-			 					Wienerbergstrasse 41
-								Wien 1120
-								Country: Austria
-								Phone: +43 1 340 0100 1000
+			 <div class="row rowContent">
+			 			<div class="row ">Billing Address:  <a>New Billing Address</a> <input type="checkbox"/>Same as Shipping Address </div>
+			 			<div class="row col-xs-11 col-xs-offset-1">
+			 				<div>
+				 				<ul>
+				 					<li class="removeBorder selected">
+												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
+												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
+												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
+										</li>
+										
+									<li class="removeBorder selected">
+												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
+												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
+												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
+										</li>
+										
+									<li class="removeBorder selected">
+												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
+												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
+												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
+										</li>
+				 				</ul>
+			 				</div>
 			 			</div>
-			 			<div class="row col-xs-2">
-			 				<div class="bfh-selectbox" data-name="selectbox1">
-			 						  <div data-value="1">Select</div>
-									  <div data-value="1">Option 1111111111111111111111111111</div>
-									  <div data-value="2">Option 2</div>
-									  <div data-value="3">Option 3</div>
-									  <div data-value="4">Option 4</div>
-									  <div data-value="5">Option 5</div>
-									  <div data-value="6">Option 6</div>
-									  <div data-value="7">Option 7</div>
-									  <div data-value="8">Option 8</div>
-									  <div data-value="9">Option 9</div>
-									  <div data-value="10">Option 10</div>
-									  <div data-value="11">Option 11</div>
-									  <div data-value="12">Option 12</div>
-									  <div data-value="13">Option 13</div>
-									  <div data-value="14">Option 14</div>
-									  <div data-value="15">Option 15</div>
-								</div>
-			 			</div>
-			 			<div class="row col-xs-4">
-			 				&nbsp;&nbsp; <button class="btn btn-default">New</button> &nbsp;&nbsp; <input type="checkbox"> Same as Billing Address 
-			 			</div>
+			 			
 			 </div>
 			<!-- 	<div id="countries_states2" class="bfh-selectbox bfh-countries" data-country="US" data-filter="true" data-flags="true">
 				</div>

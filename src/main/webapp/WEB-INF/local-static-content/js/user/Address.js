@@ -3,6 +3,12 @@
 		function() {
 			var address = {};
 			
+			function initAddressModal(){
+				if($("#userAddressUpdateModal")){
+					
+				}
+			}
+			
 			address.getUserAddresses = function(id, callBack){
 				
 				if(callBack){
@@ -28,6 +34,7 @@
 				}
 			};
 			
+			
 			address.saveAddress = function(id, value, callBack){
 				
 				if(callBack){
@@ -39,6 +46,14 @@
 						success : callBack
 					});
 				}
+			};
+			
+			address.saveAddress = function(addressJson, callBack){
+				initAddressModal();
+			};
+			
+			address.editAddress = function(addressId, callBack){
+				initAddressModal();
 			};
 			
 	        return address;

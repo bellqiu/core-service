@@ -17,7 +17,6 @@
 		<!-- Import css/js -->
 		<style type="text/css">
 				  @import url("/resources/css/reset.css");
-				  @import url("/resources/css/smoothness/jquery-ui-1.10.3.custom.css"); 
 				  @import url("/resources/bxslider/jquery.bxslider.css");
 				  @import url("/resources/bootstrap/css/bootstrap.min.css");
 				  @import url("/resources/bootstrap/bootstrap-select.min.css");
@@ -30,7 +29,6 @@
 		</style>
 		
 		<script src="/resources/js/jquery-1.9.1.js" type="text/javascript"></script>
-		<script src="/resources/js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery.loadmask.min.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery.cookie.js" type="text/javascript"></script>
 		<script src="/resources/bxslider/jquery.bxslider.min.js" type="text/javascript"></script>
