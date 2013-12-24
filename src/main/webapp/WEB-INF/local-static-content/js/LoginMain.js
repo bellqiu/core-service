@@ -12,9 +12,9 @@
 		$(document).ready(function(){
 			var anchor = window.location.hash;
 			if(!anchor && isSignUpPage){
-				$('#signUpOrLoginTab a[href=#signUpTab]').tab('show') 
+				$('#signUpOrLoginTab a[href=#signUpTab]').tab('show');
 			}
-			$('#signUpOrLoginTab a[href="'+anchor+'"]').tab('show') 
+			$('#signUpOrLoginTab a[href="'+anchor+'"]').tab('show');
 		}); 
 
 })(jQuery);

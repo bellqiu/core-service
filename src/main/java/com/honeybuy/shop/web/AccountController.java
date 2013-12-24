@@ -229,7 +229,13 @@ public class AccountController {
 	@RequestMapping(value="/address/fragment", method={RequestMethod.GET})
 	@Secured("USER")
 	public String userAddressFragment(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
-			@RequestParam(value="addressId", required=false, defaultValue="0") long addressId){
+			@RequestParam(value="addressId", required=false, defaultValue="0") long addressId, Model model){
+		
+		Address address = new Address();
+		//address.set
+		
+		
+		model.addAttribute("address", address);
 		
 		return "addressFragment";
 	}
