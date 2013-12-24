@@ -464,8 +464,17 @@ Ext.define('AM.controller.Product', {
 				isCopy : true
 			},
 			success : function (form, action){
-				productForm.up("producteditor").setProduct(action.result.data);
-				productForm.getForm().setValues(action.result.data);
+				productResult = action.result.data;
+				props = productResult.props;
+				for(i=0;i<props.length;i++) {
+					props[i].id = -1 * i;
+				}
+				options = productResult.options;
+				for(i=0;i<options.length;i++) {
+					options[i].id = -1 * i;
+				}
+				editor.setProduct(productResult);
+				productForm.getForm().setValues(productResult);
 			}
 		})
 	}, 

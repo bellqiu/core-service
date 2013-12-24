@@ -25,6 +25,11 @@ Ext.define('AM.view.toolbar.GlobalNav', {
 										text : 'New Product',
 										id : 'newproduct'
 										
+									}, {
+										xtype : 'button',
+										text : 'Close All Right Tab',
+										id : 'closeAll'
+										
 									}/*,{
 										
 										xtype: 'uploadbutton',

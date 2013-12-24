@@ -266,6 +266,19 @@ public class ProductService {
 		List<OptionItem> items = option.getItems();
 		if(items != null && items.size() > 0) {
 			List<OptionItem> existingOptionItems = existingOption.getItems();
+			existingOptionItems.clear();
+			for(OptionItem optionItem : items) {
+				optionItem.setId(0);
+				List<Property> overrideProps = optionItem.getOverrideProps();
+				if(overrideProps != null && overrideProps.size() > 0) {
+					for(Property property : overrideProps) {
+						property.setId(0);
+					}
+				}
+				existingOptionItems.add(optionItem);
+			}
+			/*
+			List<OptionItem> existingOptionItems = existingOption.getItems();
 			Map<Long, OptionItem> itemMap = new HashMap<Long, OptionItem>();
 			for(OptionItem optionItem : existingOptionItems) {
 				itemMap.put(optionItem.getId(), optionItem);
@@ -317,7 +330,7 @@ public class ProductService {
 				}
 			}
 			existingOption.setItems(existingOptionItems);
-		} else {
+		*/} else {
 			existingOption.getItems().clear();
 		}
 		

@@ -13,7 +13,11 @@ Ext.define('AM.controller.GlobalNav', {
             
             'globalnav combo#managerCombo': {
             	select: this.manage
-            }
+            },
+            
+            'globalnav button#closeAll' : {
+				click : this.closeAll
+			}
             
         });
     },
@@ -147,6 +151,11 @@ Ext.define('AM.controller.GlobalNav', {
     
     logout: function(grid, record) {
       window.location.href = window.location.protocol+window.location.hostname+":"+window.location.port+"/logout"
+    }, 
+    
+    closeAll : function(btn) {
+    	var contentPanel = btn.up("viewport").down("tabpanel#mainContainer");
+    	contentPanel.removeAll();
     }
 
 });
