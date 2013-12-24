@@ -1,5 +1,7 @@
 package com.hb.core.entity;
 
+import java.util.Locale;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -125,6 +127,20 @@ public class Address extends Component{
 
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
+	}
+	
+	public String getCountryName(){
+		String[] locales = Locale.getISOCountries();
+		for (String countryCode : locales) {
+			
+			if(countryCode.equals(getCountryCode())){
+				  Locale obj = new Locale("", countryCode);
+
+				return obj.getDisplayCountry();
+			}
+		}
+		
+		return "";
 	}
 
 }

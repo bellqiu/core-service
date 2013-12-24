@@ -26,7 +26,7 @@
 			</c:forEach>
 				 @import url("/resources/css/core.css");
 		</style>
-		
+		<script src="/resources/js/json2.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery-1.9.1.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery.loadmask.min.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery.cookie.js" type="text/javascript"></script>

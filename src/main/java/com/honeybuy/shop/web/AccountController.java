@@ -231,8 +231,34 @@ public class AccountController {
 	public String userAddressFragment(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
 			@RequestParam(value="addressId", required=false, defaultValue="0") long addressId, Model model){
 		
-		Address address = new Address();
-		//address.set
+		Address address = null;
+		
+		if(addressId > 0){
+			address = userService.getUserAddressById(addressId, details.getUsername());
+		}
+		
+		
+		if(null == address){
+			List<Address> addresses =userService.getUserAddresses(details.getUsername());
+			if(null != addresses && addresses.size() > 0){
+				Address addForCopy =  addresses.get(0);
+				address = new Address();
+				address.setAddress1(addForCopy.getAddress1());
+				address.setAddress2(addForCopy.getAddress2());
+				address.setCity(addForCopy.getCity());
+				address.setCountryCode(addForCopy.getCountryCode());
+				address.setFirstName(addForCopy.getFirstName());
+				address.setLastName(addForCopy.getLastName());
+				address.setPhone(addForCopy.getPhone());
+				address.setPostalCode(addForCopy.getPostalCode());
+				address.setStateProvince(addForCopy.getStateProvince());
+			}
+		}
+		
+		if(null == address){
+			address= new Address();
+			address.setCountryCode("US");
+		}
 		
 		
 		model.addAttribute("address", address);

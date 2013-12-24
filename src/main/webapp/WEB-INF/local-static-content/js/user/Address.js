@@ -3,7 +3,7 @@
 		function() {
 			var address = {};
 			
-			function initAddressModal(title, addressId){
+			function initAddressModal(title, addressId, callBack){
 				
 				addressId = parseInt(addressId);
 				
@@ -14,7 +14,7 @@
 				$("#OrderAddressPanel").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
 				
 				if($("#userAddressUpdateModal").length < 1 ){
-					$("body").append('<div id="userAddressUpdateModal" class="modal fade"><form class="form-inline"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">'+title+'</h4></div><div class="modal-body"></div><div class="modal-footer"><button type="submit" class="btn btn-danger saveBtn">Save</button></div></div></div></form></div>');
+					$("body").append('<div id="userAddressUpdateModal" class="modal fade"><form class="form-inline"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">'+title+'</h4></div><div class="modal-body"></div><div class="modal-footer"><button type="submit" class="btn btn-danger saveBtn" data-loading-text="Processing..">Save</button></div></div></div></form></div>');
 				}
 				
 				$("#userAddressUpdateModal .modal-body").load("/ac/address/fragment?addressId="+addressId, function(){
@@ -23,11 +23,7 @@
 					
 					$("#userAddressUpdateModal button.saveBtn").unbind();
 					
-					$("#userAddressUpdateModal button.saveBtn").click(function(){
-						
-						
-	                   
-					});
+					$("#userAddressUpdateModal .addressbaody .addresserror").hide();
 					
 					$("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
 					
@@ -35,6 +31,8 @@
 						preventSubmit: true, 
      	   
                 	   submitSuccess: function($form, event) {
+                		    $("#userAddressUpdateModal button.saveBtn").button("loading");
+                		    var id = $(".addressbaody input[name='id']").val();
                 			var firstName = $(".addressbaody input[name='firstName']").val();
     						var lastName = $(".addressbaody input[name='lastName']").val();
     						var address1 = $(".addressbaody input[name='address1']").val();
@@ -44,6 +42,42 @@
     						var stateProvince = $(".addressbaody input[name='stateProvince']").val();
     						var postalCode = $(".addressbaody input[name='postalCode']").val();
     						var phone = $(".addressbaody input[name='phone']").val();
+    						
+    						$.ajax({
+    							type: "POST",
+    							contentType : "application/json; charset=UTF-8",
+    							url : "/ac/address/save",
+    							data : JSON.stringify({
+    								"id" : id,
+    								"firstName" : firstName,
+    								"lastName" : lastName,
+    								"address1" : address1,
+    								"address2" : address2,
+    								"city" : city,
+    								"countryCode" : country,
+    								"stateProvince" : stateProvince,
+    								"postalCode" : postalCode,
+    								"phone" : phone
+    							}),
+    							complete : function(response){
+    								var address = null;
+    								
+    								try{
+    									address = JSON.parse(response.responseText);
+    								}catch(e){
+    									
+    								}
+    								
+    								if(callBack && address){
+    									callBack(address);
+    									$("#userAddressUpdateModal").modal('hide');
+    								}else{
+    									$("#userAddressUpdateModal .addressbaody .addresserror").show();
+    								}
+    								
+    								$("#userAddressUpdateModal button.saveBtn").button("reset");
+    							},
+    						});
                 		   
 		                    event.preventDefault();
                 	   }
@@ -89,7 +123,7 @@
 				if(addressId){
 					title = "Edit address";
 				}
-				initAddressModal(title, addressId);
+				initAddressModal(title, addressId, callBack);
 			};
 			
 			

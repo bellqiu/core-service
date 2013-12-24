@@ -5,7 +5,9 @@
 			
 			$("#new_shipping_address").click(function(e){
 				
-				userAdd.saveOrupdateAddress(0, null);
+				userAdd.saveOrupdateAddress(0, function(address){
+					alert(address.id);
+				});
 				
 				e.preventDefault();
 			});

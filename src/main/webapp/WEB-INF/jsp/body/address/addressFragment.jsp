@@ -3,13 +3,15 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="addressbaody">
+	 <P class="alert alert-danger addresserror">Save address failed, check the entered value</P>
 	<div class="row padding5">
 		<div class="col-xs-3"><span>Your Name:</span></div>
 		<div class="col-xs-7">
 			<div class="row">
 				<div class="col-xs-6 ">
 					<div class="row padding5">
-						<input class="form-control"  name="firstName" required="required"  data-validation-required-message="Please fill your first name">
+						<input type="hidden" name="id" value="${address.id }" />
+						<input class="form-control"  name="firstName" required="required" value="${address.firstName}"  data-validation-required-message="Please fill your first name">
 					</div>
 					<div class="row">
 						<span>* First Name</span>
@@ -17,7 +19,7 @@
 				</div>
 				<div class="col-xs-6">
 					<div class="row padding5">
-						<input class="form-control" name="lastName" required="required"  data-validation-required-message="Please fill your last name">
+						<input class="form-control" name="lastName" required="required"  value="${address.lastName}"  data-validation-required-message="Please fill your last name">
 					</div>
 					<div class="row">
 						<span>* Last Name</span>
@@ -30,14 +32,14 @@
 	<div class="row padding5">
 		<div class="col-xs-3"><span>*Address Line 1:</span></div>
 		<div class="col-xs-7">
-			<input class="form-control" name="address1" required="required"  data-validation-required-message="Please fill your address">
+			<input class="form-control" name="address1" required="required"  value="${address.address1}" data-validation-required-message="Please fill your address">
 		</div>
 	</div>
 	
 	<div class="row padding5">
 		<div class="col-xs-3"><span>Address Line 2:</span></div>
 		<div class="col-xs-7">
-			<input class="form-control" name="address2">
+			<input class="form-control" name="address2" value="${address.address2}">
 		</div>
 	</div>
 	
@@ -51,28 +53,28 @@
 	<div class="row padding5">
 		<div class="col-xs-3"><span>*Destination Country/Region:</span></div>
 		<div class="col-xs-7">
-			<div id="countries_states" class="bfh-selectbox bfh-countries" data-name="country" data-country="US" data-flags="true" data-filter="true"></div>
+			<div id="countries_states" class="bfh-selectbox bfh-countries" data-name="country" data-country="${address.countryCode}" data-flags="true" data-filter="true"></div>
 		</div>
 	</div>
 	
 	<div class="row padding5">
 		<div class="col-xs-3"><span>State / Province / Region:</span></div>
 		<div class="col-xs-7">
-			<div id="state_province" class="bfh-selectbox bfh-states" data-country="countries_states" data-name="stateProvince"  data-filter="true"></div>
+			<div id="state_province" class="bfh-selectbox bfh-states" data-country="countries_states" data-name="stateProvince" data-state="${address.stateProvince}" data-filter="true"></div>
 		</div>
 	</div>
 	
 	<div class="row padding5">
 		<div class="col-xs-3"><span>ZIP / Postal Code:</span></div>
 		<div class="col-xs-7">
-			<input class="form-control" name="postalCode">
+			<input class="form-control" name="postalCode" value="${address.postalCode}">
 		</div>
 	</div>
 	
 	<div class="row padding5">
 		<div class="col-xs-3"><span>*Phone Number:</span></div>
 		<div class="col-xs-7">
-			<input class="form-control" name="phone" required="required"  data-validation-required-message="Please fill your phone number">
+			<input class="form-control" name="phone" required="required"  data-validation-required-message="Please fill your phone number"  value="${address.phone}">
 		</div>
 	</div>
 
