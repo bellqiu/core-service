@@ -39,6 +39,6 @@
                         </div>
                     </div>
 				</form>
-				<script src="/resources/js/changePwdPageMain.js" type="text/javascript"></script>
+				<script src="/resources/js/ChangePwdPageMain.js" type="text/javascript"></script>
 		</div>
 </div>

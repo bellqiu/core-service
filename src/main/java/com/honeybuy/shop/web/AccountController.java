@@ -6,6 +6,8 @@ package com.honeybuy.shop.web;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -131,9 +133,12 @@ public class AccountController {
 		return messageMap;
 	}
 	
+	@Secured("USER")
 	@RequestMapping(value="/profile" , method=RequestMethod.GET)
-	public String getUserProfile(Model model){
+	public String getUserProfile(Model model,
+			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		model.addAttribute("page", "profile");
+		model.addAttribute("email", details.getUsername());
 		return "profile";
 	}
 	
@@ -161,8 +166,27 @@ public class AccountController {
 	public String getUserAddresses(Model model, 
 			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		List<Address> userAddresses = userService.getUserAddresses(details.getUsername());
+		List<Address> mockAddress = new ArrayList<Address>();
+		for(int i = 0;i < 10;i ++) {
+			Address address = new Address();
+			address.setFirstName("FirstName" + i);
+			address.setLastName("LastName" + i);
+			address.setAddress1("Address 1 - Shanghai");
+			address.setAddress2("Address 2 - Fujian");
+			address.setCity("Shanghai");
+			address.setCountryCode("+86");
+			address.setPhone("123456");
+			address.setPostalCode("200012");
+			address.setStateProvince("Shanghai");
+			mockAddress.add(address);
+		}
+		if(userAddresses == null) {
+			userAddresses = mockAddress;
+		} else {
+			userAddresses.addAll(mockAddress);
+		}
 		model.addAttribute("addresses", userAddresses);
-		model.addAttribute("addressCount", userAddresses == null ? 0 : userAddresses.size());
+		
 		model.addAttribute("page", "address");
 		return "address";
 	}

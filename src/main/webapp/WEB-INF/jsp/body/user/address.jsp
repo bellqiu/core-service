@@ -1,85 +1,38 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-Test
-<c:forEach items="${addresses }" var="item" varStatus="status">
-	<div class="col-lg-12 panel panel-default">
-					<div class="row form-group">
-						<label class="col-lg-2">First Name: </label>
-					 	<div class="col-lg-10">
-						First Name......
-						</div>
-					</div>
-					<div class="row form-group">
-						<label class="col-lg-2">Last Name: </label>
-					 	<div class="col-lg-10">
-						Last Name......
-						</div>
-					</div>
-					<div class="row form-group">
-						<label class="col-lg-2">Address1: </label>
-					 	<div class="col-lg-10">
-						Address1......
-						</div>
-					</div>
-					<div class="row form-group">
-						<label class="col-lg-2">Address2: </label>
-					 	<div class="col-lg-10">
-						Address2......
-						</div>
-					</div>
-					<div class="row form-group">
-						<label class="col-lg-2">Postal Code: </label>
-					 	<div class="col-lg-10">
-						postal_code......
-						</div>
-					</div>
-					<div class="row form-group">
-						<label class="col-lg-2">Phone: </label>
-					 	<div class="col-lg-10">
-						phone......
-						</div>
-					</div>
-					<div class="row form-group">
-						<label class="col-lg-2">City: </label>
-					 	<div class="col-lg-10">
-						City......
-						</div>
-					</div>
-					<div class="row form-group">
-						<label class="col-lg-2">State: </label>
-					 	<div class="col-lg-10">
-						state province......
-						</div>
-					</div>
-					<div class="row form-group">
-						<label class="col-lg-2">Country Code: </label>
-					 	<div class="col-lg-10">
-						country_code......
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-offset-2 col-lg-10">
-						<button type="button" class="btn btn-danger" onclick="getAddress(1)">Edit Address</button>
-						</div>
-					</div>
-	</div>
+<div>
+<div>
+	<legend>Manage your addresses</legend>
+</div>
+<div class="padding10">
+<button type="button" id="addAddress" class="btn btn-danger">Add a New Address</button>
+</div>
+<div id="addressContainer" >
+<c:forEach items="${addresses }" var="address" varStatus="status">
+	<c:if test="${status.index % 2 == 0}">
+		<div class="row">
+	</c:if>
+			<div class="col-xs-6">
+			<div class="row padding10 panel panel-default">
+				<ul>
+					<li><strong>${address.firstName} ${address.lastName}</strong></li>
+					<li>${address.address1},${address.address2}</li>
+					<li>${address.city},${address.stateProvince},${address.postalCode}</li>
+					<li>${address.countryCode}</li>
+					<li>${address.phone}</li>
+					<li>
+						<button type="button" onclick="editAddress(${address.id})" class="btn btn-danger">Edit</button>
+						<button type="button" onclick="deleteAddress(${address.id})" class="btn btn-danger">Delete</button>
+					</li>
+				</ul>
+			</div>
+			</div>
+	<c:if test="${status.index % 2 == 1 || status.last}">
+		</div>
+	</c:if>
 </c:forEach>				
-						
-<%-- 	<div class="row">
-			<c:forEach items="${productSummary }" var="item">
-							<div class="col-xs-4">
-								<div class="thumbnail productThumbnail">
-								<a href="${site.domain}/${item.name }" title="${item.title }">
-      							<img src="${site.resourceServer}/rs/img/${item.imageURL }" alt="${item.title }" class="category-product-img">
-								</a>
-      							<div class="caption">
-        						<!-- <h3>Thumbnail label</h3> -->
-        						<p><a href="${site.domain}/${item.name }">${item.title }</a></p>
-      							</div>
-   		 						</div>
-							</div>
-						</c:forEach>
-					</div> --%>
+</div>
+</div>					
+
 					
