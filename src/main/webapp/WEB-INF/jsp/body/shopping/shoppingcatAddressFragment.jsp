@@ -76,22 +76,20 @@
 			 <div class="row rowContent">
 			 			<div class="row ">Shipping Address: 
 			 				<c:if test="${fn:length(addresses) < 6 }">
-			 					<a href="#" id="new_shipping_address">New Shipping Address</a>
+			 					<a href="#" id="new_shipping_address" data-order-id="${currentOrder.id }">New Shipping Address</a>
 			 				</c:if>
 			 			</div>
 			 			<div class="row col-xs-11 col-xs-offset-1">
 			 				<div>
-			 					<c:if test="${not empty addresses }">
-				 				<ul>
+				 				<ul class="ShippingAddresslineContainer">
 				 					<c:forEach items="${addresses }" var="add" end="5">
-				 						<li class="removeBorder">
-												<input  class="address" type="radio" ${(add.id==order.shippingAddRef)? "checked='checked'" :""  } name="shipping_address_id" id="addr_${add.id }" value="${add.id}">
+				 						<li>
+												<input  class="shippingAddress" data-order-id="${currentOrder.id }" type="radio" ${(add.id == currentOrder.shippingAddressRef)? "checked='checked'" :""  } name="shipping_address_id" id="addr_${add.id }" value="${add.id}">
 												<label for="addr_${add.id }"><strong>${add}</strong></label>
-												&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)" data-address-id="${add.id}">Edit</a>
+												&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)" data-address-id="${add.id}" data-order-id="${currentOrder.id }">Edit</a>
 										</li>
 									</c:forEach>
 				 				</ul>
-				 				</c:if>
 			 				</div>
 			 			</div>
 			 			
@@ -101,20 +99,17 @@
 			 			<c:if test="${fn:length(addresses) < 6 }"> 
 			 				<a>New Billing Address</a>
 			 			</c:if>
-						<input type="checkbox"/>Same as Shipping Address </div>
 			 			<div class="row col-xs-11 col-xs-offset-1">
 			 				<div>
-				 				<c:if test="${not empty addresses }">
-				 				<ul>
+				 				<ul class="BillingAddresslineContainer">
 				 					<c:forEach items="${addresses }" var="add" end="5">
 				 						<li >
-												<input class="address" type="radio" name="shipping_address_id" id="addr_${add.id }" value="${add.id}">
+												<input class="billingAddress" data-order-id="${currentOrder.id }" type="radio" ${(add.id == currentOrder.shippingAddressRef)? "checked='checked'" :""  } name="billing_address_id" id="addr_${add.id }" value="${add.id}">
 												<label for="addr_${add.id }"><strong>${add}</strong></label>
-												&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)" data-address-id="${add.id}">Edit</a>
+												&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)"  data-order-id="${currentOrder.id }" data-address-id="${add.id}">Edit</a>
 										</li>
 									</c:forEach>
 				 				</ul>
-				 				</c:if>
 			 				</div>
 			 			</div>
 			 			
@@ -126,7 +121,7 @@
 				</div> -->
 		</div>
 	</div>
-	
+	</div>
 		
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -138,24 +133,24 @@
 		<div class="panel-body">
 			 <div class="row rowContent">
 			 	<div class="row col-xs-3">
-			 		<input type="radio"> Standard Shipping
+			 		<input type="radio" name="shippingMethod"> Standard Shipping
 			 	</div>
 			 	<div class="row col-xs-3">
 			 		Normally 4 - 6 days
 			 	</div>
 			 	<div class="row col-xs-6">
-			 		USD 25
+			 		<hb:printCurrency/> <span><hb:printPrice price="${normalDeliverPrice } " withCurrency="false"/></span>
 			 	</div>
 			 </div>		
 			  <div class="row rowContent">
 			 	<div class="row col-xs-3">
-			 		<input type="radio"> Standard Shipping
+			 		<input type="radio" name="shippingMethod"> Expedited Shipping
 			 	</div>
 			 	<div class="row col-xs-3">
 			 		Normally 4 - 6 days
 			 	</div>
 			 	<div class="row col-xs-6">
-			 		USD 25
+			 		<hb:printCurrency/> <span><hb:printPrice price="${expeditedDeliverPrice }" withCurrency="false"/></span>
 			 	</div>
 			 </div>	
 			  <div class="row rowContent">

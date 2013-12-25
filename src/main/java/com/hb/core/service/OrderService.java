@@ -415,6 +415,25 @@ public class OrderService {
 		
 		return orderDetailConverter.convert(order);
 	}
+	
+	public float getDeliverPrice(String shippingCode){
+		float normalDeliver = Float.valueOf(settingService.getStringValue(Constants.SHIPPING_PRICE_NORMAL_CONF_KEY, Constants.SHIPPING_PRICE_NORMAL_CONF_DEFAULT));
+		Country country = countryService.getCountry(shippingCode);
+		if(null!=country){
+			normalDeliver = country.getNormalDeliveryPrice();
+		}
+		return normalDeliver;
+	}
+	
+	public float getExpeditedDeliverPrice(String shippingCode){
+		float advanceDeliver = Float.valueOf(settingService.getStringValue(Constants.SHIPPING_PRICE_EXPEDITED_CONF_KEY, Constants.SHIPPING_PRICE_EXPEDITED_CONF_DEFAULT));
+		Country country = countryService.getCountry(shippingCode);
+		
+		if(null!=country){
+			advanceDeliver = country.getAdvanceDeliveryPrice();
+		}
+		return advanceDeliver;
+	}
 
 	private void updateShippingPrice(String countryCode, Order order) {
 		Country country = countryService.getCountry(countryCode);
@@ -466,6 +485,18 @@ public class OrderService {
 		
 		return orderDetailConverter.convert(order);
 		
+	}
+	
+	public OrderDetailDTO applMessage(long orderId, String message){
+		Order order = em.find(Order.class, orderId);
+		
+		order.setCustomerMsg(message);
+		
+		em.merge(order);
+		em.persist(order);
+		em.flush();
+		
+		return orderDetailConverter.convert(order);
 	}
 	
 	public OrderDetailDTO applyCoupon(long orderId, String couponCode){

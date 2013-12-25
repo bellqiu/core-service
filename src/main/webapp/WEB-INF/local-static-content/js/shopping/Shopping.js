@@ -29,7 +29,7 @@
 				if(callBack){
 					$.ajax({
 						dataType : "json",
-						url : "/json/productChange/"+productName,
+						url : "/json/productChange/"+productName + "?" + new Date().getTime(),
 						data : {productOpts: paramStr},
 						success : callBack
 						
@@ -68,7 +68,7 @@
 					$(".shopping_cart_container").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
 					$(".shopping_cart_container").load("/fragment/sp/shoppingcart/modify?itemId="+itemId+"&changes="+changes, function(){
 						$.ajax({
-							url : "/sp/shoppingcart/itemCount",
+							url : "/sp/shoppingcart/itemCount?"+new Date().getTime(),
 							complete : function(response){
 								var count = parseInt(response.responseText);
 								if(count || count == 0){

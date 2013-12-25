@@ -207,4 +207,14 @@ public class OrderDetailDTO implements Serializable{
 		this.billingAddressRef = billingAddressRef;
 	}
 	
+	public float getTotalProductPrice(){
+		float productPrice = 0;
+		
+		for (OrderItemDTO item : getItems()) {
+			productPrice = productPrice + (item.getFinalPrice() * item.getQuantity());
+		}
+		
+		return productPrice;
+	}
+	
 }

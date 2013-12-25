@@ -17,7 +17,7 @@
 					$("body").append('<div id="userAddressUpdateModal" class="modal fade"><form class="form-inline"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">'+title+'</h4></div><div class="modal-body"></div><div class="modal-footer"><button type="submit" class="btn btn-danger saveBtn" data-loading-text="Processing..">Save</button></div></div></div></form></div>');
 				}
 				
-				$("#userAddressUpdateModal .modal-body").load("/ac/address/fragment?addressId="+addressId, function(){
+				$("#userAddressUpdateModal .modal-body").load("/ac/address/fragment?addressId="+addressId + "&"+new Date().getTime() , function(){
 					$("#OrderAddressPanel").unmask();
 					$("#userAddressUpdateModal").modal();
 					
