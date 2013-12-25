@@ -126,6 +126,19 @@
 				initAddressModal(title, addressId, callBack);
 			};
 			
+			address.deleteAddress = function(addressId, callBack){
+				var addressId = parseInt(addressId);
+				
+				if(addressId && callBack){
+					$.ajax({
+						dataType : "json",
+						type: "POST",
+						url : "/ac/address/delete/" + addressId + "?time=" + new Date().getTime(),
+						success : callBack
+					});
+				}
+			};
+			
 			
 	        return address;
 	    }

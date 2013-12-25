@@ -326,8 +326,31 @@ public class UserService {
 		for (Address add : user.getAddresses()) {
 			if(add.getId() == addressId){
 				address = add;
+				break;
 			}
 		}
+		
+		return address;
+	}
+	
+	public Address removeUserAddressById(long addressId, String useremail) {
+		
+		User user = getUser(useremail);
+		
+		if(null == user || user.getAddresses()==null || user.getAddresses().size() < 1){
+			return null;
+		}
+		
+		Address address = null;
+		for (int i = 0, length = user.getAddresses().size(); i< length; i++) {
+			Address add = user.getAddresses().get(i);
+			if(add.getId() == addressId){
+				address = add;
+				user.getAddresses().remove(i);
+				break;
+			}
+		}
+		em.merge(user);
 		
 		return address;
 	}

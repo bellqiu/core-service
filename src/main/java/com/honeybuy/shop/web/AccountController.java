@@ -250,7 +250,23 @@ public class AccountController {
 		return "addressFragment";
 	}
 	
-	
+	@ResponseBody
+	@Secured("USER")
+	@RequestMapping(value="/address/delete/{addressId:\\d+}", method={RequestMethod.POST})
+	public ResponseResult<Address> deleteUserAddressById(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
+			@PathVariable("addressId") long addressId){
+		
+		Address address =  userService.removeUserAddressById(addressId, details.getUsername());
+		 
+		if(null == address){
+			ResponseResult<Address> addressResponse = new ResponseResult<Address>(false,null);
+			addressResponse.getMessageMap().put("Error", "Address not found");
+			
+			return addressResponse;
+		}
+		
+		 return  new ResponseResult<Address>(true, address);
+	}
 	
 	
 	
