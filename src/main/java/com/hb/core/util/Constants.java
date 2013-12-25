@@ -40,5 +40,14 @@ public interface Constants {
 	public static final String DEFAULT_FACEBOOK_API_KEY = "277233412302753";
 	public static final String DEFAULT_FACEBOOK_SECRET_KEY = "92efa5dd2807209cb37b375777b21eaf";
 	
+	public static final String SHIPPING_PRICE_NORMAL_CONF_KEY = "SHIPPING_PRICE_NORMAL_CONF";
+	public static final String SHIPPING_PRICE_EXPEDITED_CONF_KEY = "SHIPPING_PRICE_EXPEDITED_CONF";
+	public static final String FREE_SHIPPING_PRICE_NORMAL_CONF_KEY = "FREE_SHIPPING_PRICE_NORMAL_CONF";
+	public static final String FREE_SHIPPING_PRICE_EXPEDITED_CONF_KEY = "FREE_SHIPPING_PRICE_EXPEDITED_CONF";
+	
+	public static final String SHIPPING_PRICE_NORMAL_CONF_DEFAULT = "10";
+	public static final String SHIPPING_PRICE_EXPEDITED_CONF_DEFAULT = "20";
+	public static final String FREE_SHIPPING_PRICE_NORMAL_CONF_DEFAULT = "100";
+	public static final String FREE_SHIPPING_PRICE_EXPEDITED_CONF_DEFAULT = "200";
 	
 }

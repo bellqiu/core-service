@@ -46,7 +46,7 @@
 	<div class="row padding5">
 		<div class="col-xs-3"><span>*City:</span></div>
 		<div class="col-xs-7">
-			<input class="form-control" name="city">
+			<input class="form-control" name="city" value="${address.city}">
 		</div>
 	</div>
 	

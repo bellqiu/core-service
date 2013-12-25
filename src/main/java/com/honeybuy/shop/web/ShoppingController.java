@@ -4,6 +4,8 @@
  */
 package com.honeybuy.shop.web;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hb.core.entity.Address;
 import com.hb.core.entity.Currency;
 import com.hb.core.service.OrderService;
+import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
@@ -40,6 +44,9 @@ public class ShoppingController {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/sp/shoppingcart/list")
 	public String shoppingcat(Model model){
@@ -110,6 +117,7 @@ public class ShoppingController {
 			useremail = details.getUsername();
 		}
 		
+		List<Address> addresses = userService.getUserAddresses(useremail);
 		
 		OrderDetailDTO orderDetailDTO  = null;
 		
@@ -119,6 +127,33 @@ public class ShoppingController {
 		}else{
 			orderDetailDTO = orderService.getCart(null, useremail);
 		}
+		
+		if(null != addresses && null!=orderDetailDTO){
+			
+			long shippingAddIdRef = orderDetailDTO.getShippingAddressRef();
+			long billingAddIdRef = orderDetailDTO.getBillingAddressRef();
+			
+			Address shippingAdd = null;
+			Address billingAdd = null;
+			
+			if(shippingAddIdRef > 0){
+				shippingAdd = userService.getUserAddressById(shippingAddIdRef, useremail);
+				
+				if(null == shippingAdd){
+					orderDetailDTO = orderService.updateOrderShippingAddress(addresses.get(0), orderId);
+				}
+			}
+			
+			if(billingAddIdRef > 0){
+				billingAdd = userService.getUserAddressById(shippingAddIdRef, useremail);
+				if(null == billingAdd){
+					orderDetailDTO = orderService.updateOrderShippingAddress(addresses.get(0), orderId);
+				}
+			}
+			
+			model.addAttribute("addresses", addresses);
+		}
+		
 		
 		if(null != orderDetailDTO && useremail.equals(orderDetailDTO.getUseremail())){
 			model.addAttribute("currentOrder", orderDetailDTO);

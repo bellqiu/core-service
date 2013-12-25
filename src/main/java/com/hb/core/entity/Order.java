@@ -243,5 +243,15 @@ public class Order extends Component{
 	public void setShippingAddRef(long shippingAddRef) {
 		this.shippingAddRef = shippingAddRef;
 	}
+	
+	public float getTotalProductPrice(){
+		float productPrice = 0;
+		
+		for (OrderItem item : getItems()) {
+			productPrice = productPrice + (item.getFinalPrice() * item.getQuantity());
+		}
+		
+		return productPrice;
+	}
 
 }

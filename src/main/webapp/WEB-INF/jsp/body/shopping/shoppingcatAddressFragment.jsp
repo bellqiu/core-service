@@ -74,55 +74,47 @@
 		
 		<div class="panel-body">
 			 <div class="row rowContent">
-			 			<div class="row ">Shipping Address: <a href="#" id="new_shipping_address">New Shipping Address</a></div>
+			 			<div class="row ">Shipping Address: 
+			 				<c:if test="${fn:length(addresses) < 6 }">
+			 					<a href="#" id="new_shipping_address">New Shipping Address</a>
+			 				</c:if>
+			 			</div>
 			 			<div class="row col-xs-11 col-xs-offset-1">
 			 				<div>
+			 					<c:if test="${not empty addresses }">
 				 				<ul>
-				 					<li class="removeBorder selected">
-												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
-												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
-												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
+				 					<c:forEach items="${addresses }" var="add" end="5">
+				 						<li class="removeBorder">
+												<input  class="address" type="radio" ${(add.id==order.shippingAddRef)? "checked='checked'" :""  } name="shipping_address_id" id="addr_${add.id }" value="${add.id}">
+												<label for="addr_${add.id }"><strong>${add}</strong></label>
+												&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)" data-address-id="${add.id}">Edit</a>
 										</li>
-										
-									<li class="removeBorder selected">
-												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
-												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
-												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
-										</li>
-										
-									<li class="removeBorder selected">
-												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
-												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
-												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
-										</li>
+									</c:forEach>
 				 				</ul>
+				 				</c:if>
 			 				</div>
 			 			</div>
 			 			
 			 </div>
 			 <div class="row rowContent">
-			 			<div class="row ">Billing Address:  <a>New Billing Address</a> <input type="checkbox"/>Same as Shipping Address </div>
+			 			<div class="row ">Billing Address: 
+			 			<c:if test="${fn:length(addresses) < 6 }"> 
+			 				<a>New Billing Address</a>
+			 			</c:if>
+						<input type="checkbox"/>Same as Shipping Address </div>
 			 			<div class="row col-xs-11 col-xs-offset-1">
 			 				<div>
+				 				<c:if test="${not empty addresses }">
 				 				<ul>
-				 					<li class="removeBorder selected">
-												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
-												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
-												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
+				 					<c:forEach items="${addresses }" var="add" end="5">
+				 						<li >
+												<input class="address" type="radio" name="shipping_address_id" id="addr_${add.id }" value="${add.id}">
+												<label for="addr_${add.id }"><strong>${add}</strong></label>
+												&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)" data-address-id="${add.id}">Edit</a>
 										</li>
-										
-									<li class="removeBorder selected">
-												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
-												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
-												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
-										</li>
-										
-									<li class="removeBorder selected">
-												<input class="address" type="radio" name="shipping_address_id" id="addr_10800797" value="10800797">
-												<label for="addr_10800797"><strong>FirstName LastName</strong>&nbsp;(Address line 1 Address line 2 City, 1234567 AB, Canada) </label>
-												&nbsp;<a class="toEditAddr u" href="javascript:void(0)" style="">Edit</a>
-										</li>
+									</c:forEach>
 				 				</ul>
+				 				</c:if>
 			 				</div>
 			 			</div>
 			 			

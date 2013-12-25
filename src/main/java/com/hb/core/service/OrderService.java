@@ -21,6 +21,9 @@ import org.springframework.util.StringUtils;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
 import com.hb.core.convert.Converter;
+import com.hb.core.entity.Address;
+import com.hb.core.entity.Country;
+import com.hb.core.entity.Coupon;
 import com.hb.core.entity.Order;
 import com.hb.core.entity.OrderItem;
 import com.hb.core.entity.Product;
@@ -29,6 +32,7 @@ import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.shared.dto.OrderSummaryDTO;
 import com.hb.core.shared.dto.ProductChangeDTO;
+import com.hb.core.util.Constants;
 
 
 @Transactional
@@ -51,6 +55,12 @@ public class OrderService {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private CountryService countryService;
+	
+	@Autowired
+	private CouponService couponService;
 	
 	@Autowired
 	private Converter<OrderDetailDTO, Order> orderDetailConverter;
@@ -249,10 +259,6 @@ public class OrderService {
 		return null;
 	}
 	
-	public OrderDetailDTO applyCoupon(String OrderSN, String couponCode){
-		return null;
-	}
-	
 	public OrderDetailDTO checkout(String OrderSN, String userEmail, String billingAddress, String shippingAddress, String shippingCountryCode, String extMessage){
 		return null;
 	}
@@ -387,6 +393,135 @@ public class OrderService {
 		} else {
 			throw new CoreServiceException("Order is not existing");
 		}
+	}
+	
+	public OrderDetailDTO updateOrderShippingAddress(Address address, long orderId){
+		
+		Order order = em.find(Order.class, orderId);
+		
+		if(null == order){
+			return null;
+		}
+		
+		order.setShippingAddress(address.toString());
+		order.setShippingAddRef(address.getId());
+		order.setShippingCode(address.getCountryCode());
+		
+		updateShippingPrice(address.getCountryCode(), order);
+		
+		em.merge(order);
+		em.persist(order);
+		em.flush();
+		
+		return orderDetailConverter.convert(order);
+	}
+
+	private void updateShippingPrice(String countryCode, Order order) {
+		Country country = countryService.getCountry(countryCode);
+		
+		
+		float normalFreeDeliver = Float.valueOf(settingService.getStringValue(Constants.FREE_SHIPPING_PRICE_NORMAL_CONF_KEY, Constants.FREE_SHIPPING_PRICE_NORMAL_CONF_DEFAULT));
+		float advanceFreeDeliver = Float.valueOf(settingService.getStringValue(Constants.FREE_SHIPPING_PRICE_EXPEDITED_CONF_KEY, Constants.FREE_SHIPPING_PRICE_EXPEDITED_CONF_DEFAULT));
+		float normalDeliver = Float.valueOf(settingService.getStringValue(Constants.SHIPPING_PRICE_NORMAL_CONF_KEY, Constants.SHIPPING_PRICE_NORMAL_CONF_DEFAULT));
+		float advanceDeliver = Float.valueOf(settingService.getStringValue(Constants.SHIPPING_PRICE_EXPEDITED_CONF_KEY, Constants.SHIPPING_PRICE_EXPEDITED_CONF_DEFAULT));
+		
+		if(null!=country){
+			normalFreeDeliver = country.getFreeDeliveryPrice();
+			advanceFreeDeliver = country.getFreeAdvanceDeliveryPrice();
+			normalDeliver = country.getNormalDeliveryPrice();
+			advanceDeliver = country.getAdvanceDeliveryPrice();
+		}
+		
+		
+		if("EXPEDITED".equals(order.getShippingMethod())){
+			if(order.getTotalProductPrice() < advanceFreeDeliver){
+				order.setDeliveryPrice(advanceDeliver);
+			}else{
+				order.setDeliveryPrice(0);
+			}
+			order.setShippingMethod("EXPEDITED");
+		}else{
+			order.setShippingMethod("NORMAL");
+			if(order.getTotalProductPrice() < normalFreeDeliver){
+				order.setDeliveryPrice(normalDeliver);
+			}else{
+				order.setDeliveryPrice(0);
+			}
+		}
+	}
+	
+	public OrderDetailDTO updateShippingMethod(long orderId, String ShippingMethod){
+
+		Order order = em.find(Order.class, orderId);
+		
+		if(null == order || (order.getShippingCode() != null)){
+			return null;
+		}
+		
+		updateShippingPrice(order.getShippingCode(), order);
+		
+		em.merge(order);
+		em.persist(order);
+		em.flush();
+		
+		return orderDetailConverter.convert(order);
+		
+	}
+	
+	public OrderDetailDTO applyCoupon(long orderId, String couponCode){
+		Order order = em.find(Order.class, orderId);
+		
+		if(null == order){
+			return null;
+		}
+		
+		Coupon coupon = couponService.getCouponByCode(couponCode);
+		
+		if(null != coupon && coupon.getEndDate().after(new Date()) && coupon.getMinCost() < order.getTotalProductPrice() && coupon.getUsedCount() < coupon.getMaxUsedCount()){
+			order.setCouponCode(couponCode);
+			
+			float couponCutOff = 0;
+			
+			if(coupon.getValue() < 1){
+				couponCutOff = order.getTotalProductPrice() * coupon.getValue();
+			}else{
+				couponCutOff = coupon.getValue();
+			}
+			
+			order.setCouponCutOff(couponCutOff);
+		}
+		
+		return orderDetailConverter.convert(order);
+	}
+	
+	public OrderDetailDTO updateOrderBillingAddress(Address address, long orderId){
+		
+		Order order = em.find(Order.class, orderId);
+		
+		order.setBillingAddress(address.toString());
+		order.setBillingAddRef(address.getId());
+		
+		em.merge(order);
+		em.persist(order);
+		em.flush();
+		
+		return orderDetailConverter.convert(order);
+	}
+
+	public CountryService getCountryService() {
+		return countryService;
+	}
+
+	public void setCountryService(CountryService countryService) {
+		this.countryService = countryService;
+	}
+
+	public CouponService getCouponService() {
+		return couponService;
+	}
+
+	public void setCouponService(CouponService couponService) {
+		this.couponService = couponService;
 	}
 
 }

@@ -11,6 +11,15 @@
 				
 				e.preventDefault();
 			});
+			
+			$(".toEditShippingAddr").each(function(index, el){
+				$(el).click(function(){
+					userAdd.saveOrupdateAddress($(el).attr("data-address-id"), function(address){
+						alert(address.id);
+					});
+					
+				});
+			});
 		}
 	
 	);

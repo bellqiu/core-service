@@ -282,35 +282,33 @@ public class UserService {
 	public Address saveAddress(String userEmail, Address address){
 		User user = getUser(userEmail);
 		if(null != user){
-			if(address.getId() < 1){
-				boolean nonExistingAdd = true;
-				for (Address add : user.getAddresses()) {
-					if(add.getId() == address.getId()){
-						add.setAddress1(address.getAddress1());
-						add.setAddress2(address.getAddress2());
-						add.setCity(address.getCity());
-						add.setCountryCode(address.getCountryCode());
-						add.setFirstName(address.getFirstName());
-						add.setLastName(address.getLastName());
-						add.setPhone(address.getPhone());
-						add.setPostalCode(address.getPostalCode());
-						add.setStateProvince(address.getStateProvince());
-						add.setCreateDate(new Date());
-						add.setUpdateDate(new Date());
-						nonExistingAdd = false;
-					}
+			boolean nonExistingAdd = true;
+			for (Address add : user.getAddresses()) {
+				if(add.getId() == address.getId()){
+					add.setAddress1(address.getAddress1());
+					add.setAddress2(address.getAddress2());
+					add.setCity(address.getCity());
+					add.setCountryCode(address.getCountryCode());
+					add.setFirstName(address.getFirstName());
+					add.setLastName(address.getLastName());
+					add.setPhone(address.getPhone());
+					add.setPostalCode(address.getPostalCode());
+					add.setStateProvince(address.getStateProvince());
+					add.setCreateDate(new Date());
+					add.setUpdateDate(new Date());
+					nonExistingAdd = false;
 				}
-				if(nonExistingAdd){
-					address = em.merge(address);
-					user.getAddresses().add(address);
-				}
-				
-				em.merge(user);
-				em.persist(user);
-				em.flush();
-				
-				return address;
 			}
+			if(nonExistingAdd){
+				address = em.merge(address);
+				user.getAddresses().add(address);
+			}
+			
+			em.merge(user);
+			em.persist(user);
+			em.flush();
+			
+			return address;
 		}
 		return null;
 	}
