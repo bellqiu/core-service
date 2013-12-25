@@ -174,7 +174,7 @@ Ext.define('AM.controller.Order', {
 	   orderDetail.traceInfo = editor.down("textfield#traceInfo").getValue();
 	   var orderForm = editor.down("form");
 	   orderForm.setLoading(true);
-	   orderDirectService.saveOrderDetail(orderDetail, function(data, rs, suc){
+	   orderDirectService.saveOrderInfo(orderDetail, function(data, rs, suc){
 		   if(suc && data){
 			   editor.setOrder(data);
 			}else if(rs && rs.type == 'exception'){

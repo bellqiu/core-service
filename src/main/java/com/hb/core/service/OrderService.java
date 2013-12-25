@@ -383,7 +383,7 @@ public class OrderService {
 	
 	}
 
-	public OrderDetailDTO updateOrderDetail(OrderDetailDTO orderDetailDTO) {
+	public OrderDetailDTO updateOrderInfo(OrderDetailDTO orderDetailDTO) {
 		long id = orderDetailDTO.getId();
 		Order order = null;
 		if(id > 0 && (order = em.find(Order.class, id)) != null) {
