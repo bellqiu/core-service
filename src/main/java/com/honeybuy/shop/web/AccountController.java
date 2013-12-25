@@ -165,24 +165,11 @@ public class AccountController {
 	public String getUserAddresses(Model model, 
 			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		List<Address> userAddresses = userService.getUserAddresses(details.getUsername());
-		List<Address> mockAddress = new ArrayList<Address>();
-		for(int i = 0;i < 10;i ++) {
-			Address address = new Address();
-			address.setFirstName("FirstName" + i);
-			address.setLastName("LastName" + i);
-			address.setAddress1("Address 1 - Shanghai");
-			address.setAddress2("Address 2 - Fujian");
-			address.setCity("Shanghai");
-			address.setCountryCode("+86");
-			address.setPhone("123456");
-			address.setPostalCode("200012");
-			address.setStateProvince("Shanghai");
-			mockAddress.add(address);
+		if(userAddresses == null) {
+			userAddresses = new ArrayList<Address>();
 		}
-		if(userAddresses != null) {
-			mockAddress.addAll(userAddresses);
-		}
-		model.addAttribute("addresses", mockAddress);
+		model.addAttribute("addresses", userAddresses);
+		model.addAttribute("addressSize", userAddresses.size());
 		
 		model.addAttribute("page", "address");
 		return "address";

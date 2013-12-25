@@ -8,7 +8,7 @@
 				if(callBack){
 					$.ajax({
 						dataType : "json",
-						url : "/ac/json/forgotpassword",
+						url : "/ac/json/forgotpassword?time=" + new Date().getTime(),
 						data : {email: email},
 						//complete : callBack
 						success : callBack
