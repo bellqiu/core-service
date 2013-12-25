@@ -250,6 +250,57 @@ public class ProductService {
 		
 		return existing;
 	}
+	
+	public Option copyAndSaveOption(Option option){
+		if(option == null) {
+			return null;
+		}
+		Option copy = new Option();
+		copy.setName(option.getName());
+		copy.setType(option.getType() == null ? Option.Type.TEXT : option.getType());
+		copy.setDefaultValue(option.getDefaultValue());
+		copy.setDesc(option.getDesc());
+		copy.setCustomize(option.isCustomize());
+		copy.setHtmlKey(option.getHtmlKey());
+		Date date = new Date();
+		copy.setCreateDate(date);
+		copy.setUpdateDate(date);
+		
+		List<OptionItem> items = option.getItems();
+		List<OptionItem> copyOptionItems = new ArrayList<OptionItem>();
+		if(items != null && items.size() > 0) {
+			for(OptionItem optionItem : items) {
+				OptionItem copyOptionItem = new OptionItem();
+				copyOptionItem.setDisplayName(optionItem.getDisplayName());
+				copyOptionItem.setValue(optionItem.getValue());
+				copyOptionItem.setPriceChange(optionItem.getPriceChange());
+				copyOptionItem.setIconUrl(optionItem.getIconUrl());
+				copyOptionItem.setCreateDate(date);
+				copyOptionItem.setUpdateDate(date);
+				
+				List<Property> overrideProps = optionItem.getOverrideProps();
+				if(overrideProps != null && overrideProps.size() > 0) {
+					for(Property property : overrideProps) {
+						Property copyProperty = new Property();
+						copyProperty.setName(property.getName());
+						copyProperty.setValue(property.getValue());
+						copyProperty.setDesc(property.getDesc());
+						copyProperty.setCreateDate(date);
+						copyProperty.setUpdateDate(date);
+						copyProperty = em.merge(copyProperty);
+						copyOptionItem.getOverrideProps().add(copyProperty);
+					}
+				}
+				copyOptionItem = em.merge(copyOptionItem);
+				copyOptionItems.add(copyOptionItem);
+			}
+		} 
+		copy.setItems(copyOptionItems);
+		
+		copy = em.merge(copy);
+		
+		return copy;
+	}
 
 	private Option mergePropertyInOption(Option option) {
 		Option existingOption = em.find(Option.class, option.getId());

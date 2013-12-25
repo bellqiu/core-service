@@ -469,10 +469,7 @@ Ext.define('AM.controller.Product', {
 				for(i=0;i<props.length;i++) {
 					props[i].id = -1 * i;
 				}
-				options = productResult.options;
-				for(i=0;i<options.length;i++) {
-					options[i].id = -1 * i;
-				}
+				
 				editor.setProduct(productResult);
 				productForm.getForm().setValues(productResult);
 			}

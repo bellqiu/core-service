@@ -179,12 +179,10 @@ public class AccountController {
 			address.setStateProvince("Shanghai");
 			mockAddress.add(address);
 		}
-		if(userAddresses == null) {
-			userAddresses = mockAddress;
-		} else {
-			userAddresses.addAll(mockAddress);
+		if(userAddresses != null) {
+			mockAddress.addAll(userAddresses);
 		}
-		model.addAttribute("addresses", userAddresses);
+		model.addAttribute("addresses", mockAddress);
 		
 		model.addAttribute("page", "address");
 		return "address";

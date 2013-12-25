@@ -1,5 +1,6 @@
 package com.honeybuy.shop.web.eds;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,6 @@ public class ProductDirectService {
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.FORM_LOAD)
 	@Secured("ADMIN")
-	@Transactional(readOnly=true)
 	public ProductDetailDTO loadProduct(@RequestParam("id") long id, @RequestParam(value="isCopy", required=false, defaultValue="false") boolean isCopy){
 		
 		ProductDetailDTO detailDTO = productService.getProductDetail(id);
@@ -45,7 +45,12 @@ public class ProductDirectService {
 		if(null == detailDTO){
 			detailDTO = new ProductDetailDTO();
 		} else if(isCopy) {
-			detailDTO.resetId();
+			detailDTO.setId(0);
+			ArrayList<Option> options = new ArrayList<Option>();
+			for(Option option : detailDTO.getOptions()) {
+				options.add(productService.copyAndSaveOption(option));
+			}
+			detailDTO.setOptions(options);
 		}
 		
 		return detailDTO;
