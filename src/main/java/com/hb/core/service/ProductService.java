@@ -469,7 +469,7 @@ public class ProductService {
 	}
 	
 	public List<ProductSummaryDTO> getAllProductByCategoryIds(List<Long> categoryIds, int start, int max) {
-		String queryString = "select p from Product p, Category c where c.id in :id and p.status = 'ACTIVE' and c member of p.categories";
+		String queryString = "select p from Product p, Category c where c.id in :id and p.status = 'ACTIVE' and c member of p.categories order by p.updateDate desc";
 		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
 		List<Long> list = categoryIds;
 		System.out.println(list);

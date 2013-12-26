@@ -33,6 +33,8 @@ import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 @RequestMapping("")
 public class CategoryController {
 	
+	private final static int CATEGORY_PRODUCT_PER_PAGE = 24; 
+	
 	@Autowired
 	private ProductServiceCacheWrapper productService;
 	
@@ -49,9 +51,14 @@ public class CategoryController {
 		long categoryId = categoryDetailDTO.getId();
 		
 		int totalCount = productService.getProductCountByCategoryId(categoryId);
-		int max = 24;
+		int max = CATEGORY_PRODUCT_PER_PAGE;
 		
-		int totalPage = totalCount / max + 1;
+		int totalPage;
+		if(totalCount % max == 0) {
+			totalPage = totalCount / max;
+		} else {
+			totalPage = totalCount / max + 1;
+		}
 		int start = page * max;
 		if(start >= totalCount) {
 			page = 0;

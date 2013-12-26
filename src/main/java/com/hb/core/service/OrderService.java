@@ -574,4 +574,15 @@ public class OrderService {
 		return null;
 	}
 
+	public int getUserOrderCountByUsername(String username) {
+		if(!StringUtils.isEmpty(username)) {
+			TypedQuery<Long> query = em.createNamedQuery(
+					"QueryOnUserOrderCountByUsername", Long.class);
+			query.setParameter("email", username);
+
+			return query.getSingleResult().intValue();
+		}
+		return 0;
+	}
+
 }

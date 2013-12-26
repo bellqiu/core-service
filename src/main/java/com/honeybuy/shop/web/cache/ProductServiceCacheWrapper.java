@@ -75,7 +75,7 @@ public class ProductServiceCacheWrapper {
 		List<Long> categoryIds = categoryCacheService.getCategoryIdWithAllSubCategories(id);
 		List<ProductSummaryDTO> dtos = productService.getAllProductByCategoryIds(categoryIds, start, max);
 		
-		 return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(dtos);
+		return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(dtos);
 	}
 	
 	@Cacheable(cacheName="LowestPriceInCategory")
