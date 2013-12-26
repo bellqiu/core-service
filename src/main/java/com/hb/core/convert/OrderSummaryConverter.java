@@ -16,11 +16,14 @@ public class OrderSummaryConverter implements Converter<OrderSummaryDTO, Order>{
 		
 		OrderSummaryDTO summaryDTO = new OrderSummaryDTO();
 		summaryDTO.setId(order.getId());
-		summaryDTO.setAmount(order.getDeliveryPrice());
+		summaryDTO.setAmount(order.getAmount());
 		summaryDTO.setOrderSN(order.getOrderSN());
 		summaryDTO.setSourceId(order.getSourceId());
 		summaryDTO.setStatus(order.getOrderStatus().toString());
 		summaryDTO.setTrackingId(order.getTrackingId());
+		
+		summaryDTO.setOrderCurrencyCode(order.getCurrency());
+		
 		User user = order.getUser();
 		if(user != null) {
 			summaryDTO.setUseremail(user.getEmail());

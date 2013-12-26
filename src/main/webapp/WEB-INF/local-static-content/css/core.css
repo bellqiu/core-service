@@ -708,3 +708,10 @@ input[type=password] {
 	z-index: 10000001!important
 }
 /******************End bootstrap modal component ********************************/
+
+
+/******************Overrider reset js table borders for bootstrap ********************************/
+.table th, .table td {
+	border: none ;
+}
+/******************End Overrider reset js table borders for bootstrap ********************************/

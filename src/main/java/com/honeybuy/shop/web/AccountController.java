@@ -169,7 +169,6 @@ public class AccountController {
 			userAddresses = new ArrayList<Address>();
 		}
 		model.addAttribute("addresses", userAddresses);
-		model.addAttribute("addressSize", userAddresses.size());
 		
 		model.addAttribute("page", "address");
 		return "address";
@@ -257,17 +256,13 @@ public class AccountController {
 			@PathVariable("addressId") long addressId){
 		
 		Address address =  userService.removeUserAddressById(addressId, details.getUsername());
-		 
 		if(null == address){
 			ResponseResult<Address> addressResponse = new ResponseResult<Address>(false,null);
 			addressResponse.getMessageMap().put("Error", "Address not found");
 			
 			return addressResponse;
 		}
-		
-		 return  new ResponseResult<Address>(true, address);
+		return  new ResponseResult<Address>(true, address);
 	}
-	
-	
 	
 }

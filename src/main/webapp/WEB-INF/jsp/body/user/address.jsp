@@ -1,11 +1,12 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
 <div>
 <div class="padding10">
 	<legend >Manage your addresses</legend>
 </div>
-<c:if test="${empty addressSize || addressSize < 6}">
+<c:if test="${(empty addresses) || (fn:length(addresses) < 6)}">
 <div class="padding10">
 <button type="button" id="addAddress" class="btn btn-danger">Add a New Address</button>
 </div>

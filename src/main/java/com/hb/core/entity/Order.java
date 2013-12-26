@@ -23,7 +23,8 @@ import javax.persistence.Table;
 @NamedQueries(value=
 {
 	@NamedQuery(name="QueryOnShoppingOrderByTrackingId", query="select o from Order as o where o.trackingId=:trackingId and o.user is null and o.orderStatus='ONSHOPPING'"),
-	@NamedQuery(name="QueryOnShoppingOrderByUserEmail", query="select o from Order as o where o.user.email=:email and o.orderStatus='ONSHOPPING'")
+	@NamedQuery(name="QueryOnShoppingOrderByUserEmail", query="select o from Order as o where o.user.email=:email and o.orderStatus='ONSHOPPING'"),
+	@NamedQuery(name="QueryOnUserOrderByUsername", query="select o from Order as o where o.user.email=:email and o.orderStatus!='ONSHOPPING' order by o.updateDate desc")
 })
 public class Order extends Component{
 
@@ -252,6 +253,10 @@ public class Order extends Component{
 		}
 		
 		return productPrice;
+	}
+	
+	public float getAmount() {
+		return getTotalProductPrice() + getDeliveryPrice() - getCouponCutOff();
 	}
 
 }

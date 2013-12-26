@@ -18,6 +18,8 @@ public class OrderSummaryDTO implements Serializable{
 	private String sourceId;
 	private float amount;
 	
+	private String orderCurrencyCode;
+	
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -59,5 +61,11 @@ public class OrderSummaryDTO implements Serializable{
 	}
 	public void setSourceId(String sourceId) {
 		this.sourceId = sourceId;
+	}
+	public void setOrderCurrencyCode(String orderCurrencyCode) {
+		this.orderCurrencyCode = orderCurrencyCode;
+	}
+	public String getOrderCurrencyCode() {
+		return orderCurrencyCode;
 	}
 }

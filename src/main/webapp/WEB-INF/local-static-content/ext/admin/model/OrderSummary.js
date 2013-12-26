@@ -7,7 +7,8 @@
            {name:'useremail',type:'String'},
            {name:'trackingId', type:'String'},
            {name:'sourceId',type:'string'},
-           {name:'amount',type:'float'}
+           {name:'amount',type:'float'},
+           {name:'orderCurrencyCode',type:'String'}
         ], 
         idProperty: 'id'
     });

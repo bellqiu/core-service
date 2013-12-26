@@ -2,14 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb"%>
 <c:choose>
-	<c:when test="${noproduct }">
+	<c:when test="${empty productSummary || (fn:length(productSummary) < 1) }">
 		<div class="alert alert-info">No products</div>
 	</c:when>
 	<c:otherwise>
 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-xs-8">
 				<ul class="pagination">
 					<c:choose>
 						<c:when test="${currentCategoryPageIndex == 0}">
@@ -46,7 +47,6 @@
 					</c:choose>
 				</ul>
 			</div>
-			<div class="pagination col-xs-4">&nbsp;</div>
 			<div class="pagination col-xs-4">Showing Results ${resultStart } - ${resultEnd } of <fmt:formatNumber pattern=",###">${resultTotal }</fmt:formatNumber></div>
 		</div>
 					

@@ -43,6 +43,11 @@
 			<put-attribute name="userContent" value="/WEB-INF/jsp/body/user/address.jsp"></put-attribute>
 		</definition>
 		
+		<definition name="user.center.order" template="/WEB-INF/layout/userCenterLayout.jsp">
+			<put-attribute name="leftNav" value="/WEB-INF/jsp/body/user/leftNav.jsp"></put-attribute>
+			<put-attribute name="userContent" value="/WEB-INF/jsp/body/user/order.jsp"></put-attribute>
+		</definition>
+		
 		<definition name="headerFooter" extends="standardLayout" >
         	  <put-attribute name="header" value="home.header.module"/>
         </definition>
@@ -78,10 +83,6 @@
         
          <definition name="freedomPage" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/freedomPage.jsp"/>
-        </definition>
-        
-        <definition name="myOrder" extends="headerFooter" >
-        	  <put-attribute name="body" value="/WEB-INF/jsp/body/myOrder.jsp"/>
         </definition>
         
         <definition name="cacheManager" extends="headerFooter" >
@@ -128,8 +129,8 @@
         	  <put-attribute name="body" value="user.center.address"/>
         </definition>
         
-        <definition name="userprofile" extends="headerFooter" >
-        	  <put-attribute name="body" value="/WEB-INF/jsp/body/userProfile.jsp"/>
+        <definition name="myOrder" extends="headerFooter" >
+        	  <put-attribute name="body" value="user.center.order"/>
         </definition>
         
         <definition name="accessDenied" extends="headerFooter" >

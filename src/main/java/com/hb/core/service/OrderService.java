@@ -389,6 +389,7 @@ public class OrderService {
 		if(id > 0 && (order = em.find(Order.class, id)) != null) {
 			order.setTraceInfo(orderDetailDTO.getTraceInfo());
 			order.setOrderStatus(orderDetailDTO.getOrderStatus());
+			order.setUpdateDate(new Date());
 			return orderDetailConverter.convert(em.merge(order));
 		} else {
 			throw new CoreServiceException("Order is not existing");
@@ -553,6 +554,24 @@ public class OrderService {
 
 	public void setCouponService(CouponService couponService) {
 		this.couponService = couponService;
+	}
+
+	public List<OrderSummaryDTO> getUserOrderByUsername(String username, int start, int max) {
+		if(!StringUtils.isEmpty(username)) {
+			TypedQuery<Order> query = em.createNamedQuery(
+					"QueryOnUserOrderByUsername", Order.class);
+			query.setParameter("email", username);
+			query.setFirstResult(start);
+			query.setMaxResults(max);
+
+			List<Order> orders = query.getResultList();
+			List<OrderSummaryDTO> orderDetailDTOs = new ArrayList<OrderSummaryDTO>();
+			for(Order order : orders) {
+				orderDetailDTOs.add(orderSummaryConverter.convert(order));
+			}
+		}
+		//
+		return null;
 	}
 
 }
