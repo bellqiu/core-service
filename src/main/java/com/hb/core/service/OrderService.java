@@ -417,23 +417,39 @@ public class OrderService {
 		return orderDetailConverter.convert(order);
 	}
 	
-	public float getDeliverPrice(String shippingCode){
+	public float getDeliverPrice(String shippingCode, float price){
+		
+		float normalFreeDeliver = Float.valueOf(settingService.getStringValue(Constants.FREE_SHIPPING_PRICE_NORMAL_CONF_KEY, Constants.FREE_SHIPPING_PRICE_NORMAL_CONF_DEFAULT));
 		float normalDeliver = Float.valueOf(settingService.getStringValue(Constants.SHIPPING_PRICE_NORMAL_CONF_KEY, Constants.SHIPPING_PRICE_NORMAL_CONF_DEFAULT));
+		
 		Country country = countryService.getCountry(shippingCode);
 		if(null!=country){
+			normalFreeDeliver = country.getFreeDeliveryPrice();
 			normalDeliver = country.getNormalDeliveryPrice();
 		}
-		return normalDeliver;
+		
+		if(price < normalFreeDeliver){
+			return normalDeliver;
+		}
+		return 0;
+	
 	}
 	
-	public float getExpeditedDeliverPrice(String shippingCode){
+	public float getExpeditedDeliverPrice(String shippingCode, float price){
+		float advanceFreeDeliver = Float.valueOf(settingService.getStringValue(Constants.FREE_SHIPPING_PRICE_EXPEDITED_CONF_KEY, Constants.FREE_SHIPPING_PRICE_EXPEDITED_CONF_DEFAULT));
 		float advanceDeliver = Float.valueOf(settingService.getStringValue(Constants.SHIPPING_PRICE_EXPEDITED_CONF_KEY, Constants.SHIPPING_PRICE_EXPEDITED_CONF_DEFAULT));
-		Country country = countryService.getCountry(shippingCode);
 		
+		Country country = countryService.getCountry(shippingCode);
 		if(null!=country){
+			advanceFreeDeliver = country.getFreeAdvanceDeliveryPrice();
 			advanceDeliver = country.getAdvanceDeliveryPrice();
 		}
-		return advanceDeliver;
+		
+		if(price < advanceFreeDeliver){
+			return advanceDeliver;
+			
+		}
+		return 0;
 	}
 
 	private void updateShippingPrice(String countryCode, Order order) {
@@ -474,10 +490,10 @@ public class OrderService {
 
 		Order order = em.find(Order.class, orderId);
 		
-		if(null == order || (order.getShippingCode() != null)){
+		if(null == order || (order.getShippingCode() == null)){
 			return null;
 		}
-		
+		order.setShippingMethod(ShippingMethod);
 		updateShippingPrice(order.getShippingCode(), order);
 		
 		em.merge(order);

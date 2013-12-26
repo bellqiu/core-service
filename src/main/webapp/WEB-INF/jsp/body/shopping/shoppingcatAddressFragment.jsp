@@ -84,7 +84,7 @@
 				 				<ul class="ShippingAddresslineContainer">
 				 					<c:forEach items="${addresses }" var="add" end="5">
 				 						<li>
-												<input  class="shippingAddress" data-order-id="${currentOrder.id }" type="radio" ${(add.id == currentOrder.shippingAddressRef)? "checked='checked'" :""  } name="shipping_address_id" id="addr_${add.id }" value="${add.id}">
+												<input  class="shippingAddress" data-order-id="${currentOrder.id }" type="radio" ${(add.id == currentOrder.shippingAddressRef)? "checked='checked'" :""  } name="shipping_address_id" id="saddr_${add.id }" value="${add.id}">
 												<label for="addr_${add.id }"><strong>${add}</strong></label>
 												&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)" data-address-id="${add.id}" data-order-id="${currentOrder.id }">Edit</a>
 										</li>
@@ -96,15 +96,15 @@
 			 </div>
 			 <div class="row rowContent">
 			 			<div class="row ">Billing Address: 
-			 			<c:if test="${fn:length(addresses) < 6 }"> 
-			 				<a>New Billing Address</a>
-			 			</c:if>
+		 				<c:if test="${fn:length(addresses) < 6 }">
+		 					<a href="#" id="new_billing_address" data-order-id="${currentOrder.id }">New Billing Address</a>
+		 				</c:if>
 			 			<div class="row col-xs-11 col-xs-offset-1">
 			 				<div>
 				 				<ul class="BillingAddresslineContainer">
 				 					<c:forEach items="${addresses }" var="add" end="5">
 				 						<li >
-												<input class="billingAddress" data-order-id="${currentOrder.id }" type="radio" ${(add.id == currentOrder.shippingAddressRef)? "checked='checked'" :""  } name="billing_address_id" id="addr_${add.id }" value="${add.id}">
+												<input class="billingAddress" data-order-id="${currentOrder.id }" type="radio" ${(add.id == currentOrder.billingAddressRef)? "checked='checked'" :""  } name="billing_address_id" id="baddr_${add.id }" value="${add.id}">
 												<label for="addr_${add.id }"><strong>${add}</strong></label>
 												&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)"  data-order-id="${currentOrder.id }" data-address-id="${add.id}">Edit</a>
 										</li>
@@ -123,34 +123,34 @@
 	</div>
 	</div>
 		
-	<div class="panel panel-default">
+	<div class="panel panel-default" id="ShippingMethodPanel">
 		<div class="panel-heading">
 			<div class="row">
-				<span class="padding10">Payment Method</span>
+				<span class="padding10">Shipping Method</span>
 			</div>
 		</div>
 		
 		<div class="panel-body">
 			 <div class="row rowContent">
 			 	<div class="row col-xs-3">
-			 		<input type="radio" name="shippingMethod"> Standard Shipping
+			 		<input type="radio" name="shippingMethod" data-order-id="${currentOrder.id }" value="NORMAL"  ${("NORMAL" == currentOrder.shippingMethod)? "checked='checked'" :""  }  > Standard Shipping
 			 	</div>
 			 	<div class="row col-xs-3">
 			 		Normally 4 - 6 days
 			 	</div>
 			 	<div class="row col-xs-6">
-			 		<hb:printCurrency/> <span><hb:printPrice price="${normalDeliverPrice } " withCurrency="false"/></span>
+			 		<hb:printCurrency/> <span id="orderShippingMethodNormalSpan"><hb:printPrice price="${normalDeliverPrice } " withCurrency="false"/></span>
 			 	</div>
 			 </div>		
 			  <div class="row rowContent">
 			 	<div class="row col-xs-3">
-			 		<input type="radio" name="shippingMethod"> Expedited Shipping
+			 		<input type="radio" name="shippingMethod" data-order-id="${currentOrder.id }"value="EXPEDITED" ${("EXPEDITED" == currentOrder.shippingMethod)? "checked='checked'" :""  }> Expedited Shipping
 			 	</div>
 			 	<div class="row col-xs-3">
 			 		Normally 4 - 6 days
 			 	</div>
 			 	<div class="row col-xs-6">
-			 		<hb:printCurrency/> <span><hb:printPrice price="${expeditedDeliverPrice }" withCurrency="false"/></span>
+			 		<hb:printCurrency/> <span id="orderShippingMethodExpeditedSpan"><hb:printPrice price="${expeditedDeliverPrice }" withCurrency="false"/></span>
 			 	</div>
 			 </div>	
 			  <div class="row rowContent">
@@ -212,7 +212,7 @@
 										<div class="row under_score orderPrice-summary">
 											<div class="row col-xs-6">Item Sub total:</div>
 											<div class="row col-xs-6 orderPrice-summary_value">
-												<hb:printPrice price="${currentOrder.itemTotal }" />
+												<hb:printCurrency/> <span id="orderItemTotalSpan"><hb:printPrice price="${currentOrder.itemTotal }" withCurrency="false" /></span>
 											</div>
 										</div>
 									</div>
@@ -222,7 +222,7 @@
 										<div class="row under_score orderPrice-summary">
 											<div class="row col-xs-6">Coupon:</div>
 											<div class="row col-xs-6 orderPrice-summary_value">
-												<hb:printPrice price="0" />
+												- <hb:printCurrency/> <span id="orderCouponCutOffSpan"><hb:printPrice price="${currentOrder.couponCutOff }" withCurrency="false" /></span>
 											</div>
 										</div>
 									</div>
@@ -233,7 +233,7 @@
 										<div class="row under_score orderPrice-summary">
 											<div class="row col-xs-6">Shipping Cost:</div>
 											<div class="row col-xs-6 orderPrice-summary_value">
-												<hb:printPrice price="${currentOrder.itemTotal }" />
+												 <hb:printCurrency/> <span id="orderShippingCostSpan"><hb:printPrice price="${currentOrder.deliveryPrice }" withCurrency="false" /></span>
 											</div>
 										</div>
 									</div>
@@ -244,7 +244,7 @@
 										<div class="row orderPrice-summary orderPrice-summary-all">
 											<div class="row col-xs-6">Grand Total:</div>
 											<div class="row col-xs-6 orderPrice-summary_value">
-												<hb:printPrice price="0" />
+												 <hb:printCurrency/> <span id="orderGrandTotalSpan"><hb:printPrice price="${currentOrder.grandTotal }" withCurrency="false" /></span>
 											</div>
 										</div>
 									</div>

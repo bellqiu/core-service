@@ -22,8 +22,8 @@
 				
 				addressLine = addressLine + address.countryName + ")";
 				
-				$(".ShippingAddresslineContainer").append('<li><input  class="shippingAddress" data-order-id="'+orderId+'" type="radio" name="shipping_address_id" id="addr_'+address.id+'" value="'+address.id+'"><label for="addr_'+address.id+'"><strong>'+addressLine+'</strong></label>&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)" data-address-id="'+address.id+'" data-order-id="'+orderId+'">Edit</a></li>');
-				$(".BillingAddresslineContainer").append('<li><input  class="billingAddress" data-order-id="'+orderId+'" type="radio" name="billing_address_id" id="addr_'+address.id+'" value="'+address.id+'"><label for="addr_'+address.id+'"><strong>'+addressLine+'</strong></label>&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)" data-address-id="'+address.id+'" data-order-id="'+orderId+'">Edit</a></li>');
+				$(".ShippingAddresslineContainer").append('<li><input  class="shippingAddress" data-order-id="'+orderId+'" type="radio" name="shipping_address_id" id="addr_'+address.id+'" value="'+address.id+'"><label for="saddr_'+address.id+'"><strong>'+addressLine+'</strong></label>&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)" data-address-id="'+address.id+'" data-order-id="'+orderId+'">Edit</a></li>');
+				$(".BillingAddresslineContainer").append('<li><input  class="billingAddress" data-order-id="'+orderId+'" type="radio" name="billing_address_id" id="addr_'+address.id+'" value="'+address.id+'"><label for="baddr_'+address.id+'"><strong>'+addressLine+'</strong></label>&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)" data-address-id="'+address.id+'" data-order-id="'+orderId+'">Edit</a></li>');
 				
 				bindEditEvent();
 			}
@@ -31,9 +31,10 @@
 			function bindEditEvent(){
 				$(".toEditShippingAddr").each(function(index, el){
 					$(el).unbind();
+					var orderId = $(el).attr("data-order-id");
 					$(el).click(function(){
 						userAdd.saveOrupdateAddress($(el).attr("data-address-id"), function(address){
-							alert(address.id);
+							shopping.applyOrderAddress(orderId, address.id ,"SHIPPING");
 						});
 						
 					});
@@ -41,11 +42,28 @@
 				
 				$(".toEditBillingAddr").each(function(index, el){
 					$(el).unbind();
+					var orderId = $(el).attr("data-order-id");
 					$(el).click(function(){
 						userAdd.saveOrupdateAddress($(el).attr("data-address-id"), function(address){
-							alert(address.id);
+							shopping.applyOrderAddress(orderId, address.id ,"BILLING");
 						});
 						
+					});
+				});
+				
+				$("input.shippingAddress[name='shipping_address_id']").each(function(index, el){
+					$(el).unbind();
+					var orderId = $(el).attr("data-order-id");
+					$(el).click(function(){
+							shopping.applyOrderAddress(orderId, $(el).val() ,"SHIPPING");
+					});
+				});
+				
+				$("input.billingAddress[name='billing_address_id']").each(function(index, el){
+					$(el).unbind();
+					var orderId = $(el).attr("data-order-id");
+					$(el).click(function(){
+						shopping.applyOrderAddress(orderId, $(el).val() ,"BILLING");
 					});
 				});
 				
@@ -59,10 +77,31 @@
 				
 				userAdd.saveOrupdateAddress(0, function(address){
 					appendNewAddLine(orderId, address);
+					shopping.applyOrderAddress(orderId, address.id ,"SHIPPING");
 				});
 				
 				e.preventDefault();
 			});
+
+			$("#new_billing_address").click(function(e){
+				
+				var orderId = $("#new_billing_address").attr("data-order-id");
+				
+				userAdd.saveOrupdateAddress(0, function(address){
+					appendNewAddLine(orderId, address);
+					shopping.applyOrderAddress(orderId, address.id ,"BILLING");
+				});
+				
+				e.preventDefault();
+			});
+			
+			$("input[name=shippingMethod]").each(function(index, el){
+				$(el).click(function(){
+					var orderId = $(el).attr("data-order-id");
+					shopping.applyShippingMethod(orderId, $(el).val());
+				});
+			});
+			
 			
 			
 		}

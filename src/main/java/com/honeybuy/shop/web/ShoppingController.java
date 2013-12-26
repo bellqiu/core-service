@@ -174,14 +174,15 @@ public class ShoppingController {
 			model.addAttribute("currentOrder", orderDetailDTO);
 		}
 		
-		model.addAttribute("normalDeliverPrice", orderService.getDeliverPrice(orderDetailDTO.getShippingCode()));
-		model.addAttribute("expeditedDeliverPrice", orderService.getExpeditedDeliverPrice(orderDetailDTO.getShippingCode()));
+		model.addAttribute("normalDeliverPrice", orderService.getDeliverPrice(orderDetailDTO.getShippingCode(), orderDetailDTO.getItemTotal()));
+		model.addAttribute("expeditedDeliverPrice", orderService.getExpeditedDeliverPrice(orderDetailDTO.getShippingCode(), orderDetailDTO.getItemTotal()));
 		
 		return "shoppingcatAddress";
 	}
 	
 	@Secured("USER")
 	@RequestMapping("/sp/payment/updateOrderAdd")
+	@ResponseBody
 	public ResponseResult<OrderDetailDTO> updateOrderAddress(
 			@RequestParam(value="orderId") long orderId, 
 			 @SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
@@ -213,16 +214,18 @@ public class ShoppingController {
 	private Map<String,String> orderPriceChanges(OrderDetailDTO detailDTO, Currency currency){
 		Map<String, String> result = new HashMap<String, String>();
 		NumberFormat numberFormat = new DecimalFormat("###,###,###,###,##0.00");
-		result.put("normalDeliverPrice", numberFormat.format(orderService.getDeliverPrice(detailDTO.getShippingCode())*currency.getExchangeRateBaseOnDefault()));
-		result.put("expeditedDeliverPrice", numberFormat.format(orderService.getExpeditedDeliverPrice(detailDTO.getShippingCode())*currency.getExchangeRateBaseOnDefault()));
+		result.put("normalDeliverPrice", numberFormat.format(orderService.getDeliverPrice(detailDTO.getShippingCode(), detailDTO.getItemTotal())*currency.getExchangeRateBaseOnDefault()));
+		result.put("expeditedDeliverPrice", numberFormat.format(orderService.getExpeditedDeliverPrice(detailDTO.getShippingCode(),  detailDTO.getItemTotal())*currency.getExchangeRateBaseOnDefault()));
 		result.put("orderProductTotal", numberFormat.format(detailDTO.getTotalProductPrice()*currency.getExchangeRateBaseOnDefault()));
 		result.put("couponPrice", numberFormat.format(detailDTO.getCouponCutOff()*currency.getExchangeRateBaseOnDefault()));
 		result.put("shippingCost", numberFormat.format(detailDTO.getDeliveryPrice()*currency.getExchangeRateBaseOnDefault()));
+		result.put("grandTotal", numberFormat.format(detailDTO.getGrandTotal()*currency.getExchangeRateBaseOnDefault()));
 		
 		return result;
 	}
 	
 	@Secured("USER")
+	@ResponseBody
 	@RequestMapping("/sp/payment/updateShippingMethod")
 	public ResponseResult<OrderDetailDTO> updateShippingMethod(
 			@RequestParam(value="orderId") long orderId, 
@@ -248,6 +251,7 @@ public class ShoppingController {
 	}
 	
 	@Secured("USER")
+	@ResponseBody
 	@RequestMapping("/sp/payment/applyCoupon")
 	public ResponseResult<OrderDetailDTO> applyCoupon(
 			@RequestParam(value="orderId") long orderId, 
@@ -292,6 +296,7 @@ public class ShoppingController {
 	
 	@Secured("USER")
 	@RequestMapping("/sp/payment/applyCustomerMsg")
+	@ResponseBody
 	public ResponseResult<OrderDetailDTO> applyCustomerMsg(
 			@RequestParam(value="orderId") long orderId, 
 			 @SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
