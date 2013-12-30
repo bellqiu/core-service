@@ -50,4 +50,9 @@ public interface Constants {
 	public static final String FREE_SHIPPING_PRICE_NORMAL_CONF_DEFAULT = "100";
 	public static final String FREE_SHIPPING_PRICE_EXPEDITED_CONF_DEFAULT = "200";
 	
+	
+	public static final String PAYMENT_METHOD_LIST = "PAYMENT_METHOD_LIST";
+	
+	
+	
 }

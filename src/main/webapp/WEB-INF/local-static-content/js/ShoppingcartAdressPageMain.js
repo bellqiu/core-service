@@ -67,6 +67,19 @@
 					});
 				});
 				
+				$("#applyCouponButton").click(function(){
+					$(".couponErrorArea").hide();
+					$(".couponInfoArea").hide();
+					var orderid = $(this).attr("data-order-id");
+					var code = $("input[name='couponCode']").val();
+					if(code.length < 2){
+						$(".couponErrorArea").html("Invalid Code");
+						$(".couponErrorArea").show();
+						return;
+					}
+					shopping.applyCoupon(orderid, code);
+				});
+				
 			}
 			
 			bindEditEvent();
@@ -100,6 +113,37 @@
 					var orderId = $(el).attr("data-order-id");
 					shopping.applyShippingMethod(orderId, $(el).val());
 				});
+			});
+			
+			
+			$("#paymentProcessToCheckoutBtn").click(function(){
+				$(this).button("loading");
+				var paymentMethod = $("input[name='paymentmethod'").val();
+				var customerMsg = $("textarea[name='orderMsg'").val();
+				var orderId = $(this).attr("data-order-id");
+				
+				if(paymentMethod.length < 1){
+					$(this).popover({
+						"content" :  "<p class='alert alert-danger'>Please select a payment method</p>", 
+					  	title : "Error",
+					  	html : true,
+						trigger : 'manual',
+						placement : 'left'
+					});
+				
+					$(this).popover('show');
+					
+					$(this).button("reset");
+					
+					setTimeout(function(){
+						$("#paymentProcessToCheckoutBtn").popover("destroy");
+					}, 3000);
+				}else{
+					
+					shopping.checkOrderForPayment(orderId, paymentMethod , customerMsg);
+				}
+				
+				
 			});
 			
 			

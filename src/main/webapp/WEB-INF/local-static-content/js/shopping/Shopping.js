@@ -146,6 +146,34 @@
 				});
 			};
 			
+			shopping.applyCoupon = function(orderid, coupon ){
+				$("#paymentsumaryPanel").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
+				$.ajax({
+					url : "/sp/payment/applyCoupon?_tp="+new Date().getTime(),
+					data : {"orderId" : orderid, "couponCode" : coupon},
+					complete : function(response){
+						
+						var json = null;
+						
+						try{
+							json = JSON.parse(response.responseText);
+						}catch(e){
+							
+						}
+						
+						if(json && json.success){
+							updateOrderPrice(json.messageMap);
+							$(".couponInfoArea").html("Apply Successfully");
+							$(".couponInfoArea").show();
+						}else{
+							$(".couponErrorArea").html(json.messageMap.ERROR);
+							$(".couponErrorArea").show();;
+						}
+						$("#paymentsumaryPanel").unmask();
+					}
+				});
+			};
+			
 			function updateOrderPrice(changedPrice){
 				$("#orderShippingMethodNormalSpan").html(changedPrice.normalDeliverPrice);
 				$("#orderShippingMethodExpeditedSpan").html(changedPrice.expeditedDeliverPrice);
@@ -154,6 +182,48 @@
 				$("#orderGrandTotalSpan").html(changedPrice.grandTotal);
 				$("#orderCouponCutOffSpan").html(changedPrice.couponPrice);
 			}
+			
+			
+			shopping.checkOrderForPayment = function(orderId, paymentMethod, msg){
+				$.ajax({
+					url : "/sp/payment/checkOrderPaymentInfo?_tp="+new Date().getTime(),
+					type : 'POST',
+					data : {"orderId" : orderId, "message" : msg},
+					complete : function(response){
+						var btn = $("#paymentProcessToCheckoutBtn");
+						
+						var json = null;
+						
+						try{
+							json = JSON.parse(response.responseText);
+						}catch(e){
+							
+						}
+						if(json && json.success){
+							window.location.href=window.location.protocol + "//"+window.location.host + "/sp/payment/"+paymentMethod+"/checkout/"+orderId;
+						}else{
+							btn.popover({
+								"content" :  "<p class='alert alert-danger'>"+json.messageMap.ERROR+"</p>", 
+							  	title : "Error",
+							  	html : true,
+								trigger : 'manual',
+								placement : 'left'
+							});
+						
+							btn.popover('show');
+							
+							setTimeout(function(){
+								$("#paymentProcessToCheckoutBtn").popover("destroy");
+							}, 3000);
+						}
+						
+						btn.button('reset');
+						
+					}
+				});
+			};
+			
+			
 			
 	        return shopping;
 	    }

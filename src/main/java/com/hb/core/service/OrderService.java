@@ -396,9 +396,22 @@ public class OrderService {
 		}
 	}
 	
-	public OrderDetailDTO updateOrderShippingAddress(Address address, long orderId){
-		
+	private Order getOrderByOrderIdAndUserId(String userEmail, long orderId){
 		Order order = em.find(Order.class, orderId);
+		if(null == order){
+			return null;
+		}
+		
+		if(null == order.getUser() || !userEmail.equals(order.getUser().getEmail())){
+			return null;
+		}
+		
+		return order;
+	}
+	
+	public OrderDetailDTO updateOrderShippingAddress(String userEmail ,Address address, long orderId){
+		
+		Order order = getOrderByOrderIdAndUserId(userEmail, orderId);
 		
 		if(null == order){
 			return null;
@@ -486,9 +499,9 @@ public class OrderService {
 		}
 	}
 	
-	public OrderDetailDTO updateShippingMethod(long orderId, String ShippingMethod){
+	public OrderDetailDTO updateShippingMethod(String userEmail ,long orderId, String ShippingMethod){
 
-		Order order = em.find(Order.class, orderId);
+		Order order = getOrderByOrderIdAndUserId(userEmail, orderId);
 		
 		if(null == order || (order.getShippingCode() == null)){
 			return null;
@@ -504,8 +517,13 @@ public class OrderService {
 		
 	}
 	
-	public OrderDetailDTO applMessage(long orderId, String message){
-		Order order = em.find(Order.class, orderId);
+	public OrderDetailDTO applMessage(String userEmail ,long orderId, String message){
+		
+		Order order = getOrderByOrderIdAndUserId(userEmail, orderId);
+		
+		if(null == order){
+			return null;
+		}
 		
 		order.setCustomerMsg(message);
 		
@@ -516,8 +534,10 @@ public class OrderService {
 		return orderDetailConverter.convert(order);
 	}
 	
-	public OrderDetailDTO applyCoupon(long orderId, String couponCode){
-		Order order = em.find(Order.class, orderId);
+	public OrderDetailDTO applyCoupon(String userEmail ,long orderId, String couponCode){
+		
+		Order order = getOrderByOrderIdAndUserId(userEmail, orderId);
+		
 		
 		if(null == order){
 			return null;
@@ -542,9 +562,13 @@ public class OrderService {
 		return orderDetailConverter.convert(order);
 	}
 	
-	public OrderDetailDTO updateOrderBillingAddress(Address address, long orderId){
+	public OrderDetailDTO updateOrderBillingAddress(String userEmail ,Address address, long orderId){
 		
-		Order order = em.find(Order.class, orderId);
+		Order order = getOrderByOrderIdAndUserId(userEmail, orderId);
+		
+		if(null == order){
+			return null;
+		}
 		
 		order.setBillingAddress(address.toString());
 		order.setBillingAddRef(address.getId());

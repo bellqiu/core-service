@@ -164,7 +164,34 @@
 		</div>
 	</div>
 	
-	<div class="panel panel-default">
+	<div class="panel panel-default" id="paymentMethodPanel">
+		<div class="panel-heading">
+			<div class="row">
+				<span class="padding10">Payment Method</span>
+			</div>
+		</div>
+		
+		<div class="panel-body">
+			 <div class="row rowContent">
+			 	<div class="row col-xs-3">
+				<div class="bfh-selectbox" data-name="paymentmethod" data-value="${defaultPayment }">
+					<c:forEach items="${paymentMethods }" var="payment">
+						<div data-value="${payment.key }">${payment.value }</div>
+					</c:forEach>
+				</div>
+				</div>
+			</div>
+			 <div class="row rowContent">
+				 <c:forEach items="${paymentMethods }" var="payment">
+				 	<div ID="paymentdesc_${payment.key }">
+						<hb:htmltag htmlKey="PAYMENT_DESC_${payment.key }"/>
+				 	</div>
+			 	</c:forEach>
+			 </div>
+		</div>
+	</div>
+	
+	<div class="panel panel-default" id="paymentsumaryPanel">
 		<div class="panel-body">
 				<div class="row">
 						<div  class="row">
@@ -176,16 +203,19 @@
 											Enter Coupon:
 										</div>
 										<div class="col-xs-5">
-											<input style="width: 100%" class="form-control" />
+											<input style="width: 100%" class="form-control" name="couponCode" />
 										</div>
 										<div class="col-xs-4">
-											<button class="btn btn-default" type="button">Apply</button>
+											<button class="btn btn-default" type="button" data-order-id="${currentOrder.id }"  id="applyCouponButton">Apply</button>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-xs-3"> </div>
 										<div class="col-xs-7">
-											<div class="alert alert-danger" style="margin-top: 5px">
+											<div class="alert alert-danger couponErrorArea">
+												Invalid Coupon code
+											</div>
+											<div class="alert alert-info couponInfoArea">
 												Invalid Coupon code
 											</div>
 										</div>
@@ -199,7 +229,7 @@
 											Leave a Message:
 										</div>
 										<div class="col-xs-7">
-											<textarea rows="" cols="" class="form-control" style="width: 100%;height: 80px"></textarea>
+											<textarea rows="" cols="" class="form-control" style="width: 100%;height: 80px" name="orderMsg" >${currentOrder.customerMsg }</textarea>
 										</div>
 										<div class="col-xs-2"></div>
 									</div>
@@ -254,7 +284,8 @@
 						</div>
 						<div class="row order_buttons">
 							<div class="col-xs-3 col-xs-offset-9  padding10">
-								<a href="#" class="btn btn-danger float_right">Process to Checkout</a> 
+								<button type="button" data-loading-text="Processing.."
+							class="btn btn-danger float_right" id="paymentProcessToCheckoutBtn" data-order-id="${currentOrder.id }" data-title="Error">Process to Checkout</button>
 							</div>
 						</div>
 			</div>	

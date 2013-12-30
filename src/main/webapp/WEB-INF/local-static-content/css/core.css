@@ -696,6 +696,17 @@ input[type=password] {
 .order_buttons{
 	padding: 0px 25px;	
 }
+
+.couponErrorArea{
+	margin-top: 5px;
+	display: none;
+}
+
+.couponInfoArea{
+	margin-top: 5px;
+	display: none;
+}
+
 /****************************End Order display ************************************/
 
 /******************Start bootstrap modal component ********************************/
