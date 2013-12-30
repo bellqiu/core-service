@@ -38,7 +38,7 @@ public class OrderController {
 	@RequestMapping("/myOrder")
 	public String myOder(Model model, 
 			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
-			@RequestParam(value = "currentpage", required = false, defaultValue="0") final String currentpage){
+			@RequestParam(value = "page", required = false, defaultValue="0") final String currentpage){
 		int page = 0;
 		try {
 			page = Integer.parseInt(currentpage);
@@ -61,7 +61,7 @@ public class OrderController {
 				start = page * max;
 			}
 			List<OrderSummaryDTO> orders = orderService.getUserOrderByUsername(details.getUsername(), start, max);
-			if(orders.size() > 0) {
+			if(orders != null || orders.size() > 0) {
 				List<Integer> pageIds = new ArrayList<Integer>();
 				if(totalPage <= 7) {
 					for(int i = 0; i < totalPage; i++) {
@@ -97,6 +97,7 @@ public class OrderController {
 				model.addAttribute("pageIds", pageIds);
 			}
 			model.addAttribute("orders", orders);
+			model.addAttribute("currentPageIndex", page);
 		}
 		model.addAttribute("page", "order");
 		return "myOrder";

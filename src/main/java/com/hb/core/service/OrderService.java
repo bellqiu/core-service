@@ -585,8 +585,8 @@ public class OrderService {
 			for(Order order : orders) {
 				orderDetailDTOs.add(orderSummaryConverter.convert(order));
 			}
+			return orderDetailDTOs;
 		}
-		//
 		return null;
 	}
 
