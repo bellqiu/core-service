@@ -30,6 +30,10 @@ public class CurrencyService {
 		if(existingCurrency != null && (currency.getId() < 1 || existingCurrency.getId() != currency.getId())) {
 			throw new CoreServiceException("Currency name already exist");
 		}
+		existingCurrency = getCurrencyByName(currency.getCode());
+		if(existingCurrency != null && (currency.getId() < 1 || existingCurrency.getId() != currency.getId())) {
+			throw new CoreServiceException("Currency code already exist");
+		}
 		currency = em.merge(currency);
 		return currency;
 	}
@@ -111,6 +115,20 @@ public class CurrencyService {
 			throw new CoreServiceException(e);
 		}
 		
+		return currency;
+	}
+	
+	public Currency getCurrencyByCode(String code){
+		Currency currency = null;
+		try {
+			TypedQuery<Currency> query = em.createNamedQuery("QueryCurrencyByCode",Currency.class);
+			query.setParameter("code", code);
+			currency = query.getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		} catch (Exception e) {
+			throw new CoreServiceException(e);
+		}
 		return currency;
 	}
 	

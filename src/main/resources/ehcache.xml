@@ -72,6 +72,11 @@
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
+	<cache name="GetCurrencyByCode" eternal="false"
+		timeToLiveSeconds="1000" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="99999" />
+		
 	<cache name="LowestPriceInCategory" eternal="false"
 		timeToLiveSeconds="1000" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"

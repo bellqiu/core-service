@@ -45,8 +45,10 @@
 								Dropdown</span>
 						</button>
 						 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Orders</a></li>
-						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Profile</a></li>
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="/od/myOrder">My Orders</a></li>
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="/ac/profile">Profile</a></li>
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="/ac/changePwd">Change Password</a></li>
+						    <li role="presentation"><a role="menuitem" tabindex="-1" href="/ac/address">Manage Address</a></li>
 						    <li role="presentation" class="divider"></li>
 						    <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
 						  </ul>

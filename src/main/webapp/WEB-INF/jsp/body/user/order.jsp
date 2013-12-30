@@ -30,7 +30,7 @@
 				<tr>
 					<td>${status.index + resultStart}</td>
 					<td><a href="#">${order.orderSN}</a></td>
-					<td>${order.amount}</td>
+					<td><hb:printPrice price="${order.amount}" currencyCode="${order.orderCurrencyCode}"/></td>
 					<td>${order.status}</td>
 				</tr>
 			</c:forEach>
@@ -80,35 +80,5 @@
 		</div>
 	</c:otherwise>
 </c:choose>
-<table class="table table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Order SN</th>
-            <th>Price</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td><a href="">Order #1</a></td>
-            <td>$10</td>
-            <td>PENDING</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><a href="">Order #2</a></td>
-            <td>$20</td>
-            <td>PAID</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td><a href="">Order #3</a></td>
-            <td>$120</td>
-            <td>COMPLETED</td>
-          </tr>
-        </tbody>
-      </table>
 </div>
 </div>

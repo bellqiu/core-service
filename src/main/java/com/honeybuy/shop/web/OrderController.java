@@ -61,7 +61,7 @@ public class OrderController {
 				start = page * max;
 			}
 			List<OrderSummaryDTO> orders = orderService.getUserOrderByUsername(details.getUsername(), start, max);
-			if(orders != null || orders.size() > 0) {
+			if(orders != null && orders.size() > 0) {
 				List<Integer> pageIds = new ArrayList<Integer>();
 				if(totalPage <= 7) {
 					for(int i = 0; i < totalPage; i++) {
