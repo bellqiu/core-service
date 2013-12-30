@@ -146,7 +146,13 @@ Ext.define('AM.view.category.Edit', {
 			},
 			notifyDrop : function(ddSource, e, data) {
 				var f = form.getForm();
-				f.findField('parentId').setValue(ddSource.dragData.records[0].data.id);
+				var selectId = ddSource.dragData.records[0].data.id;
+				var id = f.findField('id').getValue();
+				if(selectId == id) {
+					Ext.MessageBox.alert("Error", "The parent should not be itself.");
+				} else {
+					f.findField('parentId').setValue(ddSource.dragData.records[0].data.id);
+				}
 				return true;
 			}
 		});

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.hb.core.entity.Category;
+import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 
 @org.springframework.stereotype.Component
@@ -61,8 +62,13 @@ public class CategoryTreeConverter implements Converter<CategoryTreeDTO, Categor
 		category.setIconUrl(categoryTreeDTO.getIconUrl());
 		category.setUrl(categoryTreeDTO.getUrl());
 		
-		if(categoryTreeDTO.getParentId() > 0 ){
-			category.setParent(em.find(Category.class, categoryTreeDTO.getParentId()));
+		long parentId = categoryTreeDTO.getParentId();
+		if(parentId > 0 ){
+			if(parentId == categoryTreeDTO.getId()) {
+				throw new CoreServiceException("Parent id should not be same as its id");
+			} else {
+				category.setParent(em.find(Category.class, parentId));
+			}
 		}
 		
 		return category;

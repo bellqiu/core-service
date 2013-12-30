@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.hb.core.entity.Category;
+import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 
 @org.springframework.stereotype.Component
@@ -52,9 +53,14 @@ public class CategoryDetailConverter implements
 			category = em.find(Category.class, categoryDetailDTO.getId());
 		}
 
-		if (categoryDetailDTO.getParentId() > 0) {
-			category.setParent(em.find(Category.class,
-					categoryDetailDTO.getParentId()));
+		long parentId = categoryDetailDTO.getParentId();
+		if (parentId > 0) {
+			if(parentId == categoryDetailDTO.getId()) {
+				throw new CoreServiceException("Parent id should not be same as its id");
+			} else {
+				category.setParent(em.find(Category.class,
+					parentId));
+			}
 		} else {
 			category.setParent(null);
 		}
