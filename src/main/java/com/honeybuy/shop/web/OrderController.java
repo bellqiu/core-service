@@ -7,6 +7,7 @@ package com.honeybuy.shop.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hb.core.service.OrderService;
+import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.shared.dto.OrderSummaryDTO;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.web.interceptor.SessionAttribute;
@@ -61,6 +63,7 @@ public class OrderController {
 				start = page * max;
 			}
 			List<OrderSummaryDTO> orders = orderService.getUserOrderByUsername(details.getUsername(), start, max);
+			
 			if(orders != null && orders.size() > 0) {
 				List<Integer> pageIds = new ArrayList<Integer>();
 				if(totalPage <= 7) {
@@ -101,6 +104,25 @@ public class OrderController {
 		}
 		model.addAttribute("page", "order");
 		return "myOrder";
+	}
+	
+	@RequestMapping("/orderDetail")
+	public String myOderDetail(Model model, 
+			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
+			@RequestParam(value = "orderId", required = false) final String orderId){
+		if(!StringUtils.isEmpty(orderId)) {
+			long id = 0;
+			try {
+				id = Long.valueOf(orderId);
+			} catch(NumberFormatException e) {
+			}
+			OrderDetailDTO orderDetail = orderService.getOrderDetailById(id);
+			if(orderDetail != null && details.getUsername().equals(orderDetail.getUseremail())) {
+				model.addAttribute("orderDetail", orderDetail);
+			} 
+		}
+		model.addAttribute("page", "order");
+		return "orderDetail";
 	}
 	
 }

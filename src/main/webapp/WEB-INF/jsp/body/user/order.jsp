@@ -1,7 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb"%>
 <div>
@@ -29,7 +28,7 @@
 			<c:forEach items="${orders }" var="order" varStatus="status">
 				<tr>
 					<td>${status.index + resultStart}</td>
-					<td><a href="#">${order.orderSN}</a></td>
+					<td><a href="${site.domain}/od/orderDetail?orderId=${order.id}">${order.orderSN}</a></td>
 					<td><hb:printPrice price="${order.amount}" currencyCode="${order.orderCurrencyCode}"/></td>
 					<td>${order.status}</td>
 				</tr>
@@ -57,7 +56,8 @@
   							<c:otherwise>
   								<c:choose>
   									<c:when test="${item == currentPageIndex}">
-  										<li class="active"><a href="${site.domain}/od/myOrder?page=${item}">${item+1} <span class="sr-only">(current)</span></a></li>
+  										<li class="active active2">
+  										<a href="#">${item+1} <span class="sr-only">(current)</span></a></li>
   									</c:when>
   									<c:otherwise>
   										<li><a href="${site.domain}/od/myOrder?page=${item}">${item+1}</a></li>

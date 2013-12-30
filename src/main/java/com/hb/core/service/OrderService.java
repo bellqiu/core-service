@@ -255,7 +255,7 @@ public class OrderService {
 		return null;
 	}
 	
-	public OrderDetailDTO getOrder(String OrderSN){
+	public OrderDetailDTO getOrder(String orderSN){
 		return null;
 	}
 	

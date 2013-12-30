@@ -43,10 +43,16 @@
 			<put-attribute name="userContent" value="/WEB-INF/jsp/body/user/address.jsp"></put-attribute>
 		</definition>
 		
-		<definition name="user.center.order" template="/WEB-INF/layout/userCenterLayout.jsp">
+		<definition name="user.center.orderList" template="/WEB-INF/layout/userCenterLayout.jsp">
 			<put-attribute name="leftNav" value="/WEB-INF/jsp/body/user/leftNav.jsp"></put-attribute>
 			<put-attribute name="userContent" value="/WEB-INF/jsp/body/user/order.jsp"></put-attribute>
 		</definition>
+		
+		<definition name="user.center.orderDetail" template="/WEB-INF/layout/userCenterLayout.jsp">
+			<put-attribute name="leftNav" value="/WEB-INF/jsp/body/user/leftNav.jsp"></put-attribute>
+			<put-attribute name="userContent" value="/WEB-INF/jsp/body/user/orderDetail.jsp"></put-attribute>
+		</definition>
+		
 		
 		<definition name="headerFooter" extends="standardLayout" >
         	  <put-attribute name="header" value="home.header.module"/>
@@ -130,7 +136,11 @@
         </definition>
         
         <definition name="myOrder" extends="headerFooter" >
-        	  <put-attribute name="body" value="user.center.order"/>
+        	  <put-attribute name="body" value="user.center.orderList"/>
+        </definition>
+        
+        <definition name="orderDetail" extends="headerFooter" >
+        	  <put-attribute name="body" value="user.center.orderDetail"/>
         </definition>
         
         <definition name="accessDenied" extends="headerFooter" >
