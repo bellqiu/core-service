@@ -118,4 +118,12 @@ public class ProductDirectService {
 		
 		return productSummaryDTO;
 	}
+	
+	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
+	@Secured("ADMIN")
+	public ProductSummaryDTO setProductAsActive(ProductSummaryDTO productSummaryDTO) {
+		productSummaryDTO = productService.setProductAsActive(productSummaryDTO);
+		
+		return productSummaryDTO;
+	}
 }

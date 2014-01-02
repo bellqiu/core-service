@@ -21,6 +21,7 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 		this.items = [ {
 			xtype : 'panel',
 			layout : 'fit',
+			id : 'productPanel',
 			border : 0,
 			layout : {
 				type : 'vbox',

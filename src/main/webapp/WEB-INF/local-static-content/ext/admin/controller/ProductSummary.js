@@ -95,17 +95,24 @@ Ext.define('AM.controller.ProductSummary', {
 				});
 				filtered = true;
 			}
+			
+			var actioncolumn = btn.up('panel#productPanel').down('actioncolumn');
 			active=btn.up('form#searchProductSummaryForm').down('checkbox').getValue();
 			if (active) {
 				filterObj.push({
 					property : 'active',
 					value : 'true',
 				});
+				actioncolumn.items[2].tooltip = 'Delete Product';
+				actioncolumn.items[2].icon = '/resources/ext/resources/images/delete.gif';
 			} else {
 				filterObj.push({
 					property : 'active',
 					value : 'false',
 				});
+				actioncolumn.items[2].tooltip = 'Recover Product';
+				actioncolumn.items[2].icon = '/resources/ext/resources/images/recover.png';
+				console.log("OK");
 			}
 			filtered = true;
 			
@@ -187,7 +194,21 @@ Ext.define('AM.controller.ProductSummary', {
 				var win=window.open("/"+view.getSelectionModel().getSelection()[0].get("name"), '_blank');
 				win.focus();
 				break;
-			}
+			case 'recover':
+				store = view.getStore();
+				product = view.getSelectionModel().getSelection()[0].data;
+				productDirectService.setProductAsActive(product, function(data, rs, suc){
+					if(suc && data){
+						view.getStore().remove(view.getSelectionModel()
+								.getSelection()[0]);
+					}else if(rs && rs.type == 'exception'){
+						Ext.example.msg('<font color="red">Error</font>',
+								'<font color="red">' + rs.message
+								+ " </font>");3
+					}
+				});
+				break;
+			} 
 		}
 	},
 	

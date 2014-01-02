@@ -447,6 +447,22 @@ public class ProductService {
 		return productSummaryConverter.convert(product);
 	}
 	
+	public ProductSummaryDTO setProductAsActive(ProductSummaryDTO productSummaryDTO){
+		Product product;
+		if(productSummaryDTO.getId() < 1 || (product = getProductById(productSummaryDTO.getId())) == null){
+			throw new CoreServiceException("Product does not exist");
+		}
+		Product productByName = getProductByName(productSummaryDTO.getName());
+		if(null != productByName && productByName.getId() != product.getId()){
+			throw new CoreServiceException("Product already exist with name is " + productSummaryDTO.getName());
+		}
+		Product transf = productSummaryConverter.transf(productSummaryDTO);
+		transf.setStatus(Component.Status.ACTIVE);
+		product = em.merge(transf);
+		return productSummaryConverter.convert(product);
+	}
+	
+	
 	public List<ProductSummaryDTO> getAllProductByCategoryId(long categoryId, int start, int max) {
 		String queryString = "select p from Product p, Category c where c.id = :id and p.status = 'ACTIVE' and c member of p.categories";
 		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
