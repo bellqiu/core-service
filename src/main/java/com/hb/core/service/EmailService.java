@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hb.core.entity.HTML;
+import com.hb.core.exception.CoreServiceException;
+import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
@@ -31,7 +33,7 @@ public class EmailService {
 	@Autowired
 	SettingServiceCacheWrapper settingService;
 	
-	public void sendRecoverMail(String toEmail, String newPassword) {
+	public void sendRecoveryMail(String toEmail, String newPassword) {
 		String recoverPwdTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECOVER_PASSWORD_TEMPLATE);
 		String recoverSubject = settingService.getStringValue(Constants.SETTING_RECOVER_PASSWORD_SUBJECT, Constants.DEFAULT_RECOVERY_MAIL_TITLE);
 		if(recoverPwdTemplate == null) {
@@ -47,7 +49,7 @@ public class EmailService {
 	
 	public void sendRegisterMail(String toEmail, String password) {
 		String registerTemplate = getTemplateFromDB(Constants.HTML_MAIL_REGISTER_TEMPLATE);
-		String recoverSubject = settingService.getStringValue(Constants.SETTING_REGISTER_SUBJECT, Constants.DEFAULT_REGISTER_MAIL_TITLE);
+		String registerSubject = settingService.getStringValue(Constants.SETTING_REGISTER_SUBJECT, Constants.DEFAULT_REGISTER_MAIL_TITLE);
 		if(registerTemplate == null) {
 			registerTemplate = Constants.DEFAULT_REGISTER_MAIL_CONTENT;
 		}
@@ -56,7 +58,39 @@ public class EmailService {
 		variable.put("email", toEmail);
 		variable.put("password", password);
 		
-		sendMail(registerTemplate, recoverSubject, variable, toEmail);
+		sendMail(registerTemplate, registerSubject, variable, toEmail);
+	}
+	
+	public void sendPayOrderMail(OrderDetailDTO order) {
+		if(order.getUseremail() == null) {
+			throw new CoreServiceException("User email in order is null");
+		}
+		String payOrderTemplate = getTemplateFromDB(Constants.HTML_MAIL_PAY_ORDER_TEMPLATE);
+		String payOrderSubject = settingService.getStringValue(Constants.SETTING_PAY_ORDER_SUBJECT, Constants.DEFAULT_PAY_ORDER_MAIL_TITLE);
+		if(payOrderTemplate == null) {
+			payOrderTemplate = Constants.DEFAULT_PAY_ORDER_MAIL_CONTENT;
+		}
+		
+		Map<String, Object> variable = new HashMap<String, Object>();
+		variable.put("order", order);
+		
+		sendMail(payOrderTemplate, payOrderSubject, variable, order.getUseremail());
+	}
+	
+	public void sendReceiveOrderPaymentMail(OrderDetailDTO order) {
+		if(order.getUseremail() == null) {
+			throw new CoreServiceException("User email in order is null");
+		}
+		String receiveOrderPaymentTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE);
+		String receiveOrderPaymentSubject = settingService.getStringValue(Constants.SETTING_RECEIVE_ORDER_PAYMENT_SUBJECT, Constants.DEFAULT_RECEIVE_ORDER_PAYMENT_TITLE);
+		if(receiveOrderPaymentTemplate == null) {
+			receiveOrderPaymentTemplate = Constants.DEFAULT_RECEIVE_ORDER_PAYMENT_CONTENT;
+		}
+		
+		Map<String, Object> variable = new HashMap<String, Object>();
+		variable.put("order", order);
+		
+		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, order.getUseremail());
 	}
 	
 	private String getTemplateFromDB(String htmlKey) {

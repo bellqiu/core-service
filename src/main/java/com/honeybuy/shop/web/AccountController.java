@@ -101,7 +101,7 @@ public class AccountController {
 	public String newAccountPost(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam("regUsername") String username, @RequestParam("regPassword")String password) throws IOException, ServletException{
 		try {
 			if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)) {
-				UserDTO user = userService.newUser(username, password);
+				UserDTO user = userService.registerUser(username, password);
 				model.addAttribute("createdUser", user);
 			}
 		} catch(CoreServiceException e) {

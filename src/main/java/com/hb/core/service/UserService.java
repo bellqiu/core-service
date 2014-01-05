@@ -203,7 +203,7 @@ public class UserService {
 			new Thread(){
                 public void run() {
                     try{
-						emailService.sendRecoverMail(email, newPassword);
+						emailService.sendRecoveryMail(email, newPassword);
                     } catch (Exception e){
                     }
                 };
@@ -226,7 +226,7 @@ public class UserService {
 		user.setUpdateDate(currentDate);
 		user = em.merge(user);
 		
-		/*if(user != null) {
+		if(user != null) {
 			new Thread(){
                 public void run() {
                     try{
@@ -235,7 +235,7 @@ public class UserService {
                     }
                 };
             }.start();
-		}*/
+		}
 		
 		return userConverter.convert(user);
 	}
