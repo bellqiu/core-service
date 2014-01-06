@@ -19,7 +19,38 @@
 				<div class="row">
 						<div  class="row">
 							<div class="col-xs-8">
-								confirm Order SN: ${currentOrder.orderSN }
+								<div  class="row orderSN">
+									<div class="col-xs-2"></div>
+									<div class="col-xs-4">
+										<p class="rowContent">
+										<strong>SN: ${currentOrder.orderSN }</strong>
+										</p>
+									</div>
+									<div class="col-xs-2">
+											<form action="https://www.paypal.com/cgi-bin/webscr" method="post"
+												id="paypaysubmitForm">
+												<input type="hidden" name="cmd" value="_xclick"> <input
+													type="hidden" name="business" value="zhuwanshan@outlook.com"> <input
+													type="hidden" name="item_name" value="${currentOrder.orderSN }">
+												<input type="hidden" name="amount"
+													value='<hb:printPrice price="${currentOrder.grandTotal }" withCurrency="false"/>'>
+													
+												<input type="hidden" name="currency_code"
+													value="<hb:printCurrency/>"> 
+												
+												<input type="hidden"
+													name="lc" value="US"> 
+													
+												<input type="hidden" name="notify_url"
+													value="http://xxx/uc/checkorder">
+												 <input
+													type="hidden" name="return"
+													value="http:/www{RawRequest.serverName}/uc/myOrder">
+											<button type="submit" class="btn btn-danger">Pay by PayPal</button>
+										</form>
+									</div>
+									<div class="col-xs-2"></div>
+								</div>
 							</div>
 						
 							<div class="col-xs-4">

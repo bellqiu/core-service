@@ -77,7 +77,7 @@ public class OrderDirectService {
 	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
 	public OrderDetailDTO saveOrderInfo(@Valid OrderDetailDTO orderDetailDTO){
 		
-		return orderService.updateOrderInfo(orderDetailDTO);
+		return orderService.updateOrderInfo(orderDetailDTO.getId(), orderDetailDTO.getTraceInfo(), orderDetailDTO.getOrderStatus(), orderDetailDTO.getCurrency());
 	}
 
 }

@@ -193,17 +193,23 @@
 						var btn = $("#paymentProcessToCheckoutBtn");
 						
 						var json = null;
+						var error = null;
 						
 						try{
 							json = JSON.parse(response.responseText);
 						}catch(e){
-							
+							error = "Something wrong";
 						}
 						if(json && json.success){
 							window.location.href=window.location.protocol + "//"+window.location.host + "/sp/payment/"+paymentMethod+"/checkout/"+orderId;
 						}else{
+							
+							if(!error){
+								error = json.messageMap.ERROR;
+							}
+							
 							btn.popover({
-								"content" :  "<p class='alert alert-danger'>"+json.messageMap.ERROR+"</p>", 
+								"content" :  "<p class='alert alert-danger'>"+error+"</p>", 
 							  	title : "Error",
 							  	html : true,
 								trigger : 'manual',
@@ -215,10 +221,8 @@
 							setTimeout(function(){
 								$("#paymentProcessToCheckoutBtn").popover("destroy");
 							}, 3000);
+							btn.button('reset');
 						}
-						
-						btn.button('reset');
-						
 					}
 				});
 			};

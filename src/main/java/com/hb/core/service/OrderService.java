@@ -383,13 +383,13 @@ public class OrderService {
 	
 	}
 
-	public OrderDetailDTO updateOrderInfo(OrderDetailDTO orderDetailDTO) {
-		long id = orderDetailDTO.getId();
+	public OrderDetailDTO updateOrderInfo(long orderId,String traceInfo, Order.Status status, String currencyCode) {
 		Order order = null;
-		if(id > 0 && (order = em.find(Order.class, id)) != null) {
-			order.setTraceInfo(orderDetailDTO.getTraceInfo());
-			order.setOrderStatus(orderDetailDTO.getOrderStatus());
+		if(orderId > 0 && (order = em.find(Order.class, orderId)) != null) {
+			order.setTraceInfo(traceInfo);
+			order.setOrderStatus(status);
 			order.setUpdateDate(new Date());
+			order.setCurrency(currencyCode);
 			return orderDetailConverter.convert(em.merge(order));
 		} else {
 			throw new CoreServiceException("Order is not existing");
@@ -533,6 +533,7 @@ public class OrderService {
 		
 		return orderDetailConverter.convert(order);
 	}
+	
 	
 	public OrderDetailDTO applyCoupon(String userEmail ,long orderId, String couponCode){
 		

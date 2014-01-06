@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hb.core.entity.Address;
 import com.hb.core.entity.Coupon;
 import com.hb.core.entity.Currency;
+import com.hb.core.entity.Order;
 import com.hb.core.service.CouponService;
 import com.hb.core.service.OrderService;
 import com.hb.core.service.UserService;
@@ -353,6 +354,20 @@ public class ShoppingController {
 		
 		
 		return result;
+	}
+	
+	@Secured("USER")
+	@RequestMapping(value="/sp/payment/checkout", method={RequestMethod.POST})
+	@ResponseBody
+	public ResponseResult<Boolean> checkoutOrder(
+			@RequestParam(value="orderId") long orderId, 
+			 @SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
+			 @SessionAttribute("defaultCurrency")Currency currency
+			 ){
+		
+		orderService.updateOrderInfo(orderId, "", Order.Status.PENDING, currency.getCode());
+		
+		return  new ResponseResult<Boolean>(true, true);
 	}
 	
 	
