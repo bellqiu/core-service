@@ -46,7 +46,7 @@
 												 <input
 													type="hidden" name="return"
 													value="http:/www{RawRequest.serverName}/uc/myOrder">
-											<button type="submit" class="btn btn-danger">Pay by PayPal</button>
+											<button type="button" data-orderId="${currentOrder.id }" class="btn btn-danger" id="payByPaypal" data-loading-text="Processing..">Pay by PayPal</button>
 										</form>
 									</div>
 									<div class="col-xs-2"></div>
@@ -104,3 +104,4 @@
 	</div>
 	
 </div>
+<script src="/resources/js/paypalPageMain.js" type="text/javascript"></script>

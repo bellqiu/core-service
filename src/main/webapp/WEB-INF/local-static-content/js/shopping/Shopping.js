@@ -227,7 +227,30 @@
 				});
 			};
 			
-			
+			shopping.checkout2Pending = function(orderid){
+				$.ajax({
+					url : "/sp/payment/checkout?_tp="+new Date().getTime(),
+					type : 'POST',
+					data : {"orderId" : orderid},
+					complete : function(response){
+
+						var json = null;
+						var error = null;
+						
+						try{
+							json = JSON.parse(response.responseText);
+						}catch(e){
+							error = "Something wrong";
+						}
+						
+						if(json && json.success){
+							$("#paypaysubmitForm").submit();
+						}else{
+							alert("Error");
+						}
+					}
+				});
+			};
 			
 	        return shopping;
 	    }

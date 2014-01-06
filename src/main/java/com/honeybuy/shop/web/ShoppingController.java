@@ -359,7 +359,7 @@ public class ShoppingController {
 	@Secured("USER")
 	@RequestMapping(value="/sp/payment/checkout", method={RequestMethod.POST})
 	@ResponseBody
-	public ResponseResult<Boolean> checkoutOrder(
+	public ResponseResult<Boolean> checkoutOrder2Pending(
 			@RequestParam(value="orderId") long orderId, 
 			 @SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
 			 @SessionAttribute("defaultCurrency")Currency currency
