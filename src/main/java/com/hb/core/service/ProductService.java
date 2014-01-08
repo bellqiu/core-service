@@ -124,28 +124,36 @@ public class ProductService {
 		String categoryName = null;
 		if(filters.containsKey("categoryName")) {
 			categoryName = filters.get("categoryName");
+			if(StringUtils.isEmpty(categoryName)) {
+				categoryName = null;
+			}
 			filters.remove("categoryName");
 		}
 		if(!filters.isEmpty()){
-			ql.append(" where ");
 			if(filters.containsKey("id")) {
-				ql.append("id = :id ");
+				ql.append(" where id = :id ");
+				categoryName = null;
 			} else {
+				if(categoryName == null) {
+					ql.append(" where ");
+				} else {
+					ql.append(" and ");
+				}
 				Iterator<String> item = filters.keySet().iterator();
 				while(item.hasNext()){
 					String param = item.next();
 					if ("price".equalsIgnoreCase(param)
 							|| "actualPrice".equalsIgnoreCase(param)) {
-						ql.append(param +" = :" + param + " ");
+						ql.append(" p." +param +" = :" + param);
 					} else if("active".equalsIgnoreCase(param)) {
 						boolean active = Boolean.valueOf(filters.get(param));
 						if(active) {
-							ql.append("status = :status ");
+							ql.append(" p.status = :status ");
 						} else {
-							ql.append("status != :status ");
+							ql.append(" p.status != :status ");
 						}
 					} else{
-						ql.append(param +" like :"+param +" ");
+						ql.append(" p." + param +" like :"+param);
 					}
 					if(item.hasNext()){
 						ql.append(" and ");
@@ -154,10 +162,17 @@ public class ProductService {
 			}
 		}
 		
-		ql.append(" order by " + sort + " " + dir);
+		ql.append(" order by p." + sort + " " + dir);
 		
-		StringBuffer queryStringPrefix = new StringBuffer("select p from Product as p ");
-		StringBuffer countStringPrefix = new StringBuffer("select count(p.id) from Product as p ");
+		StringBuffer queryStringPrefix;
+		StringBuffer countStringPrefix;
+		if(categoryName != null) {
+			queryStringPrefix = new StringBuffer("select p from Product p, Category c where c member of p.categories and c.name like :categoryName ");
+			countStringPrefix = new StringBuffer("select count(p.id) from Product p, Category c where c member of p.categories and c.name like :categoryName ");
+		} else {
+			queryStringPrefix = new StringBuffer("select p from Product as p ");
+			countStringPrefix = new StringBuffer("select count(p.id) from Product as p ");
+		}
 		
 		TypedQuery<Product> query = em.createQuery( queryStringPrefix.append(ql).toString(), Product.class);
 		TypedQuery<Long> count = em.createQuery( countStringPrefix.append(ql).toString(), Long.class);
@@ -174,6 +189,10 @@ public class ProductService {
 			query.setParameter("id", idNumber);
 			count.setParameter("id", idNumber);
 		} else {
+			if(categoryName != null) { 
+				query.setParameter("categoryName", categoryName);
+				count.setParameter("categoryName", categoryName);
+			}
 			for (Map.Entry<String, String> paramEntry : filters.entrySet()) {
 				String key = paramEntry.getKey();
 				if ("price".equalsIgnoreCase(key)
@@ -193,19 +212,7 @@ public class ProductService {
 		List<Product> resultList = query.getResultList();
 		List<ProductSummaryDTO> productDTOList = new ArrayList<ProductSummaryDTO>(resultList.size());
 		for(Product product : resultList) {
-			if(categoryName != null) {
-				List<Category> categories = product.getCategories();
-				if(categories != null && categories.size() > 0) {
-					for(Category category : categories) {
-						if(categoryName.equalsIgnoreCase(category.getName())) {
-							productDTOList.add(productSummaryConverter.convert(product));
-							break;
-						}
-					}
-				}
-			} else {
-				productDTOList.add(productSummaryConverter.convert(product));
-			}
+			productDTOList.add(productSummaryConverter.convert(product));
 		}
 		return new ExtDirectStoreReadResult<ProductSummaryDTO>(totalCount, productDTOList);
 	}

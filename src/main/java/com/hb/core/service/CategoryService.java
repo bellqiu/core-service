@@ -260,7 +260,7 @@ public class CategoryService {
 	}
 	
 	public List<String> getAllCategoryName() {
-		String sqlForAllCategoryName = "select name from Category ";
+		String sqlForAllCategoryName = "select name from Category order by name ";
 		TypedQuery<String> cateogryNames = em.createQuery(sqlForAllCategoryName, String.class);
 		List<String> allCategoryNames = cateogryNames.getResultList();
 		return allCategoryNames;
