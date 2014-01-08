@@ -165,8 +165,12 @@ var productOpts = "${currentProductOptions}";
 
 					<div class="row padding10">
 						<div class="col-md-3 col-xs-3">Qty:</div>
-						<div class="col-md-9 col-xs-9">
+						<div class="col-md-3 col-xs-3">
+							<div class="input-group">
+							<a href="javascript:void(0);" id="decreaseQty" class="input-group-addon">-</a>
 							<input type="text" class="form-control width50" id="productAmountCustom" value="1">
+							<a href="javascript:void(0);" id="increaseQty" class="input-group-addon">+</a>
+							</div>
 						</div>
 					</div>
 				</div>

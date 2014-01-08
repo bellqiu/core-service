@@ -88,7 +88,7 @@ public class ProductController {
 	
 	@RequestMapping("/search/product")
 	public String productSearch(
-			@RequestParam(value = "searchValue", required = false) final String keyword,
+			@RequestParam(value = "keyword", required = false) final String keyword,
 			@RequestParam(value = "page", required = false) final String page,
 			Model model){
 		

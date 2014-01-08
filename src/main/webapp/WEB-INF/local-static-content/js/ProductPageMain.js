@@ -56,5 +56,28 @@
 	
 	);
 	
+	$("#decreaseQty").click(function(btn) {
+		var qty = $("#productAmountCustom").val();
+		var qtyNum = parseInt(qty);
+		if(qtyNum > 1) {
+			$("#productAmountCustom").val(qtyNum - 1);
+		} else {
+			$("#productAmountCustom").val(1);
+		} 
+		return false;
+	});
+	$("#increaseQty").click(function(btn) {
+		var qty = $("#productAmountCustom").val();
+		var qtyNum = parseInt(qty);
+		if(qtyNum > 0) {
+			$("#productAmountCustom").val(qtyNum + 1);
+		} else {
+			$("#productAmountCustom").val(1);
+		}  
+		return false;
+	});
+	$("#productAmountCustom").onchange(function(btn) {
+		console.log("OK");
+	})
 	
 })(jQuery);

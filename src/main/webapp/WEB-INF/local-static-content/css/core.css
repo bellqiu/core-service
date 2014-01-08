@@ -515,6 +515,10 @@ input[type=password] {
 	width: 50px !important;
 }
 
+.width70 {
+	width: 70px !important;
+}
+
 .priceDuplicate {
 	margin: 0 15px;
 	text-decoration: line-through;
@@ -671,7 +675,7 @@ input[type=password] {
 	
 }
 .quantity-text{
-	width: 25px!important;
+	width: 50px!important;
 	display: inline;
 }
 .order-item-selection-col .order-item-selection{
