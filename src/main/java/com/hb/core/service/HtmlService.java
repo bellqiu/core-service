@@ -18,7 +18,6 @@ import com.hb.core.convert.Converter;
 import com.hb.core.entity.HTML;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.HtmlDetailDTO;
-import com.honeybuy.shop.util.HtmlTidy;
 
 @Transactional
 @Service
@@ -124,7 +123,7 @@ public class HtmlService {
 			throw new CoreServiceException("HTML name already exist");
 		}
 		
-		htmlDetailDTO.setContent(HtmlTidy.getTidyHtmlString(htmlDetailDTO.getContent()));
+		//htmlDetailDTO.setContent(HtmlTidy.getTidyHtmlString(htmlDetailDTO.getContent()));
 		HTML html = htmlDetailConverter.transf(htmlDetailDTO);
 		html = em.merge(html);
 		

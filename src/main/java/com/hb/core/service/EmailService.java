@@ -73,6 +73,7 @@ public class EmailService {
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
+		variable.put("totalPrice", order.getTotalProductPrice());
 		
 		sendMail(payOrderTemplate, payOrderSubject, variable, order.getUseremail());
 	}
@@ -89,6 +90,7 @@ public class EmailService {
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
+		variable.put("totalPrice", order.getTotalProductPrice());
 		
 		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, order.getUseremail());
 	}
