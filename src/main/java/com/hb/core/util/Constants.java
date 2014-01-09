@@ -63,5 +63,14 @@ public interface Constants {
 	public static final String PAYMENT_METHOD_LIST = "PAYMENT_METHOD_LIST";
 	
 	
+	public static final String PAYPAL_NOTIFY_URI = "PAYPAL_NOTIFY_URI";
+	
+	public static final String PAYPAL_NOTIFY_URI_DEFAULT = "/sp/notify/paypal";
+	
+	
+	public static final String PAYPAL_ACCOUNT = "PAYPAL_ACCOUNT";
+	public static final String PAYPAL_ACCOUNT_DEFAULT = "zhuwanshan@outlook.com";
+	
+	
 	
 }

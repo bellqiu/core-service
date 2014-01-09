@@ -4,13 +4,25 @@
  */
 package com.honeybuy.shop.web;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +50,7 @@ import com.hb.core.util.Constants;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 import com.honeybuy.shop.web.dto.ResponseResult;
+import com.honeybuy.shop.web.eds.SiteDirectService;
 import com.honeybuy.shop.web.interceptor.SessionAttribute;
 
 /**
@@ -65,6 +78,9 @@ public class ShoppingController {
 	
 	@Autowired
 	private SettingServiceCacheWrapper settingService;
+	
+	@Autowired
+	private SiteDirectService siteService;
 	
 	@RequestMapping("/sp/shoppingcart/list")
 	public String shoppingcat(Model model){
@@ -367,7 +383,8 @@ public class ShoppingController {
 	@RequestMapping("/sp/payment/{payment}/checkout/{orderId}")
 	public String paypalCheckout(@PathVariable("orderId") long orderId, Model model, @PathVariable("payment") String payment,
 			 @SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
-			 @SessionAttribute("defaultCurrency")Currency currency){
+			 @SessionAttribute("defaultCurrency")Currency currency,
+			 HttpServletRequest request){
 		
 		OrderDetailDTO detailDTO = orderService.getOrderDetailById(orderId);
 		
@@ -381,11 +398,132 @@ public class ShoppingController {
 			
 			model.addAttribute("currentOrder", detailDTO);
 			
+			if("paypal".equals(payment)){
+				
+				String serverHost = "http://"+request.getServerName() ;
+				
+				model.addAttribute("notifyUrl", serverHost + settingService.getStringValue(Constants.PAYPAL_NOTIFY_URI, Constants.PAYPAL_NOTIFY_URI_DEFAULT));
+				
+				model.addAttribute("paypalAccount", settingService.getStringValue(Constants.PAYPAL_ACCOUNT, Constants.PAYPAL_ACCOUNT_DEFAULT));
+				
+				model.addAttribute("returnUrl", serverHost + "/od/orderDetail?orderId=" + orderId);
+				
+				
+			}
+			
 			return payment;
 		}
 		
 		return "redirect:/sp/payment/paymentInfo/?orderId="+orderId;
 	}
+	
+	
+	@RequestMapping(value="/sp/notify/paypal")
+	public String paypalNotify(HttpServletRequest request) throws IOException{
+
+		List<String> errorStrings = new ArrayList<String>();
+		List<String> msgs = new ArrayList<String>();
+		
+		Enumeration en = request.getParameterNames();
+		String str = "cmd=_notify-validate";
+		logger.info("################Accept######################");
+		while (en.hasMoreElements()) {
+			String paramName = (String) en.nextElement();
+			String paramValue = request.getParameter(paramName);
+			str = str + "&" + paramName + "="
+					+ URLEncoder.encode(paramValue, "iso-8859-1");
+			logger.info(paramName+": " + request.getParameter(paramName));
+		}
+		logger.info("######################################");
+		logger.info("str: " + str);
+		logger.info("######################################");
+//		URL u = new URL("http://www.sandbox.paypal.com/c2/cgi-bin/webscr");
+		 URL u = new URL("http://www.paypal.com/cgi-bin/webscr");
+		URLConnection uc = u.openConnection();
+		uc.setDoOutput(true);
+
+		uc.setRequestProperty("Content-Type",
+				"application/x-www-form-urlencoded");
+		PrintWriter pw = new PrintWriter(uc.getOutputStream());
+		pw.println(str);
+		pw.close();
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				uc.getInputStream()));
+		String res = in.readLine();
+		in.close();
+		
+		
+		String itemName = request.getParameter("item_name");
+		String quantity = request.getParameter("quantity");
+		String paymentStatus = request.getParameter("payment_status");
+		String paymentAmount = request.getParameter("mc_gross");
+		String paymentCurrency = request.getParameter("mc_currency");
+		String txnId = request.getParameter("txn_id");
+		String receiverEmail = request.getParameter("receiver_email");
+		
+		String payerEmail = request.getParameter("payer_email");
+		String address_city = request.getParameter("address_city");
+		String contact_phone = request.getParameter("contact_phone");
+		String address_country = request.getParameter("address_country");
+		String address_street = request.getParameter("address_street");
+		String address_zip = request.getParameter("address_zip");
+		String first_name = request.getParameter("first_name");
+		String last_name = request.getParameter("last_name");
+		Enumeration els = request.getParameterNames();
+		
+		if ("VERIFIED".equals(res)) {
+			OrderDetailDTO order = orderService.getOrderBySN(itemName);
+			logger.info(">>>>>>>>>>>>>>>>>>>VERIFIED>>>>>>>>>>>>>>>>>>>>>>");
+			if(null!=order){
+				logger.info(">>>>>>>>>>>>>>>>>>>paymentAmount:"+paymentAmount+">>>>>>>>>>>>>>>>>>>>>>");
+				logger.info(">>>>>>>>>>>>>>>>>>>paymentCurrency:"+paymentCurrency+">>>>>>>>>>>>>>>>>>>>>>");
+				logger.info(">>>>>>>>>>>>>>>>>>>receiverEmail:"+receiverEmail+">>>>>>>>>>>>>>>>>>>>>>");
+				logger.info(">>>>>>>>>>>>>>>>>>>itemNumber:"+quantity+">>>>>>>>>>>>>>>>>>>>>>");
+				
+				logger.info(">>>>>>>>>>>>>>>>>>>itemNumber.equals('1'):"+quantity.equals("1")+">>>>>>>>>>>>>>>>>>>>>>");
+				logger.info(">>>>>>>>>>>>>>>>>>>order.getCurrency().equals(paymentCurrency):"+order.getCurrency().equals(paymentCurrency)+">>>>>>>>>>>>>>>>>>>>>>");
+				
+				siteService.getAllCurrency();
+				
+				float rate = 1;
+				
+				List<Currency> currencies = siteService.getAllCurrency();
+				
+				for (Currency currency : currencies) {
+					if(currency.getCode().equals(paymentCurrency)){
+						rate = currency.getExchangeRateBaseOnDefault();
+					}
+						
+				}
+				
+				float amount = rate * order.getGrandTotal();
+				
+				if((amount - 0.01) <= Float.parseFloat(paymentAmount)
+						&&order.getCurrency().equals(paymentCurrency)
+						&&receiverEmail.equalsIgnoreCase(settingService.getStringValue(Constants.PAYPAL_ACCOUNT, Constants.PAYPAL_ACCOUNT_DEFAULT))
+						&&quantity.equals("1")){
+					try{
+						orderService.updateOrderInfo(order.getId(), "", Order.Status.PAID, paymentCurrency);
+					}catch(Exception e){
+						logger.info(e.getMessage(),e);
+					}
+				}else{
+					logger.info(">>>>>>>>>>>>>>>>>>>NOT enough mony>>>>>>>>>>>>>>>>>>>>>>");
+				}
+				
+			}
+			
+			
+		} else if ("INVALID".equals(res)) {
+			logger.info("##############INVALID########################");
+		} else {
+			logger.info("##############ORTHER########################");
+		}
+
+		
+		return null;
+	}
+	
 
 	
 	public CouponService getCouponService() {

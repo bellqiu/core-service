@@ -30,7 +30,7 @@
 											<form action="https://www.paypal.com/cgi-bin/webscr" method="post"
 												id="paypaysubmitForm">
 												<input type="hidden" name="cmd" value="_xclick"> <input
-													type="hidden" name="business" value="zhuwanshan@outlook.com"> <input
+													type="hidden" name="business" value="${paypalAccount }"> <input
 													type="hidden" name="item_name" value="${currentOrder.orderSN }">
 												<input type="hidden" name="amount"
 													value='<hb:printPrice price="${currentOrder.grandTotal }" withCurrency="false"/>'>
@@ -42,10 +42,10 @@
 													name="lc" value="US"> 
 													
 												<input type="hidden" name="notify_url"
-													value="http://xxx/uc/checkorder">
+													value="${notifyUrl }">
 												 <input
 													type="hidden" name="return"
-													value="http:/www{RawRequest.serverName}/uc/myOrder">
+													value="${returnUrl }">
 											<button type="button" data-orderId="${currentOrder.id }" class="btn btn-danger" id="payByPaypal" data-loading-text="Processing..">Pay by PayPal</button>
 										</form>
 									</div>

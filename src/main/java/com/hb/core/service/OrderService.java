@@ -255,13 +255,26 @@ public class OrderService {
 		return null;
 	}
 	
-	public OrderDetailDTO getOrder(String orderSN){
-		return null;
+	public OrderDetailDTO getOrderBySN(String orderSN){
+		TypedQuery<Order> query = em.createNamedQuery(
+				"QueryOrderBySN", Order.class);
+
+		query.setParameter("orderSN", orderSN);
+		
+		Order order = null;
+		try {
+			order = query.getSingleResult();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		
+		if(null == order){
+			return null;
+		}
+		
+		return orderDetailConverter.convert(order);
 	}
 	
-	public OrderDetailDTO checkout(String OrderSN, String userEmail, String billingAddress, String shippingAddress, String shippingCountryCode, String extMessage){
-		return null;
-	}
 	
 	public ExtDirectStoreReadResult<OrderSummaryDTO> queryResult(int start, int max,
 			String sort, String direction, Map<String, String> filters) {

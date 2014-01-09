@@ -25,7 +25,8 @@ import javax.persistence.Table;
 	@NamedQuery(name="QueryOnShoppingOrderByTrackingId", query="select o from Order as o where o.trackingId=:trackingId and o.user is null and o.orderStatus='ONSHOPPING'"),
 	@NamedQuery(name="QueryOnShoppingOrderByUserEmail", query="select o from Order as o where o.user.email=:email and o.orderStatus='ONSHOPPING'"),
 	@NamedQuery(name="QueryOnUserOrderByUsername", query="select o from Order as o where o.user.email=:email and o.orderStatus!='ONSHOPPING' order by o.updateDate desc"),
-	@NamedQuery(name="QueryOnUserOrderCountByUsername", query="select count(o.id) from Order as o where o.user.email=:email and o.orderStatus!='ONSHOPPING'")
+	@NamedQuery(name="QueryOnUserOrderCountByUsername", query="select count(o.id) from Order as o where o.user.email=:email and o.orderStatus!='ONSHOPPING'"),
+	@NamedQuery(name="QueryOrderBySN", query="select o from Order as o where o.orderSN=:orderSN")
 })
 public class Order extends Component{
 
