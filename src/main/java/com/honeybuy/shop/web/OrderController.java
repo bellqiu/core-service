@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +28,6 @@ import com.honeybuy.shop.web.interceptor.SessionAttribute;
  */
 @Controller
 @RequestMapping("/od")
-@Secured("USER")
 public class OrderController {
 	
 	private final static int USER_ORDER_PER_PAGE = 10;

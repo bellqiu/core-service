@@ -22,6 +22,8 @@
 		<security:intercept-url pattern="/ac/profile/**" access="USER" />
 		<security:intercept-url pattern="/sp/payment/**" access="USER" />
 		<security:intercept-url pattern="/ac/address/**" access="USER" />
+		<security:intercept-url pattern="/ac/changePwd/**" access="USER" />
+		
 		<security:http-basic/> 
 		<security:form-login login-page="/ac/login" 
 							 default-target-url="/home" 

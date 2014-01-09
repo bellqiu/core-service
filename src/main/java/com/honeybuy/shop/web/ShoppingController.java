@@ -15,7 +15,6 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -126,7 +125,6 @@ public class ShoppingController {
 		return "redirect:/sp/shoppingcart/list";
 	}
 	
-	@Secured("USER")
 	@RequestMapping("/sp/payment/paymentInfo")
 	public String finishOrderInfo(@RequestParam(value="orderId", required=false, defaultValue="0") long orderId, Model model, 
 			 @SessionAttribute(required=false, value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
@@ -206,7 +204,6 @@ public class ShoppingController {
 		return "shoppingcatAddress";
 	}
 	
-	@Secured("USER")
 	@RequestMapping("/sp/payment/updateOrderAdd")
 	@ResponseBody
 	public ResponseResult<OrderDetailDTO> updateOrderAddress(
@@ -250,7 +247,6 @@ public class ShoppingController {
 		return result;
 	}
 	
-	@Secured("USER")
 	@ResponseBody
 	@RequestMapping("/sp/payment/updateShippingMethod")
 	public ResponseResult<OrderDetailDTO> updateShippingMethod(
@@ -276,7 +272,6 @@ public class ShoppingController {
 		return result;
 	}
 	
-	@Secured("USER")
 	@ResponseBody
 	@RequestMapping("/sp/payment/applyCoupon")
 	public ResponseResult<OrderDetailDTO> applyCoupon(
@@ -319,7 +314,6 @@ public class ShoppingController {
 		return result;
 	}
 	
-	@Secured("USER")
 	@RequestMapping(value="/sp/payment/checkOrderPaymentInfo", method={RequestMethod.POST})
 	@ResponseBody
 	public ResponseResult<Boolean> checkOrderPaymentInfo(
@@ -356,7 +350,6 @@ public class ShoppingController {
 		return result;
 	}
 	
-	@Secured("USER")
 	@RequestMapping(value="/sp/payment/checkout", method={RequestMethod.POST})
 	@ResponseBody
 	public ResponseResult<Boolean> checkoutOrder2Pending(
@@ -372,7 +365,6 @@ public class ShoppingController {
 	
 	
 	@RequestMapping("/sp/payment/{payment}/checkout/{orderId}")
-	@Secured("USER")
 	public String paypalCheckout(@PathVariable("orderId") long orderId, Model model, @PathVariable("payment") String payment,
 			 @SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
 			 @SessionAttribute("defaultCurrency")Currency currency){

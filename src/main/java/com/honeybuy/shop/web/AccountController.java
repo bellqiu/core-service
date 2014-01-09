@@ -132,7 +132,6 @@ public class AccountController {
 		return messageMap;
 	}
 	
-	@Secured("USER")
 	@RequestMapping(value="/profile" , method=RequestMethod.GET)
 	public String getUserProfile(Model model,
 			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
@@ -141,7 +140,6 @@ public class AccountController {
 		return "profile";
 	}
 	
-	@Secured("USER")
 	@RequestMapping(value="/changePwd", method=RequestMethod.GET)
 	public String changePwdPage(Model model){
 		model.addAttribute("page", "password");
@@ -149,7 +147,6 @@ public class AccountController {
 	}
 	
 	@ResponseBody
-	@Secured("USER")
 	@RequestMapping(value="/changePwd/json/change" , method=RequestMethod.POST)
 	public Map<String, String> changePwd(
 			Model model, 
@@ -160,7 +157,6 @@ public class AccountController {
 		return userService.changePassord(username, oldPassword, newPassword);
 	}
 	
-	@Secured("USER")
 	@RequestMapping(value="/address", method={RequestMethod.GET})
 	public String getUserAddresses(Model model, 
 			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
@@ -175,7 +171,6 @@ public class AccountController {
 	}
 	
 	@ResponseBody
-	@Secured("USER")
 	@RequestMapping(value="/address/{addressId:\\d+}", method={RequestMethod.GET})
 	public ResponseResult<Address> getUserAddressById(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
 			@PathVariable("addressId") long addressId){
@@ -193,7 +188,6 @@ public class AccountController {
 	}
 	
 	@ResponseBody
-	@Secured("USER")
 	@RequestMapping(value="/address/save", method={RequestMethod.POST}, consumes="application/json")
 	public Address saveUserAddress(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details, @Valid @RequestBody Address address){
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -210,7 +204,6 @@ public class AccountController {
 	
 	
 	@RequestMapping(value="/address/fragment", method={RequestMethod.GET})
-	@Secured("USER")
 	public String userAddressFragment(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
 			@RequestParam(value="addressId", required=false, defaultValue="0") long addressId, Model model){
 		
@@ -250,7 +243,6 @@ public class AccountController {
 	}
 	
 	@ResponseBody
-	@Secured("USER")
 	@RequestMapping(value="/address/delete/{addressId:\\d+}", method={RequestMethod.POST})
 	public ResponseResult<Address> deleteUserAddressById(@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
 			@PathVariable("addressId") long addressId){
