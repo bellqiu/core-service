@@ -4,6 +4,9 @@
  */
 package com.honeybuy.shop.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -22,6 +25,9 @@ import com.hb.core.entity.Currency;
 import com.hb.core.service.ProductService;
 import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
+import com.hb.core.shared.dto.ProductSummaryDTO;
+import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.RegexUtils;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 
 /**
@@ -38,9 +44,10 @@ public class ProductController {
 	@Autowired
 	private ProductServiceCacheWrapper productService;
 
-
 	@Autowired
 	private ProductService productServiceNoCache;
+	
+	private final static int SEARCH_PRODUCT_PER_PAGE = 24; 
 	
 	@RequestMapping("/{productName}")
 	public String productDetail(@PathVariable("productName") String productName, Model model, 
@@ -91,25 +98,79 @@ public class ProductController {
 			@RequestParam(value = "keyword", required = false) final String keyword,
 			@RequestParam(value = "page", required = false) final String page,
 			Model model){
-		
-		if(StringUtils.isEmpty(keyword)) {
-			return "404";
-		}
-		int pageId = 0;
-		if(!StringUtils.isEmpty(page)) {
-			try {
-				pageId = Integer.valueOf(pageId);
-			} catch(NumberFormatException e) {
+		String key;
+		if(keyword != null) {
+			key = RegexUtils.replaceSpecialChar(keyword, Constants.SPACE_CHAR);
+			int pageId = 0;
+			if(!StringUtils.isEmpty(page)) {
+				try {
+					pageId = Integer.valueOf(pageId);
+				} catch(NumberFormatException e) {
+				}
 			}
-		}
-		int max = 24;
-		int start = pageId * max;
-		int totalCount = productService.searchProductCountByKey(keyword);
-		if(totalCount == 0) {
+			int totalCount = productService.searchProductCountByKey(key);
+			int max = SEARCH_PRODUCT_PER_PAGE;
+			
+			int totalPage;
+			if(totalCount % max == 0) {
+				totalPage = totalCount / max;
+			} else {
+				totalPage = totalCount / max + 1;
+			}
+			int start = pageId * max;
+			if(start >= totalCount) {
+				pageId = 0;
+				start = 0;
+			}
+			List<ProductSummaryDTO> productSummaryList = productService.searchProductByKey(key, start, max);
+			
+			if(productSummaryList.size() > 0) {
+				List<Integer> pageIds = new ArrayList<Integer>();
+				if(totalPage <= 7) {
+					for(int i = 0; i < totalPage; i++) {
+						pageIds.add(i);
+					}
+				} else {
+					if(pageId < 3) {
+						for(int i = 0; i < 5; i++) {
+							pageIds.add(i);
+						}
+						pageIds.add(-1);
+						pageIds.add(totalPage - 1);
+					} else if(pageId >= (totalPage - 3)) {
+						pageIds.add(0);
+						pageIds.add(-1);
+						for(int i = totalPage - 5; i < totalPage; i++) {
+							pageIds.add(i);
+						}
+					} else {
+						pageIds.add(0);
+						pageIds.add(-1);
+						for(int i = -1; i <= 1; i++) {
+							pageIds.add(pageId + i);
+						}
+						pageIds.add(-1);
+						pageIds.add(totalPage - 1);
+					}
+				}
+				model.addAttribute("resultStart", start + 1);
+				model.addAttribute("resultEnd", start + productSummaryList.size());
+				model.addAttribute("resultTotal", totalCount);
+				model.addAttribute("totalPage", totalPage);
+				model.addAttribute("pageIds", pageIds);
+				model.addAttribute("productSummary", productSummaryList);
+			} 
+			model.addAttribute("currentPageIndex", pageId);
+			
+			
+			/*double lowestPrice = productService.getLowestPriceByCategoryId(categoryId);
+			double highestPrice = productService.getHighestPriceByCategoryId(categoryId);
+			model.addAttribute("lowestPrice", lowestPrice);
+			model.addAttribute("highestPrice", highestPrice);*/
+			model.addAttribute("keyword", key);
+		} else {
 			
 		}
-		model.addAttribute("searchProducts", productService.searchProductByKey(keyword, start, max));
-		
 		return "searchProduct";
 	}
 	

@@ -570,38 +570,54 @@ public class ProductService {
 		return result.getResultList();
 	}
 	
-	public int searchCountByKey(String key) {
-		int count = 0;
-		try {
-			long id = Long.valueOf(key);
-			Product productById = getProductById(id);
-			if(productById != null) {
-				count ++;
-			}
-		} catch(NumberFormatException e) {
+	public int searchCountByKey(String [] keys) {
+		if(keys == null || keys.length == 0) {
+			return 0;
 		}
-		String query = "select count(p.id) from Product p where lower(p.keywords) like :keyword or lower(p.tags) like :tags ";
-		TypedQuery<Long> result = em.createQuery(query, Long.class);
-		result.setParameter("keyword", "%" + key.toLowerCase() + "%");
-		result.setParameter("tags", "%" + key.toLowerCase() + "%");
-		count += result.getSingleResult().intValue();
-		return count;
+		StringBuffer query = new StringBuffer();
+		query.append("select count(p.id) from Product p where ");
+		int i = 0;
+		for(i=0; i < keys.length; i++) {
+			if(i > 0) {
+				query.append(" or ");
+			}
+			query.append(" p.keywords like :key").append(i).append(" or p.tags like :tag").append(i);
+			i++;
+		}
+		TypedQuery<Long> result = em.createQuery(query.toString(), Long.class);
+		i = 0;
+		for(String key : keys) {
+			result.setParameter("key" + i, "%" + key + "%");
+			result.setParameter("tag" + i, "%" + key + "%");
+			i++;
+		}
+		return result.getSingleResult().intValue();
 	}
 
-	public List<ProductSummaryDTO> searchProductByKey(String key) {
+	public List<ProductSummaryDTO> searchProductByKey(String [] keys, int start, int max) {
 		List<ProductSummaryDTO> list = new ArrayList<ProductSummaryDTO>();
-		try {
-			long id = Long.valueOf(key);
-			Product productById = getProductById(id);
-			if(productById != null) {
-				list.add(productSummaryConverter.convert(productById));
-			}
-		} catch(NumberFormatException e) {
+		if(keys == null || keys.length == 0) {
+			return list;
 		}
-		String query = "select p from Product p where lower(p.keywords) like :keyword or lower(p.tags) like :tags ";
-		TypedQuery<Product> result = em.createQuery(query, Product.class);
-		result.setParameter("keyword", "%" + key.toLowerCase() + "%");
-		result.setParameter("tags", "%" + key.toLowerCase() + "%");
+		StringBuffer query = new StringBuffer();
+		query.append("select p from Product p where ");
+		int i = 0;
+		for(i=0; i < keys.length; i++) {
+			if(i > 0) {
+				query.append(" or ");
+			}
+			query.append(" p.keywords like :key").append(i).append(" or p.tags like :tag").append(i);
+			i++;
+		}
+		TypedQuery<Product> result = em.createQuery(query.toString(), Product.class);
+		i = 0;
+		for(String key : keys) {
+			result.setParameter("key" + i, "%" + key + "%");
+			result.setParameter("tag" + i, "%" + key + "%");
+			i++;
+		}
+		result.setFirstResult(start);
+		result.setMaxResults(max);
 		List<Product> resultList = result.getResultList();
 		for(Product p : resultList) {
 			list.add(productSummaryConverter.convert(p));

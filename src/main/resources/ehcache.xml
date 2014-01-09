@@ -108,12 +108,12 @@
 		maxElementsOnDisk="99999" />
 		
 	<cache name="SearchProductCountByKey" eternal="false"
-		timeToLiveSeconds="120" maxElementsInMemory="10000"
+		timeToLiveSeconds="360" maxElementsInMemory="1000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
 	<cache name="SearchProductByKey" eternal="false"
-		timeToLiveSeconds="120" maxElementsInMemory="10000"
+		timeToLiveSeconds="360" maxElementsInMemory="1000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		

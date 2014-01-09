@@ -15,6 +15,7 @@ import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.hb.core.shared.dto.TabProductDTO;
+import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.CloneUtil;
 
 @Service
@@ -95,23 +96,15 @@ public class ProductServiceCacheWrapper {
 	
 	@Cacheable(cacheName="SearchProductCountByKey")
 	public int searchProductCountByKey(String key) {
-		return productService.searchCountByKey(key);
+		String [] keys = key.split(Constants.SPACE_CHAR);
+		return productService.searchCountByKey(keys);
 	}
 	
 	@Cacheable(cacheName="SearchProductByKey")
 	public List<ProductSummaryDTO> searchProductByKey(String key, int start, int max) {
-		List<ProductSummaryDTO> productByKey = productService.searchProductByKey(key);
-		List<ProductSummaryDTO> summaryDTOs = null;
-		int size = productByKey.size();
-		if(size <= start) {
-			return null;
-		}
-		if(size >= (start + max)) {
-			summaryDTOs = productByKey.subList(start, start + max);
-		} else {
-			summaryDTOs = productByKey.subList(start, size);
-		}
-		
-		 return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(summaryDTOs);
+		String [] keys = key.split(Constants.SPACE_CHAR);
+		List<ProductSummaryDTO> productByKey = productService.searchProductByKey(keys, start, max);
+
+		return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(productByKey);
 	}
 }

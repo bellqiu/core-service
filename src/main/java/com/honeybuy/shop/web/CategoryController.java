@@ -101,12 +101,9 @@ public class CategoryController {
 			model.addAttribute("totalPage", totalPage);
 			model.addAttribute("pageIds", pageIds);
 			model.addAttribute("productSummary", productSummaryList);
-			model.addAttribute("noproduct", false);
-		} else {
-			model.addAttribute("noproduct", true);
-		}
+		} 
 		model.addAttribute("currentCategoryDetail", categoryDetailDTO);
-		model.addAttribute("currentCategoryPageIndex", page);
+		model.addAttribute("currentPageIndex", page);
 		
 		
 		double lowestPrice = productService.getLowestPriceByCategoryId(categoryId);

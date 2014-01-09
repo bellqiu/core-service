@@ -6,18 +6,18 @@
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb"%>
 <c:choose>
 	<c:when test="${empty productSummary || (fn:length(productSummary) < 1) }">
-		<div class="alert alert-info">No products</div>
+		<div class="alert alert-info">0 items found for ${currentCategoryDetail.displayName} </div>
 	</c:when>
 	<c:otherwise>
 		<div class="row">
 			<div class="col-xs-8">
 				<ul class="pagination">
 					<c:choose>
-						<c:when test="${currentCategoryPageIndex == 0}">
+						<c:when test="${currentPageIndex == 0}">
 							<li class="disabled"><a href="#">&lt;</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentCategoryPageIndex-1}">&lt;</a></li>
+							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex-1}">&lt;</a></li>
 						</c:otherwise>
 					</c:choose>
 					<c:forEach items="${pageIds }" var="item">
@@ -27,7 +27,7 @@
   							</c:when>
   							<c:otherwise>
   								<c:choose>
-  									<c:when test="${item == currentCategoryPageIndex}">
+  									<c:when test="${item == currentPageIndex}">
   										<li class="active"><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
   									</c:when>
   									<c:otherwise>
@@ -38,11 +38,11 @@
   						</c:choose>
   					</c:forEach>
 					<c:choose>
-						<c:when test="${currentCategoryPageIndex+1 == totalPage}">
+						<c:when test="${currentPageIndex+1 == totalPage}">
 							<li class="disabled"><a href="#">&gt;</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentCategoryPageIndex+1}">&gt;</a></li>
+							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex+1}">&gt;</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -89,11 +89,11 @@
 				<div class="col-xs-4">
 					<ul class="pagination">
 						<c:choose>
-							<c:when test="${currentCategoryPageIndex == 0}">
+							<c:when test="${currentPageIndex == 0}">
 								<li class="disabled"><a href="#">&lt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentCategoryPageIndex-1}">&lt;</a></li>
+								<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex-1}">&lt;</a></li>
 							</c:otherwise>
 							</c:choose>
   							<!-- <li><a href="#">&laquo;</a></li> -->
@@ -104,7 +104,7 @@
   									</c:when>
   									<c:otherwise>
   										<c:choose>
-  										<c:when test="${item == currentCategoryPageIndex}">
+  										<c:when test="${item == currentPageIndex}">
   										<li class="active"><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
   										</c:when>
   										<c:otherwise>
@@ -116,11 +116,11 @@
   							</c:forEach>
   							<!-- <li><a href="#">&raquo;</a></li> -->
   							<c:choose>
-							<c:when test="${currentCategoryPageIndex+1 == totalPage}">
+							<c:when test="${currentPageIndex+1 == totalPage}">
 								<li class="disabled"><a href="#">&gt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentCategoryPageIndex+1}">&gt;</a></li>
+								<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex+1}">&gt;</a></li>
 							</c:otherwise>
 							</c:choose>
 						</ul>

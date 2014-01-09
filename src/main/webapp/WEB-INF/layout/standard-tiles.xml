@@ -71,23 +71,27 @@
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/productDetail.jsp"/>
         </definition>
         
-         <definition name="categoryIndex" extends="headerFooter" >
+        <definition name="categoryIndex" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/categoryIndex.jsp"/>
         </definition>
         
-         <definition name="shoppingcat" extends="headerFooter" >
+        <definition name="searchProduct" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/searchProduct.jsp"/>
+        </definition>
+        
+        <definition name="shoppingcat" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/shopping/shoppingcat.jsp"/>
         </definition>
         
-         <definition name="shoppingcatAddress" extends="headerFooter" >
+        <definition name="shoppingcatAddress" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/shopping/shoppingPaymentInfo.jsp"/>
         </definition>
         
-         <definition name="shoppingcatPayment" extends="headerFooter" >
+        <definition name="shoppingcatPayment" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/shoppingcatPayment.jsp"/>
         </definition>
         
-         <definition name="freedomPage" extends="headerFooter" >
+        <definition name="freedomPage" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/freedomPage.jsp"/>
         </definition>
         

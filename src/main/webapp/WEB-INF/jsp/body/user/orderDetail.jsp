@@ -12,7 +12,6 @@
 			<legend>View your order detail</legend>
 		</div>
 		<div>
-			<h1>Order detail</h1>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
@@ -80,21 +79,28 @@
 								<div class="row rowContent">
 									<div style="line-margin-left: 1em">Shipping Address:</div>
 									<div class="row col-xs-11 col-xs-offset-1">
-					 					<label>"Shipping address" ${orderDetail.shippingAddress}</label>
+					 					<label>${orderDetail.shippingAddress}</label>
 					 				</div> 
 					 			</div>
 					 			
 					 			<div class="row rowContent">
 									<div style="line-margin-left: 1em">Shipping method:</div>
 									<div class="row col-xs-11 col-xs-offset-1">
-					 					<label>"Shipping method" ${orderDetail.shippingMethod}</label>
+					 					<label>${orderDetail.shippingMethod}</label>
 					 				</div> 
 					 			</div>
 					 			
 					 			<div class="row rowContent">
 									<div style="line-margin-left: 1em">Billing Address:</div>
 									<div class="row col-xs-11 col-xs-offset-1">
-					 					<label>"Billing address" ${orderDetail.billingAddress}</label>
+					 					<label>${orderDetail.billingAddress}</label>
+					 				</div> 
+					 			</div>
+					 			
+					 			<div class="row rowContent">
+									<div style="line-margin-left: 1em">Order Status:</div>
+									<div class="row col-xs-11 col-xs-offset-1">
+					 					<label>${orderDetail.orderStatus}</label>
 					 				</div> 
 					 			</div>
 							</div>
@@ -147,8 +153,8 @@
 						</div>
 						<c:if test="${orderDetail.orderStatus == 'PENDING' }">
 						<div class="row order_buttons">
-							<div class="col-xs-3 col-xs-offset-9  padding10">
-								<a href="#" class="btn btn-danger float_right">Continue Payment</a> 
+							<div class="col-xs-3 col-xs-offset-9 padding10">
+								<a href="${site.domain}/sp/payment/paymentInfo?orderId=${orderDetail.id}" class="btn btn-danger float_right" id="continuePayment">Continue Payment</a> 
 							</div>
 						</div>
 						</c:if>
