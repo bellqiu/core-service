@@ -25,5 +25,4 @@
 	<import resource="camelBean.xml"/>
 	<import resource="camelFlow.xml"/>
 	<import resource="shop-service.xml"/>
-	<import resource="shop-mvc.xml"/>
 </beans>
