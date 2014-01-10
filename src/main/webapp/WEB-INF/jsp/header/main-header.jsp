@@ -11,9 +11,9 @@
 		<!-- <div class="header-logo">logo</div>
 		<div class="header-banner">banner</div> -->
 		<div class="header-searchBox">
-		<form id="search-form" role="form" action="${site.domain}/search/product">
+		<form id="search-form" role="form" action="${site.domain}/search">
 			<div>
-				<input title="Search by keyword" id="searchBox" name="searchValue" >
+				<input title="Search by keyword" id="searchBox" name="keyword" >
 				<span id="search-glyphicon" class="glyphicon glyphicon-search"></span>
 			</div>
 		</form>

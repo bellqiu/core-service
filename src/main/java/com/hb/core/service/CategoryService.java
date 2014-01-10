@@ -323,4 +323,19 @@ public class CategoryService {
 		}
 		return ids;
 	}
+
+	public String queryCategoryNameWithStartKey(String startKey) {
+		String sqlForAllCategory = "select c.name from Category c where c.name like :name order by c.priority ";
+		TypedQuery<String> query = em.createQuery(sqlForAllCategory, String.class);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		query.setParameter("name", startKey + "%");
+		try {
+			return query.getSingleResult();
+		} catch(NoResultException e) {
+			return null;
+		} catch (Exception e) {
+			throw new CoreServiceException(e);
+		}
+	}
 }

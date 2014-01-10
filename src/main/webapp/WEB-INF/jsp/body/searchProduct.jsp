@@ -12,17 +12,7 @@
 		<div>
 			<ol class="breadcrumb">
   				<li><a href="${site.domain}">Home</a></li>
-  				<li></li>
-  				<c:forEach items="${categoryBreadcrumbs}" var="item" varStatus="stat">
-  				<c:choose>
-				<c:when test="${stat.last}">
-					<li class="active">${item}</li> 
-				</c:when>
-				<c:otherwise>
-					<li><a href="${site.domain}/c/${item}">${item}</a>
-				</c:otherwise>
-				</c:choose>
-				</c:forEach>
+  				<li>${keyword}</li>
 			</ol>
 		</div>
 		<div class="categoryTitle page-header">
@@ -72,7 +62,7 @@
 		</div>
 		</div>
 		<div class="col-xs-9" id="categoryProductListContainer">
-			<jsp:include page="/WEB-INF/jsp/body/category/categoryProductList.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/jsp/body/category/searchProductList.jsp"></jsp:include>
 		</div>
 	</div>
 </div>
@@ -86,7 +76,7 @@
       range: true,
       min: 0,
       max: 500,
-      values: [ lowestPrice, highestPrice ], 
+      values: [ 0, 500 ], 
       slide: function( event, ui ) {
         $( "#amount" ).val( currencySignal + ui.values[ 0 ] + " - " + currencySignal + ui.values[ 1 ] );
       },

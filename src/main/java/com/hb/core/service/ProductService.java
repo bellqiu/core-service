@@ -571,22 +571,28 @@ public class ProductService {
 	}
 	
 	public int searchCountByKey(String [] keys) {
+		
 		if(keys == null || keys.length == 0) {
 			return 0;
 		}
 		StringBuffer query = new StringBuffer();
-		query.append("select count(p.id) from Product p where ");
+		query.append("select count(p.id) from Product p where p.status = 'ACTIVE' ");
 		int i = 0;
-		for(i=0; i < keys.length; i++) {
-			if(i > 0) {
+		int length = Math.min(keys.length, 5);
+		for(i=0; i < length; i++) {
+			if(i == 0) {
+				query.append(" and ( ");
+			} else {
 				query.append(" or ");
 			}
 			query.append(" p.keywords like :key").append(i).append(" or p.tags like :tag").append(i);
-			i++;
 		}
+		query.append(" )");
+		
 		TypedQuery<Long> result = em.createQuery(query.toString(), Long.class);
 		i = 0;
-		for(String key : keys) {
+		for(i=0; i < length; i++) {
+			String key = keys[i];
 			result.setParameter("key" + i, "%" + key + "%");
 			result.setParameter("tag" + i, "%" + key + "%");
 			i++;
@@ -600,18 +606,23 @@ public class ProductService {
 			return list;
 		}
 		StringBuffer query = new StringBuffer();
-		query.append("select p from Product p where ");
+		query.append("select p from Product p where p.status = 'ACTIVE' ");
 		int i = 0;
-		for(i=0; i < keys.length; i++) {
-			if(i > 0) {
+		int length = Math.min(keys.length, 5);
+		for(i=0; i < length; i++) {
+			if(i == 0) {
+				query.append(" and ( ");
+			} else {
 				query.append(" or ");
 			}
 			query.append(" p.keywords like :key").append(i).append(" or p.tags like :tag").append(i);
-			i++;
 		}
+		query.append(" )");
+		
 		TypedQuery<Product> result = em.createQuery(query.toString(), Product.class);
 		i = 0;
-		for(String key : keys) {
+		for(i=0; i < length; i++) {
+			String key = keys[i];
 			result.setParameter("key" + i, "%" + key + "%");
 			result.setParameter("tag" + i, "%" + key + "%");
 			i++;

@@ -28,6 +28,7 @@ import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.RegexUtils;
+import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 
 /**
@@ -46,6 +47,9 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productServiceNoCache;
+	
+	@Autowired
+	private CategoryServiceCacheWrapper categoryService;
 	
 	private final static int SEARCH_PRODUCT_PER_PAGE = 24; 
 	
@@ -93,14 +97,20 @@ public class ProductController {
 		return changeDTO;
 	}
 	
-	@RequestMapping("/search/product")
+	@RequestMapping("/search")
 	public String productSearch(
 			@RequestParam(value = "keyword", required = false) final String keyword,
 			@RequestParam(value = "page", required = false) final String page,
 			Model model){
-		String key;
-		if(keyword != null) {
-			key = RegexUtils.replaceSpecialChar(keyword, Constants.SPACE_CHAR);
+		if(!StringUtils.isEmpty(keyword)) {
+			String keyHyper = RegexUtils.replaceSpecialChar(keyword, Constants.SPECIAL_CHAR_REPLACEMENT);
+			if(!keyword.equalsIgnoreCase(keyHyper)) {
+				return "redirect:/search?keyword=" + keyHyper;
+			}
+			String cateogryName = categoryService.queryCategoryName(keyHyper);
+			if(cateogryName != null) {
+				return "redirect:/c/" + cateogryName;
+			}
 			int pageId = 0;
 			if(!StringUtils.isEmpty(page)) {
 				try {
@@ -108,7 +118,7 @@ public class ProductController {
 				} catch(NumberFormatException e) {
 				}
 			}
-			int totalCount = productService.searchProductCountByKey(key);
+			int totalCount = productService.searchProductCountByKey(keyHyper);
 			int max = SEARCH_PRODUCT_PER_PAGE;
 			
 			int totalPage;
@@ -122,7 +132,7 @@ public class ProductController {
 				pageId = 0;
 				start = 0;
 			}
-			List<ProductSummaryDTO> productSummaryList = productService.searchProductByKey(key, start, max);
+			List<ProductSummaryDTO> productSummaryList = productService.searchProductByKey(keyHyper, start, max);
 			
 			if(productSummaryList.size() > 0) {
 				List<Integer> pageIds = new ArrayList<Integer>();
@@ -162,16 +172,18 @@ public class ProductController {
 			} 
 			model.addAttribute("currentPageIndex", pageId);
 			
-			
 			/*double lowestPrice = productService.getLowestPriceByCategoryId(categoryId);
 			double highestPrice = productService.getHighestPriceByCategoryId(categoryId);
 			model.addAttribute("lowestPrice", lowestPrice);
 			model.addAttribute("highestPrice", highestPrice);*/
-			model.addAttribute("keyword", key);
+			String keySpace = RegexUtils.replaceSpecialChar(keyword, Constants.SPACE_CHAR).trim();
+			keySpace = RegexUtils.upperFirstLetterEachWord(keySpace);
+			model.addAttribute("keySpace", keySpace);
+			model.addAttribute("keyword", keyHyper);
+			return "searchProduct";
 		} else {
-			
+			return "redirect:/";
 		}
-		return "searchProduct";
 	}
 	
 }

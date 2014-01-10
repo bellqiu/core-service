@@ -70,4 +70,8 @@ public class CategoryServiceCacheWrapper {
 		List<Long> categoryTree = categoryService.getAllSubCategoryTree(id);
 		return categoryTree;
 	}
+
+	public String queryCategoryName(String startKey) {
+		return categoryService.queryCategoryNameWithStartKey(startKey);
+	}
 }
