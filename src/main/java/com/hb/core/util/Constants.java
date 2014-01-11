@@ -44,10 +44,17 @@ public interface Constants {
 	
 	public static final String FACEBOOK_TYPE = "facebook";
 	public static final String FACEBOOK_VALIDAT_URL_PREFIX = "https://graph.facebook.com/100002077999840?method=get&pretty=0&sdk=joey";
+	public static final String GOOGLE_TYPE = "google";
+	public static final String GOOGLE_VALIDAT_URL_PREFIX = "https://www.googleapis.com/oauth2/v1/tokeninfo?";
+	
 	public static final String SETTING_FACEBOOK_API_KEY = "FACEBOOK_API_KEY";
 	public static final String SETTING_FACEBOOK_SECRET_KEY = "FACEBOOK_SECRET_KEY";
+	public static final String SETTING_GOOGLE_API_KEY = "GOOGLE_API_KEY";
+	public static final String SETTING_GOOGLE_SECRET_KEY = "GOOGLE_SECRET_KEY";
 	public static final String DEFAULT_FACEBOOK_API_KEY = "277233412302753";
 	public static final String DEFAULT_FACEBOOK_SECRET_KEY = "92efa5dd2807209cb37b375777b21eaf";
+	public static final String DEFAULT_GOOGLE_API_KEY = "573965665808.apps.googleusercontent.com";
+	public static final String DEFAULT_GOOGLE_SECRET_KEY = "WuEeML3Ufrp9gQa0El2aRE08";
 	
 	public static final String SHIPPING_PRICE_NORMAL_CONF_KEY = "SHIPPING_PRICE_NORMAL_CONF";
 	public static final String SHIPPING_PRICE_EXPEDITED_CONF_KEY = "SHIPPING_PRICE_EXPEDITED_CONF";

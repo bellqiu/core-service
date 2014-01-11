@@ -86,6 +86,24 @@ public class AccountController {
 					e.printStackTrace();
 				}
 			}
+		} else if(Constants.GOOGLE_TYPE.equalsIgnoreCase(loginType)) {
+			if (!StringUtils.isEmpty(token)) {
+				try {
+					URL url = new URL(Constants.GOOGLE_VALIDAT_URL_PREFIX + "&access_token=" + token);
+					Object value = JsonUtil.getJsonFromURL(url);
+					if(value instanceof Map) {
+						Map<?,?> valueMap = (Map<?,?>) value;
+						String email = (String)valueMap.get("email");
+						UserDTO userDTO = userService.newThirdPartyUserIfNotExisting(email, Constants.GOOGLE_TYPE);
+						
+						model.addAttribute("username", userDTO.getEmail());
+						model.addAttribute("password", userDTO.getPassword());
+						return "loging";
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return "loginRequired";
 	}

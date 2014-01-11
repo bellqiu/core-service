@@ -17,8 +17,8 @@ var domain = '${site.domain}';
 	    	<div id="loginTab" class="col-sm-12 col-md-12 tab-pane fade active in">
 				<form action='/hb_login' method='POST' class="form-horizontal" role="form">
 					<div class="form-group">
-						<label class="col-lg-2 control-label" for="loginUsername">Email</label>
-						<div class="col-lg-10">
+						<label class="col-sm-2 control-label" for="loginUsername">Email</label>
+						<div class="col-sm-5">
 							<input class="form-control" name="username" type="email" id="loginUsername" placeholder="Email" required >
 							<p class="help-block">
 								<c:choose>
@@ -30,16 +30,20 @@ var domain = '${site.domain}';
                            		</c:choose>
 							</p>
 						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-lg-2 control-label" for="loginPassword">Password</label>
-						<div class="col-lg-10">
-							<input class="form-control" type="password" name="password" id="loginPassword" placeholder="Password">
-							<p class="help-block"></p>
+						<div class="col-sm-5">
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-lg-offset-2 col-lg-10">
+						<label class="col-sm-2 control-label" for="loginPassword">Password</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="password" name="password" id="loginPassword" size="40" placeholder="Password">
+							<p class="help-block"></p>
+						</div>
+						<div class="col-sm-5">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
 						<div class="checkbox">
 							<label>
 								<input name='_spring_security_remember_me' type="checkbox"> Keep me signed in
@@ -55,9 +59,10 @@ var domain = '${site.domain}';
                         	<div class="row">
                         		<div class="col-xs-2">
                           		  <button type="submit" class="btn btn-danger">Sign in</button>
-                          	  </div>
-                          	  	<div class="col-xs-8 ">
-                          	  		<!-- <button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button> --><a href="#" id="facebookLoginWithAnotherLinkId" > Login with Facebook</a>
+                          		</div>
+                          	  	<div class="col-xs-8">
+                          	  		<!-- <button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button> -->
+                          	  		<a href="#" id="facebookLoginWithAnotherLinkId" >Login with Facebook</a>
                           	  		<div id="fb-root"></div>
 										<script src="/resources/js/FacebookLogin.js" type="text/javascript"></script>
 												<!--
@@ -67,6 +72,51 @@ var domain = '${site.domain}';
 												<!-- <fb:login-button width="200" max-rows="1"></fb:login-button> -->
                           	  	</div>
                             </div>
+                        </div>
+                        <div class="col-lg-offset-2 col-lg-10">
+						    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+						    <script type="text/javascript">
+ (function() {
+   var po = document.createElement('script');
+   po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+   var s = document.getElementsByTagName('script')[0];
+   s.parentNode.insertBefore(po, s);
+ })();
+
+ function render() {
+
+   // Additional params including the callback, the rest of the params will
+   // come from the page-level configuration.
+   var additionalParams = {
+		   'callback': signinCallback,
+		     'clientid' : '573965665808.apps.googleusercontent.com',
+		     'cookiepolicy' : 'single_host_origin',
+		     'scope' : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+		     'requestvisibleactions' : 'http://schemas.google.com/AddActivity',
+		     'accesstype' : "offline"
+   };
+
+   // Attach a click listener to a button to trigger the flow.
+   var signinButton = document.getElementById('googleLoginButtonId');
+   signinButton.addEventListener('click', function() {
+     gapi.auth.signIn(additionalParams); // Will use page level configuration
+   });
+   function signinCallback(authResult) {
+	   console.log(authResult);
+	   if (authResult['status']['signed_in']) {
+		    // TODO
+		  window.location.href=window.location.protocol+"//"+window.location.host + "/ac/login?type=google&token=" + authResult.access_token;
+		  } else {
+		    console.log('Sign-in state: ' + authResult['error']);
+		  }
+   }
+ }
+</script>
+						    <!-- <script src="/resources/js/GoogleLogin.js" type="text/javascript"></script> -->
+                        	<div id="gConnect">
+							    <button type="button" class="btn btn-default" id="googleLoginButtonId">Google Sign in</button>
+							</div>
                         </div>
                     </div>
 				</form>
@@ -103,8 +153,8 @@ var domain = '${site.domain}';
 	    	<legend>To obtain a HoneyStore account</legend>
 	    	<form action='/ac/newAccount' method='POST' class="form-horizontal">
                    <div class="form-group">
-                       <label for="regUsername" class="col-lg-2 control-label">Email</label>
-                       <div class="col-lg-10">
+                       <label for="regUsername" class="col-sm-2 control-label">Email</label>
+                       <div class="col-sm-5">
                            <input class="form-control" type="email" id="regUsername" name="regUsername" required>
                            <p class="help-block">
                            <c:choose>
@@ -116,20 +166,23 @@ var domain = '${site.domain}';
                            </c:choose>
                            </p>
                        </div>
+                       <div class="col-sm-5""></div>
                    </div>
                    <div class="form-group">
-                       <label for="regPassword" class="col-lg-2 control-label">Password</label>
-                       <div class="col-lg-10">
+                       <label for="regPassword" class="col-sm-2 control-label">Password</label>
+                       <div class="col-sm-5">
                            <input class="form-control" type="password" name="regPassword" id="regPassword" minlength="8" required>
                            <p class="help-block"></p>
                        </div>
+                       <div class="col-sm-5""></div>
                    </div>
                    <div class="form-group">
-                       <label for="passwordAgain" class="col-lg-2 control-label">re-Password</label>
-                       <div class="col-lg-10">
+                       <label for="passwordAgain" class="col-sm-2 control-label">re-Password</label>
+                       <div class="col-sm-5">
                            <input class="form-control" type="password" name="passwordAgain" id="passwordAgain" data-validation-matches-match="regPassword" required>
                            <p class="help-block" id="pwdAgainBlock"></p>
                        </div>
+                       <div class="col-sm-5""></div>
                    </div>
                    <div class="form-group">
                        <label for="terms-and-conditions" class="col-lg-2 control-label">Legal</label>
