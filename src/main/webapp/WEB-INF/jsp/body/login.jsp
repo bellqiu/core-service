@@ -60,7 +60,28 @@ var domain = '${site.domain}';
                         		<div class="col-xs-2">
                           		  <button type="submit" class="btn btn-danger">Sign in</button>
                           		</div>
-                          	  	<div class="col-xs-8">
+                          	  	<!-- <div class="col-xs-8">
+                          	  		<button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button>
+                          	  		<a href="#" id="facebookLoginWithAnotherLinkId" >Login with Facebook</a>
+                          	  		<div id="fb-root"></div>
+										<script src="/resources/js/FacebookLogin.js" type="text/javascript"></script>
+												
+												  Below we include the Login Button social plugin. This button uses the JavaScript SDK to
+												  present a graphical Login button that triggers the FB.login() function when clicked.
+												
+												<fb:login-button width="200" max-rows="1"></fb:login-button>
+                          	  	</div> -->
+                            </div>
+                        </div>
+                        <div class="col-lg-offset-2 col-lg-10">
+						    
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                        	<div class="row">
+                          	  	<div class="col-xs-2">
                           	  		<!-- <button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button> -->
                           	  		<a href="#" id="facebookLoginWithAnotherLinkId" >Login with Facebook</a>
                           	  		<div id="fb-root"></div>
@@ -71,11 +92,8 @@ var domain = '${site.domain}';
 												
 												<!-- <fb:login-button width="200" max-rows="1"></fb:login-button> -->
                           	  	</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-offset-2 col-lg-10">
-						    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-						    <script type="text/javascript">
+                          	  	<div class="col-xs-2">
+                          	  		<script type="text/javascript">
  (function() {
    var po = document.createElement('script');
    po.type = 'text/javascript'; po.async = true;
@@ -106,7 +124,7 @@ var domain = '${site.domain}';
 	   console.log(authResult);
 	   if (authResult['status']['signed_in']) {
 		    // TODO
-		  window.location.href=window.location.protocol+"//"+window.location.host + "/ac/login?type=google&token=" + authResult.access_token;
+		  //window.location.href=window.location.protocol+"//"+window.location.host + "/ac/login?type=google&token=" + authResult.access_token;
 		  } else {
 		    console.log('Sign-in state: ' + authResult['error']);
 		  }
@@ -114,9 +132,16 @@ var domain = '${site.domain}';
  }
 </script>
 						    <!-- <script src="/resources/js/GoogleLogin.js" type="text/javascript"></script> -->
-                        	<div id="gConnect">
-							    <button type="button" class="btn btn-default" id="googleLoginButtonId">Google Sign in</button>
-							</div>
+		                        	<div id="gConnect">
+									    <button type="button" class="btn btn-default" id="googleLoginButtonId">Google Sign in</button>
+									</div>
+                          	  	
+                          	  	</div>
+                          	  	
+                          	  	<div class="col-xs-2">
+                          	  		<a href="${site.domain}/ac/login?type=twitter" id="twitterLogin" >Login with Facebook</a>
+                          	  	</div>
+                            </div>
                         </div>
                     </div>
 				</form>

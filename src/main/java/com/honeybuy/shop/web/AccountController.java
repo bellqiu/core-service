@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validation;
@@ -22,6 +23,14 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.apache.cxf.common.util.StringUtils;
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.builder.api.TwitterApi;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.model.Verifier;
+import org.scribe.oauth.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -42,6 +51,7 @@ import com.honeybuy.shop.util.EncodingUtils;
 import com.honeybuy.shop.util.JsonUtil;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 import com.honeybuy.shop.web.dto.ResponseResult;
+import com.honeybuy.shop.web.eds.SiteDirectService;
 import com.honeybuy.shop.web.interceptor.SessionAttribute;
 
 /**
@@ -65,7 +75,8 @@ public class AccountController {
 			Model model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="userId", required=false) String userId,
 			@RequestParam(value="token", required=false) String token,
-			@RequestParam(value="type", defaultValue="default", required=false) String loginType){
+			@RequestParam(value="type", defaultValue="default", required=false) String loginType,
+			HttpSession session){
 		if(Constants.FACEBOOK_TYPE.equalsIgnoreCase(loginType)) {
 			if (!StringUtils.isEmpty(userId) && !StringUtils.isEmpty(token)) {
 				try {
@@ -104,8 +115,69 @@ public class AccountController {
 					e.printStackTrace();
 				}
 			}
+		} else if(Constants.TWITTER_TYPE.equalsIgnoreCase(loginType)) {
+			try {
+				String callBack = settingService.getStringValue(SiteDirectService.DOMAIN_SERVER, "http://localhost") + "/ac/twitter-login";
+				String apiKey = settingService.getStringValue(Constants.SETTING_TWITTER_API_KEY, Constants.DEFAULT_TWITTER_API_KEY);
+				String apiSecret = settingService.getStringValue(Constants.SETTING_TWITTER_SECRET_KEY, Constants.DEFAULT_TWITTER_SECRET_KEY);
+				OAuthService service = new ServiceBuilder()
+                	.provider(TwitterApi.class)
+                	.apiKey(apiKey)
+                	.apiSecret(apiSecret)
+                	.callback(callBack)
+                	.build();
+				Token requestToken = service.getRequestToken();
+				session.setAttribute(Constants.TOKEN_SESSION_KEY, requestToken);
+				return "redirect:" + service.getAuthorizationUrl(requestToken);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return "loginRequired";
+	}
+	
+	// TODO may be removed as twitter does not pass email to app
+	@RequestMapping(value="/twitter-login" , method=RequestMethod.GET)
+	public String twitterLogin(
+			@RequestParam(value = "oauth_token", required = false) String oauth_token ,
+			@RequestParam(value = "oauth_verifier", required = false) String oauth_verifier,
+			Model model, HttpSession session){
+		Token requestToken = (Token)session.getAttribute(Constants.TOKEN_SESSION_KEY);
+		if(requestToken != null && requestToken.getToken().equals(oauth_token) && !StringUtils.isEmpty(oauth_verifier)) {
+			try {
+				String callBack = settingService.getStringValue(SiteDirectService.DOMAIN_SERVER, "http://localhost") + "/ac/twitter-login";
+				String apiKey = settingService.getStringValue(Constants.SETTING_TWITTER_API_KEY, Constants.DEFAULT_TWITTER_API_KEY);
+				String apiSecret = settingService.getStringValue(Constants.SETTING_TWITTER_SECRET_KEY, Constants.DEFAULT_TWITTER_SECRET_KEY);
+				OAuthService service = new ServiceBuilder()
+	            	.provider(TwitterApi.class)
+	            	.apiKey(apiKey)
+	            	.apiSecret(apiSecret)
+	            	.callback(callBack)
+	            	.build();
+				Verifier verifier = new Verifier(oauth_verifier);
+				Token accessToken = service.getAccessToken(requestToken, verifier);
+				OAuthRequest request = new OAuthRequest(Verb.GET, Constants.TWITTER_VALIDAT_URL_PREFIX);
+			    service.signRequest(accessToken, request);
+			    Response response = request.send();
+			    if(response.getCode() == 200) {
+			    	String body = response.getBody();
+			    	Object value = JsonUtil.getJsonFromString(body);
+			    	if(value instanceof Map) {
+						Map<?,?> valueMap = (Map<?,?>) value;
+						String email = (String)valueMap.get("name");
+						UserDTO userDTO = userService.newThirdPartyUserIfNotExisting(email, Constants.TWITTER_TYPE);
+						model.addAttribute("username", userDTO.getEmail());
+						model.addAttribute("password", userDTO.getPassword());
+						return "loging";
+			    	}
+			    }
+			    System.out.println(response.getBody());
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return "loginRequired";
+		//return "loging";
 	}
 	
 	@RequestMapping(value="/newAccount" , method=RequestMethod.GET)

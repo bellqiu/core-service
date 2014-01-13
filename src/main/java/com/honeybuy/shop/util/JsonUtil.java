@@ -13,5 +13,12 @@ public class JsonUtil {
 		Object value = mapper.readValue(url, Object.class);
 		return value;
 	}
+	
+	public static Object getJsonFromString(String content) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		Object value = mapper.readValue(content, Object.class);
+		return value;
+	}
 
 }
