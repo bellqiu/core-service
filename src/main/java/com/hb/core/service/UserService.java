@@ -244,7 +244,7 @@ public class UserService {
 		String newUsername = username + "/" + type;
 		User user = getUser(newUsername);
 		if(user == null) {
-			return newUser(newUsername, "");
+			return newUser(newUsername, UUID.randomUUID().toString());
 		} else {
 			return userConverter.convert(user); 
 		}

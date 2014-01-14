@@ -82,7 +82,7 @@ public class AccountController {
 				try {
 					String secretKey = settingService.getStringValue(Constants.SETTING_FACEBOOK_SECRET_KEY, Constants.DEFAULT_FACEBOOK_SECRET_KEY);
 					String secretProof = EncodingUtils.hmac256(secretKey, token);  
-					URL url = new URL(Constants.FACEBOOK_VALIDAT_URL_PREFIX + "&access_token=" + token + "&appsecret_proof=" + secretProof);
+					URL url = new URL(String.format(Constants.FACEBOOK_VALIDAT_URL, userId, token, secretProof));
 					Object value = JsonUtil.getJsonFromURL(url);
 					if(value instanceof Map) {
 						Map<?,?> valueMap = (Map<?,?>) value;
@@ -100,7 +100,7 @@ public class AccountController {
 		} else if(Constants.GOOGLE_TYPE.equalsIgnoreCase(loginType)) {
 			if (!StringUtils.isEmpty(token)) {
 				try {
-					URL url = new URL(Constants.GOOGLE_VALIDAT_URL_PREFIX + "&access_token=" + token);
+					URL url = new URL(String.format(Constants.GOOGLE_VALIDAT_URL, token));
 					Object value = JsonUtil.getJsonFromURL(url);
 					if(value instanceof Map) {
 						Map<?,?> valueMap = (Map<?,?>) value;
@@ -115,7 +115,24 @@ public class AccountController {
 					e.printStackTrace();
 				}
 			}
-		} else if(Constants.TWITTER_TYPE.equalsIgnoreCase(loginType)) {
+		} else if(Constants.LINKIN_TYPE.equalsIgnoreCase(loginType)) {
+			if (!StringUtils.isEmpty(token)) {
+				try {
+					URL url = new URL(String.format(Constants.LINKIN_VALIDAT_URL, token));
+					Object value = JsonUtil.getJsonFromURL(url);
+					if(value instanceof String) {
+						String email = (String)value;
+						UserDTO userDTO = userService.newThirdPartyUserIfNotExisting(email, Constants.LINKIN_TYPE);
+						
+						model.addAttribute("username", userDTO.getEmail());
+						model.addAttribute("password", userDTO.getPassword());
+						return "loging";
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} /*else if(Constants.TWITTER_TYPE.equalsIgnoreCase(loginType)) {
 			try {
 				String callBack = settingService.getStringValue(SiteDirectService.DOMAIN_SERVER, "http://localhost") + "/ac/twitter-login";
 				String apiKey = settingService.getStringValue(Constants.SETTING_TWITTER_API_KEY, Constants.DEFAULT_TWITTER_API_KEY);
@@ -132,12 +149,12 @@ public class AccountController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		return "loginRequired";
 	}
 	
 	// TODO may be removed as twitter does not pass email to app
-	@RequestMapping(value="/twitter-login" , method=RequestMethod.GET)
+	//@RequestMapping(value="/twitter-login" , method=RequestMethod.GET)
 	public String twitterLogin(
 			@RequestParam(value = "oauth_token", required = false) String oauth_token ,
 			@RequestParam(value = "oauth_verifier", required = false) String oauth_verifier,

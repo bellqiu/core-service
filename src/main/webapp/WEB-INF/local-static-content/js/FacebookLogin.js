@@ -27,9 +27,11 @@
 			  }else{
 				  FB.logout(function(response) {
 					 FB.login(function(rs){
-						 var userId = rs.authResponse.userID;
-						 var token = rs.authResponse.accessToken;
-						 login(userId, token);
+						 if(rs.authResponse) {
+							 var userId = rs.authResponse.userID;
+							 var token = rs.authResponse.accessToken;
+							 login(userId, token);
+						 }
 					  },{scope: 'email,user_about_me,user_status'}); 
 				  });
 			  }

@@ -118,13 +118,12 @@ var domain = '${site.domain}';
    // Attach a click listener to a button to trigger the flow.
    var signinButton = document.getElementById('googleLoginButtonId');
    signinButton.addEventListener('click', function() {
+	   gapi.auth.signOut();
      gapi.auth.signIn(additionalParams); // Will use page level configuration
    });
    function signinCallback(authResult) {
-	   console.log(authResult);
 	   if (authResult['status']['signed_in']) {
-		    // TODO
-		  //window.location.href=window.location.protocol+"//"+window.location.host + "/ac/login?type=google&token=" + authResult.access_token;
+		  	window.location.href=window.location.protocol+"//"+window.location.host + "/ac/login?type=google&token=" + authResult.access_token;
 		  } else {
 		    console.log('Sign-in state: ' + authResult['error']);
 		  }
@@ -138,8 +137,36 @@ var domain = '${site.domain}';
                           	  	
                           	  	</div>
                           	  	
+                          	  	<%-- <div class="col-xs-2">
+                          	  		<a href="${site.domain}/ac/login?type=twitter" id="twitterLogin" >Login with Twitter</a>
+                          	  	</div> --%>
                           	  	<div class="col-xs-2">
-                          	  		<a href="${site.domain}/ac/login?type=twitter" id="twitterLogin" >Login with Facebook</a>
+                          	  		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+									  api_key: 7530oj8n5n1fan
+									  onLoad: onLinkedInLoad
+									  authorize: false
+									</script>
+									<script type="text/javascript">
+									function onLinkedInLoad() {
+									    IN.Event.on(IN, "auth", onLinkedInAuth);
+										$("#linkedInLogin").click(function(){
+											if(IN.User.isAuthorized()) {
+												IN.User.logout();
+											}
+											IN.UI.Authorize().place();
+										});
+									}
+									function onLinkedInAuth() {
+										window.location.href=window.location.protocol+"//"+window.location.host + "/ac/login?type=linkedIn&token=" + IN.ENV.auth.oauth_token;
+									    IN.API.Profile("me").fields(["id", "firstName", "lastName", "email-address"]).result(displayProfiles)
+									}
+									function displayProfiles(profiles) {
+										console.log(profiles);
+										console.log(profiles.values[0].emailAddress);
+										console.log(IN.ENV.auth.oauth_token);
+									}
+									</script>
+                          	  		<button type="button" class="btn btn-default" id="linkedInLogin">Login with LinkedIn</button>
                           	  	</div>
                             </div>
                         </div>

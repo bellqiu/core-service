@@ -43,11 +43,13 @@ public interface Constants {
 	public static final String HTML_MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE = "MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE";
 	
 	public static final String FACEBOOK_TYPE = "facebook";
-	public static final String FACEBOOK_VALIDAT_URL_PREFIX = "https://graph.facebook.com/100002077999840?method=get&pretty=0&sdk=joey";
+	public static final String FACEBOOK_VALIDAT_URL = "https://graph.facebook.com/%s?method=get&pretty=0&sdk=joey&access_token=%s&appsecret_proof=%s";
 	public static final String GOOGLE_TYPE = "google";
-	public static final String GOOGLE_VALIDAT_URL_PREFIX = "https://www.googleapis.com/oauth2/v1/tokeninfo?";
+	public static final String GOOGLE_VALIDAT_URL = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s";
 	public static final String TWITTER_TYPE = "twitter";
 	public static final String TWITTER_VALIDAT_URL_PREFIX = "https://api.twitter.com/1.1/account/verify_credentials.json";
+	public static final String LINKIN_TYPE = "linkedIn";
+	public static final String LINKIN_VALIDAT_URL = "https://api.linkedin.com/v1/people/~/email-address?format=json&oauth_token=%s";
 	
 	public static final String TOKEN_SESSION_KEY = "TOKEN_KEY";
 	
@@ -57,12 +59,17 @@ public interface Constants {
 	public static final String SETTING_GOOGLE_SECRET_KEY = "GOOGLE_SECRET_KEY";
 	public static final String SETTING_TWITTER_API_KEY = "TWITTER_API_KEY";
 	public static final String SETTING_TWITTER_SECRET_KEY = "TWITTER_SECRET_KEY";
+	public static final String SETTING_LINKIN_API_KEY = "LINKIN_API_KEY";
+	public static final String SETTING_LINKIN_SECRET_KEY = "LINKIN_SECRET_KEY";
+	
 	public static final String DEFAULT_FACEBOOK_API_KEY = "277233412302753";
 	public static final String DEFAULT_FACEBOOK_SECRET_KEY = "92efa5dd2807209cb37b375777b21eaf";
 	public static final String DEFAULT_GOOGLE_API_KEY = "573965665808.apps.googleusercontent.com";
 	public static final String DEFAULT_GOOGLE_SECRET_KEY = "WuEeML3Ufrp9gQa0El2aRE08";
 	public static final String DEFAULT_TWITTER_API_KEY = "o9xDiUcnFxmenjR1KVizvA";
 	public static final String DEFAULT_TWITTER_SECRET_KEY = "qNdgmqkWVZsIF2v0Zm8ncNtFHeDise4S9YFHfc0MOTw";
+	public static final String DEFAULT_LINKIN_API_KEY = "7530oj8n5n1fan";
+	public static final String DEFAULT_LINKIN_SECRET_KEY = "Oy2IJP6FBEbjBbgQ";
 	
 	public static final String SHIPPING_PRICE_NORMAL_CONF_KEY = "SHIPPING_PRICE_NORMAL_CONF";
 	public static final String SHIPPING_PRICE_EXPEDITED_CONF_KEY = "SHIPPING_PRICE_EXPEDITED_CONF";
