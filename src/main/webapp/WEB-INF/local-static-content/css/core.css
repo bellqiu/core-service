@@ -47,7 +47,7 @@ input[type=password] {
 }
 
 .header {
-	width: 1096px;
+	width: 1150px;
 	max-width: 95%;
 	margin: auto;
 	max-width: 95%;
@@ -164,8 +164,8 @@ input[type=password] {
 }
 
 .logoAndBannerAndSearchBox {
-	padding: 25px 0 0;
-	width: 1096px;
+	padding: 25px 0 0 0;
+	width: 1160px;
 }
 
 .header {
@@ -198,6 +198,7 @@ input[type=password] {
 	-ms-user-select: none;
 	user-select: none;
 	overflow: hidden;
+	margin-right: -20px;
 }
 
 #searchBox {
@@ -229,7 +230,7 @@ input[type=password] {
 
 .navigator {
 	height: 40px;
-	margin: 0 auto;
+	width: 1160px;
 	opacity: 0.9;
 }
 
@@ -265,7 +266,7 @@ input[type=password] {
 }
 
 .top-level-navigator-item {
-	margin: 5px 20px;
+	margin: 5px 20px 5px 0px;
 	display: inline-block;
 	font-size: 1.6em;
 }
@@ -290,24 +291,26 @@ input[type=password] {
 
 .specialOffer {
 	border-bottom: 0.1em solid #D8D8D8;
-	margin: 30px auto auto;
-	max-width: 1200px;
-	min-width: 980px;
+	margin: 10px auto auto;
+	max-width: 1170px;
+	/* min-width: 980px; */
 }
 
 .special-item {
 	float: left;
 	margin-right: 107px;
 	text-align: center;
+	font-size: 1em;
 }
 
 .subCategory {
-	margin: 30px auto auto;
-	max-width: 1200px;
-	min-width: 980px;
+	margin: 0px auto auto;
+	max-width: 1170px;
+	/* min-width: 980px; */
 }
 
 .subCategory-list {
+	padding-left: 0px!important;
 	/* float: left;
     margin-left: 2%;
     margin-right: 15%;
@@ -321,7 +324,6 @@ input[type=password] {
 	font-size: 1em;
 	font-weight: normal;
 	line-height: 1.25em;
-	margin-bottom: 1em;
 }
 
 .l2Category a {
@@ -335,8 +337,8 @@ input[type=password] {
 }
 
 .l3Category {
-	font-size: 0.8125em;
-	margin-bottom: 1.2em;
+	font-size: 1em;
+	margin-bottom: .5em;
 }
 
 .special-item img {
@@ -360,9 +362,16 @@ input[type=password] {
 }
 
 .ad-slider {
-	width: 1280px;
+	width: 1170px;
 	margin: auto;
+	
 }
+
+.ad-slider .bx-viewport{
+	border: 0 !important;
+	margin-left: 5px;
+}
+
 
 .main-content-slider {
 	height: 540px;

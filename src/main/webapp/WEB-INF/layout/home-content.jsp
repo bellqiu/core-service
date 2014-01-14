@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-xs-3">
 				<div class="row">
-					<div class="col-xs-9 col-xs-offset-3">
+					<div class="col-xs-11">
 						<div class="leftNav">
 							<h1 class="heading--large">Our categories</h1>
 							<hb:subCategory settingKey="CATEGORY_IN_HOME"/>
