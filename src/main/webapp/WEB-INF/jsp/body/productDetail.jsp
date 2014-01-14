@@ -201,7 +201,7 @@ var productOpts = "${currentProductOptions}";
 							<img src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${subProd.imageURL}" alt="...">
 							<div class="caption">
 								<h3>
-									<a href="/${subProd.name }">${subProd.title }</a>
+									<a href="/${subProd.name }" class="relatedProductLink">${subProd.title }</a>
 								</h3>
 								<p>
 									${subProd.abstractText }

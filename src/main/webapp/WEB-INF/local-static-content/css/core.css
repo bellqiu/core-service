@@ -529,6 +529,10 @@ input[type=password] {
 	margin: 0 15px;
 	color: red;
 }
+
+.relatedProductLink {
+	font-size: 80%;
+}
 /**************End Product************/
 
 /*************Register Or Login Start*************/
