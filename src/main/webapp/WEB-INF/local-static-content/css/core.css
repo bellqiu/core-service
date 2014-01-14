@@ -1,11 +1,9 @@
 body {
 	padding: 0 16px;
+	font-family: "wf_SegoeUI","Segoe UI","Segoe","Segoe WP","Tahoma","Verdana","Arial","sans-serif";
 }
 
 h1,h2,h3,h4,h5,h6 {
-	font-family: "wf_SegoeUILight", "wf_SegoeUI", "Segoe UI Light",
-		"Segoe WP Light", "Segoe UI", "Segoe", "Segoe WP", "Tahoma", "Verdana",
-		"Arial", "sans-serif";
 	font-weight: 300;.sliderContent2
 }
 
@@ -319,8 +317,6 @@ input[type=password] {
 }
 
 .l2Category {
-	font-family: "wf_SegoeUI", "Segoe UI", "Segoe", "Segoe WP", "Tahoma",
-		"Verdana", "Arial", "sans-serif";
 	font-size: 1em;
 	font-weight: normal;
 	line-height: 1.25em;
@@ -405,6 +401,7 @@ input[type=password] {
 
 .leftNav li {
 	line-height: 30px;
+	font-size: 1.5em
 }
 
 .spotlightheader {
