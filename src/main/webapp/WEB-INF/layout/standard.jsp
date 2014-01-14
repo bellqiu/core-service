@@ -3,15 +3,15 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <html lang="en">
 <head>
-		<title>${pageMeta.title } </title>
+		<title>${pageMeta.title } 
+			<tiles:getAsString name="pageTitle"/>
+		</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
-		<meta content="" name="keywords">
-		<meta content="" name="description">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta content="${pageMeta.keywords }" name="keywords">
-		<meta content="${pageMeta.description }" name="description">
+		<meta content="${pageMeta.keywords } <tiles:getAsString name="pageKeywords"/>" name="keywords">
+		<meta content="${pageMeta.description } <tiles:getAsString name="pageDescription"/>" name="description">
 		
 		<!-- Import css/js -->
 		<style type="text/css">

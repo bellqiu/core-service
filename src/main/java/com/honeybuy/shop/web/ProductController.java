@@ -30,6 +30,7 @@ import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.RegexUtils;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
+import com.honeybuy.shop.web.dto.PageMeta;
 
 /**
  * 
@@ -70,6 +71,12 @@ public class ProductController {
 		model.addAttribute("currentProductDetail", productDetailDTO);
 		model.addAttribute("currentProductProductChange", changeDTO);
 		model.addAttribute("currentProductOptions", optParams);
+		
+		PageMeta meta = new PageMeta();
+		meta.setTitle(productDetailDTO.getTitle());
+		meta.setKeywords(productDetailDTO.getKeywords());
+		meta.setDescription(productDetailDTO.getAbstractText());
+		model.addAttribute("pageMeta", meta);
 		
 		return "productDetail";
 	}

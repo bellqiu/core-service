@@ -7,6 +7,10 @@
         	 <put-attribute name="header" value="/WEB-INF/jsp/header/head.jsp"/>
         	 <put-attribute name="body" value="/WEB-INF/jsp/body/blank.jsp"/>
         	 <put-attribute name="footer" value="/WEB-INF/jsp/footer/footer.jsp"/>
+        	 <put-attribute name="pageTitle" value=""/>
+        	 <put-attribute name="pageKeywords" value=""/>
+        	 <put-attribute name="pageDescription" value=""/>
+        	
         </definition>
         
         	
@@ -65,6 +69,9 @@
         
         <definition name="registerAndLogin" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/registerAndLogin.jsp"/>
+        	  <put-attribute name="pageTitle" value="Register and login"/>
+        	  <put-attribute name="pageKeywords" value="Register and login"/>
+        	  <put-attribute name="pageDescription" value="Register and login"/>
         </definition>
         
         <definition name="productDetail" extends="headerFooter" >
@@ -81,14 +88,24 @@
         
         <definition name="shoppingcat" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/shopping/shoppingcat.jsp"/>
+        	  <put-attribute name="pageTitle" value="Shoppingcart"/>
+        	  <put-attribute name="pageKeywords" value="Shoppingcart"/>
+        	  <put-attribute name="pageDescription" value="Shoppingcart"/>
+        	  
         </definition>
         
         <definition name="shoppingcatAddress" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/shopping/shoppingPaymentInfo.jsp"/>
+        	  <put-attribute name="pageTitle" value="Complete Order infomation"/>
+        	  <put-attribute name="pageKeywords" value="Complete Order infomation"/>
+        	  <put-attribute name="pageDescription" value="Complete Order infomation"/>
         </definition>
         
         <definition name="shoppingcatPayment" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/shoppingcatPayment.jsp"/>
+        	  <put-attribute name="pageTitle" value="Complete Order payment"/>
+        	  <put-attribute name="pageKeywords" value="Complete Order payment"/>
+        	  <put-attribute name="pageDescription" value="Complete Order payment"/>
         </definition>
         
         <definition name="freedomPage" extends="headerFooter" >
@@ -101,6 +118,9 @@
         
         <definition name="newAccount" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
+        	  <put-attribute name="pageTitle" value="New Acccount"/>
+        	  <put-attribute name="pageKeywords" value="New Acccount"/>
+        	  <put-attribute name="pageDescription" value="New Acccount"/>
         </definition>
         
          <definition name="shoppingcartFragment" extends="shoppingCartMain" >
@@ -112,19 +132,31 @@
         
          <definition name="paypal" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/payment/paypal.jsp"/>
+        	  <put-attribute name="pageTitle" value="Payment with paypal"/>
+        	  <put-attribute name="pageKeywords" value="Payment with paypal"/>
+        	  <put-attribute name="pageDescription" value="Payment with paypal"/>
         </definition>
         
        <!-- Errors --> 
         <definition name="500" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/500.jsp"/>
+        	  <put-attribute name="pageTitle" value="Server Error"/>
+        	  <put-attribute name="pageKeywords" value="Server Error"/>
+        	  <put-attribute name="pageDescription" value="Server Error"/>
         </definition>
         
         <definition name="404" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/404.jsp"/>
+        	  <put-attribute name="pageTitle" value="Page not found"/>
+        	  <put-attribute name="pageKeywords" value="Page not found"/>
+        	  <put-attribute name="pageDescription" value="Page not found"/>
         </definition>
         
         <definition name="loginRequired" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
+        	  <put-attribute name="pageTitle" value="Please login to continue"/>
+        	  <put-attribute name="pageKeywords" value="Please login to continue"/>
+        	  <put-attribute name="pageDescription" value="Please login to continue"/>
         </definition>
         
           <definition name="loging" extends="headerFooter" >
@@ -133,22 +165,38 @@
         
         <definition name="profile" extends="headerFooter" >
         	  <put-attribute name="body" value="user.center.profile"/>
+        	  <put-attribute name="pageTitle" value="My Profile"/>
+        	  <put-attribute name="pageKeywords" value="My Profile"/>
+        	  <put-attribute name="pageDescription" value="My Profile"/>
         </definition>
         
 		<definition name="changePwd" extends="headerFooter" >
         	  <put-attribute name="body" value="user.center.password"/>
+        	  <put-attribute name="pageTitle" value="Change password"/>
+        	  <put-attribute name="pageKeywords" value="Change password"/>
+        	  <put-attribute name="pageDescription" value="Change password"/>
         </definition>
         
         <definition name="address" extends="headerFooter" >
         	  <put-attribute name="body" value="user.center.address"/>
+        	  <put-attribute name="pageTitle" value="Address book"/>
+        	  <put-attribute name="pageKeywords" value="Address book"/>
+        	  <put-attribute name="pageDescription" value="Address book"/>
         </definition>
         
         <definition name="myOrder" extends="headerFooter" >
         	  <put-attribute name="body" value="user.center.orderList"/>
+        	  <put-attribute name="pageTitle" value="List my orders"/>
+        	  <put-attribute name="pageKeywords" value="List my orders"/>
+        	  <put-attribute name="pageDescription" value="List my orders"/>
         </definition>
         
         <definition name="orderDetail" extends="headerFooter" >
         	  <put-attribute name="body" value="user.center.orderDetail"/>
+        	  <put-attribute name="pageTitle" value="Order Detail"/>
+        	  <put-attribute name="pageKeywords" value="Order Detail"/>
+        	  <put-attribute name="pageDescription" value="Order Detail"/>
+        	  
         </definition>
         
         <definition name="accessDenied" extends="headerFooter" >
