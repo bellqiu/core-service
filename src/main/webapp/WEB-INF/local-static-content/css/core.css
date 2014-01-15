@@ -746,7 +746,33 @@ input[type=password] {
 }
 /******************End Overrider reset js table borders for bootstrap ********************************/
 
+
 .mainContainer .breadcrumb {
 	margin-left: 10px;
 	width: 1170px
 }
+
+
+/******************Start login by three party link ********************************/
+.login-lnk {
+	display: inline-block;
+	width: 140px;
+	height: 29px;
+	line-height: 21px;
+	text-indent: -9999px;
+	overflow: hidden;
+	margin: 0 5px;
+}
+
+.btn-facebook{
+	background: url(/resources/css/img/btn-login-facebook.png) no-repeat;
+}
+
+.btn-google{
+	background: url(/resources/css/img/btn-login-google.png) no-repeat;
+}
+
+.btn-linkedin{
+	background: url(/resources/css/img/btn-login-linkedin.jpg) no-repeat;
+}
+/******************End bootstrap modal component ********************************/

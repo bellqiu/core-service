@@ -34,6 +34,7 @@ public class EmailService {
 	SettingServiceCacheWrapper settingService;
 	
 	public void sendRecoveryMail(String toEmail, String newPassword) {
+		
 		String recoverPwdTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECOVER_PASSWORD_TEMPLATE);
 		String recoverSubject = settingService.getStringValue(Constants.SETTING_RECOVER_PASSWORD_SUBJECT, Constants.DEFAULT_RECOVERY_MAIL_TITLE);
 		if(recoverPwdTemplate == null) {
@@ -141,6 +142,17 @@ public class EmailService {
 			logger.warn(e.getMessage(), e);
 			return null;
 		}
+	}
+	
+	public String getThrirdPartyEmail(String email) {
+		if(email == null) {
+			return null;
+		}
+		int slashIndex = email.indexOf('/');
+		if(slashIndex != -1) {
+			return email.substring(0, slashIndex);
+		}
+		return email;
 	}
 
 }

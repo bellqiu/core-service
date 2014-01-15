@@ -83,7 +83,7 @@ var domain = '${site.domain}';
                         	<div class="row">
                           	  	<div class="col-xs-2">
                           	  		<!-- <button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button> -->
-                          	  		<a href="#" id="facebookLoginWithAnotherLinkId" >Login with Facebook</a>
+                          	  		<a href="#" id="facebookLoginWithAnotherLinkId" class="login-lnk btn-facebook" title="Log in using your Facebook account">Facebook</a>
                           	  		<div id="fb-root"></div>
 										<script src="/resources/js/FacebookLogin.js" type="text/javascript"></script>
 												<!--
@@ -93,47 +93,11 @@ var domain = '${site.domain}';
 												<!-- <fb:login-button width="200" max-rows="1"></fb:login-button> -->
                           	  	</div>
                           	  	<div class="col-xs-2">
-                          	  		<script type="text/javascript">
- (function() {
-   var po = document.createElement('script');
-   po.type = 'text/javascript'; po.async = true;
-   po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
-   var s = document.getElementsByTagName('script')[0];
-   s.parentNode.insertBefore(po, s);
- })();
-
- function render() {
-
-   // Additional params including the callback, the rest of the params will
-   // come from the page-level configuration.
-   var additionalParams = {
-		   'callback': signinCallback,
-		     'clientid' : '573965665808.apps.googleusercontent.com',
-		     'cookiepolicy' : 'single_host_origin',
-		     'scope' : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
-		     'requestvisibleactions' : 'http://schemas.google.com/AddActivity',
-		     'accesstype' : "offline"
-   };
-
-   // Attach a click listener to a button to trigger the flow.
-   var signinButton = document.getElementById('googleLoginButtonId');
-   signinButton.addEventListener('click', function() {
-	   gapi.auth.signOut();
-     gapi.auth.signIn(additionalParams); // Will use page level configuration
-   });
-   function signinCallback(authResult) {
-	   if (authResult['status']['signed_in']) {
-		  	window.location.href=window.location.protocol+"//"+window.location.host + "/ac/login?type=google&token=" + authResult.access_token;
-		  } else {
-		    console.log('Sign-in state: ' + authResult['error']);
-		  }
-   }
- }
-</script>
-						    <!-- <script src="/resources/js/GoogleLogin.js" type="text/javascript"></script> -->
-		                        	<div id="gConnect">
+						    		<script src="/resources/js/GoogleLogin.js" type="text/javascript"></script>
+						    		<a href="#" id="googleLoginId" class="login-lnk btn-google" title="Log in using your Google account">Google</a>
+		                        	<!-- <div id="gConnect">
 									    <button type="button" class="btn btn-default" id="googleLoginButtonId">Google Sign in</button>
-									</div>
+									</div> -->
                           	  	
                           	  	</div>
                           	  	
@@ -141,32 +105,9 @@ var domain = '${site.domain}';
                           	  		<a href="${site.domain}/ac/login?type=twitter" id="twitterLogin" >Login with Twitter</a>
                           	  	</div> --%>
                           	  	<div class="col-xs-2">
-                          	  		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
-									  api_key: 7530oj8n5n1fan
-									  onLoad: onLinkedInLoad
-									  authorize: false
-									</script>
-									<script type="text/javascript">
-									function onLinkedInLoad() {
-									    IN.Event.on(IN, "auth", onLinkedInAuth);
-										$("#linkedInLogin").click(function(){
-											if(IN.User.isAuthorized()) {
-												IN.User.logout();
-											}
-											IN.UI.Authorize().place();
-										});
-									}
-									function onLinkedInAuth() {
-										window.location.href=window.location.protocol+"//"+window.location.host + "/ac/login?type=linkedIn&token=" + IN.ENV.auth.oauth_token;
-									    IN.API.Profile("me").fields(["id", "firstName", "lastName", "email-address"]).result(displayProfiles)
-									}
-									function displayProfiles(profiles) {
-										console.log(profiles);
-										console.log(profiles.values[0].emailAddress);
-										console.log(IN.ENV.auth.oauth_token);
-									}
-									</script>
-                          	  		<button type="button" class="btn btn-default" id="linkedInLogin">Login with LinkedIn</button>
+                          	  		<script src="/resources/js/LinkedInLogin.js" type="text/javascript"></script>
+                          	  		<a href="#" id="linkedInLogin" class="login-lnk btn-linkedin" title="Log in using your LinkedIn account">LinkedIn</a>
+                          	  		<!-- <button type="button" class="btn btn-default" id="linkedInLogin">Login with LinkedIn</button> -->
                           	  	</div>
                             </div>
                         </div>
