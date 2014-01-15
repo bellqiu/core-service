@@ -399,12 +399,6 @@ public class OrderService {
 			order.setUpdateDate(new Date());
 			order.setCurrency(currencyCode);
 			
-			if(StringUtils.isEmpty(order.getOrderSN())){
-				String prefix = settingService.getStringValue("ORDERSN_PREFIX", "ORDER");
-				String orderDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
-				order.setOrderSN(prefix+"-"+orderDate+"-"+order.getId());
-			}
-			
 			return orderDetailConverter.convert(em.merge(order));
 		} else {
 			throw new CoreServiceException("Order is not existing");
@@ -437,6 +431,12 @@ public class OrderService {
 		order.setShippingCode(address.getCountryCode());
 		
 		updateShippingPrice(address.getCountryCode(), order);
+		
+		if(StringUtils.isEmpty(order.getOrderSN())){
+			String prefix = settingService.getStringValue("ORDERSN_PREFIX", "ORDER");
+			String orderDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+			order.setOrderSN(prefix+"-"+orderDate+"-"+order.getId());
+		}
 		
 		em.merge(order);
 		em.persist(order);
