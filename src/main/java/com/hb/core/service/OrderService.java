@@ -132,18 +132,12 @@ public class OrderService {
 		
 		order = em.merge(order);
 		
-		if(StringUtils.isEmpty(order.getOrderSN())){
-			String prefix = settingService.getStringValue("ORDERSN_PREFIX", "ORDER");
-			String orderDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
-			order.setOrderSN(prefix+"-"+orderDate+"-"+order.getId());
-		}
-		
 		em.persist(order);
 		em.flush();
 		return orderDetailConverter.convert(order);
 	
 	}
-
+	
 	private Order newCart(String trackingId, String userEmail,
 			String currencyCode) {
 		Order order;
@@ -384,6 +378,7 @@ public class OrderService {
 				
 				
 				userOrder.getItems().addAll(newOrderItem);
+				
 				em.merge(userOrder);
 				em.persist(userOrder);
 				em.flush();
@@ -403,6 +398,13 @@ public class OrderService {
 			order.setOrderStatus(status);
 			order.setUpdateDate(new Date());
 			order.setCurrency(currencyCode);
+			
+			if(StringUtils.isEmpty(order.getOrderSN())){
+				String prefix = settingService.getStringValue("ORDERSN_PREFIX", "ORDER");
+				String orderDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+				order.setOrderSN(prefix+"-"+orderDate+"-"+order.getId());
+			}
+			
 			return orderDetailConverter.convert(em.merge(order));
 		} else {
 			throw new CoreServiceException("Order is not existing");
