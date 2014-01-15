@@ -278,7 +278,11 @@ public class OrderService {
 			Iterator<String> item = filters.keySet().iterator();
 			while(item.hasNext()){
 				String param = item.next();
-				ql.append(param +" like :"+param +" ");
+				if ("status".equalsIgnoreCase(param)) {
+					ql.append(" orderStatus = :" + param + " ");
+				} else {
+					ql.append(param +" like :"+param +" ");
+				}
 				if(item.hasNext()){
 					ql.append(" and ");
 				}
@@ -297,8 +301,16 @@ public class OrderService {
 		query.setFirstResult(start);
 		query.setMaxResults(max);
 		for (Map.Entry<String, String> paramEntry : filters.entrySet()) {
-			query.setParameter(paramEntry.getKey(), "%" + paramEntry.getValue() + "%");
-			count.setParameter(paramEntry.getKey(), "%" + paramEntry.getValue() + "%");
+			String key = paramEntry.getKey();
+			String value = paramEntry.getValue();
+			if ("status".equalsIgnoreCase(key)) {
+				Order.Status status = Order.Status.valueOf(value);
+				query.setParameter(key, status);
+				count.setParameter(key, status);
+			} else {
+				query.setParameter(key, "%" + value + "%");
+				count.setParameter(key, "%" + value + "%");
+			}
 		}
 		int total = count.getSingleResult().intValue();
 		List<Order> orders = query.getResultList();
