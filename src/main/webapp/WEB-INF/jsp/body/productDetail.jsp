@@ -8,13 +8,15 @@ var productName = "${currentProductDetail.name}";
 var productOpts = "${currentProductOptions}";
 </script>
 <div class="container mainContainer">
-	<ol class="breadcrumb margin0 whiteBackground">
-		<c:forEach items="${currentProductDetail.categories}"
-			varStatus="status" var="category">
-			<li><a href="/c/${category.name }">${category.displayName }</a></li>
-		</c:forEach>
-		<li class="active">${currentProductDetail.title }</li>
-	</ol>
+    <div class="row">
+		<ol class="breadcrumb">
+			<c:forEach items="${currentProductDetail.categories}"
+				varStatus="status" var="category">
+				<li><a href="/c/${category.name }">${category.displayName }</a></li>
+			</c:forEach>
+			<li class="active">${currentProductDetail.title }</li>
+		</ol>
+	</div>
 	<div class="row">
 		<div class="col-md-7 col-xs-7 padding10 ProductImageRegion">
 			<div class="row">

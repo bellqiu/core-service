@@ -467,6 +467,7 @@ input[type=password] {
 .mainContainer {
 	margin: 0 auto 20px auto;
 	min-width: 1170px;
+	padding: 0px;
 }
 
 .padding10 {
@@ -744,3 +745,8 @@ input[type=password] {
 	border: none ;
 }
 /******************End Overrider reset js table borders for bootstrap ********************************/
+
+.mainContainer .breadcrumb {
+	margin-left: 10px;
+	width: 1170px
+}
