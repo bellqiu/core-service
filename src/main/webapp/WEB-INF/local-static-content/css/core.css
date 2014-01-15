@@ -776,3 +776,6 @@ input[type=password] {
 	background: url(/resources/css/img/btn-login-linkedin.jpg) no-repeat;
 }
 /******************End bootstrap modal component ********************************/
+li.useractionItem{
+	width: 80%;
+}
