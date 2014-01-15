@@ -375,6 +375,8 @@ public class ShoppingController {
 		
 		orderService.updateOrderInfo(orderId, "", Order.Status.PENDING, currency.getCode());
 		
+		//TODO pending email
+		
 		return  new ResponseResult<Boolean>(true, true);
 	}
 	
@@ -503,6 +505,9 @@ public class ShoppingController {
 						&&quantity.equals("1")){
 					try{
 						orderService.updateOrderInfo(order.getId(), "", Order.Status.PAID, paymentCurrency);
+						
+						//TODO ORDER payment finished
+						
 					}catch(Exception e){
 						logger.info(e.getMessage(),e);
 					}
