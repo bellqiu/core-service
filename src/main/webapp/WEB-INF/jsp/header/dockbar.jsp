@@ -46,7 +46,6 @@
 						</button>
 						 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						    <li class="useractionItem" role="presentation"><a role="menuitem" tabindex="-1" href="/od/myOrder">My Orders</a></li>
-						    <li class="useractionItem" role="presentation"><a role="menuitem" tabindex="-1" href="/ac/profile">Profile</a></li>
 						    <li class="useractionItem" role="presentation"><a role="menuitem" tabindex="-1" href="/ac/changePwd">Change Password</a></li>
 						    <li class="useractionItem" role="presentation"><a role="menuitem" tabindex="-1" href="/ac/address">Manage Address</a></li>
 						    <li class="useractionItem" role="presentation" class="divider"></li>

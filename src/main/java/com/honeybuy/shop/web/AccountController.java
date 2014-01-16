@@ -153,8 +153,9 @@ public class AccountController {
 		return "loginRequired";
 	}
 	
-	// TODO may be removed as twitter does not pass email to app
+	// Be removed as twitter does not pass email to app
 	//@RequestMapping(value="/twitter-login" , method=RequestMethod.GET)
+	@Deprecated
 	public String twitterLogin(
 			@RequestParam(value = "oauth_token", required = false) String oauth_token ,
 			@RequestParam(value = "oauth_verifier", required = false) String oauth_verifier,
@@ -238,7 +239,7 @@ public class AccountController {
 		return messageMap;
 	}
 	
-	@RequestMapping(value="/profile" , method=RequestMethod.GET)
+	@Deprecated
 	public String getUserProfile(Model model,
 			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details){
 		model.addAttribute("page", "profile");
