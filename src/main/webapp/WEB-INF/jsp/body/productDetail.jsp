@@ -196,8 +196,9 @@ var productOpts = "${currentProductOptions}";
 	<div class="row">
 		<c:forEach items="${currentProductDetail.relatedProducts }" var="tabedProd">
 			<h2>${tabedProd.name }:</h2>
+			<div class="spotlight">
 			<ul class="Related_Product"  class="row">
-				<c:forEach items="${tabedProd.products }" var="subProd" end="3">
+				<c:forEach items="${tabedProd.products }" var="subProd">
 					<li class="col-xs-3 padding10">
 						<div class="thumbnail">
 							<img src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${subProd.imageURL}" alt="...">
@@ -216,7 +217,20 @@ var productOpts = "${currentProductOptions}";
 					</li>
 				</c:forEach>
 			</ul>
+			</div>
 		</c:forEach>
+		<script type="text/javascript">
+			$(".spotlight").ready(function(){
+				  $('.spotlight .Related_Product').bxSlider({
+					  captions: true,
+					  slideWidth: 290,
+					  maxSlides: 4,
+					  slideMargin: 10,
+					  pager : false,
+					  //top : 30%,
+					});
+				});
+		</script>
 	</div>
 
 <script src="/resources/js/ProductPageMain.js" type="text/javascript"></script>	
