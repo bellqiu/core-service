@@ -42,6 +42,7 @@ import com.hb.core.entity.Coupon;
 import com.hb.core.entity.Currency;
 import com.hb.core.entity.Order;
 import com.hb.core.service.CouponService;
+import com.hb.core.service.EmailService;
 import com.hb.core.service.OrderService;
 import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.OrderDetailDTO;
@@ -74,6 +75,9 @@ public class ShoppingController {
 	
 	@Autowired
 	private CouponService couponService;
+	
+	@Autowired
+	EmailService emailService;
 	
 	@Autowired
 	private SettingServiceCacheWrapper settingService;
@@ -373,9 +377,17 @@ public class ShoppingController {
 			 @SessionAttribute("defaultCurrency")Currency currency
 			 ){
 		
-		orderService.updateOrderInfo(orderId, "", Order.Status.PENDING, currency.getCode());
+		final OrderDetailDTO orderDetailDTO = orderService.updateOrderInfo(orderId, "", Order.Status.PENDING, currency.getCode());
 		
 		//TODO pending email
+		new Thread(){
+            public void run() {
+                try{
+					emailService.sendPayOrderMail(orderDetailDTO);
+                } catch (Exception e){
+                }
+            };
+        }.start();
 		
 		return  new ResponseResult<Boolean>(true, true);
 	}
@@ -504,9 +516,17 @@ public class ShoppingController {
 						&&receiverEmail.equalsIgnoreCase(settingService.getStringValue(Constants.PAYPAL_ACCOUNT, Constants.PAYPAL_ACCOUNT_DEFAULT))
 						&&quantity.equals("1")){
 					try{
-						orderService.updateOrderInfo(order.getId(), "", Order.Status.PAID, paymentCurrency);
+						final OrderDetailDTO orderDetailDTO = orderService.updateOrderInfo(order.getId(), "", Order.Status.PAID, paymentCurrency);
 						
 						//TODO ORDER payment finished
+						new Thread(){
+				            public void run() {
+				                try{
+									emailService.sendReceiveOrderPaymentMail(orderDetailDTO);
+				                } catch (Exception e){
+				                }
+				            };
+				        }.start();
 						
 					}catch(Exception e){
 						logger.info(e.getMessage(),e);

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+import org.apache.cxf.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.hb.core.entity.HTML;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.util.Constants;
+import com.honeybuy.shop.web.cache.CurrencyServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 
@@ -33,8 +35,11 @@ public class EmailService {
 	@Autowired
 	SettingServiceCacheWrapper settingService;
 	
+	@Autowired
+	private CurrencyServiceCacheWrapper currencyService;
+	
 	public void sendRecoveryMail(String toEmail, String newPassword) {
-		
+		String email = getThrirdPartyEmail(toEmail);
 		String recoverPwdTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECOVER_PASSWORD_TEMPLATE);
 		String recoverSubject = settingService.getStringValue(Constants.SETTING_RECOVER_PASSWORD_SUBJECT, Constants.DEFAULT_RECOVERY_MAIL_TITLE);
 		if(recoverPwdTemplate == null) {
@@ -42,13 +47,14 @@ public class EmailService {
 		}
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
-		variable.put("email", toEmail);
+		variable.put("email", email);
 		variable.put("password", newPassword);
 		
-		sendMail(recoverPwdTemplate, recoverSubject, variable, toEmail);
+		sendMail(recoverPwdTemplate, recoverSubject, variable, email);
 	}
 	
 	public void sendRegisterMail(String toEmail, String password) {
+		String email = getThrirdPartyEmail(toEmail);
 		String registerTemplate = getTemplateFromDB(Constants.HTML_MAIL_REGISTER_TEMPLATE);
 		String registerSubject = settingService.getStringValue(Constants.SETTING_REGISTER_SUBJECT, Constants.DEFAULT_REGISTER_MAIL_TITLE);
 		if(registerTemplate == null) {
@@ -56,33 +62,30 @@ public class EmailService {
 		}
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
-		variable.put("email", toEmail);
+		variable.put("email", email);
 		variable.put("password", password);
 		
-		sendMail(registerTemplate, registerSubject, variable, toEmail);
+		sendMail(registerTemplate, registerSubject, variable, email);
 	}
 	
 	public void sendPayOrderMail(OrderDetailDTO order) {
-		if(order.getUseremail() == null) {
-			throw new CoreServiceException("User email in order is null");
-		}
-		String payOrderTemplate = getTemplateFromDB(Constants.HTML_MAIL_PAY_ORDER_TEMPLATE);
-		String payOrderSubject = settingService.getStringValue(Constants.SETTING_PAY_ORDER_SUBJECT, Constants.DEFAULT_PAY_ORDER_MAIL_TITLE);
+		String email = getThrirdPartyEmail(order.getUseremail());
+		String payOrderTemplate = getTemplateFromDB(Constants.HTML_MAIL_TO_PAY_ORDER_TEMPLATE);
+		String payOrderSubject = settingService.getStringValue(Constants.SETTING_TO_PAY_ORDER_SUBJECT, Constants.DEFAULT_TO_PAY_ORDER_MAIL_TITLE);
 		if(payOrderTemplate == null) {
-			payOrderTemplate = Constants.DEFAULT_PAY_ORDER_MAIL_CONTENT;
+			payOrderTemplate = Constants.DEFAULT_TO_PAY_ORDER_MAIL_CONTENT;
 		}
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
 		variable.put("totalPrice", order.getTotalProductPrice());
+		variable.put("currency", currencyService.getCurrencyByCode(order.getCurrency()));
 		
-		sendMail(payOrderTemplate, payOrderSubject, variable, order.getUseremail());
+		sendMail(payOrderTemplate, payOrderSubject, variable, email);
 	}
 	
 	public void sendReceiveOrderPaymentMail(OrderDetailDTO order) {
-		if(order.getUseremail() == null) {
-			throw new CoreServiceException("User email in order is null");
-		}
+		String email = getThrirdPartyEmail(order.getUseremail());
 		String receiveOrderPaymentTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE);
 		String receiveOrderPaymentSubject = settingService.getStringValue(Constants.SETTING_RECEIVE_ORDER_PAYMENT_SUBJECT, Constants.DEFAULT_RECEIVE_ORDER_PAYMENT_TITLE);
 		if(receiveOrderPaymentTemplate == null) {
@@ -92,8 +95,9 @@ public class EmailService {
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
 		variable.put("totalPrice", order.getTotalProductPrice());
+		variable.put("currency", currencyService.getCurrencyByCode(order.getCurrency()));
 		
-		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, order.getUseremail());
+		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, email);
 	}
 	
 	private String getTemplateFromDB(String htmlKey) {
@@ -105,6 +109,9 @@ public class EmailService {
 	}
 	
 	public void sendMail(String templateString, String subject, Map<String,Object> variable, String sendTo){
+		if(StringUtils.isEmpty(sendTo)) {
+			throw new CoreServiceException("Send to email is empty");
+		}
     	String mailContent = parseMailContent(templateString, variable);
     	logger.info("send mail to :" + sendTo);
     	if (mailContent != null) {

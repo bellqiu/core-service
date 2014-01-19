@@ -16,16 +16,16 @@ public interface Constants {
 	
 	public static final String DEFAULT_MAIL_CHARSET = "UTF-8";
     public static final String DEFAULT_MAIL_HOST_NAME = "smtpout.secureserver.net";
-    public static final String DEFAULT_MAIL_FROM_ACCOUNT = "no-reply@honeybuy.com";
+    public static final String DEFAULT_MAIL_FROM_ACCOUNT = "no-reply@dentalsupplies.com";
     public static final String DEFAULT_MAIL_FROM_PASSWORD = "20091125!@#A";
     
-    public static final String DEFAULT_REGISTER_MAIL_TITLE = "Your account, in Honey-Buy, is created!";
-	public static final String DEFAULT_REGISTER_MAIL_CONTENT = "Congratulations! You r the registered user of Honey-Buy!";
-	public static final String DEFAULT_RECOVERY_MAIL_TITLE = "Your account, in Honey-Buy, is recovered!";
+    public static final String DEFAULT_REGISTER_MAIL_TITLE = "Your account, in Dental-Supplies, is created!";
+	public static final String DEFAULT_REGISTER_MAIL_CONTENT = "Congratulations! You are the registered user of Dental-Supplies!";
+	public static final String DEFAULT_RECOVERY_MAIL_TITLE = "Your account, in dentalsupplies360.com, is recovered!";
 	public static final String DEFAULT_RECOVERY_MAIL_CONTENT = "Congratulations! Your new password is ${password} ";
-	public static final String DEFAULT_PAY_ORDER_MAIL_TITLE = "Your order, in Honey-Buy, is paid!";
-	public static final String DEFAULT_PAY_ORDER_MAIL_CONTENT = "Congratulations! Your order is paid. It will be delivered to you soon.";
-	public static final String DEFAULT_RECEIVE_ORDER_PAYMENT_TITLE = "Your order payment, in Honey-Buy, is received!";
+	public static final String DEFAULT_TO_PAY_ORDER_MAIL_TITLE = "Your order, in Dental-Supplies, is to be paid!";
+	public static final String DEFAULT_TO_PAY_ORDER_MAIL_CONTENT = "Thanks for your shopping. Your order is to be paid.";
+	public static final String DEFAULT_RECEIVE_ORDER_PAYMENT_TITLE = "Your order payment, in Dental-Supplies, is received!";
 	public static final String DEFAULT_RECEIVE_ORDER_PAYMENT_CONTENT = "Congratulations! Your order payment is received. It will be delivered to you soon.";
 	
 	public static final String SETTING_MAIL_HOST_NAME = "MAIL_HOST_NAME";
@@ -34,12 +34,12 @@ public interface Constants {
 	public static final String SETTING_MAIL_FROM = "MAIL_FROM";
 	public static final String SETTING_RECOVER_PASSWORD_SUBJECT = "MAIL_RECOVER_PASSWORD_SUBJECT";
 	public static final String SETTING_REGISTER_SUBJECT = "MAIL_REGISTER_SUBJECT";
-	public static final String SETTING_PAY_ORDER_SUBJECT = "MAIL_PAY_ORDER_SUBJECT";
+	public static final String SETTING_TO_PAY_ORDER_SUBJECT = "MAIL_TO_PAY_ORDER_SUBJECT";
 	public static final String SETTING_RECEIVE_ORDER_PAYMENT_SUBJECT = "MAIL_RECEIVE_ORDER_PAYMENT_SUBJECT";
 	
 	public static final String HTML_MAIL_RECOVER_PASSWORD_TEMPLATE = "MAIL_RECOVER_PASSWORD_TEMPLATE";
 	public static final String HTML_MAIL_REGISTER_TEMPLATE = "MAIL_REGISTER_TEMPLATE";
-	public static final String HTML_MAIL_PAY_ORDER_TEMPLATE = "MAIL_PAY_ORDER_TEMPLATE";
+	public static final String HTML_MAIL_TO_PAY_ORDER_TEMPLATE = "MAIL_TO_PAY_ORDER_TEMPLATE";
 	public static final String HTML_MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE = "MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE";
 	
 	public static final String FACEBOOK_TYPE = "facebook";

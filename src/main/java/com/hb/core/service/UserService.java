@@ -42,31 +42,6 @@ public class UserService {
 	
 	public UserDTO getUserByName(String name) {
 		UserDTO userDTO = userConverter.convert(getUser(name));
-		/*if(userDTO == null) {
-			// TODO need to remove when before code is release
-			// This is for default login user
-			for (int i = 0; i < 3; i++) {
-				String userPreDefinedName = "R" + i + "@hb.com";
-				if(userPreDefinedName.equals(name)) {
-					userDTO = new UserDTO();
-					userDTO.setEmail(userPreDefinedName);
-					
-					userDTO.setPassword("admin");
-					userDTO.setId(i);
-					
-					if(i != 2){
-						userDTO.setEnabled(true);
-					}
-					
-					if(i == 0){
-						userDTO.getRoles().add(com.hb.core.entity.User.Type.USER.toString());
-					}else{
-						userDTO.getRoles().add(com.hb.core.entity.User.Type.ADMIN.toString());
-					}
-					break;
-				}
-			}
-		}*/
 		return userDTO;
 	}
 
@@ -225,7 +200,7 @@ public class UserService {
 		user.setCreateDate(currentDate);
 		user.setUpdateDate(currentDate);
 		user = em.merge(user);
-		
+
 		if(user != null) {
 			new Thread(){
                 public void run() {
