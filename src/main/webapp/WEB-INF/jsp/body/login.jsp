@@ -60,17 +60,6 @@ var domain = '${site.domain}';
                         		<div class="col-xs-2">
                           		  <button type="submit" class="btn btn-danger">Sign in</button>
                           		</div>
-                          	  	<!-- <div class="col-xs-8">
-                          	  		<button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button>
-                          	  		<a href="#" id="facebookLoginWithAnotherLinkId" >Login with Facebook</a>
-                          	  		<div id="fb-root"></div>
-										<script src="/resources/js/FacebookLogin.js" type="text/javascript"></script>
-												
-												  Below we include the Login Button social plugin. This button uses the JavaScript SDK to
-												  present a graphical Login button that triggers the FB.login() function when clicked.
-												
-												<fb:login-button width="200" max-rows="1"></fb:login-button>
-                          	  	</div> -->
                             </div>
                         </div>
                         <div class="col-lg-offset-2 col-lg-10">
@@ -83,7 +72,7 @@ var domain = '${site.domain}';
                         	<div class="row">
                           	  	<div class="col-xs-2">
                           	  		<!-- <button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button> -->
-                          	  		<a href="#" id="facebookLoginWithAnotherLinkId" class="login-lnk btn-facebook" title="Log in using your Facebook account">Facebook</a>
+                          	  		<a href="javascript:void(0)" id="facebookLoginWithAnotherLinkId" class="login-lnk btn-facebook" title="Log in using your Facebook account">Facebook</a>
                           	  		<div id="fb-root"></div>
 										<script src="/resources/js/FacebookLogin.js" type="text/javascript"></script>
 												<!--
@@ -94,7 +83,7 @@ var domain = '${site.domain}';
                           	  	</div>
                           	  	<div class="col-xs-2">
 						    		<script src="/resources/js/GoogleLogin.js" type="text/javascript"></script>
-						    		<a href="#" id="googleLoginId" class="login-lnk btn-google" title="Log in using your Google account">Google</a>
+						    		<a href="javascript:void(0)" id="googleLoginId" class="login-lnk btn-google" title="Log in using your Google account">Google</a>
 		                        	<!-- <div id="gConnect">
 									    <button type="button" class="btn btn-default" id="googleLoginButtonId">Google Sign in</button>
 									</div> -->
@@ -105,9 +94,14 @@ var domain = '${site.domain}';
                           	  		<a href="${site.domain}/ac/login?type=twitter" id="twitterLogin" >Login with Twitter</a>
                           	  	</div> --%>
                           	  	<div class="col-xs-2">
+                          	  		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+									  api_key:7530oj8n5n1fan	
+									  onLoad:onLinkedInLoad
+									  authorize:false
+									  lang:en_US
+									</script>
                           	  		<script src="/resources/js/LinkedInLogin.js" type="text/javascript"></script>
-                          	  		<a href="#" id="linkedInLogin" class="login-lnk btn-linkedin" title="Log in using your LinkedIn account">LinkedIn</a>
-                          	  		<!-- <button type="button" class="btn btn-default" id="linkedInLogin">Login with LinkedIn</button> -->
+                          	  		<a href="javascript:void(0)" id="linkedInLogin" class="login-lnk btn-linkedin" title="Log in using your LinkedIn account">LinkedIn</a>
                           	  	</div>
                             </div>
                         </div>
