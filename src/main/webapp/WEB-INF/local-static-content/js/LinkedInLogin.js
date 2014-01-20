@@ -21,7 +21,7 @@
 	        IN.init({
 	            onLoad: "onLinkedInLoad",
 	            api_key: "7530oj8n5n1fan",
-	            authorize: false,
+	            authorize: false
 	        });
 	    });
 	});
