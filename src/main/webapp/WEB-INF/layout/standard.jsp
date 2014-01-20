@@ -12,6 +12,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta content="${pageMeta.keywords } <tiles:getAsString name="pageKeywords"/>" name="keywords">
 		<meta content="${pageMeta.description } <tiles:getAsString name="pageDescription"/>" name="description">
+		 <meta name="viewport" content="width=1170">
+		  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
 		
 		<!-- Import css/js -->
 		<style type="text/css">
@@ -26,6 +29,8 @@
 			</c:forEach>
 				 @import url("/resources/css/core.css");
 		</style>
+		<link href='http://fonts.googleapis.com/css?family=Londrina+Solid|Open+Sans:400,700|Shadows+Into+Light+Two' rel='stylesheet' type='text/css'>
+		
 		<script src="/resources/js/json2.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery-1.9.1.js" type="text/javascript"></script>
 		<script src="/resources/js/jquery.loadmask.min.js" type="text/javascript"></script>
