@@ -78,7 +78,6 @@ public class EmailService {
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
-		variable.put("totalPrice", order.getTotalProductPrice());
 		variable.put("currency", currencyService.getCurrencyByCode(order.getCurrency()));
 		
 		sendMail(payOrderTemplate, payOrderSubject, variable, email);
@@ -94,7 +93,6 @@ public class EmailService {
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
-		variable.put("totalPrice", order.getTotalProductPrice());
 		variable.put("currency", currencyService.getCurrencyByCode(order.getCurrency()));
 		
 		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, email);

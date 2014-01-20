@@ -558,6 +558,8 @@ input[type=password] {
 	border-top: none;
 	color: #555555;
 	cursor: default;
+	margin-left : 0px;
+	margin-right : 0px;
 }
 
 .pagination>li>a {
