@@ -89,7 +89,6 @@ var domain = '${site.domain}';
 									</div> -->
                           	  	
                           	  	</div>
-                          	  	
                           	  	<%-- <div class="col-xs-2">
                           	  		<a href="${site.domain}/ac/login?type=twitter" id="twitterLogin" >Login with Twitter</a>
                           	  	</div> --%>

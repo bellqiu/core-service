@@ -416,8 +416,12 @@ input[type=password] {
 	margin: 0 auto 0px
 }
 
+.spotlight img {
+	height: 182px;
+}
+
 .bestSelling img {
-	
+	height: 192px;
 }
 
 .controller-prev {
