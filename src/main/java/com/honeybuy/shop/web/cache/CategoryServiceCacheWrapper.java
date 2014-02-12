@@ -71,7 +71,14 @@ public class CategoryServiceCacheWrapper {
 		return categoryTree;
 	}
 
+	@Cacheable(cacheName="QueryCategoryNameByStart")
 	public String queryCategoryName(String startKey) {
 		return categoryService.queryCategoryNameWithStartKey(startKey);
+	}
+	
+	@Cacheable(cacheName="GetAllCategories")
+	public List<CategoryTreeDTO> getAllCategories(){
+		List<CategoryTreeDTO> categoryTree = categoryService.getAllCategories();
+		return categoryTree;
 	}
 }

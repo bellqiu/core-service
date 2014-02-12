@@ -416,11 +416,11 @@ input[type=password] {
 	margin: 0 auto 0px
 }
 
-.spotlight img {
+.spotlight .tabproductimgdiv {
 	height: 182px;
 }
 
-.bestSelling img {
+.bestSelling .tabproductimgdiv {
 	height: 192px;
 }
 

@@ -126,4 +126,14 @@
 		timeToLiveSeconds="10" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
+		
+	<cache name="QueryCategoryNameByStart" eternal="false"
+		timeToLiveSeconds="3600" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="99999" />
+		
+	<cache name="GetAllCategories" eternal="false"
+		timeToLiveSeconds="86400" maxElementsInMemory="1"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="1" />
 </ehcache>

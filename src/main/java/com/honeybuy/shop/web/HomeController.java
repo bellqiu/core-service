@@ -4,9 +4,27 @@
  */
 package com.honeybuy.shop.web;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Produces;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hb.core.shared.dto.CategoryTreeDTO;
+import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 
 /**
  * 
@@ -16,6 +34,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("")
 public class HomeController {
+	
+	@Autowired
+	private CategoryServiceCacheWrapper categoryService;
 	
 	@RequestMapping("/home")
 	public String home(){
@@ -53,5 +74,32 @@ public class HomeController {
 	@ResponseBody
 	public String test(){
 		return "asfasfjkldgjdklfgjdfklgjdfklgjdfklg";
+	}
+	
+	@RequestMapping("/sitemap.xml")
+	@ResponseBody
+	@Produces("application/xml")
+	public String sitemap(HttpServletRequest request, HttpServletResponse response){
+		response.setContentType("application/xml");
+		return "<xml>ljsl</xml>";
+	}
+	
+	@RequestMapping("/category.xml")
+	@ResponseBody
+	@Produces("application/xml")
+	public String cateogry(HttpServletRequest request, HttpServletResponse response){
+		List<CategoryTreeDTO> categories = categoryService.getAllCategories();
+		InputStream in = HomeController.class.getResourceAsStream("/category.hpl");
+		Map<String, Object> variables = new HashMap<String, Object>();
+		variables.put("categories", categories);
+		try {
+			Template tpl = new Template("categorySiteMap", new InputStreamReader(in), new Configuration());
+			StringWriter writer = new StringWriter();
+			tpl.process(variables, writer);
+			return writer.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "<xml>ljsl</xml>";
 	}
 }

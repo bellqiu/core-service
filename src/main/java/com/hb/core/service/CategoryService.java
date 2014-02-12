@@ -338,4 +338,15 @@ public class CategoryService {
 			throw new CoreServiceException(e);
 		}
 	}
+
+	public List<CategoryTreeDTO> getAllCategories() {
+		String sqlForAllCategory = "select c from Category c where c.status = 'ACTIVE' ";
+		TypedQuery<Category> query = em.createQuery(sqlForAllCategory, Category.class);
+		List<Category> allCategories = query.getResultList();
+		List<CategoryTreeDTO> results = new ArrayList<CategoryTreeDTO>();
+		for(Category c : allCategories) {
+			results.add(categoryTreeConverter.convert(c));
+		}
+		return results;
+	}
 }
