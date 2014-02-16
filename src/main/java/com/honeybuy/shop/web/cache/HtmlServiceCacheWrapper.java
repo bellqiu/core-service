@@ -19,4 +19,17 @@ public class HtmlServiceCacheWrapper {
 		HTML html= htmlService.getHTML(key);
 		return CloneUtil.<HTML>cloneThroughJson(html);
 	}
+	
+	public String getHTMLContent(String key){
+		HTML html= getHTML(key);
+		return html == null ? null : html.getContent();
+	}
+	
+	public String getHTMLContent(String key, String defaultContent){
+		HTML html= getHTML(key);
+		if(html == null || html.getContent() == null) {
+			return defaultContent;
+		}
+		return html.getContent();
+	}
 }

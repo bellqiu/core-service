@@ -94,5 +94,8 @@ public interface Constants {
 	public static final String PAYPAL_ACCOUNT_DEFAULT = "zhuwanshan@outlook.com";
 	
 	
+	public static final String HTML_ABOUT_US = "ABOUT_US";
+	public static final String HTML_CONTACT_US = "CONTACT_US";
+	
 	
 }

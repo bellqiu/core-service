@@ -58,6 +58,13 @@
 		</definition>
 		
 		
+		<!-- Help Center -->
+		<definition name="help.center.helpCenter" template="/WEB-INF/layout/helpCenterLayout.jsp">
+			<put-attribute name="leftNav" value="/WEB-INF/jsp/body/help/leftNav.jsp"></put-attribute>
+			<put-attribute name="helpContent" value="/WEB-INF/jsp/body/help/helpCenter.jsp"></put-attribute>
+		</definition>
+		
+		
 		<definition name="headerFooter" extends="standardLayout" >
         	  <put-attribute name="header" value="home.header.module"/>
         </definition>
@@ -196,7 +203,10 @@
         	  <put-attribute name="pageTitle" value="Order Detail"/>
         	  <put-attribute name="pageKeywords" value="Order Detail"/>
         	  <put-attribute name="pageDescription" value="Order Detail"/>
-        	  
+        </definition>
+        
+        <definition name="helpCenter" extends="headerFooter" >
+        	  <put-attribute name="body" value="help.center.helpCenter"/>
         </definition>
         
         <definition name="accessDenied" extends="headerFooter" >
