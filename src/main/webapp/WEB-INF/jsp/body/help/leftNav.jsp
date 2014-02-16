@@ -9,14 +9,15 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#helpLeftNav" href="#companyInfomation">
+						<a id="companyInfomationLink" class="helpTopLink" data-toggle="collapse" data-parent="#helpLeftNav" href="#companyInfomation">
+							<span class="glyphicon glyphicon-chevron-down"></span>
 							Company Information
 						</a>
 					</h4>
 				</div>
-				<div id="companyInfomation" class="panel-collapse collapse in">
+				<div id="companyInfomation" class="helpSub panel-collapse collapse in">
 					<div class="panel-body">
-						<ul>	
+						<ul class="helpItem">	
 							<li><a href="/help/about-us">About Us</a></li>
 							<li><a href="/help/contact-us">Contact Us</a></li>
 							<li><a href="/help/customer-service">Customer Service</a></li>
@@ -30,12 +31,13 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#helpLeftNav" href="#customerService">
+						<a class="helpTopLink" data-toggle="collapse" data-parent="#helpLeftNav" href="#customerService">
+							<span class="glyphicon glyphicon-chevron-right"></span>
 							Customer Service
 						</a>
 					</h4>
 				</div>
-				<div id="customerService" class="panel-collapse collapse">
+				<div id="customerService" class="helpSub panel-collapse collapse">
 					<div class="panel-body">
 						<ul>
 							<li><a href="/m-article-id-16-pid-.html">Warranty and Return</a></li>
@@ -51,12 +53,13 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#helpLeftNav" href="#myAccount">
+						<a class="helpTopLink" data-toggle="collapse" data-parent="#helpLeftNav" href="#myAccount">
+							<span class="glyphicon glyphicon-chevron-right"></span>
 							My Account
 						</a>
 					</h4>
 				</div>
-				<div id="myAccount" class="panel-collapse collapse">
+				<div id="myAccount" class="helpSub panel-collapse collapse">
 					<div class="panel-body">
 						<ul>	
 							<li><a href="/m-article-id-18-pid-.html">Login/Register </a></li>
@@ -72,12 +75,13 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#helpLeftNav" href="#otherInfomation">
+						<a class="helpTopLink" data-toggle="collapse" data-parent="#helpLeftNav" href="#otherInfomation">
+							<span class="glyphicon glyphicon-chevron-right"></span>
 							Other Information
 						</a>
 					</h4>
 				</div>
-				<div id="otherInfomation" class="panel-collapse collapse">
+				<div id="otherInfomation" class="helpSub panel-collapse collapse">
 					<div class="panel-body">
 						<ul>	
 							<li><a href="/m-article-id-39-pid-.html">Shipping &amp; Handling</a></li>
@@ -91,3 +95,17 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$("div#helpLeftNav>div").each(function(index,el){
+		var helpDiv = $(el).find(".helpSub");
+		helpDiv.on('hidden.bs.collapse', function () {
+			$(el).find("span").removeClass("glyphicon-chevron-down");
+			$(el).find("span").addClass("glyphicon-chevron-right");
+		})
+		helpDiv.on('shown.bs.collapse', function () {
+			$(el).find("span").removeClass("glyphicon-chevron-right");
+			$(el).find("span").addClass("glyphicon-chevron-down");
+		})
+	})
+</script>

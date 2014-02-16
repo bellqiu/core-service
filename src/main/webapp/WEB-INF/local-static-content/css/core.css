@@ -785,3 +785,7 @@ input[type=password] {
 li.useractionItem{
 	width: 80%;
 }
+
+.helpItem li {
+	padding-left: 25px;
+}
