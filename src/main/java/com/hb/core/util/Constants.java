@@ -96,6 +96,8 @@ public interface Constants {
 	
 	public static final String HTML_ABOUT_US = "ABOUT_US";
 	public static final String HTML_CONTACT_US = "CONTACT_US";
-	
+	public static final String HTML_CUSTOMER_SERVICE = "CUSTOMER_SERVICE";
+	public static final String HTML_PRIVACY_POLICIES = "PRIVACY_POLICIES";
+	public static final String HTML_LEGAL_WINDOW = "LEGAL_WINDOW";	
 	
 }

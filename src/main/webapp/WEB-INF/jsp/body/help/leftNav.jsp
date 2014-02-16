@@ -19,9 +19,9 @@
 						<ul>	
 							<li><a href="/help/about-us">About Us</a></li>
 							<li><a href="/help/contact-us">Contact Us</a></li>
-							<li><a href="/m-article-id-28-pid-.html">Customer Service</a></li>
-							<li><a href="/m-article-id-83-pid-.html">Privacy Policies</a></li>
-							<li><a href="/m-article-id-88-pid-.html">Legal Window</a></li>
+							<li><a href="/help/customer-service">Customer Service</a></li>
+							<li><a href="/help/privacy-policies">Privacy Policies</a></li>
+							<li><a href="/help/legal-window">Legal Window</a></li>
 						</ul>
 					</div>
 				</div>
