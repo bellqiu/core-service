@@ -73,6 +73,62 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
+	@RequestMapping("/warranty-return")
+	public String warrantyReturn(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_WARRANTY_AND_RETURN, "Warranty and Return");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Warranty and Return");
+		model.addAttribute("page", "customerService");
+		
+		addPageMeta(model, "Warranty and Return", "Warranty and Return", "Warranty and Return");
+		return "helpCenter";
+	}
+	
+	@RequestMapping("/payment-methods")
+	public String paymentMethods(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_PAYMENT_METHODS, "Payment Methods");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Payment Methods");
+		model.addAttribute("page", "customerService");
+		
+		addPageMeta(model, "Payment Methods", "Payment Methods", "Payment Methods");
+		return "helpCenter";
+	}
+	
+	@RequestMapping("/teams-conditions")
+	public String teamsConditions(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_TEAMS_AND_CONDITIONS, "Terms and Conditions");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Terms and Conditions");
+		model.addAttribute("page", "customerService");
+		
+		addPageMeta(model, "Terms and Conditions", "Terms and Conditions", "Terms and Conditions");
+		return "helpCenter";
+	}
+	
+	@RequestMapping("/shipping-handling")
+	public String shippingHandling(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_SHIPPING_HANDLING, "Shipping&Handling");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Shipping&Handling");
+		model.addAttribute("page", "customerService");
+		
+		addPageMeta(model, "Shipping&Handling", "Shipping&Handling", "Shipping&Handling");
+		return "helpCenter";
+	}
+	
+	@RequestMapping("/testimonials")
+	public String testimonials(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_LEGAL_WINDOW, "Testimonials");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Testimonials");
+		model.addAttribute("page", "customerService");
+		
+		addPageMeta(model, "Testimonials", "Testimonials", "Testimonials");
+		return "helpCenter";
+	}
+	
+	
 	public void addPageMeta(Model model, String title, String keywords, String description) {
 		PageMeta meta = new PageMeta();
 		meta.setTitle(title);

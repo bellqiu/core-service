@@ -98,6 +98,11 @@ public interface Constants {
 	public static final String HTML_CONTACT_US = "CONTACT_US";
 	public static final String HTML_CUSTOMER_SERVICE = "CUSTOMER_SERVICE";
 	public static final String HTML_PRIVACY_POLICIES = "PRIVACY_POLICIES";
-	public static final String HTML_LEGAL_WINDOW = "LEGAL_WINDOW";	
+	public static final String HTML_LEGAL_WINDOW = "LEGAL_WINDOW";
+	public static final String HTML_WARRANTY_AND_RETURN = "WARRANTY_AND_RETURN";
+	public static final String HTML_PAYMENT_METHODS = "PAYMENT_METHODS";
+	public static final String HTML_TEAMS_AND_CONDITIONS = "TEAMS_AND_CONDITIONS";
+	public static final String HTML_SHIPPING_HANDLING = "SHIPPING_HANDLING";
+	public static final String HTML_TESTIMONIALS = "TESTIMONIALS";
 	
 }

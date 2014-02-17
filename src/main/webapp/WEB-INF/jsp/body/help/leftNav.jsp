@@ -9,7 +9,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a id="companyInfomationLink" class="helpTopLink" data-toggle="collapse" data-parent="#helpLeftNav" href="#companyInfomation">
+						<a class="helpTopLink" data-toggle="collapse" data-parent="#helpLeftNav" href="#companyInfomation">
 							<span class="glyphicon glyphicon-chevron-down"></span>
 							Company Information
 						</a>
@@ -39,12 +39,12 @@
 				</div>
 				<div id="customerService" class="helpSub panel-collapse collapse">
 					<div class="panel-body">
-						<ul>
-							<li><a href="/m-article-id-16-pid-.html">Warranty and Return</a></li>
-							<li><a href="/m-article-id-29-pid-.html">Payment Methods</a></li>
-							<li><a href="/m-article-id-84-pid-.html">Terms and Conditions</a></li>
-							<li><a href="/m-article-id-87-pid-.html">Shipping&amp;Handling</a></li>
-							<li><a href="/m-article-id-89-pid-.html">Testimonials</a></li>
+						<ul class="helpItem">
+							<li><a href="/help/warranty-return">Warranty and Return</a></li>
+							<li><a href="/help/payment-methods">Payment Methods</a></li>
+							<li><a href="/help/teams-conditions">Terms and Conditions</a></li>
+							<li><a href="/help/shipping-handling">Shipping&amp;Handling</a></li>
+							<li><a href="/help/testimonials">Testimonials</a></li>
 						</ul>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 				</div>
 				<div id="myAccount" class="helpSub panel-collapse collapse">
 					<div class="panel-body">
-						<ul>	
+						<ul class="helpItem">	
 							<li><a href="/m-article-id-18-pid-.html">Login/Register </a></li>
 							<li><a href="/m-article-id-19-pid-.html">Order History</a></li>
 							<li><a href="/m-article-id-32-pid-.html">My Favorites</a></li>
@@ -83,11 +83,11 @@
 				</div>
 				<div id="otherInfomation" class="helpSub panel-collapse collapse">
 					<div class="panel-body">
-						<ul>	
+						<ul class="helpItem">	
 							<li><a href="/m-article-id-39-pid-.html">Shipping &amp; Handling</a></li>
 							<li><a href="/m-article-id-65-pid-.html">Large Order Quotations</a></li>
 							<li><a href="/m-article-id-81-pid-.html">Lowest Price Guarantee</a></li>
-							<li><a href="/m-article-id-86-pid-.html">寻求供应商</a></li>
+							<li><a href="/m-article-id-86-pid-.html">Look for Vendors</a></li>
 						</ul>
 					</div>
 				</div>
@@ -108,4 +108,15 @@
 			$(el).find("span").addClass("glyphicon-chevron-down");
 		})
 	})
+	var page = '${page}';
+	if(page == 'customerService') {
+		$("#companyInfomation").removeClass("in");
+		$("#customerService").addClass("in");
+	} else if(page == 'myAccount') {
+		$("#companyInfomation").removeClass("in");
+		$("#myAccount").addClass("in");
+	} else if(page == 'otherInfomation') {
+		$("#companyInfomation").removeClass("in");
+		$("#otherInfomation").addClass("in");
+	}
 </script>
