@@ -786,6 +786,13 @@ li.useractionItem{
 	width: 80%;
 }
 
+/******************Start help center ********************************/
 .helpItem li {
-	padding-left: 25px;
+	padding-left: 20px;
 }
+
+.helpTopLink span{
+	font-size: .6em!important;
+	font-weight: normal!important;
+}
+/******************End help center ********************************/

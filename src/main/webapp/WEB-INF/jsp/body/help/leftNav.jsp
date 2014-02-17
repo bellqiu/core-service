@@ -42,7 +42,7 @@
 						<ul class="helpItem">
 							<li><a href="/help/warranty-return">Warranty and Return</a></li>
 							<li><a href="/help/payment-methods">Payment Methods</a></li>
-							<li><a href="/help/teams-conditions">Terms and Conditions</a></li>
+							<li><a href="/help/terms-conditions">Terms and Conditions</a></li>
 							<li><a href="/help/shipping-handling">Shipping&amp;Handling</a></li>
 							<li><a href="/help/testimonials">Testimonials</a></li>
 						</ul>
@@ -62,10 +62,10 @@
 				<div id="myAccount" class="helpSub panel-collapse collapse">
 					<div class="panel-body">
 						<ul class="helpItem">	
-							<li><a href="/m-article-id-18-pid-.html">Login/Register </a></li>
-							<li><a href="/m-article-id-19-pid-.html">Order History</a></li>
-							<li><a href="/m-article-id-32-pid-.html">My Favorites</a></li>
-							<li><a href="/m-article-id-85-pid-.html">FAQ</a></li>
+							<li><a href="/ac/login">Login/Register</a></li>
+							<li><a href="/od/myOrder">Order History</a></li>
+							<li><a href="/ac/address">Manage Address</a></li>
+							<li><a href="/help/faq">FAQ</a></li>
 							<li><a href="/m-article-id-91-pid-.html">Affiliate Program</a></li>
 						</ul>
 					</div>
@@ -84,10 +84,10 @@
 				<div id="otherInfomation" class="helpSub panel-collapse collapse">
 					<div class="panel-body">
 						<ul class="helpItem">	
-							<li><a href="/m-article-id-39-pid-.html">Shipping &amp; Handling</a></li>
-							<li><a href="/m-article-id-65-pid-.html">Large Order Quotations</a></li>
-							<li><a href="/m-article-id-81-pid-.html">Lowest Price Guarantee</a></li>
-							<li><a href="/m-article-id-86-pid-.html">Look for Vendors</a></li>
+							<li><a href="/help/shipping-and-handling">Shipping &amp; Handling</a></li>
+							<li><a href="/help/large-order-quotations">Large Order Quotations</a></li>
+							<li><a href="/help/lowest-price-guarantee">Lowest Price Guarantee</a></li>
+							<li><a href="/help/look-for-vendors">Look for Vendors</a></li>
 						</ul>
 					</div>
 				</div>
@@ -118,5 +118,5 @@
 	} else if(page == 'otherInfomation') {
 		$("#companyInfomation").removeClass("in");
 		$("#otherInfomation").addClass("in");
-	}
+	} 
 </script>

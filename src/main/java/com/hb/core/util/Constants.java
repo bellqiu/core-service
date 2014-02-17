@@ -94,15 +94,19 @@ public interface Constants {
 	public static final String PAYPAL_ACCOUNT_DEFAULT = "zhuwanshan@outlook.com";
 	
 	
-	public static final String HTML_ABOUT_US = "ABOUT_US";
-	public static final String HTML_CONTACT_US = "CONTACT_US";
-	public static final String HTML_CUSTOMER_SERVICE = "CUSTOMER_SERVICE";
-	public static final String HTML_PRIVACY_POLICIES = "PRIVACY_POLICIES";
-	public static final String HTML_LEGAL_WINDOW = "LEGAL_WINDOW";
-	public static final String HTML_WARRANTY_AND_RETURN = "WARRANTY_AND_RETURN";
-	public static final String HTML_PAYMENT_METHODS = "PAYMENT_METHODS";
-	public static final String HTML_TEAMS_AND_CONDITIONS = "TEAMS_AND_CONDITIONS";
-	public static final String HTML_SHIPPING_HANDLING = "SHIPPING_HANDLING";
-	public static final String HTML_TESTIMONIALS = "TESTIMONIALS";
+	public static final String HTML_ABOUT_US = "HELP_ABOUT_US";
+	public static final String HTML_CONTACT_US = "HELP_CONTACT_US";
+	public static final String HTML_CUSTOMER_SERVICE = "HELP_CUSTOMER_SERVICE";
+	public static final String HTML_PRIVACY_POLICIES = "HELP_PRIVACY_POLICIES";
+	public static final String HTML_LEGAL_WINDOW = "HELP_LEGAL_WINDOW";
+	public static final String HTML_WARRANTY_AND_RETURN = "HELP_WARRANTY_AND_RETURN";
+	public static final String HTML_PAYMENT_METHODS = "HELP_PAYMENT_METHODS";
+	public static final String HTML_TERMS_AND_CONDITIONS = "HELP_TERMS_AND_CONDITIONS";
+	public static final String HTML_SHIPPING_HANDLING = "HELP_SHIPPING_HANDLING";
+	public static final String HTML_TESTIMONIALS = "HELP_TESTIMONIALS";
+	public static final String HTML_FAQ = "HELP_FAQ";
+	public static final String HTML_LARGE_ORDER_QUOTATIONS = "HELP_LARGE_ORDER_QUOTATIONS";
+	public static final String HTML_LOWEST_PRICE_GUARANTEE = "HELP_LOWEST_PRICE_GUARANTEE";
+	public static final String HTML_LOOK_FOR_VENDORS = "HELP_LOOK_FOR_VENDORS";
 	
 }

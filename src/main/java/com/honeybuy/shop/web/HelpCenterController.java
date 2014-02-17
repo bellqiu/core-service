@@ -95,9 +95,9 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
-	@RequestMapping("/teams-conditions")
-	public String teamsConditions(Model model) {
-		String htmlContent = htmlService.getHTMLContent(Constants.HTML_TEAMS_AND_CONDITIONS, "Terms and Conditions");
+	@RequestMapping("/terms-conditions")
+	public String termsConditions(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_TERMS_AND_CONDITIONS, "Terms and Conditions");
 		model.addAttribute("content", htmlContent);
 		model.addAttribute("panelTitle", "Terms and Conditions");
 		model.addAttribute("page", "customerService");
@@ -119,12 +119,67 @@ public class HelpCenterController {
 	
 	@RequestMapping("/testimonials")
 	public String testimonials(Model model) {
-		String htmlContent = htmlService.getHTMLContent(Constants.HTML_LEGAL_WINDOW, "Testimonials");
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_TESTIMONIALS, "Testimonials");
 		model.addAttribute("content", htmlContent);
 		model.addAttribute("panelTitle", "Testimonials");
 		model.addAttribute("page", "customerService");
 		
 		addPageMeta(model, "Testimonials", "Testimonials", "Testimonials");
+		return "helpCenter";
+	}
+	
+	@RequestMapping("/faq")
+	public String faq(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_FAQ, "FQA");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "FQA");
+		model.addAttribute("page", "myAccount");
+		
+		addPageMeta(model, "FQA", "FQA", "FQA");
+		return "helpCenter";
+	}
+	
+	@RequestMapping("/shipping-and-handling")
+	public String shippingAndHandling(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_SHIPPING_HANDLING, "Shipping & Handling");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Shipping & Handling");
+		model.addAttribute("page", "otherInfomation");
+		
+		addPageMeta(model, "Shipping & Handling", "Shipping & Handling", "Shipping & Handling");
+		return "helpCenter";
+	}
+	
+	@RequestMapping("/large-order-quotations")
+	public String largeOrderQuotations(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_LARGE_ORDER_QUOTATIONS, "Large Order Quotations");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Large Order Quotations");
+		model.addAttribute("page", "otherInfomation");
+		
+		addPageMeta(model, "Large Order Quotations", "Large Order Quotations", "Large Order Quotations");
+		return "helpCenter";
+	}
+	
+	@RequestMapping("/lowest-price-guarantee")
+	public String lowestPriceGuarantee(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_LOWEST_PRICE_GUARANTEE, "Lowest Price Guarantee");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Lowest Price Guarantee");
+		model.addAttribute("page", "otherInfomation");
+		
+		addPageMeta(model, "Lowest Price Guarantee", "Lowest Price Guarantee", "Lowest Price Guarantee");
+		return "helpCenter";
+	}
+	
+	@RequestMapping("/look-for-vendors")
+	public String lookForVendors(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_LOOK_FOR_VENDORS, "Look for Vendors");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Look for Vendors");
+		model.addAttribute("page", "otherInfomation");
+		
+		addPageMeta(model, "Look for Vendors", "Look for Vendors", "Look for Vendors");
 		return "helpCenter";
 	}
 	
