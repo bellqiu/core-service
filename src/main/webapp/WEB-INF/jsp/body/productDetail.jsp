@@ -20,7 +20,9 @@ var productOpts = "${currentProductOptions}";
 	<div class="row">
 		<div class="col-md-7 col-xs-7 padding10 ProductImageRegion">
 			<div class="row">
-				<div class="col-md-1 col-xs-1">Buttons</div>
+				<div class="col-md-1 col-xs-1">
+					<hb:htmltag htmlKey="PRODUCT_SHARE_BUTTONS"/>
+				</div>
 				<div class="col-md-11 col-xs-11">
 					<ul class="bxslider">
 						<c:forEach items="${currentProductDetail.images}" var="img">
@@ -177,7 +179,9 @@ var productOpts = "${currentProductOptions}";
 					</div>
 				</div>
 
-
+				<div class="col-md-12 col-xs-12 padding10">
+					<hb:htmltag htmlKey="AD_PRODUCT_DETAIL"/>
+				</div>
 
 
 				<div class="col-md-12 col-xs-12 padding10">
