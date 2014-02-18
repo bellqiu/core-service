@@ -333,8 +333,7 @@
 						<button type="button" data-loading-text="Processing.."
 							class="btn btn-danger float_right"
 							id="paymentProcessToCheckoutBtn"
-							data-order-id="${currentOrder.id }" data-title="Error">Process
-							to Checkout</button>
+							data-order-id="${currentOrder.id }" data-title="Error">Proceed to Checkout</button>
 					</div>
 				</div>
 			</div>
