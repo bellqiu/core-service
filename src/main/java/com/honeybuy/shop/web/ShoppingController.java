@@ -183,12 +183,10 @@ public class ShoppingController {
 			
 			if(billingAddIdRef > 0){
 				billingAdd = userService.getUserAddressById(billingAddIdRef, useremail);
-			}else{
-				billingAdd = userService.getUserAddressById(shippingAddIdRef, useremail);
 			}
 			
 			if(null == billingAdd){
-				orderDetailDTO = orderService.updateOrderShippingAddress(details.getUsername(), addresses.get(0), orderId);
+				orderDetailDTO = orderService.updateOrderBillingAddress(details.getUsername(), addresses.get(0), orderId);
 			}
 			
 			model.addAttribute("addresses", addresses);

@@ -64,231 +64,280 @@
 			</c:forEach>
 		</div>
 	</div>
-	
+
 	<div class="panel panel-default" id="OrderAddressPanel">
 		<div class="panel-heading">
 			<div class="row">
 				<span class="padding10">Shipping & Delivery</span>
 			</div>
 		</div>
-		
+
 		<div class="panel-body">
-			 <div class="row rowContent">
-			 			<div class="row ">Shipping Address: 
-			 				<c:if test="${fn:length(addresses) < 6 }">
-			 					<a href="#" id="new_shipping_address" data-order-id="${currentOrder.id }">New Shipping Address</a>
-			 				</c:if>
-			 			</div>
-			 			<div class="row col-xs-11 col-xs-offset-1">
-			 				<div>
-				 				<ul class="ShippingAddresslineContainer">
-				 					<c:forEach items="${addresses }" var="add" end="5">
-				 						<li>
-												<input  class="shippingAddress" data-order-id="${currentOrder.id }" type="radio" ${(add.id == currentOrder.shippingAddressRef)? "checked='checked'" :""  } name="shipping_address_id" id="saddr_${add.id }" value="${add.id}">
-												<label for="addr_${add.id }"><strong>${add}</strong></label>
-												&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)" data-address-id="${add.id}" data-order-id="${currentOrder.id }">Edit</a>
-										</li>
-									</c:forEach>
-				 				</ul>
-			 				</div>
-			 			</div>
-			 			
-			 </div>
-			 <div class="row rowContent">
-			 			<div class="row ">Billing Address: 
-		 				<c:if test="${fn:length(addresses) < 6 }">
-		 					<a href="#" id="new_billing_address" data-order-id="${currentOrder.id }">New Billing Address</a>
-		 				</c:if>
-			 			<div class="row col-xs-11 col-xs-offset-1">
-			 				<div>
-				 				<ul class="BillingAddresslineContainer">
-				 					<c:forEach items="${addresses }" var="add" end="5">
-				 						<li >
-												<input class="billingAddress" data-order-id="${currentOrder.id }" type="radio" ${(add.id == currentOrder.billingAddressRef)? "checked='checked'" :""  } name="billing_address_id" id="baddr_${add.id }" value="${add.id}">
-												<label for="addr_${add.id }"><strong>${add}</strong></label>
-												&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)"  data-order-id="${currentOrder.id }" data-address-id="${add.id}">Edit</a>
-										</li>
-									</c:forEach>
-				 				</ul>
-			 				</div>
-			 			</div>
-			 			
-			 </div>
-			<!-- 	<div id="countries_states2" class="bfh-selectbox bfh-countries" data-country="US" data-filter="true" data-flags="true">
+			<div class="row rowContent">
+				<div class="row ">
+					Shipping Address:
+					<c:if test="${fn:length(addresses) < 6 }">
+						<a href="#" id="new_shipping_address"
+							data-order-id="${currentOrder.id }">New Shipping Address</a>
+					</c:if>
+				</div>
+				<div class="row col-xs-11 col-xs-offset-1">
+					<div>
+						<ul class="ShippingAddresslineContainer">
+							<c:forEach items="${addresses }" var="add" end="5">
+								<li><input class="shippingAddress"
+									data-order-id="${currentOrder.id }" type="radio"
+									${(add.id == currentOrder.shippingAddressRef)? "checked='checked'" :""  }
+									name="shipping_address_id" id="saddr_${add.id }"
+									value="${add.id}"> <label for="addr_${add.id }"><strong>${add}</strong></label>
+									&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)"
+									data-address-id="${add.id}" data-order-id="${currentOrder.id }">Edit</a>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+			<div class="row rowContent">
+				<div class="row ">
+					Billing Address:
+					<c:if test="${fn:length(addresses) < 6 }">
+						<a href="#" id="new_billing_address"
+							data-order-id="${currentOrder.id }">New Billing Address</a>
+					</c:if>
+					<div class="row col-xs-11 col-xs-offset-1">
+						<div>
+							<ul class="BillingAddresslineContainer">
+								<c:forEach items="${addresses }" var="add" end="5">
+									<li><input class="billingAddress"
+										data-order-id="${currentOrder.id }" type="radio"
+										${(add.id == currentOrder.billingAddressRef)? "checked='checked'" :""  }
+										name="billing_address_id" id="baddr_${add.id }"
+										value="${add.id}"> <label for="addr_${add.id }"><strong>${add}</strong></label>
+										&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)"
+										data-order-id="${currentOrder.id }"
+										data-address-id="${add.id}">Edit</a></li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+				<!-- 	<div id="countries_states2" class="bfh-selectbox bfh-countries" data-country="US" data-filter="true" data-flags="true">
 				</div>
 				<br><br>
 				<div class="bfh-selectbox bfh-states" data-country="countries_states2" data-filter="true">
 				</div> -->
+			</div>
 		</div>
 	</div>
-	</div>
-		
+
 	<div class="panel panel-default" id="ShippingMethodPanel">
 		<div class="panel-heading">
 			<div class="row">
 				<span class="padding10">Shipping Method</span>
 			</div>
 		</div>
-		
+
 		<div class="panel-body">
-			 <div class="row rowContent">
-			 	<div class="row col-xs-3">
-			 		<input type="radio" name="shippingMethod" data-order-id="${currentOrder.id }" value="NORMAL"  ${("NORMAL" == currentOrder.shippingMethod)? "checked='checked'" :""  }  > Standard Shipping
-			 	</div>
-			 	<div class="row col-xs-3">
-			 		Normally 4 - 6 days
-			 	</div>
-			 	<div class="row col-xs-6">
-			 		<hb:printCurrency/> <span id="orderShippingMethodNormalSpan"><hb:printPrice price="${normalDeliverPrice } " withCurrency="false"/></span>
-			 	</div>
-			 </div>		
-			  <div class="row rowContent">
-			 	<div class="row col-xs-3">
-			 		<input type="radio" name="shippingMethod" data-order-id="${currentOrder.id }"value="EXPEDITED" ${("EXPEDITED" == currentOrder.shippingMethod)? "checked='checked'" :""  }> Expedited Shipping
-			 	</div>
-			 	<div class="row col-xs-3">
-			 		Normally 4 - 6 days
-			 	</div>
-			 	<div class="row col-xs-6">
-			 		<hb:printCurrency/> <span id="orderShippingMethodExpeditedSpan"><hb:printPrice price="${expeditedDeliverPrice }" withCurrency="false"/></span>
-			 	</div>
-			 </div>	
-			  <div class="row rowContent">
-			  		<span>When will my order arrive?</span>	<br/>
-			  		<p>
-			  			<img src="/resources/css/img/processing-time.jpg">
-			  		</p>
-			  		Processing time is the time includes preparing your items, performing quality checks, and packing for shipment. 
-					Processing Time: 7-12 days for standard, 5-8 days for urgent(Custom-Made Items) 1-3 Days for others(Ready to Ship Items). Shipping Time: 3-5 business days.
-			  </div>
+			<div class="row rowContent">
+				<div class="row col-xs-3">
+					<input type="radio" name="shippingMethod"
+						data-order-id="${currentOrder.id }" value="NORMAL"
+						${("NORMAL" == currentOrder.shippingMethod)? "checked='checked'" :""  }>
+					Standard Shipping
+				</div>
+				<div class="row col-xs-3">Normally 4 - 6 days</div>
+				<div class="row col-xs-6">
+					<hb:printCurrency />
+					<span id="orderShippingMethodNormalSpan"><hb:printPrice
+							price="${normalDeliverPrice } " withCurrency="false" /></span>
+				</div>
+			</div>
+			<div class="row rowContent">
+				<div class="row col-xs-3">
+					<input type="radio" name="shippingMethod"
+						data-order-id="${currentOrder.id }" value="EXPEDITED"
+						${("EXPEDITED" == currentOrder.shippingMethod)? "checked='checked'" :""  }>
+					Expedited Shipping
+				</div>
+				<div class="row col-xs-3">Normally 4 - 6 days</div>
+				<div class="row col-xs-6">
+					<hb:printCurrency />
+					<span id="orderShippingMethodExpeditedSpan"><hb:printPrice
+							price="${expeditedDeliverPrice }" withCurrency="false" /></span>
+				</div>
+			</div>
+			<div class="row rowContent">
+				<span>When will my order arrive?</span> <br />
+				<p>
+					<img src="/resources/css/img/processing-time.jpg">
+				</p>
+				Processing time is the time includes preparing your items,
+				performing quality checks, and packing for shipment. Processing
+				Time: 7-12 days for standard, 5-8 days for urgent(Custom-Made Items)
+				1-3 Days for others(Ready to Ship Items). Shipping Time: 3-5
+				business days.
+			</div>
 		</div>
 	</div>
-	
+
 	<div class="panel panel-default" id="paymentMethodPanel">
 		<div class="panel-heading">
 			<div class="row">
 				<span class="padding10">Payment Method</span>
 			</div>
 		</div>
-		
+
 		<div class="panel-body">
-			 <div class="row rowContent">
-			 	<div class="row col-xs-3">
-				<div class="bfh-selectbox" data-name="paymentmethod" data-value="${defaultPayment }">
-					<c:forEach items="${paymentMethods }" var="payment">
-						<div data-value="${payment.key }">${payment.value }</div>
-					</c:forEach>
-				</div>
-				</div>
+			<div class="row rowContent">
+			<c:forEach items="${paymentMethods }" var="payment" varStatus="status">
+				<div class="row col-xs-3">
+
+					<div class="row rowContent">
+						
+							<div class="col-xs-3">
+								<input name="paymentmethod" type="radio"
+									value="${payment.key }" ${(status.index == 0) ? "checked='checked'" : ""}  >
+							</div>
+							<div class="col-xs-9">
+								${payment.value }:
+								<div ID="paymentdesc_${payment.key }">
+									<hb:htmltag htmlKey="PAYMENT_DESC_${payment.key }" />
+								</div>
+							</div>
+						
+					</div>
+
+					<%-- <div class="bfh-selectbox" data-name="paymentmethod" data-value="${defaultPayment }">
+						<c:forEach items="${paymentMethods }" var="payment">
+							<div data-value="${payment.key }">${payment.value }</div>
+						</c:forEach>
+					</div> --%>
+					</div>
+				</c:forEach>
 			</div>
-			 <div class="row rowContent">
+			<%-- 	 <div class="row rowContent">
 				 <c:forEach items="${paymentMethods }" var="payment">
 				 	<div ID="paymentdesc_${payment.key }">
 						<hb:htmltag htmlKey="PAYMENT_DESC_${payment.key }"/>
 				 	</div>
 			 	</c:forEach>
 			 </div>
+ --%>
 		</div>
 	</div>
-	
+
 	<div class="panel panel-default" id="paymentsumaryPanel">
 		<div class="panel-body">
+			<div class="row">
 				<div class="row">
-						<div  class="row">
-							<div class="col-xs-8">
-								<div class="row rowContent">&nbsp;</div>
-								<div class="row rowContent">
-									<div class="row">
-										<div class="col-xs-3" style="line-height: 2.5em">
-											Enter Coupon:
-										</div>
-										<div class="col-xs-5">
-											<input style="width: 100%" class="form-control" name="couponCode" />
-										</div>
-										<div class="col-xs-4">
-											<button class="btn btn-default" type="button" data-order-id="${currentOrder.id }"  id="applyCouponButton">Apply</button>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-xs-3"> </div>
-										<div class="col-xs-7">
-											<div class="alert alert-danger couponErrorArea">
-												Invalid Coupon code
-											</div>
-											<div class="alert alert-info couponInfoArea">
-												Invalid Coupon code
-											</div>
-										</div>
-											<div class="col-xs-2"></div>
-									</div>
+					<div class="col-xs-8">
+						<div class="row rowContent">&nbsp;</div>
+						<div class="row rowContent">
+							<div class="row">
+								<div class="col-xs-3" style="line-height: 2.5em">Enter
+									Coupon:</div>
+								<div class="col-xs-5">
+									<input style="width: 100%" class="form-control"
+										name="couponCode" />
 								</div>
-								
-								<div class="row rowContent">
-									<div class="row">
-										<div class="col-xs-3" style="line-height: 2.5em">
-											Leave a Message:
-										</div>
-										<div class="col-xs-7">
-											<textarea rows="" cols="" class="form-control" style="width: 100%;height: 80px" name="orderMsg" >${currentOrder.customerMsg }</textarea>
-										</div>
-										<div class="col-xs-2"></div>
-									</div>
+								<div class="col-xs-4">
+									<button class="btn btn-default" type="button"
+										data-order-id="${currentOrder.id }" id="applyCouponButton">Apply</button>
 								</div>
 							</div>
-						
-							<div class="col-xs-4">
-								<div class="row">
-									<div class="row rowContent">
-										<div class="row under_score orderPrice-summary">
-											<div class="row col-xs-6">Item Sub total:</div>
-											<div class="row col-xs-6 orderPrice-summary_value">
-												<hb:printCurrency/> <span id="orderItemTotalSpan"><hb:printPrice price="${currentOrder.itemTotal }" withCurrency="false" /></span>
-											</div>
-										</div>
-									</div>
+							<div class="row">
+								<div class="col-xs-3"></div>
+								<div class="col-xs-7">
+									<div class="alert alert-danger couponErrorArea">Invalid
+										Coupon code</div>
+									<div class="alert alert-info couponInfoArea">Invalid
+										Coupon code</div>
 								</div>
-								<div class="row">
-									<div class="row rowContent">
-										<div class="row under_score orderPrice-summary">
-											<div class="row col-xs-6">Coupon:</div>
-											<div class="row col-xs-6 orderPrice-summary_value">
-												- <hb:printCurrency/> <span id="orderCouponCutOffSpan"><hb:printPrice price="${currentOrder.couponCutOff }" withCurrency="false" /></span>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								<div class="row">
-									<div class="row rowContent">
-										<div class="row under_score orderPrice-summary">
-											<div class="row col-xs-6">Shipping Cost:</div>
-											<div class="row col-xs-6 orderPrice-summary_value">
-												 <hb:printCurrency/> <span id="orderShippingCostSpan"><hb:printPrice price="${currentOrder.deliveryPrice }" withCurrency="false" /></span>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								<div class="row rowContent">
-									<div class="row ">
-										<div class="row orderPrice-summary orderPrice-summary-all">
-											<div class="row col-xs-6">Grand Total:</div>
-											<div class="row col-xs-6 orderPrice-summary_value">
-												 <hb:printCurrency/> <span id="orderGrandTotalSpan"><hb:printPrice price="${currentOrder.grandTotal }" withCurrency="false" /></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-								
-						</div>
-						<div class="row order_buttons">
-							<div class="col-xs-3 col-xs-offset-9  padding10">
-								<button type="button" data-loading-text="Processing.."
-							class="btn btn-danger float_right" id="paymentProcessToCheckoutBtn" data-order-id="${currentOrder.id }" data-title="Error">Process to Checkout</button>
+								<div class="col-xs-2"></div>
 							</div>
 						</div>
-			</div>	
+
+						<div class="row rowContent">
+							<div class="row">
+								<div class="col-xs-3" style="line-height: 2.5em">Leave a
+									Message:</div>
+								<div class="col-xs-7">
+									<textarea rows="" cols="" class="form-control"
+										style="width: 100%; height: 80px" name="orderMsg">${currentOrder.customerMsg }</textarea>
+								</div>
+								<div class="col-xs-2"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-4">
+						<div class="row">
+							<div class="row rowContent">
+								<div class="row under_score orderPrice-summary">
+									<div class="row col-xs-6">Item Sub total:</div>
+									<div class="row col-xs-6 orderPrice-summary_value">
+										<hb:printCurrency />
+										<span id="orderItemTotalSpan"><hb:printPrice
+												price="${currentOrder.itemTotal }" withCurrency="false" /></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="row rowContent">
+								<div class="row under_score orderPrice-summary">
+									<div class="row col-xs-6">Coupon:</div>
+									<div class="row col-xs-6 orderPrice-summary_value">
+										-
+										<hb:printCurrency />
+										<span id="orderCouponCutOffSpan"><hb:printPrice
+												price="${currentOrder.couponCutOff }" withCurrency="false" /></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="row rowContent">
+								<div class="row under_score orderPrice-summary">
+									<div class="row col-xs-6">Shipping Cost:</div>
+									<div class="row col-xs-6 orderPrice-summary_value">
+										<hb:printCurrency />
+										<span id="orderShippingCostSpan"><hb:printPrice
+												price="${currentOrder.deliveryPrice }" withCurrency="false" /></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row rowContent">
+							<div class="row ">
+								<div class="row orderPrice-summary orderPrice-summary-all">
+									<div class="row col-xs-6">Grand Total:</div>
+									<div class="row col-xs-6 orderPrice-summary_value">
+										<hb:printCurrency />
+										<span id="orderGrandTotalSpan"><hb:printPrice
+												price="${currentOrder.grandTotal }" withCurrency="false" /></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row order_buttons">
+					<div class="col-xs-3 col-xs-offset-9  padding10">
+						<button type="button" data-loading-text="Processing.."
+							class="btn btn-danger float_right"
+							id="paymentProcessToCheckoutBtn"
+							data-order-id="${currentOrder.id }" data-title="Error">Process
+							to Checkout</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
