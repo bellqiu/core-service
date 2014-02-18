@@ -139,6 +139,7 @@
 							updateOrderPrice(json.messageMap);
 						}else{
 							alert("Failed");
+							location.reload();
 						}
 						
 						$("#ShippingMethodPanel").unmask();
@@ -199,6 +200,7 @@
 							json = JSON.parse(response.responseText);
 						}catch(e){
 							error = "Something wrong";
+							location.reload();
 						}
 						if(json && json.success){
 							window.location.href=window.location.protocol + "//"+window.location.host + "/sp/payment/"+paymentMethod+"/checkout/"+orderId;
@@ -241,12 +243,14 @@
 							json = JSON.parse(response.responseText);
 						}catch(e){
 							error = "Something wrong";
+							location.reload();
 						}
 						
 						if(json && json.success){
 							$("#paypaysubmitForm").submit();
 						}else{
 							alert("Error");
+							location.reload();
 						}
 					}
 				});
