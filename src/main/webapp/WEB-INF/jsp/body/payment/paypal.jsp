@@ -4,7 +4,7 @@
 <%@taglib prefix="hb" uri="/WEB-INF/tag/HBTag.tld"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions'%>
-<div class="container mainContainer">
+<div class="container mainContainer" style="display: none;">
 	  <div class="row">
 		<ol class="breadcrumb">
   				<li><a href="${site.domain}">Home</a></li>

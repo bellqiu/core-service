@@ -13,6 +13,13 @@
         	
         </definition>
         
+          <definition name="noHeaderFooter" template="/WEB-INF/layout/cleanContent.jsp" >
+        	 <put-attribute name="body" value="/WEB-INF/jsp/body/blank.jsp"/>
+        	 <put-attribute name="pageTitle" value=""/>
+        	 <put-attribute name="pageKeywords" value=""/>
+        	 <put-attribute name="pageDescription" value=""/>
+        </definition>
+        
         	
 		<definition name="shoppingCartMain" template="/WEB-INF/layout/orderFragmentLayout.jsp" >
         </definition>
@@ -137,7 +144,7 @@
         <definition name="addressFragment" template="/WEB-INF/jsp/body/address/addressFragment.jsp" >
         </definition>
         
-         <definition name="paypal" extends="headerFooter" >
+         <definition name="paypal" extends="noHeaderFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/payment/paypal.jsp"/>
         	  <put-attribute name="pageTitle" value="Payment with paypal"/>
         	  <put-attribute name="pageKeywords" value="Payment with paypal"/>
