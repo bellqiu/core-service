@@ -31,7 +31,7 @@
 												id="paypaysubmitForm">
 												<input type="hidden" name="cmd" value="_xclick"> <input
 													type="hidden" name="business" value="${paypalAccount }"> <input
-													type="hidden" name="item_name" value="${currentOrder.orderSN }">
+													type="hidden" name="item_name" value="Order SN: ${currentOrder.orderSN }">
 												<input type="hidden" name="amount"
 													value='<hb:printPrice price="${currentOrder.grandTotal }" withCurrency="false"/>'>
 													

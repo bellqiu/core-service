@@ -193,16 +193,15 @@
 		<div class="panel-body">
 			<div class="row rowContent">
 			<c:forEach items="${paymentMethods }" var="payment" varStatus="status">
-				<div class="row col-xs-3">
+				<div class="row">
 
 					<div class="row rowContent">
 						
 							<div class="col-xs-3">
 								<input name="paymentmethod" type="radio"
-									value="${payment.key }" ${(status.index == 0) ? "checked='checked'" : ""}  >
+									value="${payment.key }" ${(status.index == 0) ? "checked='checked'" : ""}  >${payment.value }
 							</div>
 							<div class="col-xs-9">
-								${payment.value }:
 								<div ID="paymentdesc_${payment.key }">
 									<hb:htmltag htmlKey="PAYMENT_DESC_${payment.key }" />
 								</div>
