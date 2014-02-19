@@ -213,9 +213,9 @@ var productOpts = "${currentProductOptions}";
 								<p>
 									${subProd.abstractText }
 								</p>
-								<p>
+								<%-- <p>
 									<a href="/cart/add?productId=${subProd.id }" class="btn btn-primary">Add to Cart</a> 
-								</p>
+								</p> --%>
 							</div>
 						</div>
 					</li>
