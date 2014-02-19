@@ -216,6 +216,14 @@
         	  <put-attribute name="body" value="help.center.helpCenter"/>
         </definition>
         
+        <definition name="tagIndex" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/tags/tagIndex.jsp"/>
+        </definition>
+        
+        <definition name="tagDetail" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/tags/tagDetail.jsp"/>
+        </definition>
+        
         <definition name="accessDenied" extends="headerFooter" >
         	 <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
         	  <!-- <put-attribute name="body" value="/WEB-INF/jsp/body/accessDenied.jsp"/> -->

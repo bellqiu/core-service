@@ -795,4 +795,44 @@ li.useractionItem{
 	font-size: .6em!important;
 	font-weight: normal!important;
 }
+
+.quick-index {
+	width: 100%;
+	font-size: 13px;
+	color: #666;
+	clear: both;
+	padding: 10px 0px 10px 5px;
+}
+
+.quick-index a {
+	color: #333;
+}
+
+.quick-index a:hover {
+	color: #ec6941;
+}
 /******************End help center ********************************/
+
+/******************Start tags ********************************/
+.tag-index {
+	padding: 0px 17px 0px 10px;
+}
+
+#tag-index-panel {
+	overflow: hidden;
+	height: 100%;
+	padding:15px 0px;
+}
+#tag-index-panel li {
+width: 210px;
+float: left;
+padding-left: 30px;
+line-height: 14px;
+height: 40px;
+}
+
+.tag-pagination {
+	padding-top: 12px;
+	text-align: center;
+}
+/******************End tags ********************************/
