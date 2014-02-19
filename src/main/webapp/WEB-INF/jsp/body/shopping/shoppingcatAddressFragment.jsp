@@ -197,11 +197,11 @@
 
 					<div class="row rowContent">
 						
-							<div class="col-xs-3">
+							<div class="col-xs-2">
 								<input name="paymentmethod" type="radio"
 									value="${payment.key }" ${(status.index == 0) ? "checked='checked'" : ""}  >${payment.value }
 							</div>
-							<div class="col-xs-9">
+							<div class="col-xs-10">
 								<div ID="paymentdesc_${payment.key }">
 									<hb:htmltag htmlKey="PAYMENT_DESC_${payment.key }" />
 								</div>
