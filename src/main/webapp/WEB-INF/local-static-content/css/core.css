@@ -820,15 +820,14 @@ li.useractionItem{
 
 #tag-index-panel {
 	overflow: hidden;
-	height: 100%;
-	padding:15px 0px;
+	padding:20px 0px;
 }
 #tag-index-panel li {
-width: 210px;
-float: left;
-padding-left: 30px;
-line-height: 14px;
-height: 40px;
+	width: 210px;
+	float: left;
+	padding-left: 30px;
+	line-height: 14px;
+	height: 40px;
 }
 
 .tag-pagination {

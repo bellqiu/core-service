@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -32,6 +35,7 @@ import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
+import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.ParamValueUtils;
 
 @Transactional
@@ -634,5 +638,31 @@ public class ProductService {
 			list.add(productSummaryConverter.convert(p));
 		}
 		return list;
+	}
+
+	public TreeMap<String, Set<Long>> getAllTagsMap() {
+		String query = "select p from Product p where p.status = 'ACTIVE' ";
+		
+		TypedQuery<Product> result = em.createQuery(query, Product.class);
+		List<Product> resultList = result.getResultList();
+		TreeMap<String, Set<Long>> tagProductMap = new TreeMap<String, Set<Long>>(); 
+		for(Product p : resultList) {
+			String tags = p.getTags();
+			if(!StringUtils.isEmpty(tags)) {
+				String[] tagsArray = tags.split(Constants.TAGS_SPLIT);
+				for(String tag : tagsArray) {
+					String tagName = tag.trim();
+					Set<Long> productIdList = tagProductMap.get(tagName);
+					if(productIdList != null) {
+						productIdList.add(p.getId());
+					} else {
+						productIdList = new TreeSet<Long>();
+						productIdList.add(p.getId());
+						tagProductMap.put(tagName, productIdList);
+					}
+				}
+			}
+		}
+		return tagProductMap;
 	}
 }
