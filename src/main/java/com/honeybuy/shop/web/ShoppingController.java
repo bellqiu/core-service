@@ -483,7 +483,7 @@ public class ShoppingController {
 		Enumeration els = request.getParameterNames();
 		
 		if ("VERIFIED".equals(res)) {
-			OrderDetailDTO order = orderService.getOrderBySN(itemName);
+			OrderDetailDTO order = orderService.getOrderBySN(itemName.replace("Order SN:", "").trim());
 			logger.info(">>>>>>>>>>>>>>>>>>>VERIFIED>>>>>>>>>>>>>>>>>>>>>>");
 			if(null!=order){
 				logger.info(">>>>>>>>>>>>>>>>>>>paymentAmount:"+paymentAmount+">>>>>>>>>>>>>>>>>>>>>>");
