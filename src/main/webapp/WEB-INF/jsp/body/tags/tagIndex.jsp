@@ -54,27 +54,50 @@
 			</c:when>
 			<c:otherwise>
 			<div class="panel panel-default">
-			<div id="tag-index-panel" class="quick-index">
-            <ul>
-            <c:forEach var="tag" items="${tags}">
-				<li><a href="${site.domain}/tags/key/${fn:replace(tag, ' ', '-')}">${tag}</a></li>
-			</c:forEach>
-			<li><a href="${site.domain}/tags/key/${fn:replace('ajl  lsjl lsj', ' ', '-')}">test</a></li>
-         	</ul>
-			</div>
-			<div class="tag-pagination">
-				<ul class="pagination">
-				<li class="disabled"><a href="#">&lt;</a></li>
-				<li class="active"><a href="${site.domain}/tags/index/${indexName}/0">1 <span class="sr-only">(current)</span></a></li>
-				<li><a href="${site.domain}/tags/index/${indexName}/1">2</a></li>
-				<li><a href="${site.domain}/tags/index/${indexName}/2">3</a></li>
-				<li><a href="${site.domain}/tags/index/${indexName}/3">4</a></li>
-				<li><a href="${site.domain}/tags/index/${indexName}/4">5</a></li>
-				<li><a>...</a></li>
-				<li><a href="${site.domain}/tags/index/${indexName}/16">17</a></li>
-				<li><a href="${site.domain}/tags/index/${indexName}/1">&gt;</a></li>
-				</ul>
-			</div>
+				<div id="tag-index-panel" class="quick-index">
+		            <ul>
+			            <c:forEach var="tag" items="${tags}">
+							<li><a href="${site.domain}/tags/key/${fn:replace(tag, ' ', '-')}">${tag}</a></li>
+						</c:forEach>
+		         	</ul>
+				</div>
+				<div class="tag-pagination">
+					<ul class="pagination">
+						<c:choose>
+							<c:when test="${currentPageIndex == 0}">
+								<li class="disabled"><a href="#">&lt;</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${site.domain}/tags/index/${indexName}/${currentPageIndex-1}">&lt;</a></li>
+							</c:otherwise>
+						</c:choose>
+						<c:forEach items="${pageIds }" var="item">
+	  						<c:choose>
+	  							<c:when test="${item < 0}">
+	  								<li><a>...</a></li>
+	  							</c:when>
+	  							<c:otherwise>
+	  								<c:choose>
+	  									<c:when test="${item == currentPageIndex}">
+	  										<li class="active"><a href="${site.domain}/tags/index/${indexName}/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
+	  									</c:when>
+	  									<c:otherwise>
+	  											<li><a href="${site.domain}/tags/index/${indexName}/${item}">${item+1}</a></li>
+	  									</c:otherwise>
+	  								</c:choose>
+	  							</c:otherwise>
+	  						</c:choose>
+	  					</c:forEach>
+						<c:choose>
+							<c:when test="${currentPageIndex+1 == totalPage}">
+								<li class="disabled"><a href="#">&gt;</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${site.domain}/tags/index/${indexName}/${currentPageIndex+1}">&gt;</a></li>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+				</div>		
 			</div>
 			</c:otherwise>
 		</c:choose>

@@ -653,13 +653,15 @@ public class ProductService {
 				String[] tagsArray = tags.split(Constants.TAGS_SPLIT);
 				for(String tag : tagsArray) {
 					String tagName = RegexUtils.replaceSpace(tag.trim(), Constants.SPACE_CHAR);
-					Set<Long> productIdList = tagProductMap.get(tagName);
-					if(productIdList != null) {
-						productIdList.add(p.getId());
-					} else {
-						productIdList = new TreeSet<Long>();
-						productIdList.add(p.getId());
-						tagProductMap.put(tagName, productIdList);
+					if(tagName != null) {
+						Set<Long> productIdList = tagProductMap.get(tagName);
+						if(productIdList != null) {
+							productIdList.add(p.getId());
+						} else {
+							productIdList = new TreeSet<Long>();
+							productIdList.add(p.getId());
+							tagProductMap.put(tagName, productIdList);
+						}
 					}
 				}
 			}

@@ -1,8 +1,8 @@
 package com.honeybuy.shop.web;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.cxf.common.util.StringUtils;
 import org.slf4j.Logger;
@@ -56,9 +56,43 @@ public class TagsController {
 			page = 0;
 			start = 0;
 		}
-		Set<String> tags = tagsService.getTagsByIndexWithLimit(indexName, start, max);
-		model.addAttribute("tags", tags);
+		List<String> tags = tagsService.getTagsByIndexWithLimit(indexName, start, max);
+		if(tags != null && tags.size() > 0) {
+			List<Integer> pageIds = new ArrayList<Integer>();
+			if(totalPage <= 7) {
+				for(int i = 0; i < totalPage; i++) {
+					pageIds.add(i);
+				}
+			} else {
+				if(page < 3) {
+					for(int i = 0; i < 5; i++) {
+						pageIds.add(i);
+					}
+					pageIds.add(-1);
+					pageIds.add(totalPage - 1);
+				} else if(page >= (totalPage - 3)) {
+					pageIds.add(0);
+					pageIds.add(-1);
+					for(int i = totalPage - 5; i < totalPage; i++) {
+						pageIds.add(i);
+					}
+				} else {
+					pageIds.add(0);
+					pageIds.add(-1);
+					for(int i = -1; i <= 1; i++) {
+						pageIds.add(page + i);
+					}
+					pageIds.add(-1);
+					pageIds.add(totalPage - 1);
+				}
+			}
+			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("pageIds", pageIds);
+			model.addAttribute("tags", tags);
+		
+		}
 		model.addAttribute("indexName", indexName);
+		model.addAttribute("currentPageIndex", page);
 		return "tagIndex";
 	}
 	

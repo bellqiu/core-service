@@ -1,5 +1,8 @@
 package com.honeybuy.shop.web.cache;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -23,6 +26,8 @@ public class TagsServiceCacheWrapper {
 	@Autowired
 	private ProductService productService;
 	
+	private static final String TAG_DIGITAL_INDEX = "0-9";
+	
 	@Cacheable(cacheName="TagsWithProductIds")
 	public synchronized TreeMap<String, Set<Long>> getAllTagsProductMap(){
 		logger.debug("Get Tags with Product IDs");
@@ -35,7 +40,12 @@ public class TagsServiceCacheWrapper {
 		TreeMap<String, Set<String>> tagIndexMap = new TreeMap<String, Set<String>>();
 		for(String tagName : tagNames) {
 			if(!StringUtils.isEmpty(tagName)) {
-				String index = tagName.substring(0, 1);
+				String index;
+				if(Character.isDigit(tagName.charAt(0))) {
+					index = TAG_DIGITAL_INDEX;
+				} else {
+					index = tagName.substring(0, 1);
+				}
 				Set<String> tagsSet = tagIndexMap.get(index);
 				if(tagsSet != null) {
 					tagsSet.add(tagName);
@@ -54,10 +64,22 @@ public class TagsServiceCacheWrapper {
 		return tagSet != null ? tagSet.size() : 0;
 	}
 
-	public Set<String> getTagsByIndexWithLimit(String indexName, int start,
+	public List<String> getTagsByIndexWithLimit(String indexName, int start,
 			int max) {
 		Set<String> tagSet = getAllTagIndexMap().get(indexName);
-		if(tagSet != null && start < tagSet.size()) {
+		int size = 0;
+		if(tagSet != null && start < (size = tagSet.size())) {
+			int returnSize = Math.min(max, size - start);
+			List<String> tagsList = new ArrayList<String>(returnSize);
+			Iterator<String> iterator = tagSet.iterator();
+			int i;
+			for(i = 0; i < start; i++) {
+				iterator.next();
+			}
+			for(i = 0; i < returnSize; i++) {
+				tagsList.add(iterator.next());
+			}
+			return tagsList;
 		}
 		return null;
 	}
