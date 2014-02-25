@@ -57,17 +57,9 @@
 			<div id="tag-index-panel" class="quick-index">
             <ul>
             <c:forEach var="tag" items="${tags}">
-				<li><a href="${site.domain}/tags/key/${tag}">${tag}</a></li>
+				<li><a href="${site.domain}/tags/key/${fn:replace(tag, ' ', '-')}">${tag}</a></li>
 			</c:forEach>
-        	<!-- <li><a href="/Wholesale-Airplane-Shaped-MP3-Player.html">Airplane Shaped MP3 Player</a></li>
-         	<li><a href="/Wholesale-Android-4.2-Phone-Tablet-PC-With-3G.html">Android 4.2 Phone Tablet PC With 3G</a></li>
-         	<li><a href="/Wholesale-A-Line-Dresses-Sale.html">A Line Dresses Sale</a></li>
-         	<li><a href="/Wholesale-Anodized-Hand-Writing-Touch-Pen.html">Anodized Hand Writing Touch Pen</a></li>
-	         <li><a href="/Wholesale-Anime-Figure.html">Anime Figure</a></li>
-	         <li><a href="/Wholesale-Apollo-One.html">Apollo One</a></li>
-	         <li><a href="/Wholesale-Ac-Adapter-Usb.html">Ac Adapter Usb</a></li>
-	         <li><a href="/Wholesale-Acetone-Nail-Polish-Remover.html">Acetone Nail Polish Remover</a></li> -->
-	         
+			<li><a href="${site.domain}/tags/key/${fn:replace('ajl  lsjl lsj', ' ', '-')}">test</a></li>
          	</ul>
 			</div>
 			<div class="tag-pagination">

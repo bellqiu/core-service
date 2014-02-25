@@ -84,50 +84,50 @@
 				</div>
 			</c:forEach>
 		</div>
+		
 					
-			<div class="row">
-				<div class="col-xs-4">
-					<ul class="pagination">
+		<div class="row">
+			<div class="col-xs-4">
+				<ul class="pagination">
+					<c:choose>
+						<c:when test="${currentPageIndex == 0}">
+							<li class="disabled"><a href="#">&lt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex-1}">&lt;</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:forEach items="${pageIds }" var="item">
 						<c:choose>
-							<c:when test="${currentPageIndex == 0}">
-								<li class="disabled"><a href="#">&lt;</a></li>
+							<c:when test="${item < 0}">
+								<li><a>...</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex-1}">&lt;</a></li>
+								<c:choose>
+								<c:when test="${item == currentPageIndex}">
+								<li class="active"><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
+								</c:when>
+								<c:otherwise>
+								<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1}</a></li>
+								</c:otherwise>
+								</c:choose>
 							</c:otherwise>
-							</c:choose>
-  							<!-- <li><a href="#">&laquo;</a></li> -->
-  							<c:forEach items="${pageIds }" var="item">
-  								<c:choose>
-  									<c:when test="${item < 0}">
-  										<li><a>...</a></li>
-  									</c:when>
-  									<c:otherwise>
-  										<c:choose>
-  										<c:when test="${item == currentPageIndex}">
-  										<li class="active"><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
-  										</c:when>
-  										<c:otherwise>
-  										<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1}</a></li>
-  										</c:otherwise>
-  										</c:choose>
-  									</c:otherwise>
-  								</c:choose>
-  							</c:forEach>
-  							<!-- <li><a href="#">&raquo;</a></li> -->
-  							<c:choose>
-							<c:when test="${currentPageIndex+1 == totalPage}">
-								<li class="disabled"><a href="#">&gt;</a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex+1}">&gt;</a></li>
-							</c:otherwise>
-							</c:choose>
-						</ul>
-						</div>
-						<div class="pagination col-xs-4">&nbsp;</div>
-						<div class="pagination col-xs-4">Showing Results ${resultStart } - ${resultEnd } of <fmt:formatNumber pattern=",###">${resultTotal }</fmt:formatNumber></div>
-					</div>
-					
-				</c:otherwise>
+						</c:choose>
+ 					</c:forEach>
+ 					<c:choose>
+						<c:when test="${currentPageIndex+1 == totalPage}">
+							<li class="disabled"><a href="#">&gt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex+1}">&gt;</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+			<div class="pagination col-xs-4">&nbsp;</div>
+			<div class="pagination col-xs-4">Showing Results ${resultStart } - ${resultEnd } of <fmt:formatNumber pattern=",###">${resultTotal }</fmt:formatNumber></div>
+		</div>
+	</c:otherwise>
 </c:choose>
+
+<script src="/resources/js/categoryIndex.js" type="text/javascript"></script>

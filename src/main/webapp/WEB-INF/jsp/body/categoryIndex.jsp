@@ -72,7 +72,7 @@
 	</div>
 </div>
 
-<script>
+<!-- <script>
   $(function() {
 	var lowestPrice = parseFloat("<hb:printPrice price='${lowestPrice}'/>".replace(/[^\d]+/,""));
 	var highestPrice =  parseFloat("<hb:printPrice price='${highestPrice}'/>".replace(/[^\d]+/,""));
@@ -87,8 +87,8 @@
       },
       stop: function( event, ui ) {
     	  console.log("OK");
-    	  /* TODO add logic for search
-    	  $("#categoryProductListContainer").html("").load("/seach/c/test"); */
+    	  // TODO add logic for search
+    	  //$("#categoryProductListContainer").html("").load("/seach/c/test");
       }
     
     });
@@ -165,7 +165,7 @@
       }
       });
   });
-</script>
+</script> -->
   
 <style>
   .ui-autocomplete-loading {

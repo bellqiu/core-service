@@ -26,6 +26,8 @@ public class TagsController {
 	
 	public static List<String> INDEX_KEYS = Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0-9");
 	
+	public final static int TAG_PER_PAGE = 80; 
+	
 	@RequestMapping("/index/{indexName}")
 	public String tagIndex(@PathVariable("indexName") String indexName,
 			Model model){
@@ -40,7 +42,21 @@ public class TagsController {
 			logger.warn("Tag: {} is not existing", indexName);
 			return "404";
 		}
-		Set<String> tags = tagsService.getAllTagIndexMap().get(indexName);
+		int totalCount = tagsService.getTagsCountByIndex(indexName);
+		int max = TAG_PER_PAGE;
+		
+		int totalPage;
+		if(totalCount % max == 0) {
+			totalPage = totalCount / max;
+		} else {
+			totalPage = totalCount / max + 1;
+		}
+		int start = page * max;
+		if(start >= totalCount) {
+			page = 0;
+			start = 0;
+		}
+		Set<String> tags = tagsService.getTagsByIndexWithLimit(indexName, start, max);
 		model.addAttribute("tags", tags);
 		model.addAttribute("indexName", indexName);
 		return "tagIndex";

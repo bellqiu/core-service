@@ -37,6 +37,7 @@ import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.ParamValueUtils;
+import com.honeybuy.shop.util.RegexUtils;
 
 @Transactional
 @Service
@@ -651,7 +652,7 @@ public class ProductService {
 			if(!StringUtils.isEmpty(tags)) {
 				String[] tagsArray = tags.split(Constants.TAGS_SPLIT);
 				for(String tag : tagsArray) {
-					String tagName = tag.trim();
+					String tagName = RegexUtils.replaceSpace(tag.trim(), Constants.SPACE_CHAR);
 					Set<Long> productIdList = tagProductMap.get(tagName);
 					if(productIdList != null) {
 						productIdList.add(p.getId());

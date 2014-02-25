@@ -48,4 +48,17 @@ public class TagsServiceCacheWrapper {
 		}
 		return tagIndexMap;
 	}
+
+	public int getTagsCountByIndex(String indexName) {
+		Set<String> tagSet = getAllTagIndexMap().get(indexName);
+		return tagSet != null ? tagSet.size() : 0;
+	}
+
+	public Set<String> getTagsByIndexWithLimit(String indexName, int start,
+			int max) {
+		Set<String> tagSet = getAllTagIndexMap().get(indexName);
+		if(tagSet != null && start < tagSet.size()) {
+		}
+		return null;
+	}
 }

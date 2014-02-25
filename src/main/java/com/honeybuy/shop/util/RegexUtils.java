@@ -27,4 +27,14 @@ public class RegexUtils {
 		return result.toString();
 	}
 	
+	public static String replaceSpace(String str, String replacement) {
+		/*String newString = str.replaceAll("[^a-zA-Z0-9\\-]+","");
+		newString = newString.replaceAll("\\-+", "-");
+		return newString;*/
+		if(StringUtils.isEmpty(str)) {
+			return null;
+		}
+		return str.replaceAll("\\s+", replacement);
+	}
+	
 }

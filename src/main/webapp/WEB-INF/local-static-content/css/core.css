@@ -393,6 +393,7 @@ input[type=password] {
 
 .productItem {
 	padding: 13px;
+	border: none;
 }
 
 .spotlight {
@@ -820,7 +821,7 @@ li.useractionItem{
 
 #tag-index-panel {
 	overflow: hidden;
-	padding:20px 0px;
+	padding: 20px 0px 0px 0px;
 }
 #tag-index-panel li {
 	width: 210px;
@@ -831,7 +832,6 @@ li.useractionItem{
 }
 
 .tag-pagination {
-	padding-top: 12px;
 	text-align: center;
 }
 /******************End tags ********************************/
