@@ -110,4 +110,6 @@ public interface Constants {
 	public static final String HTML_LOWEST_PRICE_GUARANTEE = "HELP_LOWEST_PRICE_GUARANTEE";
 	public static final String HTML_LOOK_FOR_VENDORS = "HELP_LOOK_FOR_VENDORS";
 	
+	public static final String TAB_PRODUCT_LEFT_PAD = "LEFT_PAD";
+	
 }

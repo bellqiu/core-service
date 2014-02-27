@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hb.core.shared.dto.ProductSummaryDTO;
+import com.hb.core.util.Constants;
 import com.honeybuy.shop.web.cache.TagsServiceCacheWrapper;
 
 @Controller
@@ -96,17 +98,86 @@ public class TagsController {
 		return "tagIndex";
 	}
 	
-	@RequestMapping("/index/key/{indexName}")
-	public String tagDetail(@PathVariable("indexName") String indexName,
+	@RequestMapping("/key/{tagName}")
+	public String tagDetail(@PathVariable("tagName") String tagName,
 			Model model){
-		return "getAllTagIndexMap";
+		return "forward:/tags/key/" + tagName + "/0";
 	}
 	
-	@RequestMapping("/index/key/{indexName}/{page:\\d+}")
-	public String tagDetail(@PathVariable("indexName") String indexName,
+	@RequestMapping("/key/{tagName}/{page:\\d+}")
+	public String tagDetail(@PathVariable("tagName") String tagName,
 			@PathVariable("page") int page,
 			Model model){
-		return "getAllTagIndexMap";
+		if((tagName = tagsService.existTag(tagName)) == null){
+			logger.warn("Tag: {} is not existing", tagName);
+			return "404";
+		}
+		
+		int totalCount = tagsService.getProductCountByTag(tagName);
+		int max = TAG_PER_PAGE;
+		
+		int totalPage;
+		if(totalCount % max == 0) {
+			totalPage = totalCount / max;
+		} else {
+			totalPage = totalCount / max + 1;
+		}
+		int start = page * max;
+		if(start >= totalCount) {
+			page = 0;
+			start = 0;
+		}
+		List<ProductSummaryDTO> productList = tagsService.getProductByTagWithLimit(tagName, start, max);
+		if(productList != null && productList.size() > 0) {
+			List<Integer> pageIds = new ArrayList<Integer>();
+			if(totalPage <= 7) {
+				for(int i = 0; i < totalPage; i++) {
+					pageIds.add(i);
+				}
+			} else {
+				if(page < 3) {
+					for(int i = 0; i < 5; i++) {
+						pageIds.add(i);
+					}
+					pageIds.add(-1);
+					pageIds.add(totalPage - 1);
+				} else if(page >= (totalPage - 3)) {
+					pageIds.add(0);
+					pageIds.add(-1);
+					for(int i = totalPage - 5; i < totalPage; i++) {
+						pageIds.add(i);
+					}
+				} else {
+					pageIds.add(0);
+					pageIds.add(-1);
+					for(int i = -1; i <= 1; i++) {
+						pageIds.add(page + i);
+					}
+					pageIds.add(-1);
+					pageIds.add(totalPage - 1);
+				}
+			}
+			model.addAttribute("resultStart", start + 1);
+			model.addAttribute("resultEnd", start + productList.size());
+			model.addAttribute("resultTotal", totalCount);
+			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("pageIds", pageIds);
+			model.addAttribute("products", productList);
+		
+		}
+		String indexName;
+		if(Character.isDigit(tagName.charAt(0))) {
+			indexName = TagsServiceCacheWrapper.TAG_DIGITAL_INDEX;
+		} else {
+			indexName = tagName.substring(0, 1);
+		}
+		model.addAttribute("tagName", tagName);
+		model.addAttribute("indexName", indexName);
+		model.addAttribute("currentPageIndex", page);
+		
+		model.addAttribute("leftproducts", tagsService.getTabProductByName(Constants.TAB_PRODUCT_LEFT_PAD));
+		
+		return "tagDetail";
 	}
 	
 }

@@ -62,7 +62,7 @@ public class ProductServiceCacheWrapper {
 	@Cacheable(cacheName="TabProduct")
 	public TabProductDTO getTabProductByName(String name){
 		TabProductDTO dto = tabProductService.getTabProductDTOByName(name);
-		 return CloneUtil.<TabProductDTO>cloneThroughJson(dto);
+		return CloneUtil.<TabProductDTO>cloneThroughJson(dto);
 	}
 	
 	@Cacheable(cacheName="ProductCountByCategory")
@@ -106,5 +106,15 @@ public class ProductServiceCacheWrapper {
 		List<ProductSummaryDTO> productByKey = productService.searchProductByKey(keys, start, max);
 
 		return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(productByKey);
+	}
+	
+	@Cacheable(cacheName="ProductSummaryById")
+	public ProductSummaryDTO getProductSummaryById(long productId){
+		
+		logger.debug("HIT get getProductSummaryById={}", productId);
+		
+		ProductSummaryDTO summary = productService.getProductSummary(productId);
+		 
+		return CloneUtil.<ProductSummaryDTO>cloneThroughJson(summary);
 	}
 }

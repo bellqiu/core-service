@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb"%>
 <div class="container mainContainer">
 	<div class="row">
@@ -67,7 +68,14 @@
 		</div>
 		</div>
 		<div class="col-xs-9" id="categoryProductListContainer">
-			<jsp:include page="/WEB-INF/jsp/body/category/categoryProductList.jsp"></jsp:include>
+			<c:choose>
+				<c:when test="${empty products || (fn:length(products) < 1) }">
+					<div class="alert alert-info">0 items found for <b>${currentCategoryDetail.displayName}</b> </div>
+				</c:when>
+				<c:otherwise>
+					<jsp:include page="/WEB-INF/jsp/body/category/categoryProductList.jsp"></jsp:include>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </div>

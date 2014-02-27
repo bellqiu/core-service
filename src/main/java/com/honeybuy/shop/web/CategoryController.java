@@ -100,7 +100,7 @@ public class CategoryController {
 			model.addAttribute("resultTotal", totalCount);
 			model.addAttribute("totalPage", totalPage);
 			model.addAttribute("pageIds", pageIds);
-			model.addAttribute("productSummary", productSummaryList);
+			model.addAttribute("products", productSummaryList);
 		} 
 		model.addAttribute("currentCategoryDetail", categoryDetailDTO);
 		model.addAttribute("currentPageIndex", page);

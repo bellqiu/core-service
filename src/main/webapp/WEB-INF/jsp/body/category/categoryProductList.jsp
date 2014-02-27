@@ -5,8 +5,8 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb"%>
 <c:choose>
-	<c:when test="${empty productSummary || (fn:length(productSummary) < 1) }">
-		<div class="alert alert-info">0 items found for ${currentCategoryDetail.displayName} </div>
+	<c:when test="${empty products || (fn:length(products) < 1) }">
+		<div class="alert alert-info">0 items found for <b>${currentCategoryDetail.displayName}</b> </div>
 	</c:when>
 	<c:otherwise>
 		<div class="row">
@@ -51,28 +51,28 @@
 		</div>
 					
 		<div class="row">
-			<c:forEach items="${productSummary }" var="item">
+			<c:forEach items="${products}" var="product">
 				<div class="col-xs-4">
 					<div class="thumbnail productThumbnail productItem">
-						<a href="${site.domain}/${item.name }" title="${item.title }">
-      						<img src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${item.imageURL }" alt="${item.title }" class="category-product-img">
+						<a href="${site.domain}/${product.name }" title="${product.title }">
+      						<img src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${product.imageURL }" alt="${product.title }" class="category-product-img">
 						</a>
 						<div>
-							<span class="activeprice">	<hb:printPrice price="${item.actualPrice}"/>
+							<span class="activeprice">	<hb:printPrice price="${product.actualPrice}"/>
 							</span>
-							<span class="priceDeprecated"><hb:printPrice price="${item.price}"/></span>
+							<span class="priceDeprecated"><hb:printPrice price="${product.price}"/></span>
 						</div>
-						<p><a href="${site.domain}/${item.name}">${item.title}
+						<p><a href="${site.domain}/${product.name}">${product.title}
 						<!-- <script type="text/javascript">
-						var title = "${item.title}";
+						var title = "${product.title}";
 						if(title.length > 90) {
 							title = title.substring(0,87) + "..."
 						}
 						document.write(title);
 						</script> -->
 						</a></p>
-						<c:if test="${item.price > 0}">
-							<fmt:parseNumber value="${(item.price - item.actualPrice)/item.price * 100 }" var="percentage" integerOnly="true"></fmt:parseNumber>
+						<c:if test="${product.price > 0}">
+							<fmt:parseNumber value="${(product.price - product.actualPrice)/product.price * 100 }" var="percentage" integerOnly="true"></fmt:parseNumber>
 							<c:if test="${percentage > 10 }">
 								<div class="sales-logo">
 									<label class="text">Save</label>

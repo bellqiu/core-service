@@ -16,6 +16,8 @@ import org.springframework.util.StringUtils;
 
 import com.googlecode.ehcache.annotations.Cacheable;
 import com.hb.core.service.ProductService;
+import com.hb.core.shared.dto.ProductSummaryDTO;
+import com.hb.core.shared.dto.TabProductDTO;
 
 @Service
 @Transactional(readOnly=true)
@@ -26,7 +28,10 @@ public class TagsServiceCacheWrapper {
 	@Autowired
 	private ProductService productService;
 	
-	private static final String TAG_DIGITAL_INDEX = "0-9";
+	@Autowired
+	private ProductServiceCacheWrapper productCacheService;
+	
+	public static final String TAG_DIGITAL_INDEX = "0-9";
 	
 	@Cacheable(cacheName="TagsWithProductIds")
 	public synchronized TreeMap<String, Set<Long>> getAllTagsProductMap(){
@@ -61,7 +66,7 @@ public class TagsServiceCacheWrapper {
 
 	public int getTagsCountByIndex(String indexName) {
 		Set<String> tagSet = getAllTagIndexMap().get(indexName);
-		return tagSet != null ? tagSet.size() : 0;
+		return tagSet == null ? 0 : tagSet.size();
 	}
 
 	public List<String> getTagsByIndexWithLimit(String indexName, int start,
@@ -80,6 +85,59 @@ public class TagsServiceCacheWrapper {
 				tagsList.add(iterator.next());
 			}
 			return tagsList;
+		}
+		return null;
+	}
+
+	public String existTag(String tagName) {
+		if(StringUtils.isEmpty(tagName)) {
+			return null;
+		}
+		String realTagName = tagName.replace("-", " ");
+		TreeMap<String, Set<Long>> tagsProductMap = getAllTagsProductMap();
+		if(tagsProductMap.containsKey(realTagName)) {
+			return realTagName;
+		} else {
+			Set<String> keySet = tagsProductMap.keySet();
+			for(String key : keySet) {
+				if(key.replace(" ", "-").equals(tagName)) {
+					return key;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public int getProductCountByTag(String tagName) {
+		Set<Long> productSet = getAllTagsProductMap().get(tagName);
+		return productSet == null ? 0 : productSet.size();
+	}
+	
+	public List<ProductSummaryDTO> getProductByTagWithLimit(String tagName, int start,
+			int max) {
+		Set<Long> productSet = getAllTagsProductMap().get(tagName);
+		int size = 0;
+		if(productSet != null && start < (size = productSet.size())) {
+			int returnSize = Math.min(max, size - start);
+			List<ProductSummaryDTO> products = new ArrayList<ProductSummaryDTO>(returnSize);
+			Iterator<Long> iterator = productSet.iterator();
+			int i;
+			for(i = 0; i < start; i++) {
+				iterator.next();
+			}
+			for(i = 0; i < returnSize; i++) {
+				ProductSummaryDTO productSummary = productCacheService.getProductSummaryById(iterator.next());
+				products.add(productSummary);
+			}
+			return products;
+		}
+		return null;
+	}
+	
+	public List<ProductSummaryDTO> getTabProductByName(String tabKey) {
+		TabProductDTO tabProduct = productCacheService.getTabProductByName(tabKey);
+		if(tabProduct != null) {
+			return tabProduct.getProducts();
 		}
 		return null;
 	}

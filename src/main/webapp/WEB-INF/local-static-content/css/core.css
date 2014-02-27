@@ -834,4 +834,8 @@ li.useractionItem{
 .tag-pagination {
 	text-align: center;
 }
+
+.leftpad {
+	padding: 10px 0px 10px 0px;
+}
 /******************End tags ********************************/
