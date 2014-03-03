@@ -76,8 +76,8 @@
 		}  
 		return false;
 	});
-	$("#productAmountCustom").onchange(function(btn) {
+	/*$("#productAmountCustom").onchange(function(btn) {
 		console.log("OK");
-	})
+	})*/
 	
 })(jQuery);

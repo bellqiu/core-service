@@ -32,6 +32,7 @@ import com.hb.core.entity.OptionItem;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.Property;
 import com.hb.core.exception.CoreServiceException;
+import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
@@ -680,5 +681,12 @@ public class ProductService {
 			}
 		}
 		return tagProductMap;
+	}
+
+	public List<String> getAllProductsName() {
+		String sqlForProductName = "select p.name from Product p where p.status = 'ACTIVE' ";
+		TypedQuery<String> query = em.createQuery(sqlForProductName, String.class);
+		List<String> results = query.getResultList();
+		return results;
 	}
 }

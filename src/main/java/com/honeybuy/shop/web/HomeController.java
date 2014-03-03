@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
+import com.honeybuy.shop.web.cache.SitemapServiceCacheWrapper;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -37,6 +38,9 @@ public class HomeController {
 	
 	@Autowired
 	private CategoryServiceCacheWrapper categoryService;
+	
+	@Autowired
+	private SitemapServiceCacheWrapper sitemapService;
 	
 	@RequestMapping("/home")
 	public String home(){
@@ -87,19 +91,14 @@ public class HomeController {
 	@RequestMapping("/category.xml")
 	@ResponseBody
 	@Produces("application/xml")
-	public String cateogry(HttpServletRequest request, HttpServletResponse response){
-		List<CategoryTreeDTO> categories = categoryService.getAllCategories();
-		InputStream in = HomeController.class.getResourceAsStream("/category.hpl");
-		Map<String, Object> variables = new HashMap<String, Object>();
-		variables.put("categories", categories);
-		try {
-			Template tpl = new Template("categorySiteMap", new InputStreamReader(in), new Configuration());
-			StringWriter writer = new StringWriter();
-			tpl.process(variables, writer);
-			return writer.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "<xml>ljsl</xml>";
+	public String category(HttpServletRequest request, HttpServletResponse response){
+		return sitemapService.getCategoryXml();
+	}
+	
+	@RequestMapping("/p1.xml")
+	@ResponseBody
+	@Produces("application/xml")
+	public String product(HttpServletRequest request, HttpServletResponse response){
+		return sitemapService.getProductXml();
 	}
 }

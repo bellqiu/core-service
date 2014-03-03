@@ -152,5 +152,15 @@
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
+	<cache name="SitemapCategory" eternal="false"
+		timeToLiveSeconds="86400" maxElementsInMemory="1"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="1" />
+		
+	<cache name="SitemapProduct" eternal="false"
+		timeToLiveSeconds="86400" maxElementsInMemory="1"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="1" />
+	
 		
 </ehcache>

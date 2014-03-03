@@ -66,7 +66,6 @@
 							<li><a href="/od/myOrder">Order History</a></li>
 							<li><a href="/ac/address">Manage Address</a></li>
 							<li><a href="/help/faq">FAQ</a></li>
-							<li><a href="/m-article-id-91-pid-.html">Affiliate Program</a></li>
 						</ul>
 					</div>
 				</div>
