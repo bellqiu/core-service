@@ -4,13 +4,6 @@
  */
 package com.honeybuy.shop.web;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Produces;
@@ -20,12 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SitemapServiceCacheWrapper;
-
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 
 /**
  * 
@@ -46,7 +35,6 @@ public class HomeController {
 	public String home(){
 		return "home";
 	}
-	
 	
 	@RequestMapping("/")
 	public String defaultPage(){
@@ -91,14 +79,21 @@ public class HomeController {
 	@RequestMapping("/category.xml")
 	@ResponseBody
 	@Produces("application/xml")
-	public String category(HttpServletRequest request, HttpServletResponse response){
+	public String categorySitemap(HttpServletRequest request, HttpServletResponse response){
 		return sitemapService.getCategoryXml();
 	}
 	
 	@RequestMapping("/p1.xml")
 	@ResponseBody
 	@Produces("application/xml")
-	public String product(HttpServletRequest request, HttpServletResponse response){
+	public String productSitemap(HttpServletRequest request, HttpServletResponse response){
 		return sitemapService.getProductXml();
+	}
+	
+	@RequestMapping("/tags.xml")
+	@ResponseBody
+	@Produces("application/xml")
+	public String tagsSitemap(HttpServletRequest request, HttpServletResponse response){
+		return sitemapService.getTgasXml();
 	}
 }

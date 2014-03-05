@@ -4,7 +4,7 @@ public interface Constants {
 	
 	public final static float FLOAT_COMPARE = 0.0001f;
 	
-	public final static String SPECIAL_CHAR_REPLACEMENT = "-";
+	public final static String HYPHEN_CHAR = "-";
 	public final static String SPACE_CHAR = " ";
 	public final static String TAGS_SPLIT = ",";
 	

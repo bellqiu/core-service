@@ -91,7 +91,7 @@ public class ProductDirectService {
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
 	@Secured("ADMIN")
 	public ProductSummaryDTO update(ProductSummaryDTO productSummaryDTO) {
-		productSummaryDTO.setName(RegexUtils.replaceSpecialChar(productSummaryDTO.getName(), Constants.SPECIAL_CHAR_REPLACEMENT));
+		productSummaryDTO.setName(RegexUtils.replaceSpecialChar(productSummaryDTO.getName(), Constants.HYPHEN_CHAR));
 		productSummaryDTO = productService.update(productSummaryDTO);
 		
 		return productSummaryDTO;
@@ -100,7 +100,7 @@ public class ProductDirectService {
 	@ExtDirectMethod(value=ExtDirectMethodType.SIMPLE)
 	@Secured("ADMIN")
 	public ProductDetailDTO saveDetail(@Valid ProductDetailDTO product){
-		product.setName(RegexUtils.replaceSpecialChar(product.getName(), Constants.SPECIAL_CHAR_REPLACEMENT));
+		product.setName(RegexUtils.replaceSpecialChar(product.getName(), Constants.HYPHEN_CHAR));
 		return productService.saveProductDetail(product);
 	}
 	

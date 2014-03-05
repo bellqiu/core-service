@@ -110,7 +110,7 @@ public class ProductController {
 			@RequestParam(value = "page", required = false) final String page,
 			Model model){
 		if(!StringUtils.isEmpty(keyword)) {
-			String keyHyper = RegexUtils.replaceSpecialChar(keyword, Constants.SPECIAL_CHAR_REPLACEMENT);
+			String keyHyper = RegexUtils.replaceSpecialChar(keyword, Constants.HYPHEN_CHAR);
 			if(!keyword.equalsIgnoreCase(keyHyper)) {
 				return "redirect:/search?keyword=" + keyHyper;
 			}

@@ -28,7 +28,9 @@ public class TagsController {
 	
 	public static List<String> INDEX_KEYS = Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0-9");
 	
-	public final static int TAG_PER_PAGE = 80; 
+	public final static int TAG_PER_PAGE = 80;
+	
+	public final static int TAG_PRODUCT_PER_PAGE = 24;
 	
 	@RequestMapping("/index/{indexName}")
 	public String tagIndex(@PathVariable("indexName") String indexName,
@@ -98,13 +100,13 @@ public class TagsController {
 		return "tagIndex";
 	}
 	
-	@RequestMapping("/key/{tagName}")
+	@RequestMapping("/key/{tagName:.*}")
 	public String tagDetail(@PathVariable("tagName") String tagName,
 			Model model){
 		return "forward:/tags/key/" + tagName + "/0";
 	}
 	
-	@RequestMapping("/key/{tagName}/{page:\\d+}")
+	@RequestMapping("/key/{tagName:.*}/{page:\\d+}")
 	public String tagDetail(@PathVariable("tagName") String tagName,
 			@PathVariable("page") int page,
 			Model model){
@@ -114,7 +116,7 @@ public class TagsController {
 		}
 		
 		int totalCount = tagsService.getProductCountByTag(tagName);
-		int max = TAG_PER_PAGE;
+		int max = TAG_PRODUCT_PER_PAGE;
 		
 		int totalPage;
 		if(totalCount % max == 0) {

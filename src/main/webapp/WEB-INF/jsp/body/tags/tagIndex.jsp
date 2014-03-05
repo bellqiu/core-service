@@ -1,3 +1,4 @@
+<%@page import="java.net.URLDecoder"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -57,7 +58,8 @@
 				<div id="tag-index-panel" class="quick-index">
 		            <ul>
 			            <c:forEach var="tag" items="${tags}">
-							<li><a href="${site.domain}/tags/key/${fn:replace(tag, ' ', '-')}">${tag}</a></li>
+			            	<c:set value="${fn:replace(tag, ' ', '-')}" var="tagIndexItemName"></c:set>
+							<li><a href='${site.domain}/tags/key/<hb:urlUtil value="${tagIndexItemName}"/>'>${tag}</a></li>
 						</c:forEach>
 		         	</ul>
 				</div>

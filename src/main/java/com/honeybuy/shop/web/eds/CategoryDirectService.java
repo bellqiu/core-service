@@ -68,7 +68,7 @@ public class CategoryDirectService {
 	@ExtDirectMethod(value=ExtDirectMethodType.FORM_POST)
 	public ExtDirectFormPostResult saveDetail(@Valid CategoryDetailDTO categoryDetailDTO, BindingResult result){
 		String name = categoryDetailDTO.getName();
-		name = RegexUtils.replaceSpecialChar(name, Constants.SPECIAL_CHAR_REPLACEMENT);
+		name = RegexUtils.replaceSpecialChar(name, Constants.HYPHEN_CHAR);
 		categoryDetailDTO.setName(name);
 		if(!result.hasErrors() && name == null) {
 			result.rejectValue("name", null, "Category name should be alphanum");
@@ -94,7 +94,7 @@ public class CategoryDirectService {
 		cADetailDTO.setName(categoryTreeDTO.getName());
 		cADetailDTO.setDisplayName(categoryTreeDTO.getDisplayName());
 		cADetailDTO = categoryService.saveCategoryDetail(cADetailDTO);*/
-		categoryTreeDTO.setName(RegexUtils.replaceSpecialChar(categoryTreeDTO.getName(), Constants.SPECIAL_CHAR_REPLACEMENT));
+		categoryTreeDTO.setName(RegexUtils.replaceSpecialChar(categoryTreeDTO.getName(), Constants.HYPHEN_CHAR));
 		categoryService.saveCategoryTree(categoryTreeDTO);
 		return categoryTreeDTO;
 	}
