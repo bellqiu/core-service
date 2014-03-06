@@ -32,6 +32,10 @@
 												<input type="hidden" name="cmd" value="_xclick"> <input
 													type="hidden" name="business" value="${paypalAccount }"> <input
 													type="hidden" name="item_name" value="Order SN: ${currentOrder.orderSN }">
+													
+													<input
+													type="hidden" name="item_desc" value="Test">
+													
 												<input type="hidden" name="amount"
 													value='<hb:printPrice price="${currentOrder.grandTotal }" withCurrency="false"/>'>
 													

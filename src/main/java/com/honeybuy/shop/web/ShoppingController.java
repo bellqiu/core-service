@@ -546,6 +546,13 @@ public class ShoppingController {
 		return null;
 	}
 	
+	@RequestMapping(value="/sp/directpay/paypal")
+	public String paypalDirectPay(){
+		
+		
+		
+		return null;
+	}
 
 	
 	public CouponService getCouponService() {
