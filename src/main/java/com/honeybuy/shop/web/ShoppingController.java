@@ -711,6 +711,8 @@ public class ShoppingController {
 		
 		//decode method of NVPDecoder will parse the request and decode the name and value pair		
 		decoder.decode(strNVPResponse);
+		
+		OrderDetailDTO detailDTO = null;
 	    
 		//checks for Acknowledgement and redirects accordingly to display error messages		
 		String strAck = decoder.get("ACK"); 
@@ -725,7 +727,7 @@ public class ShoppingController {
 				if (!StringUtils.isEmpty(username)) {
 					user = userService.newThirdPartyUserIfNotExisting(username, "paypal");
 					
-					OrderDetailDTO detailDTO = orderService.getOrderDetailById(orderId);
+					detailDTO = orderService.getOrderDetailById(orderId);
 					
 					orderService.directCheckout(detailDTO, new Address(), user);
 					
@@ -751,7 +753,7 @@ public class ShoppingController {
 			
 			model.addAttribute("username", user.getEmail());
 			model.addAttribute("password", user.getPassword());
-			model.addAttribute("targetUrl", siteService.getSite().getDomain()+"/sp/directpay/paypal/rs");
+			model.addAttribute("targetUrl", siteService.getSite().getDomain()+"/sp/directpay/paypal/rs?orderId="+detailDTO.getId());
 			
 			return "loging";
 		
