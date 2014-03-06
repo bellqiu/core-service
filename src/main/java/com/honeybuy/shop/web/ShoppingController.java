@@ -413,7 +413,7 @@ public class ShoppingController {
 		if(null == detailDTO){
 			return "404";
 		}
-		
+		payment = payment.replaceAll("_\\d+", "");
 		ResponseResult<Boolean> result = checkOrderPaymentInfo(orderId, details, currency, detailDTO.getCustomerMsg());
 		
 		if(result.isSuccess()){
@@ -833,5 +833,4 @@ public class ShoppingController {
 	public void setHbNVPCallerService(HBNVPCallerService hbNVPCallerService) {
 		this.hbNVPCallerService = hbNVPCallerService;
 	}
-	
 }
