@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,17 +42,25 @@ import com.hb.core.entity.Address;
 import com.hb.core.entity.Coupon;
 import com.hb.core.entity.Currency;
 import com.hb.core.entity.Order;
+import com.hb.core.exception.CoreServiceException;
 import com.hb.core.service.CouponService;
 import com.hb.core.service.EmailService;
+import com.hb.core.service.HBNVPCallerService;
 import com.hb.core.service.OrderService;
 import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.OrderDetailDTO;
+import com.hb.core.shared.dto.OrderItemDTO;
+import com.hb.core.shared.dto.UserDTO;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 import com.honeybuy.shop.web.dto.ResponseResult;
 import com.honeybuy.shop.web.eds.SiteDirectService;
 import com.honeybuy.shop.web.interceptor.SessionAttribute;
+import com.paypal.sdk.core.nvp.NVPDecoder;
+import com.paypal.sdk.core.nvp.NVPEncoder;
+import com.paypal.sdk.exceptions.PayPalException;
+import com.paypal.sdk.util.Util;
 
 /**
  * 
@@ -84,6 +93,9 @@ public class ShoppingController {
 	
 	@Autowired
 	private SiteDirectService siteService;
+	
+	@Autowired
+	private HBNVPCallerService hbNVPCallerService;
 	
 	@RequestMapping("/sp/shoppingcart/list")
 	public String shoppingcat(Model model){
@@ -547,11 +559,204 @@ public class ShoppingController {
 	}
 	
 	@RequestMapping(value="/sp/directpay/paypal")
-	public String paypalDirectPay(){
+	public String paypalDirectPay(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId,
+									@RequestParam(defaultValue="0", value="orderId")long orderId,
+									HttpServletResponse response,
+									HttpServletRequest request, @SessionAttribute("defaultCurrency")Currency currency) throws PayPalException, IOException{
+		
+		OrderDetailDTO detailDTO = null;
+		
+		if(orderId > 0 ){
+			detailDTO = orderService.getOrderDetailById(orderId);
+		}else{
+			detailDTO = orderService.getCart(trackingId, null);
+		}
+		
+		HBNVPCallerService caller = hbNVPCallerService;
+	    
+		caller.login();
+		
+		StringBuffer url = new StringBuffer();
+//		url.append("http://");
+		url.append(siteService.getSite().getDomain()+"/sp/directpay/paypal/return?orderId="+detailDTO.getId());
+		String returnURL = url.toString() /*+ "/nvp/GetExpressCheckoutDetails.jsp?=" + "&currencyCodeType=" + request.getParameter("currencyCodeType")*/;
+		String cancelURL = url.toString() /* + "/nvp/SetExpressCheckout.jsp?"+"paymentType=" + request.getParameter("paymentType")*/ ;
+		
+		String strNVPRequest = "";
+		StringBuffer sbErrorMessages= new StringBuffer("");
+
+		//NVPEncoder object is created and all the name value pairs are loaded into it.
+		NVPEncoder encoder = new NVPEncoder();
+
+		
+		encoder.add("CANCELURL",cancelURL);
+		encoder.add("RETURNURL",returnURL);
+		
+		/*encoder.add("PAYMENTREQUEST_0_TAXAMT","2.00");*/
+		encoder.add("METHOD","SetExpressCheckout");
+		encoder.add("PAYMENTREQUEST_0_CURRENCYCODE", currency.getCode());
+		/*encoder.add("PAYMENTREQUEST_0_AMT","10");*/
+		NumberFormat numberFormat = new DecimalFormat("#,###,##0.00");
+		float totalAmount = 0;
+		for (int i = 0; i < detailDTO.getItems().size(); i++) {
+			OrderItemDTO itemDTO = detailDTO.getItems().get(i);
+			encoder.add("L_PAYMENTREQUEST_0_DESC"+i, itemDTO.getProductSummary().getTitle());
+			encoder.add("L_PAYMENTREQUEST_0_QTY"+i, itemDTO.getQuantity()+"");
+			float itemAmoumt = itemDTO.getQuantity() * itemDTO.getFinalPrice() *  currency.getExchangeRateBaseOnDefault();
+			encoder.add("L_PAYMENTREQUEST_0_AMT"+i, numberFormat.format(itemAmoumt));
+			totalAmount+=itemAmoumt;
+		}
+		
+		
+	/*	encoder.add("L_SHIPPINGOPTIONlABEL1","UPS Next Day Air");
+		encoder.add("L_SHIPPINGOPTIONLABEL0","UPS Ground 7 Days");
+		encoder.add("L_SHIPPINGOPTIONNAME0","Ground");
+		encoder.add("L_SHIPPINGOPTIONNAME1","UPS Air");
+		encoder.add("L_SHIPPINGOPTIONISDEFAULT1","true");
+		encoder.add("L_SHIPPINGOPTIONISDEFAULT0","false");
+		encoder.add("L_SHIPPINGOPTIONAMOUNT1","8");
+		encoder.add("L_SHIPPINGOPTIONAMOUNT0","3");*/
+		
+		encoder.add("SHIPPINGOPTIONAMOUNT","0");
+		
+		encoder.add("PAYMENTREQUEST_0_ITEMAMT", numberFormat.format(totalAmount));
+		encoder.add("PAYMENTREQUEST_0_SHIPPINGAMT","0");
+		
+		encoder.add("PAYMENTREQUEST_0_AMT",numberFormat.format(totalAmount));
 		
 		
 		
+		
+		//encode method will encode the name and value and form NVP string for the request	
+		strNVPRequest = encoder.encode(); 
+
+		//call method will send the request to the server and return the response NVPString
+		String ppresponse =
+			(String) caller.call( strNVPRequest);
+
+		//NVPDecoder object is created
+		NVPDecoder resultValues = new NVPDecoder();
+		
+		//decode method of NVPDecoder will parse the request and decode the name and value pair			
+		resultValues.decode(ppresponse);
+		
+			//checks for Acknowledgement and redirects accordingly to display error messages		
+		String strAck = resultValues.get("ACK"); 
+		if(strAck !=null && !(strAck.equals("Success") || strAck.equals("SuccessWithWarning")))
+		{
+			return null;
+		}else {
+				
+			response.sendRedirect("https://www."+"sandbox"+".paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="+resultValues.get("TOKEN"));
+					
+		}
+		
+		/*return "redirect:/sp/directpay/paypal/return?EMAIL=test@test.com";*/
+		//return "directpay_paypal";
 		return null;
+	}
+	
+	@RequestMapping("/sp/directpay/paypal/rs")
+	public String paypalDirectPayRS(Model model){
+		return "directpay_paypal_rs";
+	}
+	
+	
+	@RequestMapping(value="/sp/directpay/paypal/return")
+	public String paypalDirectPayDetails(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value="orderId")long orderId) throws PayPalException, IOException{
+		hbNVPCallerService.login();
+		NVPEncoder detailRerequest = new NVPEncoder();
+		detailRerequest.add("METHOD","GetExpressCheckoutDetails");
+		detailRerequest.add("TOKEN",request.getParameter("token"));
+		
+		String detailRerequestResponse =
+				(String) hbNVPCallerService.call( detailRerequest.encode());
+		
+		NVPDecoder detailRerequesttValues = new NVPDecoder();
+		detailRerequesttValues.decode(detailRerequestResponse);
+		
+		NVPDecoder resultValues=detailRerequesttValues;
+		
+//		System.out.println("EMAIL:"+resultValues.get("EMAIL"));
+		
+//		System.out.println("EMAIL:"+request.getParameter("EMAIL"));
+		
+		//response.getWriter().print("EMAIL:"+request.getParameter("EMAIL"));
+		
+		String username = resultValues.get("EMAIL");
+		
+		Map<String, String> map = resultValues.getMap();
+		System.out.println("############################################################");
+		for (Map.Entry<String, String> en : map.entrySet()) {
+			System.out.println(en.getKey()+"="+en.getValue());
+		}
+		System.out.println("############################################################");
+		
+        NVPEncoder encoder = new NVPEncoder();
+		encoder.add("METHOD","DoExpressCheckoutPayment");
+		encoder.add("TOKEN",resultValues.get("TOKEN"));
+		encoder.add("PAYERID",resultValues.get("PAYERID"));
+		encoder.add("PAYMENTREQUEST_0_AMT", resultValues.get("PAYMENTREQUEST_0_AMT"));
+		encoder.add("PAYMENTREQUEST_0_CURRENCYCODE",resultValues.get("PAYMENTREQUEST_0_CURRENCYCODE"));
+	
+		//encode method will encode the name and value and form NVP string for the request		
+	    String strNVPString = encoder.encode();
+	
+		//call method will send the request to the server and return the response NVPString    	
+		String strNVPResponse =
+			(String) hbNVPCallerService.call( strNVPString);
+			
+		//NVPDecoder object is created			
+		NVPDecoder decoder = new NVPDecoder();
+		
+		//decode method of NVPDecoder will parse the request and decode the name and value pair		
+		decoder.decode(strNVPResponse);
+	    
+		//checks for Acknowledgement and redirects accordingly to display error messages		
+		String strAck = decoder.get("ACK"); 
+		if(strAck !=null && !(strAck.equals("Success") || strAck.equals("SuccessWithWarning")))
+		{
+			model.addAttribute("status", "Failed");
+			return "directpay_paypal_rs";
+		}else{
+			
+			UserDTO user = null;
+			try {
+				if (!StringUtils.isEmpty(username)) {
+					user = userService.newThirdPartyUserIfNotExisting(username, "paypal");
+					
+					OrderDetailDTO detailDTO = orderService.getOrderDetailById(orderId);
+					
+					orderService.directCheckout(detailDTO, new Address(), user);
+					
+					final UserDTO usr = user;
+					if(user != null) {
+						new Thread(){
+			                public void run() {
+			                    try{
+									emailService.sendRegisterMail(usr.getEmail(), usr.getPassword());
+			                    } catch (Exception e){
+			                    }
+			                };
+			            }.start();
+					}
+				}
+				
+				
+			} catch(CoreServiceException e) {
+				model.addAttribute("isSignUpPage", true);
+				model.addAttribute("isSignUpFail", true);
+				return "forward:/ac/login";
+			}
+			
+			model.addAttribute("username", user.getEmail());
+			model.addAttribute("password", user.getPassword());
+			model.addAttribute("targetUrl", siteService.getSite().getDomain()+"/sp/directpay/paypal/rs");
+			
+			return "loging";
+		
+			
+		}
 	}
 
 	
@@ -593,6 +798,14 @@ public class ShoppingController {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public HBNVPCallerService getHbNVPCallerService() {
+		return hbNVPCallerService;
+	}
+
+	public void setHbNVPCallerService(HBNVPCallerService hbNVPCallerService) {
+		this.hbNVPCallerService = hbNVPCallerService;
 	}
 	
 }

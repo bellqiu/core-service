@@ -94,7 +94,15 @@
 						<a href="/home" class="btn btn-default">Continue Shopping</a> 
 					</div>
 					<div class="col-xs-8  padding10">
-						 <a href="/sp/payment/paymentInfo" class="btn btn-danger float_right">Proceed to Checkout</a>  <input type="image" name="submit" class="float_right padding5" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif">
+						 <a href="/sp/payment/paymentInfo" class="btn btn-danger float_right">Proceed to Checkout</a>  
+						 <c:if test="${empty currentUser }">
+							 <div class="float_right padding5">
+								 <a href="/sp/directpay/paypal"  >
+								 	<img alt="Paypal PAY" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif">
+								 </a>
+							 </div>
+						 </c:if>
+						<!--  <input type="image" name="submit" -->
 					</div>
 				</div>
 			</div>

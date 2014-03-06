@@ -28,10 +28,12 @@ import com.hb.core.entity.Order;
 import com.hb.core.entity.OrderItem;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.SelectedOpts;
+import com.hb.core.entity.User;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.shared.dto.OrderSummaryDTO;
 import com.hb.core.shared.dto.ProductChangeDTO;
+import com.hb.core.shared.dto.UserDTO;
 import com.hb.core.util.Constants;
 
 
@@ -607,6 +609,27 @@ public class OrderService {
 		
 		return orderDetailConverter.convert(order);
 	}
+	
+	/**
+	 * @param detailDTO
+	 * @param address
+	 * @param user
+	 */
+	public void directCheckout(OrderDetailDTO detailDTO, Address address,
+			UserDTO user) {
+		Order order = em.find(Order.class, detailDTO.getId());
+		order.setOrderStatus(Order.Status.PAID);
+		order.setUser(em.find(User.class, user.getId()));
+		
+		String prefix = settingService.getStringValue("ORDERSN_PREFIX", "ORDER");
+		String orderDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+		order.setOrderSN(prefix+"-"+orderDate+"-"+order.getId());
+		
+		em.merge(order);
+		em.persist(order);
+		em.flush();
+	}
+
 
 	public CountryService getCountryService() {
 		return countryService;

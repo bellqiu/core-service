@@ -3,8 +3,6 @@
  */
 package com.hb.core.service;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +17,17 @@ import com.paypal.sdk.services.NVPCallerServices;
  */
 
 @Service
-public class HBNVPCallerServices extends NVPCallerServices{
+public class HBNVPCallerService extends NVPCallerServices{
 	/**
 	 * 
 	 */
 	@Autowired
 	private SettingService settingService;
 	
-	public HBNVPCallerServices() {
+	public HBNVPCallerService() {
 		super();
 	}
 	
-	@PostConstruct
 	public void login() throws PayPalException{
 		//profile = ProfileFactory.createSignatureAPIProfile();
 		//profile.setAPIUsername(DEFAULT_USER_NAME);
@@ -41,7 +38,7 @@ public class HBNVPCallerServices extends NVPCallerServices{
 		APIProfile apiProfile =  ProfileFactory.createSignatureAPIProfile();
 		String apiUsername = settingService.getStringValue("PAYPAL_API_USERNAME", "test1_api1.dentalsupplies360.com");
 		String apiPassword = settingService.getStringValue("PAYPAL_API_PWD", "X8N84SV65CQAF96F");
-		String apiSignature = settingService.getStringValue("PAYPAL_API_USERNAME", "test1_api1.dentalsupplies360.com");
+		String apiSignature = settingService.getStringValue("PAYPAL_API_SIGNATURE", "AiPC9BjkCyDFQXbSkoZcgqH3hpacAxseHUtI5BR8N3ds6.pFK3LDU6Cz");
 		apiProfile.setAPIPassword(apiPassword);
 		apiProfile.setAPIUsername(apiUsername);
 		apiProfile.setSignature(apiSignature);
@@ -49,7 +46,6 @@ public class HBNVPCallerServices extends NVPCallerServices{
 		
 		setAPIProfile(apiProfile);
 		
-		System.out.println("###############@PostConstruct");
 	}
 
 	public SettingService getSettingService() {

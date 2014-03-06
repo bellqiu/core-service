@@ -224,6 +224,10 @@
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/tags/tagDetail.jsp"/>
         </definition>
         
+        <definition name="directpay_paypal_rs" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/directpay_paypal_rs.jsp"/>
+        </definition>
+        
         <definition name="accessDenied" extends="headerFooter" >
         	 <put-attribute name="body" value="/WEB-INF/jsp/body/login.jsp"/>
         	  <!-- <put-attribute name="body" value="/WEB-INF/jsp/body/accessDenied.jsp"/> -->
