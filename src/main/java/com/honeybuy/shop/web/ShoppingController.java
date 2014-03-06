@@ -602,9 +602,9 @@ public class ShoppingController {
 			OrderItemDTO itemDTO = detailDTO.getItems().get(i);
 			encoder.add("L_PAYMENTREQUEST_0_DESC"+i, itemDTO.getProductSummary().getTitle());
 			encoder.add("L_PAYMENTREQUEST_0_QTY"+i, itemDTO.getQuantity()+"");
-			float itemAmoumt = itemDTO.getQuantity() * itemDTO.getFinalPrice() *  currency.getExchangeRateBaseOnDefault();
+			float itemAmoumt = itemDTO.getFinalPrice() *  currency.getExchangeRateBaseOnDefault();
 			encoder.add("L_PAYMENTREQUEST_0_AMT"+i, numberFormat.format(itemAmoumt));
-			totalAmount+=itemAmoumt;
+			totalAmount+= itemDTO.getQuantity() * itemAmoumt;
 		}
 		
 		
