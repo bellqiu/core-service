@@ -28,5 +28,5 @@ public class EncodingUtils {
 		System.out.println(randomString);
 		System.out.println(randomString.substring(0,8));
 	
-		}
+	}
 }

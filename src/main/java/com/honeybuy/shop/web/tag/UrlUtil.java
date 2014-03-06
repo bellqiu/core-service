@@ -5,6 +5,8 @@ import java.net.URLEncoder;
 
 import javax.servlet.ServletRequest;
 
+import com.honeybuy.shop.util.URLCodingUtil;
+
 public class UrlUtil extends AbstractHBTag{
 	
 	/**
@@ -18,18 +20,24 @@ public class UrlUtil extends AbstractHBTag{
 
 	@Override
 	public String handle(ServletRequest request) {
-		if(value == null) {
-			request.setAttribute("value", value);
-		} else {
-			try {
-				if(decode) {
-					request.setAttribute("value", URLDecoder.decode(value, "UTF-8"));
-				} else {
-					request.setAttribute("value", URLEncoder.encode(value, "UTF-8"));
-				}
-			} catch (Exception e) {
+		String codingValue = null;
+		try {
+			if(decode) {
+				codingValue = URLCodingUtil.decode(value);
+			} else {
+				codingValue = URLCodingUtil.encode(value);
+			}
+		} catch (Exception e) {
+			codingValue = value;
+		}
+		if(codingValue == null) {
+			if(value == null) {
+				request.setAttribute("value", "");
+			} else {
 				request.setAttribute("value", value);
 			}
+		} else {
+			request.setAttribute("value", codingValue);
 		}
 		return "urlUtil";
 	}

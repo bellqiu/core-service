@@ -32,7 +32,6 @@ import com.hb.core.entity.OptionItem;
 import com.hb.core.entity.Product;
 import com.hb.core.entity.Property;
 import com.hb.core.exception.CoreServiceException;
-import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
@@ -393,7 +392,7 @@ public class ProductService {
 	private Product getProductById(long id) {
 		return em.find(Product.class, id);
 	}
-
+	
 	public void test() {
 		Image image1 = new Image();
 		image1.setAltTitle("test");

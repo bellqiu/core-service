@@ -50,7 +50,7 @@ public class TagsServiceCacheWrapper {
 				if(Character.isDigit(tagName.charAt(0))) {
 					index = TAG_DIGITAL_INDEX;
 				} else {
-					index = tagName.substring(0, 1);
+					index = tagName.substring(0, 1).toUpperCase();
 				}
 				Set<String> tagsSet = tagIndexMap.get(index);
 				if(tagsSet != null) {

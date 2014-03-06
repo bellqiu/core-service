@@ -3,6 +3,7 @@ package com.honeybuy.shop.web.cache;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.hb.core.service.CategoryService;
 import com.hb.core.service.ProductService;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.URLCodingUtil;
 import com.honeybuy.shop.web.HomeController;
 import com.honeybuy.shop.web.TagsController;
 
@@ -84,6 +86,11 @@ public class SitemapServiceCacheWrapper {
 		List<String> allTagsName = new ArrayList<String>(allTagsProductMap.size() * 3);
 		for(String tagName : allTagsProductMap.keySet()) {
 			String tagRelativeURL = tagName.replace(Constants.SPACE_CHAR, Constants.HYPHEN_CHAR);
+			try {
+				tagRelativeURL = URLCodingUtil.encode(tagRelativeURL);
+			} catch (UnsupportedEncodingException e) {
+				logger.warn("URL Encoding Error");
+			}
 			allTagsName.add(tagRelativeURL);
 			Set<Long> productsByTag = allTagsProductMap.get(tagName);
 			if(productsByTag != null && productsByTag.size() > 0) {

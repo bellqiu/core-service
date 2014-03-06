@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SitemapServiceCacheWrapper;
 
 /**
@@ -24,9 +23,6 @@ import com.honeybuy.shop.web.cache.SitemapServiceCacheWrapper;
 @Controller
 @RequestMapping("")
 public class HomeController {
-	
-	@Autowired
-	private CategoryServiceCacheWrapper categoryService;
 	
 	@Autowired
 	private SitemapServiceCacheWrapper sitemapService;
