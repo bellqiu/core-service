@@ -616,10 +616,22 @@ public class OrderService {
 	 * @param user
 	 */
 	public void directCheckout(OrderDetailDTO detailDTO, Address address,
-			UserDTO user) {
+			UserDTO user, float shippingAmt , String shippingMth) {
+		
+		User usr = em.find(User.class, user.getId());
+		
 		Order order = em.find(Order.class, detailDTO.getId());
 		order.setOrderStatus(Order.Status.PAID);
-		order.setUser(em.find(User.class, user.getId()));
+		order.setUser(usr);
+		order.setShippingMethod(shippingMth);
+		order.setDeliveryPrice(shippingAmt);
+		
+		if(userService.getUserAddresses(usr.getEmail()).size() < 1){
+			userService.saveAddress(usr.getEmail(), address);
+		}
+		
+		order.setBillingAddress("Paypal provider");
+		order.setShippingAddress(address.toString());
 		
 		String prefix = settingService.getStringValue("ORDERSN_PREFIX", "ORDER");
 		String orderDate = new SimpleDateFormat("yyyyMMdd").format(new Date());

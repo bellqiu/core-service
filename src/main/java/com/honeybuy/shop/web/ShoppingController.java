@@ -60,7 +60,6 @@ import com.honeybuy.shop.web.interceptor.SessionAttribute;
 import com.paypal.sdk.core.nvp.NVPDecoder;
 import com.paypal.sdk.core.nvp.NVPEncoder;
 import com.paypal.sdk.exceptions.PayPalException;
-import com.paypal.sdk.util.Util;
 
 /**
  * 
@@ -608,19 +607,25 @@ public class ShoppingController {
 		}
 		
 		
-	/*	encoder.add("L_SHIPPINGOPTIONlABEL1","UPS Next Day Air");
-		encoder.add("L_SHIPPINGOPTIONLABEL0","UPS Ground 7 Days");
-		encoder.add("L_SHIPPINGOPTIONNAME0","Ground");
-		encoder.add("L_SHIPPINGOPTIONNAME1","UPS Air");
-		encoder.add("L_SHIPPINGOPTIONISDEFAULT1","true");
-		encoder.add("L_SHIPPINGOPTIONISDEFAULT0","false");
+		encoder.add("L_SHIPPINGOPTIONlABEL1","Expedited Shipping");
+		encoder.add("L_SHIPPINGOPTIONLABEL0","Standard Shipping");
+		encoder.add("L_SHIPPINGOPTIONNAME0","Standard Shipping");
+		encoder.add("L_SHIPPINGOPTIONNAME1","Expedited Shipping");
+		encoder.add("L_SHIPPINGOPTIONISDEFAULT1","false");
+		encoder.add("L_SHIPPINGOPTIONISDEFAULT0","true");
 		encoder.add("L_SHIPPINGOPTIONAMOUNT1","8");
-		encoder.add("L_SHIPPINGOPTIONAMOUNT0","3");*/
+		encoder.add("L_SHIPPINGOPTIONAMOUNT0","0");
 		
-		encoder.add("SHIPPINGOPTIONAMOUNT","0");
+		//encoder.add("SHIPPINGOPTIONAMOUNT","8");
+		
 		
 		encoder.add("PAYMENTREQUEST_0_ITEMAMT", numberFormat.format(totalAmount));
+		
+		totalAmount  = totalAmount + 0;
+		
 		encoder.add("PAYMENTREQUEST_0_SHIPPINGAMT","0");
+		
+		encoder.add("MAXAMT",  numberFormat.format(totalAmount + 25));
 		
 		encoder.add("PAYMENTREQUEST_0_AMT",numberFormat.format(totalAmount));
 		
@@ -685,12 +690,31 @@ public class ShoppingController {
 		
 		String username = resultValues.get("EMAIL");
 		
-		Map<String, String> map = resultValues.getMap();
-		System.out.println("############################################################");
+//		Map<String, String> map = resultValues.getMap();
+		
+		Address address = new Address();
+		
+		address.setFirstName(resultValues.get("FIRSTNAME"));
+		address.setAddress1(resultValues.get("PAYMENTREQUEST_0_SHIPTOSTREET"));
+		address.setCity(resultValues.get("PAYMENTREQUEST_0_SHIPTOCITY"));
+		address.setCountryCode(resultValues.get("PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE"));
+		address.setLastName(resultValues.get("LASTNAME"));
+		address.setPhone("00000000");
+		address.setPostalCode(resultValues.get("PAYMENTREQUEST_0_SHIPTOZIP"));
+		address.setStateProvince(resultValues.get("PAYMENTREQUEST_0_SHIPTOSTATE"));
+		
+		float shippingAmt = Float.valueOf(resultValues.get("PAYMENTREQUEST_0_SHIPPINGAMT"));
+		
+		String shippingMth = resultValues.get("SHIPPINGOPTIONNAME");
+		
+		/*System.out.println("############################################################");
 		for (Map.Entry<String, String> en : map.entrySet()) {
+
+			
+			
 			System.out.println(en.getKey()+"="+en.getValue());
 		}
-		System.out.println("############################################################");
+		System.out.println("############################################################");*/
 		
         NVPEncoder encoder = new NVPEncoder();
 		encoder.add("METHOD","DoExpressCheckoutPayment");
@@ -729,7 +753,7 @@ public class ShoppingController {
 					
 					detailDTO = orderService.getOrderDetailById(orderId);
 					
-					orderService.directCheckout(detailDTO, new Address(), user);
+					orderService.directCheckout(detailDTO, address, user, shippingAmt, shippingMth);
 					
 					final UserDTO usr = user;
 					if(user != null) {
