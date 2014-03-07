@@ -98,7 +98,7 @@
 						 <c:if test="${empty currentUser }">
 							 <div class="float_right padding5">
 								 <a href="/sp/directpay/paypal"  >
-								 	<img alt="Paypal PAY" src="//resources/css/img/btn_xpressCheckout.gif">
+								 	<img alt="Paypal PAY" src="/resources/css/img/btn_xpressCheckout.gif">
 								 </a>
 							 </div>
 						 </c:if>
