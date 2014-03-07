@@ -42,7 +42,7 @@ public class HBNVPCallerService extends NVPCallerServices{
 		apiProfile.setAPIPassword(apiPassword);
 		apiProfile.setAPIUsername(apiUsername);
 		apiProfile.setSignature(apiSignature);
-		apiProfile.setEnvironment("sandbox");
+		apiProfile.setEnvironment("live");
 		
 		setAPIProfile(apiProfile);
 		

@@ -652,7 +652,7 @@ public class ShoppingController {
 			return null;
 		}else {
 				
-			response.sendRedirect("https://www."+"sandbox"+".paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="+resultValues.get("TOKEN"));
+			response.sendRedirect("https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="+resultValues.get("TOKEN"));
 					
 		}
 		
