@@ -16,19 +16,25 @@ var domain = '${site.domain}';
 	    <div id="signUpOrLoginTabCotent" class="row signUpOrLoginBody tab-content">
 	    	<div id="loginTab" class="col-sm-12 col-md-12 tab-pane fade active in">
 				<form action='/hb_login' method='POST' class="form-horizontal" role="form">
+					<div class="row">
+						<div class="col-sm-2"></div>
+						<!-- <label class="col-sm-2"></label> -->
+						<div class="col-sm-5">
+							
+							<c:if test="${not empty param.failed and param.failed}">
+                           		<p  class='alert alert-danger fade in'>
+                           			<strong>The email address or password you entered is incorrect.</strong>
+                           		</p>
+							</c:if>
+						</div>
+						<div class="col-sm-5">
+						</div>
+					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="loginUsername">Email</label>
 						<div class="col-sm-5">
 							<input class="form-control" name="username" type="email" id="loginUsername" placeholder="Email" required >
-							<p class="help-block">
-								<c:choose>
-                           		<c:when test="${not empty param.failed and param.failed}">
-                           		<p  class='alert alert-danger fade in'>
-                           			<strong>Username or password error</strong>
-                           		</p>
-                           		</c:when>
-                           		</c:choose>
-							</p>
+							<p class="help-block"></p>
 						</div>
 						<div class="col-sm-5">
 						</div>
@@ -70,11 +76,12 @@ var domain = '${site.domain}';
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
                         	<div class="row">
+                        		<script src="/resources/js/ThreePartyLogin.js" type="text/javascript"></script>
                           	  	<div class="col-xs-2">
                           	  		<!-- <button type="button" class="btn btn-default" id="facebookLoginButtonId">Facebook Sign in</button> -->
                           	  		<a href="javascript:void(0)" id="facebookLoginWithAnotherLinkId" class="login-lnk btn-facebook" title="Log in using your Facebook account">Facebook</a>
                           	  		<div id="fb-root"></div>
-										<script src="/resources/js/FacebookLogin.js" type="text/javascript"></script>
+									<!-- <script src="/resources/js/FacebookLogin.js" type="text/javascript"></script> -->
 												<!--
 												  Below we include the Login Button social plugin. This button uses the JavaScript SDK to
 												  present a graphical Login button that triggers the FB.login() function when clicked. -->
@@ -82,12 +89,8 @@ var domain = '${site.domain}';
 												<!-- <fb:login-button width="200" max-rows="1"></fb:login-button> -->
                           	  	</div>
                           	  	<div class="col-xs-2">
-						    		<script src="/resources/js/GoogleLogin.js" type="text/javascript"></script>
+						    		<!-- <script src="/resources/js/GoogleLogin.js" type="text/javascript"></script> -->
 						    		<a href="javascript:void(0)" id="googleLoginId" class="login-lnk btn-google" title="Log in using your Google account">Google</a>
-		                        	<!-- <div id="gConnect">
-									    <button type="button" class="btn btn-default" id="googleLoginButtonId">Google Sign in</button>
-									</div> -->
-                          	  	
                           	  	</div>
                           	  	<%-- <div class="col-xs-2">
                           	  		<a href="${site.domain}/ac/login?type=twitter" id="twitterLogin" >Login with Twitter</a>
@@ -99,7 +102,7 @@ var domain = '${site.domain}';
 									  authorize:false
 									  lang:en_US
 									</script>
-                          	  		<script src="/resources/js/LinkedInLogin.js" type="text/javascript"></script>
+                          	  		<!-- <script src="/resources/js/LinkedInLogin.js" type="text/javascript"></script> -->
                           	  		<a href="javascript:void(0)" id="linkedInLogin" class="login-lnk btn-linkedin" title="Log in using your LinkedIn account">LinkedIn</a>
                           	  	</div>
                             </div>
