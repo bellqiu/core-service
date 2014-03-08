@@ -19,6 +19,7 @@ import com.hb.core.service.ProductService;
 import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.hb.core.shared.dto.TabProductDTO;
 import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.URLCodingUtil;
 
 @Service
 @Transactional(readOnly=true)
@@ -94,6 +95,7 @@ public class TagsServiceCacheWrapper {
 		if(StringUtils.isEmpty(tagName)) {
 			return null;
 		}
+		tagName = URLCodingUtil.decodeSlash(tagName);
 		String realTagName = tagName.replace(Constants.HYPHEN_CHAR, Constants.SPACE_CHAR);
 		TreeMap<String, Set<Long>> tagsProductMap = getAllTagsProductMap();
 		if(tagsProductMap.containsKey(realTagName)) {

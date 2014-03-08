@@ -102,6 +102,7 @@
         
         <definition name="shoppingcat" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/shopping/shoppingcat.jsp"/>
+        	  <put-attribute name="footer" value="/WEB-INF/jsp/footer/simpleFooter.jsp"/>
         	  <put-attribute name="pageTitle" value="Shoppingcart"/>
         	  <put-attribute name="pageKeywords" value="Shoppingcart"/>
         	  <put-attribute name="pageDescription" value="Shoppingcart"/>

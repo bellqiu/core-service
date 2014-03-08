@@ -7,6 +7,8 @@ public interface Constants {
 	public final static String HYPHEN_CHAR = "-";
 	public final static String SPACE_CHAR = " ";
 	public final static String TAGS_SPLIT = ",";
+	public final static String SLASH = "/";
+	public final static String SLASH_REPLACEMENT = "--slash--";
 	
 	public final static String TRACKING_COOKE_ID_NAME = "hb_cart_trackingId";
 	public final static String CURRENCY_COOKE_ID_NAME = "___hbCurrencyCode";

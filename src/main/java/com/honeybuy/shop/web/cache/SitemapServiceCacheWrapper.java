@@ -85,12 +85,7 @@ public class SitemapServiceCacheWrapper {
 		TreeMap<String, Set<Long>> allTagsProductMap = tagsService.getAllTagsProductMap();
 		List<String> allTagsName = new ArrayList<String>(allTagsProductMap.size() * 3);
 		for(String tagName : allTagsProductMap.keySet()) {
-			String tagRelativeURL = tagName.replace(Constants.SPACE_CHAR, Constants.HYPHEN_CHAR);
-			try {
-				tagRelativeURL = URLCodingUtil.encode(tagRelativeURL);
-			} catch (UnsupportedEncodingException e) {
-				logger.warn("URL Encoding Error");
-			}
+			String tagRelativeURL = URLCodingUtil.encode(tagName.replace(Constants.SPACE_CHAR, Constants.HYPHEN_CHAR));
 			allTagsName.add(tagRelativeURL);
 			Set<Long> productsByTag = allTagsProductMap.get(tagName);
 			if(productsByTag != null && productsByTag.size() > 0) {
