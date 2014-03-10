@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.hb.core.util.Constants;
-import com.honeybuy.shop.util.URLCodingUtil;
 import com.honeybuy.shop.web.cache.TagsServiceCacheWrapper;
 
 @Controller
@@ -104,7 +103,6 @@ public class TagsController {
 	@RequestMapping("/key/{tagName:.*}")
 	public String tagDetail(@PathVariable("tagName") String tagName,
 			Model model){
-		//tagName = URLCodingUtil.encode(tagName);
 		return "forward:/tags/key/" + tagName + "/0";
 	}
 	

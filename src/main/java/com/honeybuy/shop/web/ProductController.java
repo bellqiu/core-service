@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,8 +57,7 @@ public class ProductController {
 	@RequestMapping("/{productName}")
 	public String productDetail(@PathVariable("productName") String productName, Model model, 
 				@CookieValue(defaultValue="", required=false, value="productOpts")String cookieOpts, 
-				@RequestParam(required=false, value="productOpts", defaultValue="") String paramOpts
-				){
+				@RequestParam(required=false, value="productOpts", defaultValue="") String paramOpts){
 		
 		String optParams = StringUtils.isEmpty(paramOpts)? cookieOpts : paramOpts;
 		

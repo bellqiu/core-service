@@ -1,8 +1,5 @@
 package com.honeybuy.shop.web.tag;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-
 import javax.servlet.ServletRequest;
 
 import com.honeybuy.shop.util.URLCodingUtil;
