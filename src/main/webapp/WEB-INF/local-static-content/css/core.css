@@ -663,9 +663,50 @@ input[type=password] {
 
 /****************************Order display ************************************/
 .shopping_cart_container{
-	width: 976px;
+	
 	margin: auto;
 	min-height: 100px;
+}
+.shopping_cart_pic{
+	width: 1000px;	
+	margin: 0px 0px 30px 0px;
+	clear: both;
+}
+.shopping_cart_qa {
+	padding: 10px 15px;
+	background: #eee;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.shopping_cart_qa1 {
+	height: 25px;
+	border-bottom: 1px #CCCCCC solid;
+	font-size: 12px;
+	font-weight: bold;
+	color: #666666;
+}
+.shopping_cart_qa2 {
+	font-size: 11px;
+	color: #666666;
+	line-height: 16px;
+	padding: 10px 0px;
+}
+.shopping_cart_qa3 {
+	padding: 10px 0px;
+}
+.shopping_cart_qa3 td {
+	border: none;
+}
+.shopping_cart_left {
+	padding-top: 10px;
+}
+.shopping_cart_block {
+	margin: auto;
+	overflow: hidden;
+	border: 1px #CCCCCC solid;
+	padding: 10px 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #666666;
+	line-height: 16px;
 }
 .emptycart{
 	height: 250px;

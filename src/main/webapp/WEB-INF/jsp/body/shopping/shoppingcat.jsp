@@ -9,10 +9,84 @@
   				<li class="active">Shopping Cart</li> 
 			</ol>
 	</div>
-	<div class="row shopping_cart_container">
-		<div class="emptycart">
+	<div class="row shopping_cart_pic">
+		<img src="http://www.dentalsupplies360.com/rs/img1/payacc.gif" alt=""/>
+	</div>
+	<div class="row">
+		<div class="col-xs-3">
+		    <div class="shopping_cart_qa">
+		        <div class="shopping_cart_qa1">Shop With Confidence</div>
+		        <div class="shopping_cart_qa2">
+		            Shopping on
+		            <br>
+		            Everbuying.com is safe
+		            <br>
+		            and secure - guaranteed!
+		        </div>
+		        <div class="shopping_cart_qa3">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tbody><tr>
+							<td height="80" align="center" valign="top">
+								<table width="123" height="70" border="0" cellpadding="0" cellspacing="0">
+									<tbody><tr>
+					    				<td align="center" valign="middle" bgcolor="#FFFFFF"><!-- START MCAFEESECURE CODE -->
+											<a target="_blank" href="https://www.mcafeesecure.com/"><img width="94" height="54" border="0" src="//www.dentalsupplies360.com/rs/img1/mcafee.gif" alt="McAfee SECURE sites help keep you safe from identity theft, credit card fraud, spyware, spam, viruses and online scams" oncontextmenu="alert('Copying Prohibited by Law - McAfee SECURE is a Trademark of McAfee, Inc.'); return false;"></a>
+										<!-- END MCAFEESECURE CODE --></td>
+					  				</tr></tbody>
+					  			</table>
+					  		</td>
+						</tr>
+						<tr>
+							<td align="center" valign="top"><img src="http://www.dentalsupplies360.com/rs/img1/verify.jpg" alt="Verify Sign"></td>
+					  	</tr></tbody>
+					</table>
+				</div>
+			</div>
+		    <div class="shopping_cart_left"><img width="270" src="http://www.dentalsupplies360.com/rs/img1/guarntee.jpg" alt=""Guarntee></div>
+		</div>
+		
+		<div class="col-xs-9 shopping_cart_container">
+			<div class="emptycart">
+			</div>
 		</div>
 	</div>
+	<div style="padding: 10px 0px;"></div>
+	<!-- <div class="row shopping_cart_block">
+		<div>
+	    <div class="col-xs-6 casmsm1">
+	        <table width="90%" border="0" cellspacing="0" cellpadding="0">
+	            <tbody><tr>
+	                <td height="30"><strong>Satisfaction Guaranteed</strong></td>
+	            </tr>
+	            <tr>
+	                <td>Everbuying.com cares about your complete satisfaction. We offer
+	                    a comprehensive return policy on all items, allowing you to shop
+	                    with confidence. </td>
+	            </tr>
+	            <tr>
+	                <td height="30"><a href="http://www.everbuying.com/m-article-id-16.html">See our Return Policy &gt;&gt;</a></td>
+	            </tr>
+	        </tbody></table>
+	    </div>
+	    <div class="col-xs-6 casmsm2">
+	        <table width="90%" border="0" cellspacing="0" cellpadding="0">
+	            <tbody><tr>
+	                <td height="30"><strong>Privacy Policy</strong></td>
+	            </tr>
+	            <tr>
+	                <td>
+	                    Everbuying.com respects your privacy. We do NOT share or in any
+	                    way distribute any personal, business or contact information you
+	                    may provide.
+	                </td>
+	            </tr>
+	            <tr>
+	                <td height="30"><a href="http://www.everbuying.com/m-article-id-83.html">See our Privacy Policy &gt;&gt;</a></td>
+	            </tr>
+	        </tbody></table>
+	    </div>
+		</div>
+	</div> -->
 	
 </div>
 <script src="/resources/js/ShoppingcartPageMain.js" type="text/javascript"></script>

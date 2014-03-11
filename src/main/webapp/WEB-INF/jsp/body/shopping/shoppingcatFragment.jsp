@@ -94,7 +94,7 @@
 						<a href="/home" class="btn btn-default">Continue Shopping</a> 
 					</div>
 					<div class="col-xs-8  padding10">
-						 <a href="/sp/payment/paymentInfo" class="btn btn-danger float_right">Proceed to Checkout</a>  
+						 <a href="/sp/payment/paymentInfo" class="btn btn-warning float_right">Proceed to Checkout</a>  
 						 <c:if test="${empty currentUser }">
 							 <div class="float_right padding5">
 								 <a href="/sp/directpay/paypal"  >
