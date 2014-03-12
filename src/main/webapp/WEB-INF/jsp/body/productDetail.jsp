@@ -183,14 +183,13 @@ var productOpts = "${currentProductOptions}";
 					<hb:htmltag htmlKey="AD_PRODUCT_DETAIL"/>
 				</div>
 
-
 				<div class="col-md-12 col-xs-12 padding10">
 					<form action="/sp/shoppingcart/add" id="add2cartForm" method="post">
 						<input name="productName" value="" type="hidden" id="productNameSubmitInput">
 						<input name="productOpts" value="" type="hidden" id="productOptsSubmitInput">
 						<input name="productAmount" value="" type="hidden" id="productAmountSubmitInput">
 						<button type="button" data-loading-text="Processing.."
-							class="btn btn-danger" id="add2cartButton">Add to Cart</button>
+							class="btn btn-warning add_cart_btn" id="add2cartButton"><span class="glyphicon glyphicon-shopping-cart" style="font-size:16px;">&nbsp;</span>ADD TO CART</button>
 					</form>
 				</div>
 

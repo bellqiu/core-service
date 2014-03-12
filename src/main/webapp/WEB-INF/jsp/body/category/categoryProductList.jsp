@@ -55,7 +55,7 @@
 				<div class="col-xs-4">
 					<div class="thumbnail productThumbnail productItem">
 						<a href="${site.domain}/${product.name }" title="${product.title }">
-      						<img src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${product.imageURL }" alt="${product.title }" class="category-product-img">
+      						<img src="${site.resourceServer}${site.webResourcesFolder }${site.productImageResourcesFolder}/${product.imageURL }" alt="${product.title }" class="category-product-img">
 						</a>
 						<div>
 							<span class="activeprice">	<hb:printPrice price="${product.actualPrice}"/>

@@ -157,6 +157,12 @@ input[type=password] {
 	background-color: #002050;
 }
 
+.add_cart_btn {
+	width: 218px;
+	font-weight: bold;
+	background-color: #F0884E;
+}
+
 .main-header {
 	height: 105px;
 }
@@ -673,7 +679,7 @@ input[type=password] {
 	clear: both;
 }
 .shopping_cart_qa {
-	padding: 10px 15px;
+	padding: 10px 5px;
 	background: #eee;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
@@ -691,20 +697,26 @@ input[type=password] {
 	padding: 10px 0px;
 }
 .shopping_cart_qa3 {
-	padding: 10px 0px;
+	padding: 10px 0px 0px 0px;
 }
-.shopping_cart_qa3 td {
+table.noborder td {
 	border: none;
 }
 .shopping_cart_left {
 	padding-top: 10px;
 }
 .shopping_cart_block {
-	margin: auto;
 	overflow: hidden;
 	border: 1px #CCCCCC solid;
-	padding: 10px 0px;
+	margin: 20px 0px 0px 0px;
+	padding: 20px 0px 5px 0px;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.shopping_cart_block a {
+	color: #006BD0;
+	text-decoration: underline;
+}
+.shopping_cart_block td {
 	color: #666666;
 	line-height: 16px;
 }
