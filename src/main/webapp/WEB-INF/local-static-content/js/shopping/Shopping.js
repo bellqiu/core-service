@@ -60,6 +60,19 @@
 						var changes = "ALL";
 						shopping.modifyCart(itemId, changes, el);
 				});
+				 
+				$("#applyCouponButton").click(function(){
+					$(".couponErrorArea").hide();
+					$(".couponInfoArea").hide();
+					var orderid = $(this).attr("data-order-id");
+					var code = $("input[name='couponCode']").val();
+					if(code.length < 2){
+						$(".couponErrorArea").html("Invalid Code");
+						$(".couponErrorArea").show();
+						return;
+					}
+					shopping.applyCoupon(orderid, code);
+				});
 			};
 			
 			shopping.modifyCart = function(itemId, changes, bindItem){
@@ -148,9 +161,9 @@
 			};
 			
 			shopping.applyCoupon = function(orderid, coupon ){
-				$("#paymentsumaryPanel").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
+				$(".shopping_cart_container").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
 				$.ajax({
-					url : "/sp/payment/applyCoupon?_tp="+new Date().getTime(),
+					url : "/sp/shopping/applyCoupon?_tp="+new Date().getTime(),
 					data : {"orderId" : orderid, "couponCode" : coupon},
 					complete : function(response){
 						
@@ -170,7 +183,7 @@
 							$(".couponErrorArea").html(json.messageMap.ERROR);
 							$(".couponErrorArea").show();;
 						}
-						$("#paymentsumaryPanel").unmask();
+						$(".shopping_cart_container").unmask();
 					}
 				});
 			};

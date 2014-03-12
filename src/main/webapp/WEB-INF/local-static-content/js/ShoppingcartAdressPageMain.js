@@ -67,19 +67,6 @@
 					});
 				});
 				
-				$("#applyCouponButton").click(function(){
-					$(".couponErrorArea").hide();
-					$(".couponInfoArea").hide();
-					var orderid = $(this).attr("data-order-id");
-					var code = $("input[name='couponCode']").val();
-					if(code.length < 2){
-						$(".couponErrorArea").html("Invalid Code");
-						$(".couponErrorArea").show();
-						return;
-					}
-					shopping.applyCoupon(orderid, code);
-				});
-				
 			}
 			
 			bindEditEvent();

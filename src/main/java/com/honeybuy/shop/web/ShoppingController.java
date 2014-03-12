@@ -301,10 +301,10 @@ public class ShoppingController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/sp/payment/applyCoupon")
+	@RequestMapping("/sp/shopping/applyCoupon")
 	public ResponseResult<OrderDetailDTO> applyCoupon(
 			@RequestParam(value="orderId") long orderId, 
-			 @SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
+			/* @SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,*/
 			 @SessionAttribute("defaultCurrency")Currency currency,
 			 @RequestParam("couponCode")String couponCode
 			 ){
@@ -333,7 +333,7 @@ public class ShoppingController {
 			result = new ResponseResult<OrderDetailDTO>(false, detailDTO);
 			result.getMessageMap().put("ERROR", error);
 		}else{
-			detailDTO = orderService.applyCoupon(details.getUsername(), orderId, coupon.getCode());
+			detailDTO = orderService.applyCoupon(orderId, coupon.getCode());
 			result = new ResponseResult<OrderDetailDTO>(true, detailDTO);
 			result.getMessageMap().putAll(orderPriceChanges(detailDTO, currency));
 		}

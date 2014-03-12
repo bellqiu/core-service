@@ -234,30 +234,6 @@
 				<div class="row">
 					<div class="col-xs-8">
 						<div class="row rowContent">&nbsp;</div>
-						<div class="row rowContent">
-							<div class="row">
-								<div class="col-xs-3" style="line-height: 2.5em">Enter
-									Coupon:</div>
-								<div class="col-xs-5">
-									<input style="width: 100%" class="form-control"
-										name="couponCode" />
-								</div>
-								<div class="col-xs-4">
-									<button class="btn btn-default" type="button"
-										data-order-id="${currentOrder.id }" id="applyCouponButton">Apply</button>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-3"></div>
-								<div class="col-xs-7">
-									<div class="alert alert-danger couponErrorArea">Invalid
-										Coupon code</div>
-									<div class="alert alert-info couponInfoArea">Invalid
-										Coupon code</div>
-								</div>
-								<div class="col-xs-2"></div>
-							</div>
-						</div>
 
 						<div class="row rowContent">
 							<div class="row">

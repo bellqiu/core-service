@@ -564,9 +564,9 @@ public class OrderService {
 	}
 	
 	
-	public OrderDetailDTO applyCoupon(String userEmail ,long orderId, String couponCode){
+	public OrderDetailDTO applyCoupon(long orderId, String couponCode){
 		
-		Order order = getOrderByOrderIdAndUserId(userEmail, orderId);
+		Order order = em.find(Order.class, orderId);
 		
 		
 		if(null == order){
