@@ -678,6 +678,13 @@ input[type=password] {
 	margin: 0px 0px 30px 0px;
 	clear: both;
 }
+
+.shopping_cart_checkout {
+	width: 180px;	
+	font-weight: bold;
+	background-color: #F0884E;
+}
+
 .shopping_cart_qa {
 	padding: 10px 5px;
 	background: #eee;

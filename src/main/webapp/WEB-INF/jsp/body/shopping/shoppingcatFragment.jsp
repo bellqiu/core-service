@@ -67,26 +67,27 @@
 			<div class="row">
 						<div class="row rowContent">
 							<div class="row">
-								<div class="col-xs-2 col-xs-offset-2" style="line-height: 2.5em">Enter
-									Coupon:</div>
+								<div class="col-xs-2" style="line-height: 2.5em">Promotion Coupon:</div>
 								<div class="col-xs-3">
 									<input style="width: 100%" class="form-control"
 										name="couponCode" />
 								</div>
 								<div class="col-xs-5">
-									<button class="btn btn-default" type="button"
+									<button class="btn btn-primary" type="button"
 										data-order-id="${currentOrder.id }" id="applyCouponButton">Apply</button>
+								</div>
+								<div class="col-xs-2">
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-4"></div>
+								<div class="col-xs-2"></div>
 								<div class="col-xs-3">
 									<div class="alert alert-danger couponErrorArea">Invalid
 										Coupon code</div>
 									<div class="alert alert-info couponInfoArea">Invalid
 										Coupon code</div>
 								</div>
-								<div class="col-xs-5"></div>
+								<div class="col-xs-7"></div>
 							</div>
 						</div>
 				<div class="row">
@@ -128,11 +129,12 @@
 				</div>
 				<div class="row order_buttons">
 					<div class="col-xs-4 ">
-						<a href="/home" class="btn btn-default">Continue Shopping</a> 
+						<a href="/home" class="btn btn-primary">Continue Shopping</a> 
 					</div>
-					<div class="col-xs-8  padding10">
-						 <a href="/sp/payment/paymentInfo" class="btn btn-warning float_right">Proceed to Checkout</a>  
+					<div class="col-xs-8">
+						 <a href="/sp/payment/paymentInfo" class="btn btn-warning shopping_cart_checkout float_right">Proceed to Checkout</a>
 						 <c:if test="${empty currentUser }">
+						 	 <div class="float_right padding5">or</div>
 							 <div class="float_right padding5">
 								 <a href="/sp/directpay/paypal"  >
 								 	<img alt="Paypal PAY" src="/resources/css/img/btn_xpressCheckout.gif">
