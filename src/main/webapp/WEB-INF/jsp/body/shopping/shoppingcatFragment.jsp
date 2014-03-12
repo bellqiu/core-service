@@ -96,7 +96,7 @@
 								Item Sub total:
 							</div>
 							<div class="row col-xs-6 orderPrice-summary_value">
-								<span id="orderItemTotalSpan"><hb:printPrice price="${currentOrder.itemTotal }"/></span>
+								<hb:printCurrency /><span id="orderItemTotalSpan"><hb:printPrice price="${currentOrder.itemTotal }" withCurrency="false"/></span>
 							</div>
 						</div>
 					</div>
@@ -121,7 +121,7 @@
 								Grand Total:
 							</div>
 							<div class="row col-xs-6 orderPrice-summary_value" >
-									<span id="orderGrandTotalSpan"><hb:printPrice price="${currentOrder.grandTotal }"/></span>
+									<hb:printCurrency /><span id="orderGrandTotalSpan"><hb:printPrice price="${currentOrder.grandTotal }" withCurrency="false"/></span>
 							</div>
 						</div>
 					</div>
