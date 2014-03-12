@@ -19,7 +19,7 @@
 		        <div class="shopping_cart_qa2">
 		            Shopping on
 		            <br>
-		            Everbuying.com is safe
+		            Dentalsupplies360.com is safe
 		            <br>
 		            and secure - guaranteed!
 		        </div>
