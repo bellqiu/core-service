@@ -30,8 +30,8 @@
 							 default-target-url="/home" 
 							 login-processing-url="/hb_login" 
 							 username-parameter="username"
-							 password-parameter="password" authentication-success-handler-ref="loginSuccessHandler" always-use-default-target="false" authentication-failure-url="/ac/login?failed=true"/> 
-		
+							 authentication-failure-url="/ac/login?failed=true"
+							 password-parameter="password" authentication-success-handler-ref="loginSuccessHandler" always-use-default-target="false" /> 
 		<security:remember-me authentication-success-handler-ref="loginSuccessHandler" token-validity-seconds="604800" />
 		
 		
