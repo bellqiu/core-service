@@ -20,9 +20,10 @@
 						<ul class="helpItem">	
 							<li><a href="/help/about-us">About Us</a></li>
 							<li><a href="/help/contact-us">Contact Us</a></li>
-							<li><a href="/help/customer-service">Customer Service</a></li>
 							<li><a href="/help/privacy-policies">Privacy Policies</a></li>
-							<li><a href="/help/legal-window">Legal Window</a></li>
+							<li><a href="/help/copyright">Copyright</a></li>
+							<%-- <li><a href="/help/customer-service">Customer Service</a></li> 
+							<li><a href="/help/legal-window">Legal Window</a></li>--%>
 						</ul>
 					</div>
 				</div>

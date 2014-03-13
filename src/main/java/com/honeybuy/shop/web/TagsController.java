@@ -177,7 +177,7 @@ public class TagsController {
 		model.addAttribute("indexName", indexName);
 		model.addAttribute("currentPageIndex", page);
 		
-		model.addAttribute("leftproducts", tagsService.getTabProductByName(Constants.TAB_PRODUCT_LEFT_PAD));
+		model.addAttribute("leftproducts", tagsService.getTabProductByName(Constants.TAB_PRODUCT_TAG_LEFT_PANEL));
 		
 		return "tagDetail";
 	}

@@ -52,7 +52,7 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
-	@RequestMapping("/customer-service")
+	/*@RequestMapping("/customer-service")
 	public String customerService(Model model) {
 		String htmlContent = htmlService.getHTMLContent(Constants.HTML_CUSTOMER_SERVICE, "Customer Service");
 		model.addAttribute("content", htmlContent);
@@ -63,7 +63,7 @@ public class HelpCenterController {
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_CUSTOMER_SERVICE, "Customer Service");
 		addPageMeta(model, title, keyword, description);
 		return "helpCenter";
-	}
+	}*/
 	
 	@RequestMapping("/privacy-policies")
 	public String privacyPolicies(Model model) {
@@ -78,7 +78,7 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
-	@RequestMapping("/legal-window")
+	/*@RequestMapping("/legal-window")
 	public String legalWindow(Model model) {
 		String htmlContent = htmlService.getHTMLContent(Constants.HTML_LEGAL_WINDOW, "Legal Window");
 		model.addAttribute("content", htmlContent);
@@ -87,6 +87,19 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_LEGAL_WINDOW, "Legal Window");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_LEGAL_WINDOW, "Legal Window");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_LEGAL_WINDOW, "Legal Window");
+		addPageMeta(model, title, keyword, description);
+		return "helpCenter";
+	}*/
+	
+	@RequestMapping("/copyright")
+	public String copyright(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_COPYRIGHT, "Copyright");
+		model.addAttribute("content", htmlContent);
+		model.addAttribute("panelTitle", "Copyright");
+		
+		String title = settingService.getStringValue(Constants.SETTING_TITLE_COPYRIGHT, "Copyright");
+		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_COPYRIGHT, "Copyright");
+		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_COPYRIGHT, "Copyright");
 		addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}

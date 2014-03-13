@@ -102,6 +102,7 @@ public interface Constants {
 	public static final String HTML_CUSTOMER_SERVICE = "HELP_CUSTOMER_SERVICE";
 	public static final String HTML_PRIVACY_POLICIES = "HELP_PRIVACY_POLICIES";
 	public static final String HTML_LEGAL_WINDOW = "HELP_LEGAL_WINDOW";
+	public static final String HTML_COPYRIGHT = "HELP_COPYRIGHT";
 	public static final String HTML_WARRANTY_AND_RETURN = "HELP_WARRANTY_AND_RETURN";
 	public static final String HTML_PAYMENT_METHODS = "HELP_PAYMENT_METHODS";
 	public static final String HTML_TERMS_AND_CONDITIONS = "HELP_TERMS_AND_CONDITIONS";
@@ -127,6 +128,9 @@ public interface Constants {
 	public static final String SETTING_TITLE_LEGAL_WINDOW = "HELP_TITLE_LEGAL_WINDOW";
 	public static final String SETTING_KEYWORD_LEGAL_WINDOW = "HELP_KEYWORD_LEGAL_WINDOW";
 	public static final String SETTING_DESCRIPTION_LEGAL_WINDOW = "HELP_DESCRIPTION_LEGAL_WINDOW";	
+	public static final String SETTING_TITLE_COPYRIGHT = "HELP_TITLE_COPYRIGHT";
+	public static final String SETTING_KEYWORD_COPYRIGHT = "HELP_KEYWORD_COPYRIGHT";
+	public static final String SETTING_DESCRIPTION_COPYRIGHT = "HELP_DESCRIPTION_COPYRIGHT";
 	public static final String SETTING_TITLE_WARRANTY_AND_RETURN = "HELP_TITLE_WARRANTY_AND_RETURN";
 	public static final String SETTING_KEYWORD_WARRANTY_AND_RETURN = "HELP_KEYWORD_WARRANTY_AND_RETURN";
 	public static final String SETTING_DESCRIPTION_WARRANTY_AND_RETURN = "HELP_DESCRIPTION_WARRANTY_AND_RETURN";
@@ -155,6 +159,6 @@ public interface Constants {
 	public static final String SETTING_KEYWORD_LOOK_FOR_VENDORS = "HELP_KEYWORD_LOOK_FOR_VENDORS";
 	public static final String SETTING_DESCRIPTION_LOOK_FOR_VENDORS = "HELP_DESCRIPTION_LOOK_FOR_VENDORS";
 	
-	public static final String TAB_PRODUCT_LEFT_PAD = "LEFT_PAD";
+	public static final String TAB_PRODUCT_TAG_LEFT_PANEL = "TAG_LEFT_PANEL";
 	
 }
