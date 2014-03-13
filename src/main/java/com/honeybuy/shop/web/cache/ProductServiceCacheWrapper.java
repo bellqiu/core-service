@@ -113,7 +113,7 @@ public class ProductServiceCacheWrapper {
 		
 		logger.debug("HIT get getProductSummaryById={}", productId);
 		
-		ProductSummaryDTO summary = productService.getProductSummary(productId);
+		ProductSummaryDTO summary = productService.getActiveProductSummary(productId);
 		 
 		return CloneUtil.<ProductSummaryDTO>cloneThroughJson(summary);
 	}

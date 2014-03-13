@@ -110,6 +110,17 @@ public class ProductController {
 			@RequestParam(value = "page", required = false) final String page,
 			Model model){
 		if(!StringUtils.isEmpty(keyword)) {
+			long id = 0;
+			try {
+				id = Long.valueOf(keyword);
+			} catch(NumberFormatException e) {
+			}
+			if(id > 0) {
+				ProductSummaryDTO productSummary = productService.getProductSummaryById(id);
+				if(productSummary != null) {
+					return "redirect:/" + productSummary.getName();
+				}
+			}
 			String keyHyper = RegexUtils.replaceSpecialChar(keyword, Constants.HYPHEN_CHAR);
 			if(!keyword.equalsIgnoreCase(keyHyper)) {
 				return "redirect:/search?keyword=" + keyHyper;

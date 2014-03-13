@@ -137,6 +137,19 @@ public class ProductService {
 		return productSummaryDTO;
 	}
 	
+	public ProductSummaryDTO getActiveProductSummary(long productId){
+		
+		ProductSummaryDTO productSummaryDTO = null;
+		
+		if(productId > 0){
+			Product product = getProductById(productId);
+			if(product != null && product.getStatus().equals(Component.Status.ACTIVE)) {
+				productSummaryDTO = productSummaryConverter.convert(product);
+			}
+		}
+		return productSummaryDTO;
+	}
+	
 	public ExtDirectStoreReadResult<ProductSummaryDTO> storeQuery(int start, int max, String sort, String dir, Map<String,String> filters){
 		StringBuffer ql = new StringBuffer("");
 		String categoryName = null;
