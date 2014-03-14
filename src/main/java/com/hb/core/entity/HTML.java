@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @NamedQueries(value=
 	{
 		@NamedQuery(name="QueryHtmlByKey", query="select h from HTML as h where name=:key"),
-		@NamedQuery(name="countAllHtml", query="select count(h.id) from HTML as h"),
+		@NamedQuery(name="countAllHtml", query="select count(h.id) from HTML as h")
 	})
 public class HTML extends Component{
 

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @NamedQueries(value=
 	{
 		@NamedQuery(name="QueryCouponByCode", query="select c from Coupon as c where code=:code"),
-		@NamedQuery(name="countAllCoupon", query="select count(c.id) from Coupon as c"),
+		@NamedQuery(name="countAllCoupon", query="select count(c.id) from Coupon as c")
 	})
 public class Coupon extends Component{
 

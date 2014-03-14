@@ -43,7 +43,7 @@
 				<div id="slider-range"></div>
 			</div>
 			<div>&nbsp;</div>
-			<div id="keyword-search">
+			<!-- <div id="keyword-search">
 				<div class="ui-widget">
   					<label for="keyword">Keywords: </label>
   					<input id="keyword" />
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			<div>&nbsp;</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<button type="submit" class="btn btn-default">Submit</button> -->
 		</form>
 		</div>
 		</div>

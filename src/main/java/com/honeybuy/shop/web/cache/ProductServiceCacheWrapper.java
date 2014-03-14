@@ -79,6 +79,18 @@ public class ProductServiceCacheWrapper {
 		return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(dtos);
 	}
 	
+	public int getProductCountWithPriceRangeByCategoryId(long categoryId, double lowPrice, double highPrice) {
+		List<Long> categoryIds = categoryCacheService.getCategoryIdWithAllSubCategories(categoryId);
+		return productService.getProductCountWithPriceRangeByCategoryIds(categoryIds, lowPrice, highPrice);
+	}
+	
+	public List<ProductSummaryDTO> getAllProductWithPriceRangeByCategoryId(long id, double lowPrice, double highPrice, int start, int max) {
+		List<Long> categoryIds = categoryCacheService.getCategoryIdWithAllSubCategories(id);
+		List<ProductSummaryDTO> dtos = productService.getAllProducttWithPriceRangeByCategoryIds(categoryIds, lowPrice, highPrice, start, max);
+		
+		return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(dtos);
+	}
+	
 	@Cacheable(cacheName="LowestPriceInCategory")
 	public double getLowestPriceByCategoryId(long id) {
 		return productService.getLowestPriceByCategoryId(id);

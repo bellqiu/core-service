@@ -42,7 +42,12 @@ public class CategoryController {
 	private CategoryServiceCacheWrapper categoryService;
 	
 	@RequestMapping("/c/{categoryName}/{page:\\d+}")
-	public String productDetail(@PathVariable("categoryName") String categoryName,@PathVariable("page") int page,  Model model){
+	public String productDetail(
+			@PathVariable("categoryName") String categoryName,
+			@PathVariable("page") int page,
+			@RequestParam(value="low", required=false) Double lowPrice,
+			@RequestParam(value="high", required=false) Double highPrice,
+			Model model){
 		CategoryDetailDTO categoryDetailDTO =  categoryService.getCategoryDetailByName(categoryName);
 		if(null == categoryDetailDTO){
 			return "404";
@@ -50,7 +55,12 @@ public class CategoryController {
 		
 		long categoryId = categoryDetailDTO.getId();
 		
-		int totalCount = productService.getProductCountByCategoryId(categoryId);
+		int totalCount = -1;
+		if(lowPrice == null || lowPrice == null) {
+			totalCount = productService.getProductCountByCategoryId(categoryId);
+		} else {
+			totalCount = productService.getProductCountWithPriceRangeByCategoryId(categoryId, lowPrice, highPrice);
+		}
 		int max = CATEGORY_PRODUCT_PER_PAGE;
 		
 		int totalPage;
@@ -64,7 +74,12 @@ public class CategoryController {
 			page = 0;
 			start = 0;
 		}
-		List<ProductSummaryDTO> productSummaryList = productService.getAllProductByCategoryId(categoryId, start, max);
+		List<ProductSummaryDTO> productSummaryList;
+		if(lowPrice == null || lowPrice == null) {
+			productSummaryList = productService.getAllProductByCategoryId(categoryId, start, max);
+		} else {
+			productSummaryList = productService.getAllProductWithPriceRangeByCategoryId(categoryId, lowPrice, highPrice, start, max);
+		}
 		
 		if(productSummaryList.size() > 0) {
 			List<Integer> pageIds = new ArrayList<Integer>();
@@ -110,6 +125,14 @@ public class CategoryController {
 		double highestPrice = productService.getHighestPriceByCategoryId(categoryId);
 		model.addAttribute("lowestPrice", lowestPrice);
 		model.addAttribute("highestPrice", highestPrice);
+		if(lowPrice == null || highPrice == null) {
+			model.addAttribute("currentLowestPrice", lowestPrice);
+			model.addAttribute("currentLighestPrice", highestPrice);
+		} else {
+			model.addAttribute("currentLowestPrice", lowPrice);
+			model.addAttribute("currentLighestPrice", highPrice);
+		}
+		
 		
 		List<String> categoryBreadcrumb = categoryService.getCategoryBreadcrumb(categoryId);
 		model.addAttribute("categoryBreadcrumbs", categoryBreadcrumb);
@@ -120,11 +143,17 @@ public class CategoryController {
 	}
 	
 	@RequestMapping("/c/{categoryName}")
-	public String productDetail(@PathVariable("categoryName") String categoryName, Model model){
+	public String productDetail(@PathVariable("categoryName") String categoryName,
+			@RequestParam(value="low", required=false) String lowPrice,
+			@RequestParam(value="high", required=false) String highPrice,
+			Model model){
+		if(lowPrice != null && highPrice != null) {
+			return "forward:/c/"+categoryName+"/0?low=" + lowPrice + "&high=" + highPrice;
+		}
 		return "forward:/c/"+categoryName+"/0";
 	}
 	
-	@RequestMapping("/seach/c/test")
+	/*@RequestMapping("/seach/c/test")
 	public String searchCategoryProductList(Model model){
 		return "categoryProductList";
 	}
@@ -162,6 +191,6 @@ public class CategoryController {
 		} 
 		sb.append(");");
 		return sb.toString();
-	}
+	}*/
 	
 }

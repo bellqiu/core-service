@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @NamedQueries(value=
 	{
 		@NamedQuery(name="QuerySettingByKeyAndType", query="select s from Setting as s where name=:key and type=:type"),
-		@NamedQuery(name="countAllSetting", query="select count(s.id) from Setting as s"),
+		@NamedQuery(name="countAllSetting", query="select count(s.id) from Setting as s")
 	})
 public class Setting extends Component{
 	/**

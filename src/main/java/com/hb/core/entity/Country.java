@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @NamedQueries(value=
 	{
 		@NamedQuery(name="QueryCountryByKey", query="select c from Country as c where code=:key"),
-		@NamedQuery(name="countAllCountry", query="select count(c.id) from Country as c"),
+		@NamedQuery(name="countAllCountry", query="select count(c.id) from Country as c")
 	})
 public class Country extends Component{
 

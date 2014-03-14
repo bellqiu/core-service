@@ -21,7 +21,7 @@ import org.hibernate.annotations.IndexColumn;
 @NamedQueries(value=
 	{
 		@NamedQuery(name="QueryTabProductByName", query="select tp from TabProduct as tp where name=:name"),
-		@NamedQuery(name="countAllTabProduct", query="select count(tp.id) from TabProduct as tp"),
+		@NamedQuery(name="countAllTabProduct", query="select count(tp.id) from TabProduct as tp")
 	})
 public class TabProduct extends Component{
 	

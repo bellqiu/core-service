@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @NamedQueries(value=
 {
 	@NamedQuery(name="QueryUserByEmail", query="select u from User as u where email=:email "),
-	@NamedQuery(name="countAllUser", query="select count(u.id) from User as u "),
+	@NamedQuery(name="countAllUser", query="select count(u.id) from User as u ")
 })
 public class User extends Component {
 

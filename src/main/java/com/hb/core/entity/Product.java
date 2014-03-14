@@ -23,7 +23,7 @@ import org.hibernate.annotations.IndexColumn;
 @NamedQueries(value=
 	{
 		@NamedQuery(name="QueryProductByName", query="select p from Product as p where p.name=:name and p.status = 'ACTIVE' "),
-		@NamedQuery(name="countAllProduct", query="select count(p.id) from Product as p where p.status = 'ACTIVE' "),
+		@NamedQuery(name="countAllProduct", query="select count(p.id) from Product as p where p.status = 'ACTIVE' ")
 	})
 public class Product extends Component{
 
