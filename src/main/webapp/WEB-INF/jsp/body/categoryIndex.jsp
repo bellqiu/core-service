@@ -56,21 +56,6 @@
 				<div id="slider-range"></div>
 			</div>
 			<div>&nbsp;</div>
-			<!-- <div id="keyword-search">
-				<div class="ui-widget">
-  					<label for="keyword">Keywords: </label>
-  					<input id="keyword" />
-				</div>
-			</div>
-			<div>&nbsp;</div>
-			<div id="tag-search">
-				<div class="ui-widget">
-  					<label for="tag">Tags: </label>
-  					<input id="tag" />
-				</div>
-			</div>
-			<div>&nbsp;</div>
-			<button type="submit" class="btn btn-default">Submit</button> -->
 		</form>
 		</div>
 		</div>
@@ -89,16 +74,18 @@
 
 <script>
   $(function() {
-	var lowestPrice = parseFloat("<hb:printPrice price='${lowestPrice}'/>".replace(/[^\d]+/,""));
-	var highestPrice =  parseFloat("<hb:printPrice price='${highestPrice}'/>".replace(/[^\d]+/,""));
+	var lowestPrice = parseFloat("${lowestPrice}");
+	var highestPrice =  parseFloat("${highestPrice}");
 	var currencySignal = "<hb:printCurrency />";
+	var clp = parseFloat("${currentLowestPrice}");
+	var hlp = parseFloat("${currentHighestPrice}");
 	//var currencySignal = "<hb:printPrice price='${lowestPrice}'/>".replace(/[\d]+\.?[\d]*/,"")
     $( "#slider-range" ).slider({
       range: true,
       min: lowestPrice,
       max: highestPrice,
       //values: [ lowestPrice, highestPrice ],
-      values: [ ${currentLowestPrice}, ${currentLighestPrice} ],
+      values: [ clp, hlp ],
       slide: function( event, ui ) {
         $( "#amount" ).val( currencySignal + ui.values[ 0 ] + " - " + currencySignal + ui.values[ 1 ] );
       },
@@ -123,3 +110,4 @@
     background: white url('/resources/bxslider/images/bx_loader.gif') right center no-repeat;
   }
  </style>
+ 

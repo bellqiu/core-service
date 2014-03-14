@@ -4,8 +4,13 @@
  */
 package com.honeybuy.shop.web;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.cxf.common.util.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hb.core.entity.Currency;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
@@ -47,7 +53,8 @@ public class CategoryController {
 			@PathVariable("page") int page,
 			@RequestParam(value="low", required=false) Double lowPrice,
 			@RequestParam(value="high", required=false) Double highPrice,
-			Model model){
+			Model model,
+			HttpSession session){
 		CategoryDetailDTO categoryDetailDTO =  categoryService.getCategoryDetailByName(categoryName);
 		if(null == categoryDetailDTO){
 			return "404";
@@ -56,10 +63,16 @@ public class CategoryController {
 		long categoryId = categoryDetailDTO.getId();
 		
 		int totalCount = -1;
+		double newLowPrice = -1;
+		double newHighPrice = -1;
+		Currency currency = (Currency) session.getAttribute("defaultCurrency");
+		float rateBaseOnDefault = currency.getExchangeRateBaseOnDefault();
 		if(lowPrice == null || lowPrice == null) {
 			totalCount = productService.getProductCountByCategoryId(categoryId);
 		} else {
-			totalCount = productService.getProductCountWithPriceRangeByCategoryId(categoryId, lowPrice, highPrice);
+			newLowPrice = lowPrice / rateBaseOnDefault;
+			newHighPrice = highPrice / rateBaseOnDefault;
+			totalCount = productService.getProductCountWithPriceRangeByCategoryId(categoryId, newLowPrice, newHighPrice);
 		}
 		int max = CATEGORY_PRODUCT_PER_PAGE;
 		
@@ -78,7 +91,7 @@ public class CategoryController {
 		if(lowPrice == null || lowPrice == null) {
 			productSummaryList = productService.getAllProductByCategoryId(categoryId, start, max);
 		} else {
-			productSummaryList = productService.getAllProductWithPriceRangeByCategoryId(categoryId, lowPrice, highPrice, start, max);
+			productSummaryList = productService.getAllProductWithPriceRangeByCategoryId(categoryId, newLowPrice, newHighPrice, start, max);
 		}
 		
 		if(productSummaryList.size() > 0) {
@@ -121,18 +134,28 @@ public class CategoryController {
 		model.addAttribute("currentPageIndex", page);
 		
 		
-		double lowestPrice = productService.getLowestPriceByCategoryId(categoryId);
-		double highestPrice = productService.getHighestPriceByCategoryId(categoryId);
+		double lowestPrice = productService.getLowestPriceByCategoryId(categoryId) * rateBaseOnDefault;
+		double highestPrice = productService.getHighestPriceByCategoryId(categoryId) * rateBaseOnDefault;
 		model.addAttribute("lowestPrice", lowestPrice);
 		model.addAttribute("highestPrice", highestPrice);
+		String paraStr = "";
 		if(lowPrice == null || highPrice == null) {
-			model.addAttribute("currentLowestPrice", lowestPrice);
-			model.addAttribute("currentLighestPrice", highestPrice);
+			model.addAttribute("currentLowestPrice", getDouble(lowestPrice));
+			model.addAttribute("currentHighestPrice", getDouble(highestPrice));
 		} else {
-			model.addAttribute("currentLowestPrice", lowPrice);
-			model.addAttribute("currentLighestPrice", highPrice);
+			if(lowPrice <= lowestPrice) {
+				lowPrice = lowestPrice;
+			} 
+			if(highPrice >= highestPrice) {
+				highPrice = highestPrice;
+			}
+			if(lowPrice != lowestPrice || highPrice != highestPrice) {
+				paraStr = "?low=" + getDouble(lowPrice) + "&high=" + getDouble(highPrice);
+			}
+			model.addAttribute("currentLowestPrice", getDouble(lowPrice));
+			model.addAttribute("currentHighestPrice", getDouble(highPrice));
 		}
-		
+		model.addAttribute("pStr", paraStr);
 		
 		List<String> categoryBreadcrumb = categoryService.getCategoryBreadcrumb(categoryId);
 		model.addAttribute("categoryBreadcrumbs", categoryBreadcrumb);
@@ -151,6 +174,11 @@ public class CategoryController {
 			return "forward:/c/"+categoryName+"/0?low=" + lowPrice + "&high=" + highPrice;
 		}
 		return "forward:/c/"+categoryName+"/0";
+	}
+	
+	public double getDouble(double value) {
+		NumberFormat numberFormat = new DecimalFormat("#,###,##0.00");
+		return Double.parseDouble(numberFormat.format(value));
 	}
 	
 	/*@RequestMapping("/seach/c/test")

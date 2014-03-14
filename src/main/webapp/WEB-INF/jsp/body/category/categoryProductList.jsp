@@ -4,6 +4,11 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb"%>
+<script>
+	/* var subParameter = "${pfilter ? '?low='+currentLowestPrice+'&high='+currentHighestPrice : ''}"; */
+	var subParameter = "${pStr}";
+
+</script>
 <c:choose>
 	<c:when test="${empty products || (fn:length(products) < 1) }">
 		<div class="alert alert-info">0 items found for <b>${currentCategoryDetail.displayName}</b> </div>
@@ -17,7 +22,7 @@
 							<li class="disabled"><a href="#">&lt;</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex-1}">&lt;</a></li>
+							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex-1}${pStr}">&lt;</a></li>
 						</c:otherwise>
 					</c:choose>
 					<c:forEach items="${pageIds }" var="item">
@@ -28,10 +33,10 @@
   							<c:otherwise>
   								<c:choose>
   									<c:when test="${item == currentPageIndex}">
-  										<li class="active"><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
+  										<li class="active"><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}${pStr}">${item+1} <span class="sr-only">(current)</span></a></li>
   									</c:when>
   									<c:otherwise>
-  										<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1}</a></li>
+  										<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}${pStr}">${item+1}</a></li>
   									</c:otherwise>
   								</c:choose>
   							</c:otherwise>
@@ -42,7 +47,7 @@
 							<li class="disabled"><a href="#">&gt;</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex+1}">&gt;</a></li>
+							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex+1}${pStr}">&gt;</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -94,7 +99,7 @@
 							<li class="disabled"><a href="#">&lt;</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex-1}">&lt;</a></li>
+							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex-1}${pStr}">&lt;</a></li>
 						</c:otherwise>
 					</c:choose>
 					<c:forEach items="${pageIds }" var="item">
@@ -105,10 +110,10 @@
 							<c:otherwise>
 								<c:choose>
 								<c:when test="${item == currentPageIndex}">
-								<li class="active"><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
+								<li class="active"><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}${pStr}">${item+1} <span class="sr-only">(current)</span></a></li>
 								</c:when>
 								<c:otherwise>
-								<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1}</a></li>
+								<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}${pStr}">${item+1}</a></li>
 								</c:otherwise>
 								</c:choose>
 							</c:otherwise>
@@ -119,7 +124,7 @@
 							<li class="disabled"><a href="#">&gt;</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex+1}">&gt;</a></li>
+							<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex+1}${pStr}">&gt;</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
