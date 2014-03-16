@@ -43,7 +43,7 @@
 						<ul class="helpItem">
 							<li><a href="/help/return-policy">Return Policy</a></li>
 							<li><a href="/help/payment-methods">Payment Methods</a></li>
-							<li><a href="/help/terms-conditions">Terms of Use</a></li>
+							<li><a href="/help/terms-use">Terms of Use</a></li>
 							<li><a href="/help/shipping-handling">Shipping &amp; Handling</a></li>
 						</ul>
 					</div>

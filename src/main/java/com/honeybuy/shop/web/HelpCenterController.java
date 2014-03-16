@@ -52,19 +52,6 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
-	/*@RequestMapping("/customer-service")
-	public String customerService(Model model) {
-		String htmlContent = htmlService.getHTMLContent(Constants.HTML_CUSTOMER_SERVICE, "Customer Service");
-		model.addAttribute("content", htmlContent);
-		model.addAttribute("panelTitle", "Customer Service");
-		
-		String title = settingService.getStringValue(Constants.SETTING_TITLE_CUSTOMER_SERVICE, "Customer Service");
-		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_CUSTOMER_SERVICE, "Customer Service");
-		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_CUSTOMER_SERVICE, "Customer Service");
-		addPageMeta(model, title, keyword, description);
-		return "helpCenter";
-	}*/
-	
 	@RequestMapping("/privacy-policies")
 	public String privacyPolicies(Model model) {
 		String htmlContent = htmlService.getHTMLContent(Constants.HTML_PRIVACY_POLICIES, "Privacy Policies");
@@ -77,19 +64,6 @@ public class HelpCenterController {
 		addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
-	
-	/*@RequestMapping("/legal-window")
-	public String legalWindow(Model model) {
-		String htmlContent = htmlService.getHTMLContent(Constants.HTML_LEGAL_WINDOW, "Legal Window");
-		model.addAttribute("content", htmlContent);
-		model.addAttribute("panelTitle", "Legal Window");
-		
-		String title = settingService.getStringValue(Constants.SETTING_TITLE_LEGAL_WINDOW, "Legal Window");
-		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_LEGAL_WINDOW, "Legal Window");
-		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_LEGAL_WINDOW, "Legal Window");
-		addPageMeta(model, title, keyword, description);
-		return "helpCenter";
-	}*/
 	
 	@RequestMapping("/copyright")
 	public String copyright(Model model) {
@@ -132,16 +106,16 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
-	@RequestMapping("/terms-conditions")
-	public String termsConditions(Model model) {
-		String htmlContent = htmlService.getHTMLContent(Constants.HTML_TERMS_AND_CONDITIONS, "Terms and Conditions");
+	@RequestMapping("/terms-use")
+	public String termsOfUse(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_TERMS_OF_USE, "Terms of Use");
 		model.addAttribute("content", htmlContent);
-		model.addAttribute("panelTitle", "Terms and Conditions");
+		model.addAttribute("panelTitle", "Terms of Use");
 		model.addAttribute("page", "customerService");
 		
-		String title = settingService.getStringValue(Constants.SETTING_TITLE_TERMS_AND_CONDITIONS, "Terms and Conditions");
-		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_TERMS_AND_CONDITIONS, "Terms and Conditions");
-		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_TERMS_AND_CONDITIONS, "Terms and Conditions");
+		String title = settingService.getStringValue(Constants.SETTING_TITLE_TERMS_OF_USE, "Terms of Use");
+		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_TERMS_OF_USE, "Terms of Use");
+		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_TERMS_OF_USE, "Terms of Use");
 		addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
@@ -150,7 +124,7 @@ public class HelpCenterController {
 	public String shippingHandling(Model model) {
 		String htmlContent = htmlService.getHTMLContent(Constants.HTML_SHIPPING_HANDLING, "Shipping&Handling");
 		model.addAttribute("content", htmlContent);
-		model.addAttribute("panelTitle", "Shipping&Handling");
+		model.addAttribute("panelTitle", "Shipping & Handling");
 		model.addAttribute("page", "customerService");
 		
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_SHIPPING_HANDLING, "Shipping and Handling");
@@ -174,7 +148,7 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
-	@RequestMapping("/faq")
+	/*@RequestMapping("/faq")
 	public String faq(Model model) {
 		String htmlContent = htmlService.getHTMLContent(Constants.HTML_FAQ, "FAQ");
 		model.addAttribute("content", htmlContent);
@@ -184,20 +158,6 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_FAQ, "FAQ");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_FAQ, "FAQ");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_FAQ, "FAQ");
-		addPageMeta(model, title, keyword, description);
-		return "helpCenter";
-	}
-	
-	@RequestMapping("/shipping-and-handling")
-	public String shippingAndHandling(Model model) {
-		String htmlContent = htmlService.getHTMLContent(Constants.HTML_SHIPPING_HANDLING, "Shipping & Handling");
-		model.addAttribute("content", htmlContent);
-		model.addAttribute("panelTitle", "Shipping & Handling");
-		model.addAttribute("page", "otherInfomation");
-		
-		String title = settingService.getStringValue(Constants.SETTING_TITLE_SHIPPING_HANDLING, "Shipping and Handling");
-		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_SHIPPING_HANDLING, "Shipping and Handling");
-		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_SHIPPING_HANDLING, "Shipping and Handling");
 		addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
@@ -242,7 +202,7 @@ public class HelpCenterController {
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_LOOK_FOR_VENDORS, "Look for Vendors");
 		addPageMeta(model, title, keyword, description);
 		return "helpCenter";
-	}
+	}*/
 	
 	public void addPageMeta(Model model, String title, String keywords, String description) {
 		PageMeta meta = new PageMeta();
@@ -254,7 +214,7 @@ public class HelpCenterController {
 	
 	@RequestMapping("/support")
 	public String support(Model model) {
-		return "helpCenter";
+		return "support";
 	}
 
 }
