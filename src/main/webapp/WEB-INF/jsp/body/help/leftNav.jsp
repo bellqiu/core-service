@@ -41,11 +41,10 @@
 				<div id="customerService" class="helpSub panel-collapse collapse">
 					<div class="panel-body">
 						<ul class="helpItem">
-							<li><a href="/help/warranty-return">Warranty and Return</a></li>
+							<li><a href="/help/return-policy">Return Policy</a></li>
 							<li><a href="/help/payment-methods">Payment Methods</a></li>
-							<li><a href="/help/terms-conditions">Terms and Conditions</a></li>
-							<li><a href="/help/shipping-handling">Shipping&amp;Handling</a></li>
-							<li><a href="/help/testimonials">Testimonials</a></li>
+							<li><a href="/help/terms-conditions">Terms of Use</a></li>
+							<li><a href="/help/shipping-handling">Shipping &amp; Handling</a></li>
 						</ul>
 					</div>
 				</div>
@@ -66,13 +65,13 @@
 							<li><a href="/ac/login">Login/Register</a></li>
 							<li><a href="/od/myOrder">Order History</a></li>
 							<li><a href="/ac/address">Manage Address</a></li>
-							<li><a href="/help/faq">FAQ</a></li>
+							<li><a href="/help/wholesale">Wholesale</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			
-			<div class="panel panel-default">
+			<!-- <div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
 						<a class="helpTopLink" data-toggle="collapse" data-parent="#helpLeftNav" href="#otherInfomation">
@@ -91,7 +90,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>
@@ -115,8 +114,8 @@
 	} else if(page == 'myAccount') {
 		$("#companyInfomation").removeClass("in");
 		$("#myAccount").addClass("in");
-	} else if(page == 'otherInfomation') {
+	} /* else if(page == 'otherInfomation') {
 		$("#companyInfomation").removeClass("in");
 		$("#otherInfomation").addClass("in");
-	} 
+	}  */
 </script>

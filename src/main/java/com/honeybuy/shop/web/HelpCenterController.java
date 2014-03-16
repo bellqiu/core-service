@@ -104,16 +104,16 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
-	@RequestMapping("/warranty-return")
-	public String warrantyReturn(Model model) {
-		String htmlContent = htmlService.getHTMLContent(Constants.HTML_WARRANTY_AND_RETURN, "Warranty and Return");
+	@RequestMapping("/return-policy")
+	public String returnPolicy(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_RETURN_POLICY, "Return Policy");
 		model.addAttribute("content", htmlContent);
-		model.addAttribute("panelTitle", "Warranty and Return");
+		model.addAttribute("panelTitle", "Return Policy");
 		model.addAttribute("page", "customerService");
 		
-		String title = settingService.getStringValue(Constants.SETTING_TITLE_WARRANTY_AND_RETURN, "Warranty and Return");
-		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_WARRANTY_AND_RETURN, "Warranty and Return");
-		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_WARRANTY_AND_RETURN, "Warranty and Return");
+		String title = settingService.getStringValue(Constants.SETTING_TITLE_RETURN_POLICY, "Return Policy");
+		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_RETURN_POLICY, "Return Policy");
+		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_RETURN_POLICY, "Return Policy");
 		addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
@@ -160,16 +160,16 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
-	@RequestMapping("/testimonials")
-	public String testimonials(Model model) {
-		String htmlContent = htmlService.getHTMLContent(Constants.HTML_TESTIMONIALS, "Testimonials");
+	@RequestMapping("/wholesale")
+	public String wholesale(Model model) {
+		String htmlContent = htmlService.getHTMLContent(Constants.HTML_WHOLESALE, "Wholesale");
 		model.addAttribute("content", htmlContent);
-		model.addAttribute("panelTitle", "Testimonials");
-		model.addAttribute("page", "customerService");
+		model.addAttribute("panelTitle", "Wholesale");
+		model.addAttribute("page", "myAccount");
 		
-		String title = settingService.getStringValue(Constants.SETTING_TITLE_TESTIMONIALS, "Testimonials");
-		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_TESTIMONIALS, "Testimonials");
-		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_TESTIMONIALS, "Testimonials");
+		String title = settingService.getStringValue(Constants.SETTING_TITLE_WHOLESALE, "Wholesale");
+		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_WHOLESALE, "Wholesale");
+		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_WHOLESALE, "Wholesale");
 		addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
@@ -244,13 +244,17 @@ public class HelpCenterController {
 		return "helpCenter";
 	}
 	
-	
 	public void addPageMeta(Model model, String title, String keywords, String description) {
 		PageMeta meta = new PageMeta();
 		meta.setTitle(title);
 		meta.setKeywords(keywords);
 		meta.setDescription(description);
 		model.addAttribute("pageMeta", meta);
+	}
+	
+	@RequestMapping("/support")
+	public String support(Model model) {
+		return "helpCenter";
 	}
 
 }
