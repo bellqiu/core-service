@@ -34,7 +34,7 @@ var domain = '${site.domain}';
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="loginUsername">Email</label>
 						<div class="col-sm-5">
-							<input class="form-control" name="username" type="email" id="loginUsername" placeholder="Email" required >
+							<input class="form-control" name="username"  id="loginUsername" placeholder="Email" required >
 							<p class="help-block"></p>
 						</div>
 						<div class="col-sm-5">
@@ -122,7 +122,7 @@ var domain = '${site.domain}';
       					<div class="modal-body" id="fogot-modal-body">
       						<form id="forgotpasswordform" role="form">
   								<div class="form-group">
-    								<label for="forgotEmail">Enter your email:</label>
+    								<label for="forgotEmail">Enter your email or login account:</label>
     								<input type="email" class="form-control" id="forgotEmail" placeholder="Enter email">
     								<p class="help-block" id="forgotblock"></p>
     								<div id="callbackMessage"></div>
