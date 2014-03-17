@@ -538,20 +538,35 @@ input[type=password] {
 }
 
 .priceDuplicate {
-	margin: 0 15px;
 	text-decoration: line-through;
 	color: gray;
+	font-weight: bold;
 }
 
 .priceActive {
-	margin: 0 15px;
+	color: red;
+	font-weight: bold;
+	font-size: large;
+}
+
+.priceSave{
 	color: red;
 }
 
 .relatedProductLink {
 	font-size: 80%;
 }
+
+.abstractText{
+	margin-top: 20px
+}
+
+.priceItem{
+	margin-top: 5px
+}
 /**************End Product************/
+
+
 
 /*************Register Or Login Start*************/
 .signUpOrLoginBody {

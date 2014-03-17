@@ -69,32 +69,64 @@ var productOpts = "${currentProductOptions}";
 					</span>
 					<h3>${currentProductDetail.title}</h3>
 				</div>
-				<div class="col-md-12 col-xs-12 padding10">
-					<b class="priceDuplicate"> 
-					
-					<hb:printPrice price="${currentProductDetail.price }"/> 
-					<span class="productChangedPrice">
-						<c:if test="${currentProductProductChange.priceChange > 0.1 }">
-							+<hb:printPrice price="${currentProductProductChange.priceChange}" withCurrency="false"/> 
-						</c:if>
-						<c:if test="${currentProductProductChange.priceChange < (-0.1) }">
-							<hb:printPrice price="${currentProductProductChange.priceChange}" withCurrency="false"/> 
-						</c:if>
-					</span>
-					</b> <b class="priceActive">
-						<hb:printPrice price="${currentProductDetail.actualPrice}"/>
-							<span class="productChangedPrice">
-							<c:if test="${currentProductProductChange.priceChange > 0.1 }">
-							+<hb:printPrice price="${currentProductProductChange.priceChange }" withCurrency="false"/> 
-							</c:if>
-							<c:if test="${currentProductProductChange.priceChange < (-0.1) }">
-								<hb:printPrice price="${currentProductProductChange.priceChange }" withCurrency="false"/> 
-							</c:if>
-						</span>
-					</b>
+				<div class="col-md-12 col-xs-12">
+					<div class="row priceItem">
+						<div class="col-md-3 col-xs-3">
+							<span>Price:</span> 
+						</div>
+						<div class="col-md-9 col-xs-9">
+							<div class="priceDuplicate"> 
+								<hb:printPrice price="${currentProductDetail.price }"/> 
+								<span class="productChangedPrice">
+									<c:if test="${currentProductProductChange.priceChange > 0.1 }">
+										+<hb:printPrice price="${currentProductProductChange.priceChange}" withCurrency="false"/> 
+									</c:if>
+									<c:if test="${currentProductProductChange.priceChange < (-0.1) }">
+										<hb:printPrice price="${currentProductProductChange.priceChange}" withCurrency="false"/> 
+									</c:if>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row priceItem">
+						<div class="col-md-3 col-xs-3">
+								<span>Sale:</span> 
+						</div>
+						<div class="col-md-9 col-xs-9">
+							<span class="priceActive">
+								<hb:printPrice price="${currentProductDetail.actualPrice}"/>
+									<span class="productChangedPrice">
+									<c:if test="${currentProductProductChange.priceChange > 0.1 }">
+									+<hb:printPrice price="${currentProductProductChange.priceChange }" withCurrency="false"/> 
+									</c:if>
+									<c:if test="${currentProductProductChange.priceChange < (-0.1) }">
+										<hb:printPrice price="${currentProductProductChange.priceChange }" withCurrency="false"/> 
+									</c:if>
+								</span>
+							</span>
+						 </div>
+					 </div>
+					 
+					 <div class="row priceItem">
+						<div class="col-md-3 col-xs-3">
+								<span>You Save:</span> 
+						</div>
+						<div class="col-md-9 col-xs-9">
+							<div class="priceSave">
+								<hb:printPrice price="${currentProductDetail.price - currentProductDetail.actualPrice}"/>(
+									<fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${(currentProductDetail.price - currentProductDetail.actualPrice)/currentProductDetail.price*100}"></fmt:formatNumber>%
+								)
+							</div>
+						 </div>
+					 </div>
+					 
 				</div>
-				<div class="col-md-12 col-xs-12 padding10">
-					<p>${currentProductDetail.abstractText}</p>
+				<div class="col-md-12 col-xs-12">
+					<div class="row">
+						<div class="col-md-12 col-xs-12 abstractText">
+							<p>${currentProductDetail.abstractText}</p>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-12 col-xs-12 ">
 					<c:forEach items="${currentProductDetail.props }" var="prop">
