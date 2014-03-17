@@ -308,7 +308,7 @@
 						<button type="button" data-loading-text="Processing.."
 							class="float_right btn btn-warning shopping_cart_checkout float_right"
 							id="paymentProcessToCheckoutBtn"
-							data-order-id="${currentOrder.id }" data-title="Error">Proceed to Checkout</button>
+							data-order-id="${currentOrder.id }" data-title="Error"><span class="glyphicon glyphicon-lock"></span> Proceed to Checkout</button>
 					</div>
 				</div>
 			</div>

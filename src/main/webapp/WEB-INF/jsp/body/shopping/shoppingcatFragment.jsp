@@ -132,7 +132,7 @@
 						<a href="/home" class="btn btn-primary">Continue Shopping</a> 
 					</div>
 					<div class="col-xs-8">
-						 <a href="/sp/payment/paymentInfo" class="btn btn-warning shopping_cart_checkout float_right">Proceed to Checkout</a>
+						 <a href="/sp/payment/paymentInfo" class="btn btn-warning shopping_cart_checkout float_right"><span class="glyphicon glyphicon-lock"></span> Proceed to Checkout</a>
 					<%-- 	 <c:if test="${empty currentUser }"> --%>
 						 	 <div class="float_right padding5">or</div>
 							 <div class="float_right padding5">
