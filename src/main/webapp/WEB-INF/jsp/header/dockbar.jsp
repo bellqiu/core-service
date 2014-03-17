@@ -22,7 +22,7 @@
 					</button>
 					<ul class="dropdown-menu" role="menu">
 						<c:forEach items="${currencies }" var="currency">
-							<li><a href="?currency=${currency.code }"><img alt=""
+							<li class="useractionItem"><a href="?currency=${currency.code }"><img alt=""
 									src="/resources/css/img/${currency.code }.png" /><span>${currency.name }</span></a>
 							</li>
 						</c:forEach>

@@ -106,7 +106,8 @@
 						<a href="#" id="new_billing_address"
 							data-order-id="${currentOrder.id }">New Billing Address</a>
 					</c:if>
-					<div class="row col-xs-11 col-xs-offset-1">
+				</div>
+				<div class="row col-xs-11 col-xs-offset-1">
 						<div>
 							<ul class="BillingAddresslineContainer">
 								<c:forEach items="${addresses }" var="add" end="5">
@@ -121,7 +122,7 @@
 								</c:forEach>
 							</ul>
 						</div>
-					</div>
+				</div>
 
 				</div>
 				<!-- 	<div id="countries_states2" class="bfh-selectbox bfh-countries" data-country="US" data-filter="true" data-flags="true">
@@ -130,7 +131,6 @@
 				<div class="bfh-selectbox bfh-states" data-country="countries_states2" data-filter="true">
 				</div> -->
 			</div>
-		</div>
 	</div>
 
 	<div class="panel panel-default" id="ShippingMethodPanel">
