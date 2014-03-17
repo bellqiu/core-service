@@ -561,14 +561,20 @@ public class ShoppingController {
 	public String paypalDirectPay(Model model, @CookieValue(defaultValue="", required=false, value=Constants.TRACKING_COOKE_ID_NAME)String trackingId,
 									@RequestParam(defaultValue="0", value="orderId")long orderId,
 									HttpServletResponse response,
-									HttpServletRequest request, @SessionAttribute("defaultCurrency")Currency currency) throws PayPalException, IOException{
+									HttpServletRequest request, @SessionAttribute("defaultCurrency")Currency currency,
+									@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR, required=false)UserDetails details
+									) throws PayPalException, IOException{
 		
 		OrderDetailDTO detailDTO = null;
 		
 		if(orderId > 0 ){
 			detailDTO = orderService.getOrderDetailById(orderId);
 		}else{
-			detailDTO = orderService.getCart(trackingId, null);
+			String userId = null;
+			if(null!=details){
+				userId = details.getUsername();
+			}
+			detailDTO = orderService.getCart(trackingId, userId);
 		}
 		
 		HBNVPCallerService caller = hbNVPCallerService;

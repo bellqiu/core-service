@@ -133,14 +133,14 @@
 					</div>
 					<div class="col-xs-8">
 						 <a href="/sp/payment/paymentInfo" class="btn btn-warning shopping_cart_checkout float_right">Proceed to Checkout</a>
-						 <c:if test="${empty currentUser }">
+					<%-- 	 <c:if test="${empty currentUser }"> --%>
 						 	 <div class="float_right padding5">or</div>
 							 <div class="float_right padding5">
-								 <a href="/sp/directpay/paypal"  >
+								 <a href="/sp/directpay/paypal?orderId=${currentOrder.id}"  >
 								 	<img alt="Paypal PAY" src="/resources/css/img/btn_xpressCheckout.gif">
 								 </a>
 							 </div>
-						 </c:if>
+						<%--  </c:if> --%>
 						<!--  <input type="image" name="submit" -->
 					</div>
 				</div>
