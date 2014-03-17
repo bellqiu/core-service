@@ -162,7 +162,7 @@
 						${("EXPEDITED" == currentOrder.shippingMethod)? "checked='checked'" :""  }>
 					Expedited Shipping
 				</div>
-				<div class="row col-xs-3">Normally 4 - 6 days</div>
+				<div class="row col-xs-3">Normally 3 - 5 days</div>
 				<div class="row col-xs-6">
 					<hb:printCurrency />
 					<span id="orderShippingMethodExpeditedSpan"><hb:printPrice
