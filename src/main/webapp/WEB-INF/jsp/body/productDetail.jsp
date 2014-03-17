@@ -90,7 +90,7 @@ var productOpts = "${currentProductOptions}";
 					</div>
 					<div class="row priceItem">
 						<div class="col-md-3 col-xs-3">
-								<span>Sale:</span> 
+								<span class="priceActive">Sale:</span> 
 						</div>
 						<div class="col-md-9 col-xs-9">
 							<span class="priceActive">
