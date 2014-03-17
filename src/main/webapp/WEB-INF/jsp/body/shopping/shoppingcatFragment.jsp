@@ -91,7 +91,7 @@
 							</div>
 						</div>
 				<div class="row">
-					<div class="row col-xs-4  col-xs-offset-8 ">
+					<div class="row col-xs-4 col-xs-offset-8">
 						<div class="row under_score orderPrice-summary">
 							<div class="row col-xs-6">
 								Item Sub total:

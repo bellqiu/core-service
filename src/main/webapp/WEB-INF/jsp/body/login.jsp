@@ -145,7 +145,7 @@ var domain = '${site.domain}';
                    <div class="form-group">
                        <label for="regUsername" class="col-sm-2 control-label">Email</label>
                        <div class="col-sm-5">
-                           <input class="form-control" type="email" id="regUsername" name="regUsername" required>
+                           <input class="form-control" type="email" id="regUsername" name="regUsername" required />
                            <p class="help-block">
                            <c:choose>
                            	<c:when test="${isSignUpFail}">
@@ -161,7 +161,7 @@ var domain = '${site.domain}';
                    <div class="form-group">
                        <label for="regPassword" class="col-sm-2 control-label">Password</label>
                        <div class="col-sm-5">
-                           <input class="form-control" type="password" name="regPassword" id="regPassword" minlength="8" required>
+                           <input class="form-control" type="password" name="regPassword" id="regPassword" minlength="8" required />
                            <p class="help-block"></p>
                        </div>
                        <div class="col-sm-5""></div>
@@ -169,7 +169,7 @@ var domain = '${site.domain}';
                    <div class="form-group">
                        <label for="passwordAgain" class="col-sm-2 control-label">re-Password</label>
                        <div class="col-sm-5">
-                           <input class="form-control" type="password" name="passwordAgain" id="passwordAgain" data-validation-matches-match="regPassword" required>
+                           <input class="form-control" type="password" name="passwordAgain" id="passwordAgain" data-validation-matches-match="regPassword" required />
                            <p class="help-block" id="pwdAgainBlock"></p>
                        </div>
                        <div class="col-sm-5""></div>
@@ -178,7 +178,7 @@ var domain = '${site.domain}';
                        <label for="terms-and-conditions" class="col-lg-2 control-label">Legal</label>
                        <div class="col-lg-10">
                            <label class="checkbox">
-                               <input type="checkbox" data-validation-required-message="You must agree to the terms and conditions" required="" name="terms-and-conditions" id="terms-and-conditions">
+                               <input type="checkbox" data-validation-required-message="You must agree to the terms and conditions" required="" name="terms-and-conditions" id="terms-and-conditions" />
                                I agree to the <a href="#">terms and conditions</a>
                            </label>
                            <p class="help-block"></p>

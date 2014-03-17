@@ -9,19 +9,14 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.cxf.common.util.StringUtils;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hb.core.entity.Currency;
 import com.hb.core.shared.dto.CategoryDetailDTO;
@@ -134,26 +129,28 @@ public class CategoryController {
 		model.addAttribute("currentPageIndex", page);
 		
 		
-		double lowestPrice = productService.getLowestPriceByCategoryId(categoryId) * rateBaseOnDefault;
-		double highestPrice = productService.getHighestPriceByCategoryId(categoryId) * rateBaseOnDefault;
+		int lowestPrice = trimDoubleToInt(productService.getLowestPriceByCategoryId(categoryId) * rateBaseOnDefault, true);
+		int highestPrice = trimDoubleToInt(productService.getHighestPriceByCategoryId(categoryId) * rateBaseOnDefault, false);
 		model.addAttribute("lowestPrice", lowestPrice);
 		model.addAttribute("highestPrice", highestPrice);
 		String paraStr = "";
 		if(lowPrice == null || highPrice == null) {
-			model.addAttribute("currentLowestPrice", getDouble(lowestPrice));
-			model.addAttribute("currentHighestPrice", getDouble(highestPrice));
+			model.addAttribute("currentLowestPrice", lowestPrice);
+			model.addAttribute("currentHighestPrice", highestPrice);
 		} else {
-			if(lowPrice <= lowestPrice) {
-				lowPrice = lowestPrice;
+			int clp = trimDoubleToInt(lowPrice, true);
+			int chp = trimDoubleToInt(highPrice, false);
+			if(clp <= lowestPrice) {
+				clp = lowestPrice;
 			} 
-			if(highPrice >= highestPrice) {
-				highPrice = highestPrice;
+			if(chp >= highestPrice) {
+				chp = highestPrice;
 			}
-			if(lowPrice != lowestPrice || highPrice != highestPrice) {
-				paraStr = "?low=" + getDouble(lowPrice) + "&high=" + getDouble(highPrice);
+			if(clp != lowestPrice || chp != highestPrice) {
+				paraStr = "?low=" + clp + "&high=" + chp;
 			}
-			model.addAttribute("currentLowestPrice", getDouble(lowPrice));
-			model.addAttribute("currentHighestPrice", getDouble(highPrice));
+			model.addAttribute("currentLowestPrice", clp);
+			model.addAttribute("currentHighestPrice", chp);
 		}
 		model.addAttribute("pStr", paraStr);
 		
@@ -176,9 +173,15 @@ public class CategoryController {
 		return "forward:/c/"+categoryName+"/0";
 	}
 	
-	public double getDouble(double value) {
-		NumberFormat numberFormat = new DecimalFormat("#,###,##0.00");
-		return Double.parseDouble(numberFormat.format(value));
+	public int trimDoubleToInt(double value, boolean floor) {
+		if(value <= 0.0) {
+			return 0;
+		}
+		if(floor) {
+			return (int)Math.floor(value);
+		} else {
+			return (int)Math.ceil(value);
+		}
 	}
 	
 	/*@RequestMapping("/seach/c/test")

@@ -872,6 +872,16 @@ li.useractionItem{
 .quick-index a:hover {
 	color: #ec6941;
 }
+
+.borderline {
+	border: 1px solid #99D3FB;
+	margin: 5px 0px 20px 0px;
+	word-wrap: break-word;
+	background: url(http://support.everbuying.com/temp/skin/simages/listbg.jpg) repeat-x top;
+	padding: 10px;
+	font-weight: bold;
+	font-size: 15px;
+}
 /******************End help center ********************************/
 
 /******************Start tags ********************************/
