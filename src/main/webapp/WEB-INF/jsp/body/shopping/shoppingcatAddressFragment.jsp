@@ -306,7 +306,7 @@
 				<div class="row order_buttons">
 					<div class="col-xs-3 col-xs-offset-9  padding10">
 						<button type="button" data-loading-text="Processing.."
-							class="btn btn-danger float_right"
+							class="float_right btn btn-warning shopping_cart_checkout float_right"
 							id="paymentProcessToCheckoutBtn"
 							data-order-id="${currentOrder.id }" data-title="Error">Proceed to Checkout</button>
 					</div>
