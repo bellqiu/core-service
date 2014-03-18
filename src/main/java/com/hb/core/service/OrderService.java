@@ -233,8 +233,10 @@ public class OrderService {
 		
 		if(null != orders && !orders.isEmpty()){
 			return orders.get(0);
+		}else{
+			return newCart(trackingId, userEmail, null);
 		}
-		return null;
+		
 	}
 	
 	@Transactional(readOnly=true)

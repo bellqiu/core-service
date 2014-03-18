@@ -140,7 +140,7 @@ var domain = '${site.domain}';
 			</div><!-- /.modal -->
 						
 	    	<div id="signUpTab" class="col-sm-12 col-md-12 tab-pane fade">
-	    	<legend>To obtain a HoneyStore account</legend>
+	    	<legend>To obtain an account</legend>
 	    	<form action='/ac/newAccount' method='POST' class="form-horizontal">
                    <div class="form-group">
                        <label for="regUsername" class="col-sm-2 control-label">Email</label>
@@ -156,7 +156,7 @@ var domain = '${site.domain}';
                            </c:choose>
                            </p>
                        </div>
-                       <div class="col-sm-5""></div>
+                       <div class="col-sm-5"></div>
                    </div>
                    <div class="form-group">
                        <label for="regPassword" class="col-sm-2 control-label">Password</label>
@@ -164,7 +164,7 @@ var domain = '${site.domain}';
                            <input class="form-control" type="password" name="regPassword" id="regPassword" minlength="8" required />
                            <p class="help-block"></p>
                        </div>
-                       <div class="col-sm-5""></div>
+                       <div class="col-sm-5"></div>
                    </div>
                    <div class="form-group">
                        <label for="passwordAgain" class="col-sm-2 control-label">re-Password</label>
@@ -172,7 +172,7 @@ var domain = '${site.domain}';
                            <input class="form-control" type="password" name="passwordAgain" id="passwordAgain" data-validation-matches-match="regPassword" required />
                            <p class="help-block" id="pwdAgainBlock"></p>
                        </div>
-                       <div class="col-sm-5""></div>
+                       <div class="col-sm-5"></div>
                    </div>
                    <div class="form-group">
                        <label for="terms-and-conditions" class="col-lg-2 control-label">Legal</label>
