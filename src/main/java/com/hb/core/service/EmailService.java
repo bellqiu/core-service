@@ -86,6 +86,8 @@ public class EmailService {
 	public void sendReceiveOrderPaymentMail(OrderDetailDTO order) {
 		String email = getThrirdPartyEmail(order.getUseremail());
 		String receiveOrderPaymentTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE);
+		StringBuffer sb = new StringBuffer(receiveOrderPaymentTemplate);
+		
 		String receiveOrderPaymentSubject = settingService.getStringValue(Constants.SETTING_RECEIVE_ORDER_PAYMENT_SUBJECT, Constants.DEFAULT_RECEIVE_ORDER_PAYMENT_TITLE);
 		if(receiveOrderPaymentTemplate == null) {
 			receiveOrderPaymentTemplate = Constants.DEFAULT_RECEIVE_ORDER_PAYMENT_CONTENT;
@@ -158,6 +160,14 @@ public class EmailService {
 			return email.substring(0, slashIndex);
 		}
 		return email;
+	}
+	
+	public StringBuffer replaceString(StringBuffer sb, String str, String replacement) {
+		if(str != null && replacement != null) {
+			int start = sb.indexOf(str);
+			sb.replace(start, start + str.length() + 1, replacement);
+		}
+		return sb;
 	}
 
 }

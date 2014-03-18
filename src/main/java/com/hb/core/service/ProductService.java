@@ -731,4 +731,20 @@ public class ProductService {
 		List<String> results = query.getResultList();
 		return results;
 	}
+
+	public void changeManual() {
+		String sqlForAllProduct = "select p from Product p ";
+		TypedQuery<Product> query = em.createQuery(sqlForAllProduct, Product.class);
+		List<Product> products = query.getResultList();
+		for(Product p : products) {
+			Map<String, HTML> manuals = p.getManuals();
+			if(manuals != null && manuals.size() > 0) {
+				p.setManuals(new HashMap<String, HTML>());
+				for (Map.Entry<String, HTML> c : manuals.entrySet()) {
+					p.getManuals().put(RegexUtils.upperFirstLetterEachWord(c.getKey()), em.find(HTML.class, c.getValue().getId()));
+				}
+			}
+		}
+	}
+	
 }
