@@ -206,12 +206,4 @@ public class ProductController {
 		}
 	}
 	
-	@RequestMapping("/change-manaual")
-	@ResponseBody
-	@Produces("application/json")
-	public String changeManual(HttpServletRequest request, HttpServletResponse response){
-		productServiceNoCache.changeManual();
-		return "{status:\"Success\"}";
-	}
-	
 }
