@@ -1,12 +1,18 @@
 package com.honeybuy.shop.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hb.core.service.EmailService;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
@@ -23,6 +29,9 @@ public class HelpCenterController {
 	
 	@Autowired
 	SettingServiceCacheWrapper settingService;
+	
+	@Autowired
+	EmailService emailService;
 	
 	@RequestMapping("/about-us")
 	public String aboutUs(Model model) {
@@ -212,9 +221,32 @@ public class HelpCenterController {
 		model.addAttribute("pageMeta", meta);
 	}
 	
-	@RequestMapping("/support")
+	@RequestMapping(value="/support", method=RequestMethod.GET)
 	public String support(Model model) {
 		return "support";
+	}
+	
+	@RequestMapping(value="/support", method=RequestMethod.POST)
+	public String supportPost(
+			@RequestParam("subject") String subject, 
+			@RequestParam("email")String email,
+			@RequestParam("message")String message,
+			@RequestParam(value="order_number", required=false, defaultValue="") String orderNumber,
+			@RequestParam(value="phone_number", required=false, defaultValue="") String phoneNumber,
+			Model model) {
+		//logger.debug("subject: {}, email: {}, message: {}, order number: {}, phone number: {}", new Object[]{subject, email, message, orderNumber, phoneNumber});
+		Map<String, Object> content = new HashMap<String, Object>();
+		content.put("subject", subject);
+		content.put("email", email);
+		content.put("message", message);
+		if(orderNumber == null) {
+			content.put("orderNumber", orderNumber);
+		}
+		if(phoneNumber == null) {
+			content.put("phoneNumber", phoneNumber);
+		}
+		emailService.sendSubmitSupport(email, content);
+		return "supportSubmited";
 	}
 
 }

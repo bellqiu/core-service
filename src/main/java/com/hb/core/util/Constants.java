@@ -21,6 +21,7 @@ public interface Constants {
     public static final String DEFAULT_MAIL_HOST_NAME = "smtpout.secureserver.net";
     public static final String DEFAULT_MAIL_FROM_ACCOUNT = "no-reply@dentalsupplies.com";
     public static final String DEFAULT_MAIL_FROM_PASSWORD = "20091125!@#A";
+    public static final String DEFAULT_MAIL_SUPPORT = "support@dentalsupplies.com";
     
     public static final String DEFAULT_REGISTER_MAIL_TITLE = "Your account, in Dental-Supplies, is created!";
 	public static final String DEFAULT_REGISTER_MAIL_CONTENT = "Congratulations! You are the registered user of Dental-Supplies!";
@@ -30,11 +31,13 @@ public interface Constants {
 	public static final String DEFAULT_TO_PAY_ORDER_MAIL_CONTENT = "Thanks for your shopping. Your order is to be paid.";
 	public static final String DEFAULT_RECEIVE_ORDER_PAYMENT_TITLE = "Your order payment, in Dental-Supplies, is received!";
 	public static final String DEFAULT_RECEIVE_ORDER_PAYMENT_CONTENT = "Congratulations! Your order payment is received. It will be delivered to you soon.";
+	public static final String DEFAULT_SUBMIT_SUPPORT_CONTENT = "<div><b>Message:</b><br/>${message}";
 	
 	public static final String SETTING_MAIL_HOST_NAME = "MAIL_HOST_NAME";
 	public static final String SETTING_MAIL_ACCOUNT = "MAIL_ACCOUNT";
 	public static final String SETTING_MAIL_PASSWORD = "MAIL_PASSWORD";
 	public static final String SETTING_MAIL_FROM = "MAIL_FROM";
+	public static final String SETTING_MAIL_SUPPORT = "MAIL_SUPPORT";
 	public static final String SETTING_RECOVER_PASSWORD_SUBJECT = "MAIL_RECOVER_PASSWORD_SUBJECT";
 	public static final String SETTING_REGISTER_SUBJECT = "MAIL_REGISTER_SUBJECT";
 	public static final String SETTING_TO_PAY_ORDER_SUBJECT = "MAIL_TO_PAY_ORDER_SUBJECT";
@@ -44,6 +47,7 @@ public interface Constants {
 	public static final String HTML_MAIL_REGISTER_TEMPLATE = "MAIL_REGISTER_TEMPLATE";
 	public static final String HTML_MAIL_TO_PAY_ORDER_TEMPLATE = "MAIL_TO_PAY_ORDER_TEMPLATE";
 	public static final String HTML_MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE = "MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE";
+	public static final String HTML_MAIL_SUBMIT_SUPPORT_TEMPLATE = "MAIL_SUBMIT_SUPPORT_TEMPLATE";
 	
 	public static final String FACEBOOK_TYPE = "facebook";
 	public static final String FACEBOOK_VALIDAT_URL = "https://graph.facebook.com/%s?method=get&pretty=0&sdk=joey&access_token=%s&appsecret_proof=%s";

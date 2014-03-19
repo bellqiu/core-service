@@ -224,6 +224,13 @@
         	  <put-attribute name="pageDescription" value="Support"/>
         </definition>
         
+        <definition name="supportSubmited" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/help/supportSubmited.jsp"/>
+        	  <put-attribute name="pageTitle" value="Support"/>
+        	  <put-attribute name="pageKeywords" value="Support"/>
+        	  <put-attribute name="pageDescription" value="Support"/>
+        </definition>
+        
         <definition name="tagIndex" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/tags/tagIndex.jsp"/>
         </definition>

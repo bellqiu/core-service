@@ -897,6 +897,19 @@ li.useractionItem{
 	font-weight: bold;
 	font-size: 15px;
 }
+
+.support_label {
+	padding-left: 3px;
+	color: #333;
+	height: 20px;
+	text-align: right;
+	vertical-align: top;
+	font-weight: bold;
+	padding: 5px 1em;
+}
+#comment_tb td {
+	color: #333;
+}
 /******************End help center ********************************/
 
 /******************Start tags ********************************/

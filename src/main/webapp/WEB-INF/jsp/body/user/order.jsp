@@ -19,7 +19,7 @@
         	<thead>
           		<tr>
             		<th>#</th>
-            		<th>Order SN</th>
+            		<th>Order No.</th>
             		<th>Price</th>
             		<th>Status</th>
           		</tr>

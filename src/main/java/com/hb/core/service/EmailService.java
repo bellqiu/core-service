@@ -47,7 +47,7 @@ public class EmailService {
 		}
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
-		variable.put("email", email);
+		variable.put("email", toEmail);
 		variable.put("password", newPassword);
 		
 		sendMail(recoverPwdTemplate, recoverSubject, variable, email);
@@ -62,8 +62,9 @@ public class EmailService {
 		}
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
-		variable.put("email", email);
+		variable.put("email", toEmail);
 		variable.put("password", password);
+		
 		
 		sendMail(registerTemplate, registerSubject, variable, email);
 	}
@@ -86,7 +87,6 @@ public class EmailService {
 	public void sendReceiveOrderPaymentMail(OrderDetailDTO order) {
 		String email = getThrirdPartyEmail(order.getUseremail());
 		String receiveOrderPaymentTemplate = getTemplateFromDB(Constants.HTML_MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE);
-		StringBuffer sb = new StringBuffer(receiveOrderPaymentTemplate);
 		
 		String receiveOrderPaymentSubject = settingService.getStringValue(Constants.SETTING_RECEIVE_ORDER_PAYMENT_SUBJECT, Constants.DEFAULT_RECEIVE_ORDER_PAYMENT_TITLE);
 		if(receiveOrderPaymentTemplate == null) {
@@ -100,6 +100,26 @@ public class EmailService {
 		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, email);
 	}
 	
+	public void sendSubmitSupport(String email, Map<String, Object> content) {
+		String submitSupportTemplate = getTemplateFromDB(Constants.HTML_MAIL_SUBMIT_SUPPORT_TEMPLATE);
+		
+		if(submitSupportTemplate == null) {
+			submitSupportTemplate = Constants.DEFAULT_SUBMIT_SUPPORT_CONTENT;
+		}
+		
+		String supportSubject;
+		if(content.containsKey("subject")) {
+			supportSubject = "[Support]" + content.get("subject").toString();
+			content.remove("subject");
+		} else {
+			supportSubject = "[Support]Empty Support Subject";
+		}
+		String supportMail = settingService.getStringValue(Constants.SETTING_MAIL_SUPPORT, Constants.DEFAULT_MAIL_SUPPORT);
+		supportMail = "qiulhong@gmail.com";
+		
+		sendMailWithFromAndTo(submitSupportTemplate, supportSubject, content, email, supportMail);
+	}
+	
 	private String getTemplateFromDB(String htmlKey) {
 		HTML html = htmService.getHTML(htmlKey);
 		if(html != null) {
@@ -108,7 +128,7 @@ public class EmailService {
 		return null;
 	}
 	
-	public void sendMail(String templateString, String subject, Map<String,Object> variable, String sendTo){
+	private void sendMail(String templateString, String subject, Map<String,Object> variable, String sendTo){
 		if(StringUtils.isEmpty(sendTo)) {
 			throw new CoreServiceException("Send to email is empty");
 		}
@@ -128,6 +148,36 @@ public class EmailService {
     	        email.setHtmlMsg(mailContent);
     	        email.setTLS(true);
     	        email.addTo(sendTo);
+    	        email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
+    	        email.send();
+    	    } catch (EmailException e) {
+    	        logger.error(e.getMessage(), e);
+    	    }
+        } else {
+            logger.error("cannot parse email template");
+        }
+    }
+	
+	private void sendMailWithFromAndTo(String templateString, String subject, Map<String,Object> variable, String from, String to){
+		if(StringUtils.isEmpty(to)) {
+			throw new CoreServiceException("Send to email is empty");
+		}
+    	String mailContent = parseMailContent(templateString, variable);
+    	logger.info("send mail from: {}, to: {}", new Object[]{from, to});
+    	if (mailContent != null) {
+    		HtmlEmail email = new HtmlEmail();
+    	    try {
+    	    	String hostname = settingService.getStringValue(Constants.SETTING_MAIL_HOST_NAME, Constants.DEFAULT_MAIL_HOST_NAME);
+    			String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
+    			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
+    			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
+    	    	email.setHostName(hostname);
+    	    	email.setAuthentication(mailAccount, mailPassword);
+    	    	email.setFrom(mailFrom, from);
+    	        email.setSubject(subject);
+    	        email.setHtmlMsg(mailContent);
+    	        email.setTLS(true);
+    	        email.addTo(to);
     	        email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
     	        email.send();
     	    } catch (EmailException e) {
