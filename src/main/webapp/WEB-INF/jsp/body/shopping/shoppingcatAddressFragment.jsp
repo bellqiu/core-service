@@ -148,7 +148,7 @@
 						${("NORMAL" == currentOrder.shippingMethod)? "checked='checked'" :""  }>
 					Standard Shipping
 				</div>
-				<div class="row col-xs-3">Normally 4 - 6 days</div>
+				<div class="row col-xs-3">Normally 7-12 days</div>
 				<div class="row col-xs-6">
 					<hb:printCurrency />
 					<span id="orderShippingMethodNormalSpan"><hb:printPrice
@@ -162,7 +162,7 @@
 						${("EXPEDITED" == currentOrder.shippingMethod)? "checked='checked'" :""  }>
 					Expedited Shipping
 				</div>
-				<div class="row col-xs-3">Normally 3 - 5 days</div>
+				<div class="row col-xs-3">Normally 5-7 days</div>
 				<div class="row col-xs-6">
 					<hb:printCurrency />
 					<span id="orderShippingMethodExpeditedSpan"><hb:printPrice
@@ -174,11 +174,7 @@
 				<p>
 					<img src="/resources/css/img/processing-time.jpg">
 				</p>
-				Processing time is the time includes preparing your items,
-				performing quality checks, and packing for shipment. Processing
-				Time: 7-12 days for standard, 5-8 days for urgent(Custom-Made Items)
-				1-3 Days for others(Ready to Ship Items). Shipping Time: 3-5
-				business days.
+				Processing time is the time includes preparing  your items, performing quality check, and packing for shipment. Normally it’ll be 24-48 hours.
 			</div>
 		</div>
 	</div>
