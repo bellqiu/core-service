@@ -239,13 +239,22 @@ public class HelpCenterController {
 		content.put("subject", subject);
 		content.put("email", email);
 		content.put("message", message);
-		if(orderNumber == null) {
+		if(orderNumber != null) {
 			content.put("orderNumber", orderNumber);
+		} else {
+			content.put("orderNumber", "");
 		}
-		if(phoneNumber == null) {
+		if(phoneNumber != null) {
+			content.put("phoneNumber", phoneNumber);
+		} else {
 			content.put("phoneNumber", phoneNumber);
 		}
 		emailService.sendSubmitSupport(email, content);
+		return "supportSubmited";
+	}
+	
+	@RequestMapping(value="/supportSubmited", method=RequestMethod.GET)
+	public String supportSubmited(Model model) {
 		return "supportSubmited";
 	}
 

@@ -21,7 +21,7 @@ public interface Constants {
     public static final String DEFAULT_MAIL_HOST_NAME = "smtpout.secureserver.net";
     public static final String DEFAULT_MAIL_FROM_ACCOUNT = "no-reply@dentalsupplies.com";
     public static final String DEFAULT_MAIL_FROM_PASSWORD = "20091125!@#A";
-    public static final String DEFAULT_MAIL_SUPPORT = "support@dentalsupplies.com";
+    public static final String DEFAULT_MAIL_SUPPORT = "service@dentalsupplies.com";
     
     public static final String DEFAULT_REGISTER_MAIL_TITLE = "Your account, in Dental-Supplies, is created!";
 	public static final String DEFAULT_REGISTER_MAIL_CONTENT = "Congratulations! You are the registered user of Dental-Supplies!";

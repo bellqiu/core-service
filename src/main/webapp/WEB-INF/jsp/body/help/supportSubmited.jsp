@@ -13,10 +13,11 @@
 	</div>
 	<div class="row borderline">
 		<div class="col-xs-3">
-			<img src="/temp/skin/simages/dui.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<img src="${site.resourceServer}/rs/img1/ok.gif" border="0" style="float:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		</div>
 		<div class="col-xs-9">
-			<p>Thank you for your message. We will reply you in one business days except holidays</p>
+			<p>Thank you for your message.</p> 
+			<p>We will reply you in one business days except holidays. </p>
 	    	<p>If do not receive our reply notification, please check your spam mail. Thanks!</p>
 		</div>
 	</div>

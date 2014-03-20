@@ -115,7 +115,6 @@ public class EmailService {
 			supportSubject = "[Support]Empty Support Subject";
 		}
 		String supportMail = settingService.getStringValue(Constants.SETTING_MAIL_SUPPORT, Constants.DEFAULT_MAIL_SUPPORT);
-		supportMail = "qiulhong@gmail.com";
 		
 		sendMailWithFromAndTo(submitSupportTemplate, supportSubject, content, email, supportMail);
 	}
