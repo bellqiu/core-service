@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hb.core.service.EmailService;
 import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.PageMetaUtils;
 import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
-import com.honeybuy.shop.web.dto.PageMeta;
 
 @Controller
 @RequestMapping("/help")
@@ -43,7 +43,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_ABOUT_US, "About Us");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_ABOUT_US, "About Us");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_ABOUT_US, "About Us");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -57,7 +57,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_CONTACT_US, "Contact Us");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_CONTACT_US, "Contact Us");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_CONTACT_US, "Contact Us");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -70,7 +70,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_PRIVACY_POLICIES, "Privacy Policies");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_PRIVACY_POLICIES, "Privacy Policies");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_PRIVACY_POLICIES, "Privacy Policies");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -83,7 +83,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_COPYRIGHT, "Copyright");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_COPYRIGHT, "Copyright");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_COPYRIGHT, "Copyright");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -97,7 +97,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_RETURN_POLICY, "Return Policy");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_RETURN_POLICY, "Return Policy");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_RETURN_POLICY, "Return Policy");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -111,7 +111,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_PAYMENT_METHODS, "Payment Methods");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_PAYMENT_METHODS, "Payment Methods");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_PAYMENT_METHODS, "Payment Methods");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -125,7 +125,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_TERMS_OF_USE, "Terms of Use");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_TERMS_OF_USE, "Terms of Use");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_TERMS_OF_USE, "Terms of Use");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -139,7 +139,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_SHIPPING_HANDLING, "Shipping and Handling");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_SHIPPING_HANDLING, "Shipping and Handling");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_SHIPPING_HANDLING, "Shipping and Handling");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -153,7 +153,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_WHOLESALE, "Wholesale");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_WHOLESALE, "Wholesale");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_WHOLESALE, "Wholesale");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -167,7 +167,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_FAQ, "FAQ");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_FAQ, "FAQ");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_FAQ, "FAQ");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -181,7 +181,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_LARGE_ORDER_QUOTATIONS, "Large Order Quotations");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_LARGE_ORDER_QUOTATIONS, "Large Order Quotations");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_LARGE_ORDER_QUOTATIONS, "Large Order Quotations");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -195,7 +195,7 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_LOWEST_PRICE_GUARANTEE, "Lowest Price Guarantee");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_LOWEST_PRICE_GUARANTEE, "Lowest Price Guarantee");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_LOWEST_PRICE_GUARANTEE, "Lowest Price Guarantee");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}
 	
@@ -209,17 +209,9 @@ public class HelpCenterController {
 		String title = settingService.getStringValue(Constants.SETTING_TITLE_LOOK_FOR_VENDORS, "Look for Vendors");
 		String keyword = settingService.getStringValue(Constants.SETTING_KEYWORD_LOOK_FOR_VENDORS, "Look for Vendors");
 		String description = settingService.getStringValue(Constants.SETTING_DESCRIPTION_LOOK_FOR_VENDORS, "Look for Vendors");
-		addPageMeta(model, title, keyword, description);
+		PageMetaUtils.addPageMeta(model, title, keyword, description);
 		return "helpCenter";
 	}*/
-	
-	public void addPageMeta(Model model, String title, String keywords, String description) {
-		PageMeta meta = new PageMeta();
-		meta.setTitle(title);
-		meta.setKeywords(keywords);
-		meta.setDescription(description);
-		model.addAttribute("pageMeta", meta);
-	}
 	
 	@RequestMapping(value="/support", method=RequestMethod.GET)
 	public String support(Model model) {
@@ -253,9 +245,4 @@ public class HelpCenterController {
 		return "supportSubmited";
 	}
 	
-	@RequestMapping(value="/supportSubmited", method=RequestMethod.GET)
-	public String supportSubmited(Model model) {
-		return "supportSubmited";
-	}
-
 }
