@@ -50,15 +50,39 @@
 				});
 				 
 				 $(".OrderItemDecrement").each(function(index, el){
-						var itemId = $(el).attr("data-orderitemid");
-						var changes = "-1";
-						shopping.modifyCart(itemId, changes, el);
+					 	var num = parseInt(el.nextElementSibling.value);
+					 	if(isFinite(num) && num > 1) {
+					 		var itemId = $(el).attr("data-orderitemid");
+					 		var changes = "-1";
+					 		shopping.modifyCart(itemId, changes, el);
+					 	}
 				});
 				 
+				 $(".OrderItemEnter").each(function(index, el){
+					 	$(el).on("change",function() {
+					 		var initnum = parseInt($(el).attr("data-initvalue"));
+					 		var num = parseInt(el.value);
+					 		console.log("change" + initnum + ";" + num);
+					 		if(isFinite(num) && num > 0 && num != initnum) {
+					 			console.log("change" + initnum + ";" + num);
+						 		var itemId = $(el).attr("data-orderitemid");
+						 		var changes = num - initnum;
+						 		shopping.changeCartItem(itemId, changes);
+						 	}
+					 	});
+				 });
+					 	
+				 
 				 $(".removeItemFromOrder").each(function(index, el){
-						var itemId = $(el).attr("data-orderitemid");
-						var changes = "ALL";
-						shopping.modifyCart(itemId, changes, el);
+					 	$(el).click(function(){
+					 		var itemTitle = $(el).attr("data-itemtitle");
+					 		var cf = window.confirm("You ar going to delete \r\n       " + itemTitle + "\r\n       from your shopping cart. Are you sure that you want to perform this action?");
+					 		if(cf) {
+					 			var itemId = $(el).attr("data-orderitemid");
+					 			var changes = "ALL";
+					 			shopping.changeCartItem(itemId, changes);
+					 		}
+					 	})
 				});
 				 
 				$("#applyCouponButton").click(function(){
@@ -77,22 +101,25 @@
 			
 			shopping.modifyCart = function(itemId, changes, bindItem){
 				$(bindItem).click(function(){
-					
-					$(".shopping_cart_container").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
-					$(".shopping_cart_container").load("/fragment/sp/shoppingcart/modify?itemId="+itemId+"&changes="+changes, function(){
-						$.ajax({
-							url : "/sp/shoppingcart/itemCount?_tp="+new Date().getTime(),
-							complete : function(response){
-								var count = parseInt(response.responseText);
-								if(count || count == 0){
-									$("#ShoppingDockedbarCount").html("Cart("+count+")");
-								}
+					shopping.changeCartItem(itemId, changes);
+				});
+			};
+			
+			shopping.changeCartItem = function(itemId, changes) {
+				$(".shopping_cart_container").mask("<img src='/resources/css/img/loading_dark_large.gif' style='width:60px' />");
+				$(".shopping_cart_container").load("/fragment/sp/shoppingcart/modify?itemId="+itemId+"&changes="+changes, function(){
+					$.ajax({
+						url : "/sp/shoppingcart/itemCount?_tp="+new Date().getTime(),
+						complete : function(response){
+							var count = parseInt(response.responseText);
+							if(count || count == 0){
+								$("#ShoppingDockedbarCount").html("Cart("+count+")");
 							}
-							
-						});
-						$(".shopping_cart_container").unmask();
-						shopping.initCardEvent();
+						}
+						
 					});
+					$(".shopping_cart_container").unmask();
+					shopping.initCardEvent();
 				});
 			};
 			

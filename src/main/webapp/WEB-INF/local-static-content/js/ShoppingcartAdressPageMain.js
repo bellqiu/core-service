@@ -22,8 +22,8 @@
 				
 				addressLine = addressLine + address.countryName + ")";
 				
-				$(".ShippingAddresslineContainer").append('<li><input  class="shippingAddress" data-order-id="'+orderId+'" type="radio" name="shipping_address_id" id="addr_'+address.id+'" value="'+address.id+'"><label for="saddr_'+address.id+'"><strong>'+addressLine+'</strong></label>&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)" data-address-id="'+address.id+'" data-order-id="'+orderId+'">Edit</a></li>');
-				$(".BillingAddresslineContainer").append('<li><input  class="billingAddress" data-order-id="'+orderId+'" type="radio" name="billing_address_id" id="addr_'+address.id+'" value="'+address.id+'"><label for="baddr_'+address.id+'"><strong>'+addressLine+'</strong></label>&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)" data-address-id="'+address.id+'" data-order-id="'+orderId+'">Edit</a></li>');
+				$(".ShippingAddresslineContainer").append('<li><input  class="shippingAddress" data-order-id="'+orderId+'" type="radio" checked="checked" name="shipping_address_id" id="addr_'+address.id+'" value="'+address.id+'"><label for="saddr_'+address.id+'"><strong>'+addressLine+'</strong></label>&nbsp;<a class="toEditShippingAddr" href="javascript:void(0)" data-address-id="'+address.id+'" data-order-id="'+orderId+'">Edit</a></li>');
+				$(".BillingAddresslineContainer").append('<li><input  class="billingAddress" data-order-id="'+orderId+'" type="radio" checked="checked" name="billing_address_id" id="addr_'+address.id+'" value="'+address.id+'"><label for="baddr_'+address.id+'"><strong>'+addressLine+'</strong></label>&nbsp;<a class="toEditBillingAddr" href="javascript:void(0)" data-address-id="'+address.id+'" data-order-id="'+orderId+'">Edit</a></li>');
 				
 				bindEditEvent();
 			}
@@ -105,11 +105,62 @@
 			
 			$("#paymentProcessToCheckoutBtn").click(function(){
 				$(this).button("loading");
-				var paymentMethod = $("input[name='paymentmethod'").val();
-				var customerMsg = $("textarea[name='orderMsg'").val();
+				var paymentMethod = $("input[name='paymentmethod'][checked='checked']").val();
+				var customerMsg = $("textarea[name='orderMsg']").val();
 				var orderId = $(this).attr("data-order-id");
+				var shippingAddress = $("input[class='shippingAddress'][checked='checked']").val();
+				var billingAddress = $("input[class='billingAddress'][checked='checked']").val();
+				var shippingMethod = $("input[name='shippingMethod'][checked='checked']").val();
 				
-				if(paymentMethod.length < 1){
+				if(!shippingAddress || shippingAddress.length < 1){
+					$(this).popover({
+						"content" :  "<p class='alert alert-danger'>Please select or add a shipping address</p>", 
+					  	title : "Error",
+					  	html : true,
+						trigger : 'manual',
+						placement : 'left'
+					});
+				
+					$(this).popover('show');
+					
+					$(this).button("reset");
+					
+					setTimeout(function(){
+						$("#paymentProcessToCheckoutBtn").popover("destroy");
+					}, 3000);
+				} else if(!billingAddress || billingAddress.length < 1){
+					$(this).popover({
+						"content" :  "<p class='alert alert-danger'>Please select or add a billing address</p>", 
+					  	title : "Error",
+					  	html : true,
+						trigger : 'manual',
+						placement : 'left'
+					});
+				
+					$(this).popover('show');
+					
+					$(this).button("reset");
+					
+					setTimeout(function(){
+						$("#paymentProcessToCheckoutBtn").popover("destroy");
+					}, 3000);
+				} else if(!shippingMethod || shippingMethod.length < 1){
+					$(this).popover({
+						"content" :  "<p class='alert alert-danger'>Please select or add a shipping method</p>", 
+					  	title : "Error",
+					  	html : true,
+						trigger : 'manual',
+						placement : 'left'
+					});
+				
+					$(this).popover('show');
+					
+					$(this).button("reset");
+					
+					setTimeout(function(){
+						$("#paymentProcessToCheckoutBtn").popover("destroy");
+					}, 3000);
+				} else if(!paymentMethod || paymentMethod.length < 1){
 					$(this).popover({
 						"content" :  "<p class='alert alert-danger'>Please select a payment method</p>", 
 					  	title : "Error",

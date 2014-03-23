@@ -52,12 +52,12 @@
 					<div class="col-xs-4 order-item-control-col">
 							<div class="input-group">
                             <a href="javascript:void(0);" class="decrement OrderItemDecrement input-group-addon" data-orderItemId="${item.id}">-</a>
-                            <input type="text" class="quantity-text OrderItemEnter form-control" value="${item.quantity}" size="5" data-orderItemId="${item.id}">
+                            <input type="text" class="quantity-text OrderItemEnter form-control" value="${item.quantity}" size="5" data-orderItemId="${item.id}" data-initvalue="${item.quantity}">
                             <a href="javascript:void(0);" class="increment OrderItemIncrement input-group-addon" data-orderItemId="${item.id}">+</a>
 							</div>
 					</div>
 					<div class="col-xs-3">
-						<a href="javascript:void(0);" class="removeItemFromOrder" data-orderItemId="${item.id}">Remove</a>
+						<a href="javascript:void(0);" class="removeItemFromOrder" data-orderItemId="${item.id}" data-itemtitle="${item.productSummary.title }">Remove</a>
 					</div>
 				</div>
 			</div>
