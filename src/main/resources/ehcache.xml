@@ -7,63 +7,63 @@
 	<defaultCache eternal="true" maxElementsInMemory="50"
 		memoryStoreEvictionPolicy="LFU" />
 	<cache name="siteDTO" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="1"
+		timeToLiveSeconds="7200" maxElementsInMemory="1"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="1" />
 		
 	<cache name="html" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="9999"
+		timeToLiveSeconds="7200" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="10000" />
 		
 	<cache name="ProductNameExisting" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="9999"
+		timeToLiveSeconds="7200" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="100000" />	
 		
 	<cache name="setting" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="9999"
+		timeToLiveSeconds="7200" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
 	<cache name="GetSpecialCategoryTree" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="9999"
+		timeToLiveSeconds="7200" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
 	<cache name="GetCategoryTree" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="9999"
+		timeToLiveSeconds="7200" maxElementsInMemory="9999"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
 	<cache name="Product" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="10000"
+		timeToLiveSeconds="7200" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" copyOnRead="true"	copyOnWrite="true" />
 		
 	<cache name="ProductChange" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="10000"
+		timeToLiveSeconds="7200" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" copyOnWrite="true"
 		copyOnRead="true"	/>
 		
 	<cache name="TabProduct" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="10000"
+		timeToLiveSeconds="7200" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
 	<cache name="CategoryDetail" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="10000"
+		timeToLiveSeconds="7200" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
 	<cache name="ProductCountByCategory" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="10000"
+		timeToLiveSeconds="7200" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
 	<cache name="ProductSummaryByCategory" eternal="false"
-		timeToLiveSeconds="5" maxElementsInMemory="10000"
+		timeToLiveSeconds="7200" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 
@@ -93,12 +93,12 @@
 		maxElementsOnDisk="99999" />
 
 	<cache name="CategoryBreadcrumb" eternal="false"
-		timeToLiveSeconds="120" maxElementsInMemory="10000"
+		timeToLiveSeconds="7200" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
 	<cache name="GetSubCategories" eternal="false"
-		timeToLiveSeconds="120" maxElementsInMemory="10000"
+		timeToLiveSeconds="1000" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 	
@@ -108,7 +108,7 @@
 		maxElementsOnDisk="99999" />
 		
 	<cache name="SearchProductCountByKey" eternal="false"
-		timeToLiveSeconds="360" maxElementsInMemory="1000"
+		timeToLiveSeconds="1000" maxElementsInMemory="1000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
@@ -118,7 +118,7 @@
 		maxElementsOnDisk="99999" />
 		
 	<cache name="GetCategoryWithAllSubCategories" eternal="false"
-		timeToLiveSeconds="120" maxElementsInMemory="10000"
+		timeToLiveSeconds="1000" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" />
 		
