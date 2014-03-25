@@ -526,7 +526,6 @@ public class ProductService {
 		String queryString = "select p from Product p, Category c where c.id in :id and p.status = 'ACTIVE' and c member of p.categories order by p.updateDate desc";
 		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
 		List<Long> list = categoryIds;
-		System.out.println(list);
 		query.setParameter("id", list);
 		query.setFirstResult(start);
 		query.setMaxResults(max);
@@ -544,7 +543,6 @@ public class ProductService {
 		TypedQuery<Long> count = em.createQuery(queryString, Long.class);
 		//List<Long> list = Arrays.asList(49L,108L);
 		List<Long> list = categoryIds;
-		System.out.println(list);
 		count.setParameter("id", list);
 		return count.getSingleResult().intValue();
 	}
@@ -553,7 +551,6 @@ public class ProductService {
 		String queryString = "select p from Product p, Category c where c.id in :id and p.status = 'ACTIVE' and p.actualPrice between :lowPrice and :highPrice and c member of p.categories order by p.updateDate desc";
 		TypedQuery<Product> query = em.createQuery(queryString, Product.class);
 		List<Long> list = categoryIds;
-		System.out.println(list);
 		query.setParameter("id", list);
 		query.setParameter("lowPrice", lowPrice);
 		query.setParameter("highPrice", highPrice);
@@ -572,26 +569,27 @@ public class ProductService {
 		TypedQuery<Long> count = em.createQuery(queryString, Long.class);
 		//List<Long> list = Arrays.asList(49L,108L);
 		List<Long> list = categoryIds;
-		System.out.println(list);
-		count.setParameter("id", categoryIds);
+		count.setParameter("id", list);
 		count.setParameter("lowPrice", lowPrice);
 		count.setParameter("highPrice", highPrice);
 		return count.getSingleResult().intValue();
 	}
 	
-	public double getLowestPriceByCategoryId(long categoryId) {
-		String queryString = "select min(p.actualPrice) from Product p, Category c where c.id = :id and p.status = 'ACTIVE' and c member of p.categories";
+	public double getLowestPriceByCategoryId(List<Long> categoryIds) {
+		String queryString = "select min(p.actualPrice) from Product p, Category c where c.id in :id and p.status = 'ACTIVE' and c member of p.categories";
 		TypedQuery<Double> query = em.createQuery(queryString, Double.class);
-		query.setParameter("id", categoryId);
+		List<Long> list = categoryIds;
+		query.setParameter("id", list);
 		Double result  = query.getSingleResult();
 		return result == null ? 0.0 : result;
 	}
 	
 	
-	public double getHighestPriceByCategoryId(long categoryId) {
-		String queryString = "select max(p.actualPrice) from Product p, Category c where c.id = :id and p.status = 'ACTIVE' and c member of p.categories";
+	public double getHighestPriceByCategoryId(List<Long> categoryIds) {
+		String queryString = "select max(p.actualPrice) from Product p, Category c where c.id in :id and p.status = 'ACTIVE' and c member of p.categories";
 		TypedQuery<Double> query = em.createQuery(queryString, Double.class);
-		query.setParameter("id", categoryId);
+		List<Long> list = categoryIds;
+		query.setParameter("id", list);
 		Double result  = query.getSingleResult();
 		return result == null ? 0.0 : result;
 	}

@@ -93,12 +93,14 @@ public class ProductServiceCacheWrapper {
 	
 	@Cacheable(cacheName="LowestPriceInCategory")
 	public double getLowestPriceByCategoryId(long id) {
-		return productService.getLowestPriceByCategoryId(id);
+		List<Long> categoryIds = categoryCacheService.getCategoryIdWithAllSubCategories(id);
+		return productService.getLowestPriceByCategoryId(categoryIds);
 	}
 	
 	@Cacheable(cacheName="HighestPriceInCategory")
 	public double getHighestPriceByCategoryId(long id) {
-		return productService.getHighestPriceByCategoryId(id);
+		List<Long> categoryIds = categoryCacheService.getCategoryIdWithAllSubCategories(id);
+		return productService.getHighestPriceByCategoryId(categoryIds);
 	}
 	
 	@Cacheable(cacheName="SearchProductName")
