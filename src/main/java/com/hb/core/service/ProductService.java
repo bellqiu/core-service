@@ -709,7 +709,7 @@ public class ProductService {
 				String[] tagsArray = tags.split(Constants.TAGS_SPLIT);
 				for(String tag : tagsArray) {
 					String tagName = RegexUtils.replaceSpace(tag.trim(), Constants.SPACE_CHAR);
-					if(tagName != null) {
+					if(!StringUtils.isEmpty(tagName) && Character.isLetterOrDigit(tagName.charAt(0))) {
 						Set<Long> productIdList = tagProductMap.get(tagName);
 						if(productIdList != null) {
 							productIdList.add(p.getId());

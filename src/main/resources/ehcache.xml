@@ -37,7 +37,7 @@
 		maxElementsOnDisk="99999" />
 		
 	<cache name="Product" eternal="false"
-		timeToLiveSeconds="7200" maxElementsInMemory="10000"
+		timeToLiveSeconds="10" maxElementsInMemory="10000"
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="99999" copyOnRead="true"	copyOnWrite="true" />
 		
