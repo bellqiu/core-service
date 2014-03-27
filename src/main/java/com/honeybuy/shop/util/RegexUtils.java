@@ -22,9 +22,15 @@ public class RegexUtils {
 		String[] words = str.split("\\s");
 		for(int i=0,l=words.length;i<l;++i) {
 			String word = words[i].toLowerCase();
-			if(i > 0) result.append(" ");      
-			result.append(Character.toUpperCase(word.charAt(0)))
-		        .append(word.substring(1).toLowerCase());
+			int wordLength = word.length();
+			if(wordLength >= 1) {
+				if(i > 0) result.append(" ");      
+				if(wordLength == 1) {
+					result.append(word.toUpperCase());
+				} else {
+					result.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1));
+				}
+			}
 
 		}
 		return result.toString();

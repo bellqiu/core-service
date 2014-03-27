@@ -730,4 +730,31 @@ public class ProductService {
 		return results;
 	}
 
+	public void upcaseFirstLetterInTags() {
+		String sqlForAllProduct = "select p from Product p ";
+		TypedQuery<Product> query = em.createQuery(sqlForAllProduct, Product.class);
+		List<Product> results = query.getResultList();
+		for(Product p : results) {
+			String tags = p.getTags();
+			if(!StringUtils.isEmpty(tags)) {
+				String [] tagArray = tags.split(Constants.TAGS_SPLIT);
+				int length = tagArray.length;
+				StringBuffer sb = new StringBuffer(length);
+				for(int i = 0; i < length; i++) {
+					String tag = tagArray[i].trim();
+					if(!StringUtils.isEmpty(tag)) {
+						tag = RegexUtils.upperFirstLetterEachWord(tag);
+						if(i > 0) {
+							sb.append(", ");
+						}
+						sb.append(tag);
+					}
+				}
+				p.setTags(sb.toString());
+				em.merge(p);
+			}
+		}
+		
+	}
+
 }
