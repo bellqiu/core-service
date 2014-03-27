@@ -87,10 +87,13 @@ public class SitemapServiceCacheWrapper {
 			String tagRelativeURL = URLCodingUtil.encode(tagName.replace(Constants.SPACE_CHAR, Constants.HYPHEN_CHAR));
 			allTagsName.add(tagRelativeURL);
 			Set<Long> productsByTag = allTagsProductMap.get(tagName);
-			if(productsByTag != null && productsByTag.size() > 0) {
-				int totalPage = productsByTag.size() / TagsController.TAG_PRODUCT_PER_PAGE;
-				for(int i = 0; i <= totalPage; i++) {
-					allTagsName.add(tagRelativeURL + "/" + i);
+			if(productsByTag != null) {
+				int size = productsByTag.size();
+				if(size > 0) {
+					int totalPage = size / TagsController.TAG_PRODUCT_PER_PAGE;
+					for(int i = 0; i <= totalPage; i++) {
+						allTagsName.add(tagRelativeURL + "/" + i);
+					}
 				}
 			}
 		}

@@ -132,7 +132,7 @@ public class EmailService {
 			throw new CoreServiceException("Send to email is empty");
 		}
     	String mailContent = parseMailContent(templateString, variable);
-    	logger.info("send mail to :" + sendTo);
+    	logger.info("Send mail to: " + sendTo);
     	if (mailContent != null) {
     		HtmlEmail email = new HtmlEmail();
     	    try {
@@ -149,6 +149,7 @@ public class EmailService {
     	        email.addTo(sendTo);
     	        email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
     	        email.send();
+    	        logger.info("Send mail successfully to " + sendTo);
     	    } catch (EmailException e) {
     	        logger.error(e.getMessage(), e);
     	    }
@@ -162,7 +163,7 @@ public class EmailService {
 			throw new CoreServiceException("Send to email is empty");
 		}
     	String mailContent = parseMailContent(templateString, variable);
-    	logger.info("send mail from: {}, to: {}", new Object[]{from, to});
+    	logger.info("Send mail from {}, to {}", new Object[]{from, to});
     	if (mailContent != null) {
     		HtmlEmail email = new HtmlEmail();
     	    try {

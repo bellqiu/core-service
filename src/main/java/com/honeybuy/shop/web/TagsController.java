@@ -174,7 +174,7 @@ public class TagsController {
 		if(Character.isDigit(tagName.charAt(0))) {
 			indexName = TagsServiceCacheWrapper.TAG_DIGITAL_INDEX;
 		} else {
-			indexName = tagName.substring(0, 1);
+			indexName = tagName.substring(0, 1).toUpperCase();
 		}
 		model.addAttribute("tagName", tagName);
 		model.addAttribute("indexName", indexName);
