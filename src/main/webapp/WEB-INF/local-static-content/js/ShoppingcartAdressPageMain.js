@@ -105,12 +105,12 @@
 			
 			$("#paymentProcessToCheckoutBtn").click(function(){
 				$(this).button("loading");
-				var paymentMethod = $("input[name='paymentmethod'][checked='checked']").val();
+				var paymentMethod = $("input[name='paymentmethod']:checked").val();
 				var customerMsg = $("textarea[name='orderMsg']").val();
 				var orderId = $(this).attr("data-order-id");
-				var shippingAddress = $("input[class='shippingAddress'][checked='checked']").val();
-				var billingAddress = $("input[class='billingAddress'][checked='checked']").val();
-				var shippingMethod = $("input[name='shippingMethod'][checked='checked']").val();
+				var shippingAddress = $("input[class='shippingAddress']:checked").val();
+				var billingAddress = $("input[class='billingAddress']:checked").val();
+				var shippingMethod = $("input[name='shippingMethod']:checked").val();
 				
 				if(!shippingAddress || shippingAddress.length < 1){
 					$(this).popover({
