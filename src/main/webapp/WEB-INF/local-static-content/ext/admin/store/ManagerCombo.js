@@ -11,6 +11,7 @@ Ext.define('AM.store.ManagerCombo', {
         {name: 'User', value: 'user'},
         {name: 'TabProduct', value: 'tabproduct'}, 
         {name: 'Coupon', value: 'coupon'},
-        {name: 'Order', value: 'order'}
+        {name: 'Order', value: 'order'},
+        {name: 'Blogger', value: 'blogger'}
     ]
 });

@@ -21,7 +21,7 @@ Ext.application({
 
 	controllers : [ 'GlobalNav', 'Setting', 'CategoryTree', 'HTML', 'Country',
 			'Product', 'Currency', 'User', 'ProductSummary', 'TabProduct',
-			'Coupon', 'Order' ],
+			'Coupon', 'Order', 'Blogger' ],
 
 	launch : function() {
 		
