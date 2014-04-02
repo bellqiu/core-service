@@ -157,4 +157,7 @@ public interface Constants {
 	
 	public static final String TAB_PRODUCT_TAG_LEFT_PANEL = "TAG_LEFT_PANEL";
 	
+	public static final String SETTING_BLOGGER_DIR = "BLOGGER_DIRECTORY";
+	public static final String SETTING_BLOGGER_FILE_EXTENTIONS = "BLOGGER_FILE_EXTENTIONS";
+	
 }

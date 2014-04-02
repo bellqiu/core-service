@@ -60,7 +60,7 @@ public class BloggerDirectService {
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
 	public Blogger update(Blogger blogger) {
-		blogger = bloggerService.saveOrUpdate(blogger);
+		blogger = bloggerService.update(blogger);
 		
 		return blogger;
 	}

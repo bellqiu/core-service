@@ -32,6 +32,9 @@ public class Blogger extends Component{
 	@Column(name="priority")
 	private String priority;
 	
+	@Column(name="size")
+	private int size;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type")
 	private Type type = Type.PDF;
@@ -69,6 +72,14 @@ public class Blogger extends Component{
 
 	public String getPriority() {
 		return priority;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getSize() {
+		return size;
 	}
 
 	public Type getType() {

@@ -164,7 +164,7 @@ Ext.define('AM.view.blogger.BloggerManager', {
 							autoStart : false,
 							max_file_size : '20mb',
 							filters : [
-							           	{title : "Upload files", extensions : "pdf, html, jsp, txt"}
+							           	{title : "Upload files", extensions : "pdf,html,jsp,txt"}
 							           ],
 							statusQueuedText : 'Ready to upload',
 							statusUploadingText : 'Uploading ({0}%)',
@@ -180,7 +180,7 @@ Ext.define('AM.view.blogger.BloggerManager', {
 									console.log("OK");
 									console.log(resp);
 									var store = uploader.owner.up("bloggermanager").down("gridpanel").getStore();
-									store.add(resp.);
+									store.add(resp.blogger);
 								}
 								console.log('fileuploaded');
 							}

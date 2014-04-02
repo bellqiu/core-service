@@ -22,7 +22,7 @@ Ext.define('AM.controller.Blogger', {
 			},
 
 			'bloggermanager button#uploadBlogger' : {
-				click : this.newBlogger
+				click : this.uploadBlogger
 			},
 			'bloggermanager gridpanel actioncolumn' : {
 				click : this.actionBloggerDetail
@@ -65,7 +65,7 @@ Ext.define('AM.controller.Blogger', {
 				true, true);
 	},
 
-	newBlogger : function(btn) {
+	uploadBlogger : function(btn) {
 		btn.uploader.removeAll();
 	},
 
