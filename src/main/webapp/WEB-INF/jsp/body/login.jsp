@@ -65,7 +65,7 @@ var domain = '${site.domain}';
                         <div class="col-lg-offset-2 col-lg-10">
                         	<div class="row">
                         		<div class="col-xs-2">
-                          		  <button type="submit" class="btn btn-primary">Sign in</button>
+                          		  <button type="submit" id="sign-in" class="btn btn-primary">Sign in</button>
                           		</div>
                             </div>
                         </div>

@@ -243,6 +243,13 @@
 							location.reload();
 						}
 						if(json && json.success){
+							if(ga) {
+								try {
+									ga('send', 'event', 'button', 'click', 'checkoutPayment');
+								} catch(e) {
+									console.log("send checkoutPayment with error");
+								}
+							}
 							window.location.href=window.location.protocol + "//"+window.location.host + "/sp/payment/"+paymentMethod+"/checkout/"+orderId;
 						}else{
 							

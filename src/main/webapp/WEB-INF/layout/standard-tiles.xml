@@ -231,6 +231,13 @@
         	  <put-attribute name="pageDescription" value="Support"/>
         </definition>
         
+        <definition name="bloggerlist" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/help/blogger.jsp"/>
+        	  <put-attribute name="pageTitle" value="Blogger"/>
+        	  <put-attribute name="pageKeywords" value="Blogger"/>
+        	  <put-attribute name="pageDescription" value="Blogger"/>
+        </definition>
+        
         <definition name="tagIndex" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/tags/tagIndex.jsp"/>
         </definition>

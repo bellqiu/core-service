@@ -4,9 +4,14 @@
  */
 package com.honeybuy.shop.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,6 +52,18 @@ public class BloggerController {
 		rs.setSuccess(true);
 		
 		return rs;
+	}
+	
+	@RequestMapping("/blogger/list")
+	public String bloggerList(){
+		return "forward:/blogger/list/0";
+	}
+	
+	@RequestMapping("/blogger/list/{page:\\d+}")
+	public String bloggerList(
+			@PathVariable("page") int page,
+			Model model){
+		return "bloggerlist";
 	}
 
 }
