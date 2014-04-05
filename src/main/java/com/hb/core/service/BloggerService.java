@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -231,5 +232,15 @@ public class BloggerService {
 
 		File newfile = new File(directory + newName);
 		oldfile.renameTo(newfile);
+	}
+
+	public int getActiveBloggerCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public List<Blogger> getAllActiveBlogger(int start, int max) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

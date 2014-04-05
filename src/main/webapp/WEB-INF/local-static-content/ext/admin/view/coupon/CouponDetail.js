@@ -73,6 +73,9 @@ Ext.define('AM.view.coupon.CouponDetail', {
 						minValue : 0,
 						flex : 1
 					}, {
+						text : '  If value is between 0 and 1, orderPrice = totalPrice * ( 1 - value)',
+						xtype : 'label',
+					}, {
 						fieldLabel : 'Used Count',
 						name : 'usedCount',
 						xtype : 'numberfield',

@@ -130,6 +130,10 @@ public class OrderService {
 			order.getItems().add(orderItem);
 		}
 		
+		if(order.getCouponCode() != null) {
+			checkCoupon(order);
+		}
+		
 		order.setUpdateDate(new Date());
 		
 		order = em.merge(order);
@@ -184,6 +188,10 @@ public class OrderService {
 		for (OrderItem orderItem : removedItems) {
 			order.getItems().remove(orderItem);
 			em.remove(orderItem);
+		}
+		
+		if(order.getCouponCode() != null) {
+			checkCoupon(order);
 		}
 		
 		em.persist(order);
@@ -592,6 +600,31 @@ public class OrderService {
 		}
 		
 		return orderDetailConverter.convert(order);
+	}
+	
+	// check if order has coupon, modify the coupon if it has
+	private void checkCoupon(Order order){
+		String couponCode = null;
+		if(order == null || (couponCode = order.getCouponCode()) == null) {
+			return;
+		}
+		
+		Coupon coupon = couponService.getCouponByCode(couponCode);
+		
+		if(null != coupon && coupon.getEndDate().after(new Date()) && coupon.getMinCost() < order.getTotalProductPrice() && coupon.getUsedCount() < coupon.getMaxUsedCount()){
+
+			float couponCutOff = 0;
+			
+			if(coupon.getValue() < 1){
+				couponCutOff = order.getTotalProductPrice() * coupon.getValue();
+			} else {
+				couponCutOff = coupon.getValue();
+			}
+			order.setCouponCutOff(couponCutOff);
+		} else {
+			order.setCouponCode(null);
+			order.setCouponCutOff(0.0f);
+		}
 	}
 	
 	public OrderDetailDTO updateOrderBillingAddress(String userEmail ,Address address, long orderId){

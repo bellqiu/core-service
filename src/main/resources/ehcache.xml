@@ -162,5 +162,13 @@
 		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
 		maxElementsOnDisk="1" />
 	
+	<cache name="BloggerCount" eternal="false"
+		timeToLiveSeconds="7200" maxElementsInMemory="1"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="1" />
 		
+	<cache name="BloggerList" eternal="false"
+		timeToLiveSeconds="7200" maxElementsInMemory="20"
+		memoryStoreEvictionPolicy="LRU" statistics="true" overflowToDisk="true"
+		maxElementsOnDisk="1" />
 </ehcache>
