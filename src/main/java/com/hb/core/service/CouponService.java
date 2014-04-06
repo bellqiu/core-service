@@ -27,17 +27,21 @@ public class CouponService {
 	
 	public Coupon saveOrUpdate(Coupon coupon){
 		Coupon existingCoupon = getCouponByCode(coupon.getCode());
+		Date date = new Date();
 		if(null != existingCoupon && (existingCoupon.getId() != coupon.getId() || coupon.getId() < 1)) {
 			throw new CoreServiceException("Coupon code already exist");
 		} else if (null == existingCoupon) {
-			coupon.setCreateDate(new Date()); 
+			coupon.setCreateDate(date); 
+			coupon.setStartDate(date);
+			coupon.setEndDate(new Date(date.getTime() + Constants.ONE_YEAR_MILSECONDS));
 		} else {
 			coupon.setCreateDate(existingCoupon.getCreateDate());
 		}
-		coupon.setUpdateDate(new Date());
+		coupon.setUpdateDate(date);
 		if(coupon.getCreateDate() == null) {
-			coupon.setCreateDate(new Date()); 
+			coupon.setCreateDate(date); 
 		}
+		
 		coupon = em.merge(coupon);
 		return coupon;
 	}

@@ -88,6 +88,9 @@ Ext.define('AM.controller.Coupon', {
 
 	synchronizeGrid : function(btn) {
 		btn.up('gridpanel').getStore().sync();
+		var queryPanel = btn.up("viewport").down(
+		"tabpanel#managerContainer couponmanager");
+		this.getCouponStore().load();
 	},
 
 	searchCoupon : function(btn) {

@@ -74,7 +74,10 @@ Ext.define('AM.view.coupon.CouponDetail', {
 						flex : 1
 					}, {
 						text : '  If value is between 0 and 1, orderPrice = totalPrice * ( 1 - value)',
-						xtype : 'label',
+						xtype : 'label'
+					}, {
+						text : '  If value is greater than or equal to 1, orderPrice = totalPrice - value',
+						xtype : 'label'
 					}, {
 						fieldLabel : 'Used Count',
 						name : 'usedCount',
@@ -99,7 +102,9 @@ Ext.define('AM.view.coupon.CouponDetail', {
 						fieldLabel : 'Start Date',
 						name : 'startDate',
 						xtype : 'datefield',
-						format : 'm/d/Y',
+						renderer : function(v) {
+							Ext.util.Format.dateRenderer('m/d/Y');
+						},
 						flex : 1
 					}, {
 						fieldLabel : 'End Date',

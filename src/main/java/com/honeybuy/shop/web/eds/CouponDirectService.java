@@ -89,7 +89,7 @@ public class CouponDirectService {
 	public ExtDirectFormPostResult saveCoupon(@Valid Coupon coupon, BindingResult result){
 		if (!result.hasErrors()) {
 			if (coupon.getId()< 1 && couponService.getCouponByCode(coupon.getCode()) != null) {
-				result.rejectValue("name", null, "Coupon already taken");
+				result.rejectValue("code", null, "Coupon already taken");
 			}
 		}
 		if(!result.hasErrors()){

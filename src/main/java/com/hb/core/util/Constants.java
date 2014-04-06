@@ -160,4 +160,7 @@ public interface Constants {
 	public static final String SETTING_BLOGGER_DIR = "BLOGGER_DIRECTORY";
 	public static final String SETTING_BLOGGER_FILE_EXTENTIONS = "BLOGGER_FILE_EXTENTIONS";
 	
+	// 365 * 24 * 3600 * 1000
+	public static final long ONE_YEAR_MILSECONDS = 31536000000L;
+	
 }
