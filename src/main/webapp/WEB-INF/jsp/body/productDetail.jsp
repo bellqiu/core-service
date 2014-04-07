@@ -67,6 +67,10 @@ var productOpts = "${currentProductOptions}";
 					<span class="gray">Product Id: 
 						0000${currentProductDetail.id}
 					</span>
+					<span class="gray marginLeftRigh">|</span>
+					<span class="likeSpan" data-id="${currentProductDetail.id}">(<span id="likeNum">${likeNum}</span>)</span>
+					<span class="gray marginLeftRigh">|</span>
+					<span><span class="sold">${soldNum}</span> <span class="gray">Sold</span></span>
 					<h3>${currentProductDetail.title}</h3>
 				</div>
 				<div class="col-md-12 col-xs-12">

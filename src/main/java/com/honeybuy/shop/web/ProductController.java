@@ -5,11 +5,12 @@
 package com.honeybuy.shop.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Produces;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -79,6 +81,13 @@ public class ProductController {
 		meta.setKeywords(productDetailDTO.getKeywords());
 		meta.setDescription(productDetailDTO.getAbstractText());
 		model.addAttribute("pageMeta", meta);
+		
+		long id = productDetailDTO.getId();
+		int like = productServiceNoCache.getLikesByProductId(id);
+		model.addAttribute("likeNum", like);
+		
+		int sold = productServiceNoCache.getSoldsByProductId(id);
+		model.addAttribute("soldNum", sold);
 		
 		return "productDetail";
 	}
@@ -204,6 +213,35 @@ public class ProductController {
 		} else {
 			return "redirect:/";
 		}
+	}
+	
+	private static final long LIKE_EXPIRE_MILSECONDS = 600000;
+	@RequestMapping(value="/json/changeLike", method=RequestMethod.POST)
+	@ResponseBody
+	public int changeLikeService(@RequestParam(value = "id", required = false) final String id,
+			HttpSession session) {
+		if(StringUtils.isEmpty(id)) {
+			return 0;
+		}
+		@SuppressWarnings("unchecked")
+		Map<Long, Long> likeMap = (Map<Long, Long>)session.getAttribute("likeMap");
+		if(likeMap == null) {
+			likeMap = new HashMap<Long, Long>();
+		}
+		try {
+			long idNumber = Long.parseLong(id);
+			Long time = likeMap.get(idNumber);
+			long currentTime = System.currentTimeMillis();
+			if(time != null && (time + LIKE_EXPIRE_MILSECONDS) >= currentTime) {
+				return 0;
+			}
+			likeMap.put(idNumber, currentTime);
+			session.setAttribute("likeMap", likeMap);
+			return productServiceNoCache.addLike(idNumber);
+		} catch(NumberFormatException e) {
+			logger.debug("{} can not be cast to long number.", id);
+		} 
+		return 0;
 	}
 	
 }

@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -51,6 +53,9 @@ public class ProductService {
 	@Autowired
 	private Converter<ProductSummaryDTO, Product> productSummaryConverter;
 	
+	public final static ConcurrentHashMap<Long, Integer> likes = new ConcurrentHashMap<Long, Integer>(1024);
+	
+	public final static ConcurrentHashMap<Long, Integer> solds = new ConcurrentHashMap<Long, Integer>(1024);
 	
 	public ProductChangeDTO compupterProductChangeByOpts(String productName, String optParams){
 		
@@ -757,4 +762,37 @@ public class ProductService {
 		
 	}
 
+	public int getLikesByProductId(long id) {
+		Integer like = likes.get(id);
+		if(like == null) {
+			like = random(50);
+			likes.put(id, like);
+		} 
+		return like;
+	}
+	
+	public int getSoldsByProductId(long id) {
+		Integer sold = solds.get(id);
+		if(sold == null) {
+			sold = random(50);
+			solds.put(id, sold);
+		} 
+		return sold;
+	}
+	
+	private Random random = new Random();
+	private int random(int to) {
+		return random.nextInt(to);
+	}
+
+	public int addLike(long id) {
+		Integer like = likes.get(id);
+		if(like == null) {
+			like = 1;
+		} else {
+			like = like + 1;
+		}
+		likes.put(id, like);
+		return like;
+	}
 }

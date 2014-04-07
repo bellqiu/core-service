@@ -20,8 +20,7 @@ public class BloggerServiceCacheWrapper {
 	@Cacheable(cacheName="BloggerCount")
 	public int getActiveBloggerCount() {
 		int count = bloggerService.getActiveBloggerCount();
-		//return count;
-		return 0;
+		return count;
 	}
 	
 	@Cacheable(cacheName="BloggerList")

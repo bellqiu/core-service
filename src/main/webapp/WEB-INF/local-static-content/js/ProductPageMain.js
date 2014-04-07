@@ -52,6 +52,11 @@
 				$("#add2cartForm").submit();
 			});
 			
+			$(".likeSpan").click(function() {
+				var id = $(this).attr("data-id");
+				shopping.like(id);
+			});
+			
 		}
 	
 	);
@@ -76,6 +81,7 @@
 		}  
 		return false;
 	});
+	
 	/*$("#productAmountCustom").onchange(function(btn) {
 		console.log("OK");
 	})*/

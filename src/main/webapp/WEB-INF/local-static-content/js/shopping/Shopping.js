@@ -303,6 +303,22 @@
 				});
 			};
 			
+			shopping.like = function(id){
+				$.ajax({
+					url : "/json/changeLike?_tp="+new Date().getTime(),
+					type : 'POST',
+					data : {"id" : id},
+					complete : function(response){
+						var num = parseInt(response.responseText);
+					 	if(isFinite(num) && num > 1) {
+					 		$("#likeNum").text(num);
+					 	} else {
+					 		alert(":) You have liked it!");
+					 	}
+					}
+				});
+			};
+			
 	        return shopping;
 	    }
 	);

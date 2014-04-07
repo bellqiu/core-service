@@ -564,6 +564,24 @@ input[type=password] {
 .priceItem{
 	margin-top: 5px
 }
+
+.marginLeftRigh {
+	margin: 0 10px 0 10px;
+}
+
+.likeSpan {
+	margin-top: 2px;
+	cursor: pointer;
+	display: inline-block;
+	background: url(/rs/img1/heart_icon.png) no-repeat left center;
+	padding-left: 15px;
+	color: #666666;
+}
+
+.sold {
+	font-weight: bold;
+	color: #990000;
+}
 /**************End Product************/
 
 
