@@ -85,6 +85,11 @@
 								</div>
 							</c:if>
 						</c:if>
+						<div>
+							<span class="likeSpan" data-id="${product.id}">Like (<span id="likeNum">${product.like}</span>)</span>
+							<span class="gray">|</span>
+							<span><span class="sold">${product.sold}</span><span class="gray"> Sold</span></span>
+						</div>
    					</div>
 				</div>
 			</c:forEach>

@@ -63,7 +63,7 @@
 						</c:forEach>
 		         	</ul>
 				</div>
-				<div class="tag-pagination">
+				<div class="text-center">
 					<ul class="pagination">
 						<c:choose>
 							<c:when test="${currentPageIndex == 0}">

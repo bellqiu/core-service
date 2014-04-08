@@ -88,6 +88,9 @@ public class CategoryController {
 		}
 		
 		if(productSummaryList.size() > 0) {
+			for(ProductSummaryDTO summaryDTO : productSummaryList) {
+				productService.setLikeSold(summaryDTO);
+			}
 			List<Integer> pageIds = new ArrayList<Integer>();
 			if(totalPage <= 7) {
 				for(int i = 0; i < totalPage; i++) {

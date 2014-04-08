@@ -75,8 +75,7 @@ public class ProductServiceCacheWrapper {
 	public List<ProductSummaryDTO> getAllProductByCategoryId(long id, int start, int max) {
 		List<Long> categoryIds = categoryCacheService.getCategoryIdWithAllSubCategories(id);
 		List<ProductSummaryDTO> dtos = productService.getAllProductByCategoryIds(categoryIds, start, max);
-		
-		return CloneUtil.<List<ProductSummaryDTO>>cloneThroughJson(dtos);
+		return dtos;
 	}
 	
 	public int getProductCountWithPriceRangeByCategoryId(long categoryId, double lowPrice, double highPrice) {
@@ -131,4 +130,17 @@ public class ProductServiceCacheWrapper {
 		 
 		return CloneUtil.<ProductSummaryDTO>cloneThroughJson(summary);
 	}
+	
+	public int getLikesByProductId(long id) {
+		return productService.getLikesByProductId(id);
+	}
+	
+	public int getSoldsByProductId(long id) {
+		return productService.getSoldsByProductId(id);
+	}
+	
+	public void setLikeSold(ProductSummaryDTO productSummaryDTO) {
+		productService.setLikeSold(productSummaryDTO);
+	}
+	
 }

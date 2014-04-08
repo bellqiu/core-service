@@ -795,4 +795,12 @@ public class ProductService {
 		likes.put(id, like);
 		return like;
 	}
+	
+	public void setLikeSold(ProductSummaryDTO productSummaryDTO) {
+		long id = productSummaryDTO.getId();
+		if(id > 0) {
+			productSummaryDTO.setLike(getLikesByProductId(id));
+			productSummaryDTO.setSold(getSoldsByProductId(id));
+		}
+	}
 }

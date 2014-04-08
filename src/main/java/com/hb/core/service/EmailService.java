@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hb.core.entity.Currency;
 import com.hb.core.entity.HTML;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.OrderDetailDTO;
@@ -95,7 +96,12 @@ public class EmailService {
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
-		variable.put("currency", currencyService.getCurrencyByCode(order.getCurrency()));
+		String currencyCode = order.getCurrency();
+		if(currencyCode == null) {
+			currencyCode = "USD";
+		}
+		Currency currency = currencyService.getCurrencyByCode(currencyCode);
+		variable.put("currency", currency);
 		
 		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, email);
 	}

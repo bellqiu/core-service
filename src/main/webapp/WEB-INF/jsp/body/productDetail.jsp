@@ -62,7 +62,7 @@ var productOpts = "${currentProductOptions}";
 
 		</div>
 		<div class="col-md-5 col-xs-5 padding10">
-			<div class="row ">
+			<div class="row">
 				<div class="col-md-12 col-xs-12">
 					<span class="gray">Product Id: 
 						0000${currentProductDetail.id}
@@ -70,7 +70,7 @@ var productOpts = "${currentProductOptions}";
 					<span class="gray marginLeftRigh">|</span>
 					<span class="likeSpan" data-id="${currentProductDetail.id}">(<span id="likeNum">${likeNum}</span>)</span>
 					<span class="gray marginLeftRigh">|</span>
-					<span><span class="sold">${soldNum}</span> <span class="gray">Sold</span></span>
+					<span><span class="sold">${soldNum}</span><span class="gray"> Sold</span></span>
 					<h3>${currentProductDetail.title}</h3>
 				</div>
 				<div class="col-md-12 col-xs-12">
