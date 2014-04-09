@@ -124,6 +124,18 @@ Ext.define('AM.view.user.UserManager', {
 						allowBlank : false
 					}
 				}, {
+					text : "Update Date",
+					dataIndex : "updateDate",
+					type : 'date',
+					renderer : Ext.util.Format.dateRenderer('m/d/Y'),
+					flex : 1
+				}, {
+					text : "Create Date",
+					dataIndex : "createDate",
+					type : 'date',
+					renderer : Ext.util.Format.dateRenderer('m/d/Y'),
+					flex : 1
+				}, {
 					text : "Role",
 					dataIndex : "roles",
 					flex : 1,

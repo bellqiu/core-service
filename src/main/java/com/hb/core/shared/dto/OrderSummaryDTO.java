@@ -1,6 +1,7 @@
 package com.hb.core.shared.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -19,6 +20,8 @@ public class OrderSummaryDTO implements Serializable{
 	private float amount;
 	
 	private String orderCurrencyCode;
+	private Date createDate;
+	private Date updateDate;
 	
 	public void setId(long id) {
 		this.id = id;
@@ -67,5 +70,17 @@ public class OrderSummaryDTO implements Serializable{
 	}
 	public String getOrderCurrencyCode() {
 		return orderCurrencyCode;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
 	}
 }

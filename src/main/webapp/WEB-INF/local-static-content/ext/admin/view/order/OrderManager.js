@@ -116,13 +116,25 @@ Ext.define('AM.view.order.OrderManager', {
 					dataIndex : "useremail",
 					sortable : false,
 					flex : 1.5
-				}, {
+				}, /*{
 					text : "Tracking Id",
 					dataIndex : "trackingId",
 					flex : 1.5
 				}, {
 					text : "Source Id",
 					dataIndex : "sourceId",
+					flex : 1.5
+				},*/{
+					text : "Update Date",
+					dataIndex : "updateDate",
+					type : 'date',
+					renderer : Ext.util.Format.dateRenderer('m/d/Y'),
+					flex : 1.5
+				}, {
+					text : "Create Date",
+					dataIndex : "createDate",
+					type : 'date',
+					renderer : Ext.util.Format.dateRenderer('m/d/Y'),
 					flex : 1.5
 				}, {
 					text : "Amount",

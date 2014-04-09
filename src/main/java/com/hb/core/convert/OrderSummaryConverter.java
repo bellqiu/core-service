@@ -23,6 +23,8 @@ public class OrderSummaryConverter implements Converter<OrderSummaryDTO, Order>{
 		summaryDTO.setTrackingId(order.getTrackingId());
 		
 		summaryDTO.setOrderCurrencyCode(order.getCurrency());
+		summaryDTO.setCreateDate(order.getCreateDate());
+		summaryDTO.setUpdateDate(order.getUpdateDate());
 		
 		User user = order.getUser();
 		if(user != null) {

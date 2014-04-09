@@ -27,12 +27,13 @@ public class UserConverter implements
 			return null;
 		}
 		
-		
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(user.getId());
 		userDTO.setEmail(user.getEmail());
 		userDTO.setPassword(user.getPassword());
 		userDTO.setEnabled(user.getStatus() == Component.Status.ACTIVE);
+		userDTO.setCreateDate(user.getCreateDate());
+		userDTO.setUpdateDate(user.getUpdateDate());
 		List<String> roles = userDTO.getRoles();
 		String role = user.getType() == null ? User.Type.USER.toString() : user.getType().toString();
 		if(!roles.contains(role)) {

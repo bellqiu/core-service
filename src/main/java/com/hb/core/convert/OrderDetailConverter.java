@@ -49,6 +49,8 @@ public class OrderDetailConverter implements
 		
 		detailDTO.setShippingAddressRef(order.getShippingAddRef());
 		detailDTO.setBillingAddressRef(order.getBillingAddRef());
+		detailDTO.setCreateDate(order.getCreateDate());
+		detailDTO.setUpdateDate(order.getUpdateDate());
 		
 		User user = order.getUser();
 		if(user != null) {

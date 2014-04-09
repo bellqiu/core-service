@@ -8,7 +8,9 @@
            {name:'trackingId', type:'String'},
            {name:'sourceId',type:'string'},
            {name:'amount',type:'float'},
-           {name:'orderCurrencyCode',type:'String'}
+           {name:'orderCurrencyCode',type:'String'},
+           {name:'createDate', type:'date', defaultValue : 0 , convert : function(v,record){return new Date(v)}},
+           {name:'updateDate', type:'date',   defaultValue : 0, convert : function(v,record){return new Date(v)}}
         ], 
         idProperty: 'id'
     });

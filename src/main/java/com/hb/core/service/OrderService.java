@@ -285,13 +285,14 @@ public class OrderService {
 	public ExtDirectStoreReadResult<OrderSummaryDTO> queryResult(int start, int max,
 			String sort, String direction, Map<String, String> filters) {
 		StringBuffer ql = new StringBuffer("");
+		boolean filterByStatus = false;
 		if(!filters.isEmpty()){
-			ql.append(" where ");
 			Iterator<String> item = filters.keySet().iterator();
 			while(item.hasNext()){
 				String param = item.next();
 				if ("status".equalsIgnoreCase(param)) {
-					ql.append(" orderStatus = :" + param + " ");
+					filterByStatus = true;
+					//ql.append(" orderStatus = :" + param + " ");
 				} else {
 					ql.append(param +" like :"+param +" ");
 				}
@@ -303,12 +304,18 @@ public class OrderService {
 		
 		ql.append(" order by " + sort + " " + direction);
 		
-		StringBuffer queryStringPrefix = new StringBuffer("select o from Order as o ");
-		StringBuffer CountStringPrefix = new StringBuffer("select count(o.id) from Order as o ");
+		StringBuffer queryStringPrefix = new StringBuffer("select o from Order as o where o.orderStatus ");
+		StringBuffer countStringPrefix = new StringBuffer("select count(o.id) from Order as o where o.orderStatus ");
+		if(filterByStatus) {
+			queryStringPrefix.append(" = :status ");
+			countStringPrefix.append(" = :status ");
+		} else {
+			queryStringPrefix.append(" != 'ONSHOPPING' ");
+			countStringPrefix.append(" != 'ONSHOPPING' ");
+		}
 		
 		TypedQuery<Order> query = em.createQuery( queryStringPrefix.append(ql).toString(), Order.class);
-		TypedQuery<Long> count = em.createQuery( CountStringPrefix.append(ql).toString(), Long.class);
-		
+		TypedQuery<Long> count = em.createQuery( countStringPrefix.append(ql).toString(), Long.class);
 		
 		query.setFirstResult(start);
 		query.setMaxResults(max);

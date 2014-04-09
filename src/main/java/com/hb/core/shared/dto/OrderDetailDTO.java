@@ -1,6 +1,7 @@
 package com.hb.core.shared.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -46,6 +47,9 @@ public class OrderDetailDTO implements Serializable{
 	private String shippingCode;
 	
 	private List<OrderItemDTO> items;
+	
+	private Date createDate;
+	private Date updateDate;
 
 	public long getId() {
 		return id;
@@ -215,6 +219,22 @@ public class OrderDetailDTO implements Serializable{
 		}
 		
 		return productPrice;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.hb.core.shared.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,8 @@ public class UserDTO implements Serializable{
 	private String password;
 	private boolean enabled;
 	private final List<String> roles = new ArrayList<String>();
+	private Date createDate;
+	private Date updateDate;
 	
 	public long getId() {
 		return id;
@@ -46,6 +49,18 @@ public class UserDTO implements Serializable{
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 	
 }
