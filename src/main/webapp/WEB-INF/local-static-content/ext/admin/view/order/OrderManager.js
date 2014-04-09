@@ -51,12 +51,12 @@ Ext.define('AM.view.order.OrderManager', {
 						displayField : 'name',
 						valueField : 'status',
 						width : 250
-					}, {
+					}, /*{
 						margin : 5,
 						fieldLabel : 'Email',
 						name : 'useremail',
 						width : 250
-					}, {
+					}, */{
 						margin : 5,
 						fieldLabel : 'Tracking Id',
 						name : 'trackingId',
@@ -114,6 +114,7 @@ Ext.define('AM.view.order.OrderManager', {
 				}, {
 					text : "Email",
 					dataIndex : "useremail",
+					sortable : false,
 					flex : 1.5
 				}, {
 					text : "Tracking Id",

@@ -25,6 +25,9 @@ public class TabedProduct extends AbstractHBTag{
 	@Override
 	public String handle(ServletRequest request) {
 		TabProductDTO productDTO = productService.getTabProductByName(tabKey);
+		if(productDTO != null) {
+			productService.setLikeSold(productDTO.getProducts());
+		}
 		
 		request.setAttribute("tabProduct", productDTO);
 		

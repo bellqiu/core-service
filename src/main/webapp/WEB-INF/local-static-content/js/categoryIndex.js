@@ -23,7 +23,6 @@
 			$(el).click(function() {
 				var id = $(this).attr("data-id");
 				var likeSpan = this;
-				console.log(id);
 				$.ajax({
 					url : "/json/changeLike?_tp="+new Date().getTime(),
 					type : 'POST',

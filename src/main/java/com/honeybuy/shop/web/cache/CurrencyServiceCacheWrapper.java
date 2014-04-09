@@ -24,6 +24,19 @@ public class CurrencyServiceCacheWrapper {
 	
 	@Cacheable(cacheName="GetCurrencyByCode")
 	public Currency getCurrencyByCode(String code){
+		if(code == null) {
+			return null;
+		}
 		return currencyService.getCurrencyByCode(code);
+	}
+	
+	public Currency getDefaultSettingCurrency(){
+		List<Currency> allCurrency = getAllCurrency();
+		for(Currency c : allCurrency) {
+			if(c.isDefaultCurrency()) {
+				return c;
+			}
+		}
+		return getCurrencyByCode("USD");
 	}
 }

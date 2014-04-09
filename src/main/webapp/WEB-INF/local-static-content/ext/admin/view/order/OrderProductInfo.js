@@ -23,21 +23,22 @@ Ext.define('AM.view.order.OrderProductInfo', {
 					xtype : 'container',
 					border : false,
 					layout : 'vbox',
-					width : '150',
+					width : '50',
 					items : [ {
 						xtype : 'panel',
 						itemId : 'imagePanel',
-						width : '100',
-						height : '100',
+						width : '50',
+						height : '50',
 						html : ''
-					}, {
-						xtype : 'label',
-						itemId : 'productTitle',
-						shrinkWrap : 2,
-						width : '150',
-						text : ''
 					}]
 					
+				}, {
+					xtype : 'label',
+					itemId : 'productTitle',
+					shrinkWrap : 2,
+					//width : '200',
+					flex : 1,
+					text : ''
 				}, {
 					xtype : 'container',
 					flex : 1,
@@ -63,7 +64,7 @@ Ext.define('AM.view.order.OrderProductInfo', {
 					items : [ {
 						xtype : 'label',
 						text:'Quantity',
-						margin:'10 5 3 10'
+						margin:'0 5 3 10'
 					}, {
 						xtype : 'label',
 						itemId : 'quantityValue',

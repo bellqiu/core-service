@@ -80,7 +80,11 @@ public class EmailService {
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
-		variable.put("currency", currencyService.getCurrencyByCode(order.getCurrency()));
+		Currency currency = currencyService.getCurrencyByCode(order.getCurrency());
+		if(currency == null) {
+			currency = currencyService.getDefaultSettingCurrency();
+		}
+		variable.put("currency", currency);
 		
 		sendMail(payOrderTemplate, payOrderSubject, variable, email);
 	}
@@ -96,11 +100,10 @@ public class EmailService {
 		
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
-		String currencyCode = order.getCurrency();
-		if(currencyCode == null) {
-			currencyCode = "USD";
+		Currency currency = currencyService.getCurrencyByCode(order.getCurrency());
+		if(currency == null) {
+			currency = currencyService.getDefaultSettingCurrency();
 		}
-		Currency currency = currencyService.getCurrencyByCode(currencyCode);
 		variable.put("currency", currency);
 		
 		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, email);

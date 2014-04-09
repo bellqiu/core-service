@@ -2,6 +2,7 @@ package com.honeybuy.shop.web.cache;
 
 import java.util.List;
 
+import org.apache.cxf.common.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class ProductServiceCacheWrapper {
 	@Cacheable(cacheName="TabProduct")
 	public TabProductDTO getTabProductByName(String name){
 		TabProductDTO dto = tabProductService.getTabProductDTOByName(name);
-		return CloneUtil.<TabProductDTO>cloneThroughJson(dto);
+		return dto;
 	}
 	
 	@Cacheable(cacheName="ProductCountByCategory")
@@ -141,6 +142,14 @@ public class ProductServiceCacheWrapper {
 	
 	public void setLikeSold(ProductSummaryDTO productSummaryDTO) {
 		productService.setLikeSold(productSummaryDTO);
+	}
+	
+	public void setLikeSold(List<ProductSummaryDTO> productSummaryList) {
+		if(!CollectionUtils.isEmpty(productSummaryList)) {
+			for(ProductSummaryDTO productSummaryDTO : productSummaryList) {
+				productService.setLikeSold(productSummaryDTO);
+			}
+		}
 	}
 	
 }

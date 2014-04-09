@@ -66,8 +66,18 @@ Ext.define('AM.view.order.OrderDetail', {
 						anchor : '90%',
 						disabled : true
 					}, {
+						fieldLabel : 'Amount',
+						name : 'grandTotal',
+						anchor : '90%',
+						disabled : true
+					}, {
 						fieldLabel : 'Delivery Price',
 						name : 'deliveryPrice',
+						anchor : '90%',
+						disabled : true
+					}, {
+						fieldLabel : 'User Email',
+						name : 'useremail',
 						anchor : '90%',
 						disabled : true
 					}, {

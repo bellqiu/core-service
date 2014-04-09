@@ -80,13 +80,13 @@ Ext.define('AM.controller.Order', {
 				});
 				filtered = true;
 			}
-			if (filters.useremail.length > 0) {
+			/*if (filters.useremail.length > 0) {
 				filterObj.push({
 					property : 'useremail',
 					value : filters.useremail
 				});
 				filtered = true;
-			}
+			}*/
 			if (filters.trackingId.length > 0) {
 				filterObj.push({
 					property : 'trackingId',
@@ -140,12 +140,12 @@ Ext.define('AM.controller.Order', {
 				orderForm.getForm().setValues(action.result.data);
 				editor.setTitle('O-' + action.result.data.orderSN);
 				var productItems = action.result.data.items;
+				var productContainer = editor.down('container#productInfo');
 				for(var i = 0; i < productItems.length; i++) {
-					var productContainer = editor.down('container#productInfo');
 					var pInfoEditor = Ext.create('AM.view.order.OrderProductInfo', {
 					});
 					var imgPanel = pInfoEditor.down('panel#imagePanel');
-					imgPanel.html = '<a href="' + site.domain + '/' + productItems[i].productSummary.name  + '"><img src="' + site.resourceServer + site.webResourcesFolder + site.productImageResourcesFolder + "/"+ productItems[i].productSummary.imageURL + '" width="100px" target="_blank"/></a>';
+					imgPanel.html = '<a href="' + site.domain + '/' + productItems[i].productSummary.name  + '"><img src="' + site.resourceServer + site.webResourcesFolder + site.productImageResourcesFolder + "/"+ productItems[i].productSummary.imageURL + '" width="50px" target="_blank"/></a>';
 					var pTitle = pInfoEditor.down('label#productTitle');
 					//pTitle.html = '<a href="' + site.domain + '/' + productItems[i].productSummary.name  + '">' + productItems[i].productSummary.title + '</a>';
 					pTitle.setText(productItems[i].productSummary.title);
