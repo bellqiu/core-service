@@ -23,6 +23,9 @@ public class OrderSummaryDTO implements Serializable{
 	private Date createDate;
 	private Date updateDate;
 	
+	// Used for admin page
+	private String token;
+	
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -82,5 +85,11 @@ public class OrderSummaryDTO implements Serializable{
 	}
 	public Date getUpdateDate() {
 		return updateDate;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public String getToken() {
+		return token;
 	}
 }

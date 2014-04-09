@@ -19,7 +19,7 @@ Ext.define('AM.controller.Order', {
 			},
 
 			'ordermanager gridpanel actioncolumn' : {
-				click : this.editOrder
+				click : this.actionOrder
 			},
 			'ordermanager toolbar button#refreshOrder' : {
 				click : this.refreshOrder
@@ -121,8 +121,64 @@ Ext.define('AM.controller.Order', {
 		this.getOrderSummaryStore().load();
 	},
 
-	editOrder : function(grid, el, index){
-		var contentPanel = grid.up("viewport").down("tabpanel#mainContainer");
+	actionOrder : function(view, cell, row, col, e) {
+		var m = e.getTarget().src.match(/.*\/images\/(\w+)\.\w+\b/);
+		if (m) {
+			view.getSelectionModel().select(row, false);
+			switch (m[1]) {
+			case 'edit':
+				var contentPanel = view.up("viewport").down("tabpanel#mainContainer");
+				var editor = Ext.create("AM.view.order.OrderDetail", {
+					title : 'Edit Order'
+				});
+				var orderForm = editor.down("form#orderDetailForm");
+
+				contentPanel.insert(0, editor);
+				contentPanel.setActiveTab(0);
+
+				orderForm.load({
+					params : {
+						id : view.getSelectionModel().getSelection()[0].get('id')
+					},
+					success : function (form, action){
+						editor.setOrder(action.result.data);
+						orderForm.getForm().setValues(action.result.data);
+						editor.setTitle('O-' + action.result.data.orderSN);
+						var productItems = action.result.data.items;
+						var productContainer = editor.down('container#productInfo');
+						for(var i = 0; i < productItems.length; i++) {
+							var pInfoEditor = Ext.create('AM.view.order.OrderProductInfo', {
+							});
+							var imgPanel = pInfoEditor.down('panel#imagePanel');
+							imgPanel.html = '<a href="' + site.domain + '/' + productItems[i].productSummary.name  + '"><img src="' + site.resourceServer + site.webResourcesFolder + site.productImageResourcesFolder + "/"+ productItems[i].productSummary.imageURL + '" width="50px" target="_blank"/></a>';
+							var pTitle = pInfoEditor.down('label#productTitle');
+							//pTitle.html = '<a href="' + site.domain + '/' + productItems[i].productSummary.name  + '">' + productItems[i].productSummary.title + '</a>';
+							pTitle.setText(productItems[i].productSummary.title);
+							productContainer.add(pInfoEditor);
+							var pQuantity = pInfoEditor.down('label#quantityValue');
+							pQuantity.setText(productItems[i].quantity);
+							
+							var pOptContainer = pInfoEditor.down('container#selectedOpts');
+							var pSelectedOpts = productItems[i].selectedOpts;
+							for(var k in pSelectedOpts) {
+								var labelOpt = Ext.create('Ext.form.Label', {
+									shrinkWrap : 2,
+									text : k + '(' + pSelectedOpts[k] + ')'
+								});
+								pOptContainer.add(labelOpt)
+							}
+						}
+					}
+				});
+				break;
+			case 'pop': 
+				var sel = view.getSelectionModel().getSelection()[0];
+				var win=window.open("/od/orderDetail?orderId="+sel.get("id")+"&token="+sel.get("token"), '_blank');
+				win.focus();
+				break;
+			}
+		}
+		/*var contentPanel = grid.up("viewport").down("tabpanel#mainContainer");
 		var editor = Ext.create("AM.view.order.OrderDetail", {
 			title : 'Edit Order'
 		});
@@ -164,7 +220,7 @@ Ext.define('AM.controller.Order', {
 					}
 				}
 			}
-		});
+		});*/
    },
 
    updateOrder : function(btn) {

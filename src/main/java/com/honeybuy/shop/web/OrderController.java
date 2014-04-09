@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cxf.common.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,10 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hb.core.entity.User;
 import com.hb.core.service.OrderService;
+import com.hb.core.service.UserService;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.shared.dto.OrderSummaryDTO;
 import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.EncodingUtils;
 import com.honeybuy.shop.web.interceptor.SessionAttribute;
 
 /**
@@ -30,10 +35,15 @@ import com.honeybuy.shop.web.interceptor.SessionAttribute;
 @RequestMapping("/od")
 public class OrderController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+	
 	private final static int USER_ORDER_PER_PAGE = 10;
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/myOrder")
 	public String myOder(Model model, 
@@ -107,7 +117,9 @@ public class OrderController {
 	@RequestMapping("/orderDetail")
 	public String myOderDetail(Model model, 
 			@SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
-			@RequestParam(value = "orderId", required = false) final String orderId){
+			@RequestParam(value = "orderId", required = false) final String orderId,
+			@RequestParam(value = "token", required = false, defaultValue="") final String token){
+		model.addAttribute("page", "order");
 		if(!StringUtils.isEmpty(orderId)) {
 			long id = 0;
 			try {
@@ -115,11 +127,25 @@ public class OrderController {
 			} catch(NumberFormatException e) {
 			}
 			OrderDetailDTO orderDetail = orderService.getOrderDetailById(id);
-			if(orderDetail != null && details.getUsername().equals(orderDetail.getUseremail())) {
-				model.addAttribute("orderDetail", orderDetail);
-			} 
+			if(orderDetail != null) {
+				String useremail = orderDetail.getUseremail();
+				if(!StringUtils.isEmpty(token)) {
+					User user = userService.getUser(useremail);
+					try {
+						if(user != null && token.equals(EncodingUtils.hmac256(useremail, user.getPassword()))) {
+							model.addAttribute("orderDetail", orderDetail);
+							return "orderDetail";
+						}
+					} catch (Exception e) {
+						logger.error("Token comparison error", e);
+					} 
+				} 
+				if(details.getUsername().equals(useremail)) {
+					model.addAttribute("orderDetail", orderDetail);
+				} 
+			}
+			
 		}
-		model.addAttribute("page", "order");
 		return "orderDetail";
 	}
 	

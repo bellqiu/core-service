@@ -142,14 +142,17 @@ Ext.define('AM.view.order.OrderManager', {
 					flex : 1.5
 				}, {
 					xtype : 'actioncolumn',
-					width : 20,
+					width : 40,
 					sortable : false,
 					menuDisabled : true,
-					items : [ {
+					items : [{
+						icon : '/resources/ext/resources/images/pop.png',
+						tooltip : 'View Order',
+						id : 'viewOrder'
+					}, {
 						icon : '/resources/ext/resources/images/edit.png',
 						tooltip : 'Edit Order',
 						id : 'editOrder'
-
 					}]
 				}, {
 					text : "",

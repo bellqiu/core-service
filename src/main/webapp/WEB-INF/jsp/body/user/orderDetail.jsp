@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb"%>
 <div>
 <c:choose>
@@ -16,7 +17,7 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="orderItemHeader">
-							<div class="col-xs-7">Item details</div>
+							<div class="col-xs-7">Order No: <b>${orderDetail.orderSN}</b> (<fmt:formatDate value="${orderDetail.updateDate}" pattern="yyyy-MM-dd hh:mm"/>)</div>
 							<div class="col-xs-5">
 								<div class="col-xs-4">Price</div>
 								<div class="col-xs-4">Quantity</div>

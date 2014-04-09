@@ -35,6 +35,7 @@ import com.hb.core.shared.dto.OrderSummaryDTO;
 import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.UserDTO;
 import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.EncodingUtils;
 
 
 @Transactional
@@ -335,7 +336,15 @@ public class OrderService {
 		List<Order> orders = query.getResultList();
 		ArrayList<OrderSummaryDTO> dtoList = new ArrayList<OrderSummaryDTO>();
 		for(Order order : orders) {
-			dtoList.add(orderSummaryConverter.convert(order));
+			OrderSummaryDTO orderSummaryDTO = orderSummaryConverter.convert(order);
+			try {
+				User user = order.getUser();
+				orderSummaryDTO.setToken(EncodingUtils.hmac256(user.getEmail(), user.getPassword()));
+			} catch (Exception e) {
+				logger.error("Token set error for order id: ", order.getId());
+				orderSummaryDTO.setToken("");
+			}
+			dtoList.add(orderSummaryDTO);
 		}
 		return new ExtDirectStoreReadResult<OrderSummaryDTO>(total, dtoList);
 	}

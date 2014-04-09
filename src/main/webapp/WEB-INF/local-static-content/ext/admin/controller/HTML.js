@@ -152,7 +152,7 @@ Ext.define('AM.controller.HTML', {
 	actionHtmlDetail : function(view, cell, row, col, e) {
 		var m = e.getTarget().src.match(/.*\/images\/(\w+)\.\w+\b/);
 		if (m) {
-			view.getSelectionModel().select(row, false)
+			view.getSelectionModel().select(row, false);
 			switch (m[1]) {
 			case 'edit':
 				var contentPanel = view.up("viewport").down(
