@@ -97,6 +97,16 @@
 					}
 					shopping.applyCoupon(orderid, code);
 				});
+				
+				$("#directpay").click(function(){
+					if(ga) {
+						try {
+							ga('send', 'event', 'button', 'click', 'checkoutpaypal');
+						} catch(e) {
+							console.log("send checkout by paypal directly with error");
+						}
+					}
+				});
 			};
 			
 			shopping.modifyCart = function(itemId, changes, bindItem){

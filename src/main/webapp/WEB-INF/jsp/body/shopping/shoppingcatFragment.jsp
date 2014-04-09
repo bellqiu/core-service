@@ -136,7 +136,7 @@
 					<%-- 	 <c:if test="${empty currentUser }"> --%>
 						 	 <div class="float_right padding5">or</div>
 							 <div class="float_right padding5">
-								 <a href="/sp/directpay/paypal?orderId=${currentOrder.id}"  >
+								 <a id="directpay" href="/sp/directpay/paypal?orderId=${currentOrder.id}"  >
 								 	<img alt="Paypal PAY" src="/resources/css/img/btn_xpressCheckout.gif">
 								 </a>
 							 </div>
