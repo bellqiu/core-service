@@ -66,6 +66,9 @@ public class OrderService {
 	private CouponService couponService;
 	
 	@Autowired
+	EmailService emailService;
+	
+	@Autowired
 	private Converter<OrderDetailDTO, Order> orderDetailConverter;
 	
 	public OrderDetailDTO add2Cart(String productName, String optParams, String trackingId, String userEmail, int quantity, String currencyCode){
@@ -434,12 +437,23 @@ public class OrderService {
 	public OrderDetailDTO updateOrderInfo(long orderId,String traceInfo, Order.Status status, String currencyCode) {
 		Order order = null;
 		if(orderId > 0 && (order = em.find(Order.class, orderId)) != null) {
+			Order.Status oldStatus = order.getOrderStatus();
 			order.setTraceInfo(traceInfo);
 			order.setOrderStatus(status);
 			order.setUpdateDate(new Date());
 			order.setCurrency(currencyCode);
-			
-			return orderDetailConverter.convert(em.merge(order));
+			final OrderDetailDTO orderDetailDTO = orderDetailConverter.convert(em.merge(order));
+			if(Order.Status.SHIPPING.equals(status) && !Order.Status.SHIPPING.equals(oldStatus)) {
+				new Thread(){
+		            public void run() {
+		                try{
+							emailService.sendShippingOrderMail(orderDetailDTO);
+		                } catch (Exception e){
+		                }
+		            };
+		        }.start();
+			}
+			return orderDetailDTO;
 		} else {
 			throw new CoreServiceException("Order is not existing");
 		}

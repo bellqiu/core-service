@@ -32,6 +32,8 @@ public interface Constants {
 	public static final String DEFAULT_RECEIVE_ORDER_PAYMENT_TITLE = "Your order payment, in Dental-Supplies, is received!";
 	public static final String DEFAULT_RECEIVE_ORDER_PAYMENT_CONTENT = "Congratulations! Your order payment is received. It will be delivered to you soon.";
 	public static final String DEFAULT_SUBMIT_SUPPORT_CONTENT = "<div><b>Message:</b><br/>${message}";
+	public static final String DEFAULT_SHIPPING_ORDER_TITLE = "Your order, in Dental-Supplies, is delivered!";
+	public static final String DEFAULT_SHIPPING_ORDER_CONTENT = "Congratulations! Your order is shipped. It will be delivered to you soon.";
 	
 	public static final String SETTING_MAIL_HOST_NAME = "MAIL_HOST_NAME";
 	public static final String SETTING_MAIL_ACCOUNT = "MAIL_ACCOUNT";
@@ -42,11 +44,13 @@ public interface Constants {
 	public static final String SETTING_REGISTER_SUBJECT = "MAIL_REGISTER_SUBJECT";
 	public static final String SETTING_TO_PAY_ORDER_SUBJECT = "MAIL_TO_PAY_ORDER_SUBJECT";
 	public static final String SETTING_RECEIVE_ORDER_PAYMENT_SUBJECT = "MAIL_RECEIVE_ORDER_PAYMENT_SUBJECT";
+	public static final String SETTING_SHIPPING_ORDER_SUBJECT = "MAIL_SHIPPING_ORDER_SUBJECT";
 	
 	public static final String HTML_MAIL_RECOVER_PASSWORD_TEMPLATE = "MAIL_RECOVER_PASSWORD_TEMPLATE";
 	public static final String HTML_MAIL_REGISTER_TEMPLATE = "MAIL_REGISTER_TEMPLATE";
 	public static final String HTML_MAIL_TO_PAY_ORDER_TEMPLATE = "MAIL_TO_PAY_ORDER_TEMPLATE";
 	public static final String HTML_MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE = "MAIL_RECEIVE_ORDER_PAYMENT_TEMPLATE";
+	public static final String HTML_MAIL_SHIPPING_ORDER_TEMPLATE = "MAIL_SHIPPING_ORDER_TEMPLATE";
 	public static final String HTML_MAIL_SUBMIT_SUPPORT_TEMPLATE = "MAIL_SUBMIT_SUPPORT_TEMPLATE";
 	
 	public static final String FACEBOOK_TYPE = "facebook";

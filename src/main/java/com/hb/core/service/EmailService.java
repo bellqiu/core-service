@@ -109,6 +109,21 @@ public class EmailService {
 		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, email);
 	}
 	
+	public void sendShippingOrderMail(OrderDetailDTO order) {
+		String email = getThrirdPartyEmail(order.getUseremail());
+		String shipOrderTemplate = getTemplateFromDB(Constants.HTML_MAIL_SHIPPING_ORDER_TEMPLATE);
+		
+		String shipOrderSubject = settingService.getStringValue(Constants.SETTING_SHIPPING_ORDER_SUBJECT, Constants.DEFAULT_SHIPPING_ORDER_TITLE);
+		if(shipOrderTemplate == null) {
+			shipOrderTemplate = Constants.DEFAULT_SHIPPING_ORDER_CONTENT;
+		}
+		
+		Map<String, Object> variable = new HashMap<String, Object>();
+		variable.put("order", order);
+		
+		sendMail(shipOrderTemplate, shipOrderSubject, variable, email);
+	}
+	
 	public void sendSubmitSupport(String email, Map<String, Object> content) {
 		String submitSupportTemplate = getTemplateFromDB(Constants.HTML_MAIL_SUBMIT_SUPPORT_TEMPLATE);
 		
@@ -118,7 +133,7 @@ public class EmailService {
 		
 		String supportSubject;
 		if(content.containsKey("subject")) {
-			supportSubject = "[Support]" + content.get("subject").toString();
+			supportSubject = "[Support] " + content.get("subject").toString();
 			content.remove("subject");
 		} else {
 			supportSubject = "[Support]Empty Support Subject";
