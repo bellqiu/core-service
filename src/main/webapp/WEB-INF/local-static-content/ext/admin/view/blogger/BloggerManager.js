@@ -1,7 +1,7 @@
 Ext.define('AM.view.blogger.BloggerManager', {
 	extend : 'Ext.panel.Panel',
 	alias : 'widget.bloggermanager',
-	title : 'Manager Blogger',
+	title : 'Manager Blog',
 	layout : 'fit',
 	requires : [ 'Ext.grid.*', 'Ext.util.*', 'Ext.form.*',
 			'Ext.toolbar.Paging', 'Ext.ux.ProgressBarPager' ],
@@ -31,7 +31,7 @@ Ext.define('AM.view.blogger.BloggerManager', {
 					margin : '10',
 					padding : 5,
 					height : 100,
-					title : 'Blogger filters',
+					title : 'Blog filters',
 					layout : {
 						type : 'table',
 						columns : 2
@@ -160,7 +160,7 @@ Ext.define('AM.view.blogger.BloggerManager', {
 							height : 350
 						} ],
 						uploader : {
-							url : '/admin/blogger/upload',
+							url : '/admin/blog/upload',
 							autoStart : false,
 							max_file_size : '20mb',
 							filters : [
@@ -177,8 +177,6 @@ Ext.define('AM.view.blogger.BloggerManager', {
 						listeners : {
 							fileuploaded : function(uploader, file, resp) {
 								if(resp.success){
-									console.log("OK");
-									console.log(resp);
 									var store = uploader.owner.up("bloggermanager").down("gridpanel").getStore();
 									store.add(resp.blogger);
 								}

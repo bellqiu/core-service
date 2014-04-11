@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.googlecode.ehcache.annotations.Cacheable;
 import com.hb.core.entity.Blogger;
 import com.hb.core.service.BloggerService;
+import com.honeybuy.shop.util.CloneUtil;
 
 @Service
 @Transactional(readOnly=true)
@@ -25,6 +26,6 @@ public class BloggerServiceCacheWrapper {
 	
 	@Cacheable(cacheName="BloggerList")
 	public List<Blogger> getAllActiveBlogger(int start, int max) {
-		return bloggerService.getAllActiveBlogger(start, max);
+		return CloneUtil.<List<Blogger>>cloneThroughJson(bloggerService.getAllActiveBlogger(start, max));
 	}
 }

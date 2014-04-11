@@ -126,43 +126,21 @@ Ext.define('AM.controller.Blogger', {
 		if (m) {
 			view.getSelectionModel().select(row, false)
 			switch (m[1]) {
-			case 'edit':
-				var contentPanel = view.up("viewport").down(
-						"tabpanel#mainContainer");
-
-				var editor = Ext.create("AM.view.html.HtmlDetail", {
-					//title : 'Edit HTML'
-				});
-
-				contentPanel.insert(0, editor);
-				contentPanel.setActiveTab(0);
-
-				var form = editor.down("form");
-
-				form.load({
-					// pass 1 argument to server side getBasicInfo
-					// method (len=1)
-					params : {
-						id : view.getSelectionModel().getSelection()[0]
-								.get('id')
-					},
-					success : function (form, action){
-						editor.setTitle("H-" + action.result.data.name);
-					}
-				})
+			case 'pop':
+				var win=window.open("/rs/blog/"+view.getSelectionModel().getSelection()[0].get("name"), '_blank');
+				win.focus();
 				break;
 			case 'delete':
 				Ext.MessageBox.confirm('Delete', 'Are you sure ?',
-						function(btn) {
-							if (btn === 'yes') {
-								view.getStore().remove(view.getSelectionModel()
-														.getSelection()[0]);
-								view.getStore().sync();
-							} else {
-								Ext.example.msg('Cancel', 'Delete canceled');
-							}
-						});
-
+					function(btn) {
+						if (btn === 'yes') {
+							view.getStore().remove(view.getSelectionModel()
+													.getSelection()[0]);
+							view.getStore().sync();
+						} else {
+							Ext.example.msg('Cancel', 'Delete canceled');
+						}
+					});
 				break;
 			}
 		}

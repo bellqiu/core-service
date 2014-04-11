@@ -117,25 +117,22 @@ public class BloggerService {
 			String sort, String direction, Map<String, String> filters) {
 		StringBuffer ql = new StringBuffer("");
 		if(!filters.isEmpty()){
-			ql.append(" where ");
 			Iterator<String> item = filters.keySet().iterator();
 			while(item.hasNext()){
+				ql.append(" and ");
 				String param = item.next();
 				if("type".equalsIgnoreCase(param)){
 					ql.append(param +" = :" + param + " ");
 				} else {
 					ql.append(param +" like :"+param +" ");
 				}
-				if(item.hasNext()){
-					ql.append(" and ");
-				}
 			}
 		}
 		
 		ql.append(" order by " + sort + " " + direction);
 		
-		StringBuffer queryStringPrefix = new StringBuffer("select h from Blogger as h ");
-		StringBuffer CountStringPrefix = new StringBuffer("select count(h.id) from Blogger as h ");
+		StringBuffer queryStringPrefix = new StringBuffer("select b from Blogger as b where b.status = 'ACTIVE' ");
+		StringBuffer CountStringPrefix = new StringBuffer("select count(b.id) from Blogger as b where b.status = 'ACTIVE' ");
 		
 		TypedQuery<Blogger> query = em.createQuery( queryStringPrefix.append(ql).toString(), Blogger.class);
 		TypedQuery<Long> count = em.createQuery( CountStringPrefix.append(ql).toString(), Long.class);
@@ -235,12 +232,14 @@ public class BloggerService {
 	}
 
 	public int getActiveBloggerCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		String queryString = "select count(b.id) from Blogger b where b.status = 'ACTIVE' ";
+		TypedQuery<Long> count = em.createQuery(queryString, Long.class);
+		return count.getSingleResult().intValue();
 	}
 
 	public List<Blogger> getAllActiveBlogger(int start, int max) {
-		// TODO Auto-generated method stub
-		return null;
+		String queryString = "select b from Blogger b where b.status = 'ACTIVE' ";
+		TypedQuery<Blogger> result = em.createQuery(queryString, Blogger.class);
+		return result.getResultList();
 	}
 }

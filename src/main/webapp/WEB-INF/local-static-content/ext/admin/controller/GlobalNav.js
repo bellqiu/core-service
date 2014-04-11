@@ -143,7 +143,7 @@ Ext.define('AM.controller.GlobalNav', {
     			tabpanel.setActiveTab(0);
     		}
     		
-    	} else if(opt == 'blogger'){
+    	} else if(opt == 'blog'){
     		
     		var tabpanel = combo.up("viewport").down("tabpanel#managerContainer");
     		
