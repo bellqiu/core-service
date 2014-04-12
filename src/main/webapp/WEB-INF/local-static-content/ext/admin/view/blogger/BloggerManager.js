@@ -11,6 +11,7 @@ Ext.define('AM.view.blogger.BloggerManager', {
 		this.items = [ {
 			xtype : 'panel',
 			layout : 'fit',
+			id : 'blogPanel',
 			border : 0,
 			layout : {
 				type : 'vbox',
@@ -24,13 +25,13 @@ Ext.define('AM.view.blogger.BloggerManager', {
 			scroll : true,
 			items : [ {
 				xtype : 'form',
-				id : 'searchBloggerForm',
+				id : 'searchBlogForm',
 				items : [ {
 					xtype : 'fieldset',
 					scroll : true,
 					margin : '10',
 					padding : 5,
-					height : 100,
+					height : 150,
 					title : 'Blog filters',
 					layout : {
 						type : 'table',
@@ -42,7 +43,6 @@ Ext.define('AM.view.blogger.BloggerManager', {
 						fieldLabel : 'Name',
 						name : 'name',
 						width : 250
-
 					}, {
 						margin : 5,
 						fieldLabel : 'Description',
@@ -59,27 +59,49 @@ Ext.define('AM.view.blogger.BloggerManager', {
 						valueField : 'type',
 						width : 250
 					}, {
+						xtype: 'checkbox',
+						margin : 5,
+						fieldLabel : 'Active Product',
+						name : 'active',
+						checked : 'true'
+					}, {
 						margin : 5,
 						xtype : 'panel',
 						border : 0,
+						colspan : 2,
+						layout : {
+							type : 'hbox',
+							align : 'middle',
+							pack : 'center'
+						},
 						defaults : {
 							border : 0,
 							margin : 2
 						},
 						items : [ {
-							xtype : 'button',
-							text : 'Search',
-							id : 'searchBlogger',
-							flex : 1
-						}, {
-							xtype : 'button',
-							text : 'Reset',
-							id : 'resetBlogger',
-							flex : 1
-						} ]
-					} ]
-
-				} ]
+							flex : 2
+						},
+						{
+							flex : 2,
+							defaults : {
+								border : 0,
+								margin : 2
+							},
+							items : [{
+								xtype : 'button',
+								text : 'Search',
+								id : 'searchBlog',
+								flex : 1
+							},
+							{
+								xtype : 'button',
+								text : 'Reset',
+								id : 'resetBlog',
+								flex : 1
+							}]
+						}]
+					}]
+				}]
 			},
 
 			{
@@ -151,7 +173,7 @@ Ext.define('AM.view.blogger.BloggerManager', {
 					items : [ {
 						xtype: 'uploadbutton',
 						text : 'Upload',
-						itemId : 'uploadBlogger',
+						itemId : 'uploadBlog',
 						//singleFile: true,
 						plugins : [ {
 							ptype : 'ux.upload.window',

@@ -4,8 +4,14 @@
  */
 package com.honeybuy.shop.web;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -124,6 +130,22 @@ public class BloggerController {
 			model.addAttribute("currentPageIndex", page);
 		}
 		return "bloggerlist";
+	}
+	
+	@RequestMapping("/blogger/{pageName}.pdf")
+	@ResponseBody
+	@Produces("application/pdf")
+	public byte[] pdfPage(@PathVariable("pageName") String pageName, Model model) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		InputStream in = FreedomPageController.class.getResourceAsStream("/t1.pdf");
+		BufferedInputStream inBuffer = new BufferedInputStream(in);
+		int readSize = 0;
+		byte[] buffer = new byte[4096];
+		while((readSize = inBuffer.read(buffer)) != -1) {
+			baos.write(buffer, 0, readSize);
+		}
+		in.close();
+		return baos.toByteArray();
 	}
 
 }

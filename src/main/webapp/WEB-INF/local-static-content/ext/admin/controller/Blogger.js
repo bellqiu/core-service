@@ -8,10 +8,10 @@ Ext.define('AM.controller.Blogger', {
 
 	init : function() {
 		this.control({
-			'bloggermanager button#searchBlogger' : {
-				click : this.searchBlogger
+			'bloggermanager button#searchBlog' : {
+				click : this.searchBlog
 			},
-			'bloggermanager button#resetBlogger' : {
+			'bloggermanager button#resetBlog' : {
 				click : function(btn) {
 					btn.up("form").getForm().clearInvalid();
 					btn.up("form").getForm().reset();
@@ -21,8 +21,8 @@ Ext.define('AM.controller.Blogger', {
 				click : this.synchronizeGrid
 			},
 
-			'bloggermanager button#uploadBlogger' : {
-				click : this.uploadBlogger
+			'bloggermanager button#uploadBlog' : {
+				click : this.uploadBlog
 			},
 			'bloggermanager gridpanel actioncolumn' : {
 				click : this.actionBloggerDetail
@@ -65,7 +65,7 @@ Ext.define('AM.controller.Blogger', {
 				true, true);
 	},
 
-	uploadBlogger : function(btn) {
+	uploadBlog : function(btn) {
 		btn.uploader.removeAll();
 	},
 
@@ -74,13 +74,13 @@ Ext.define('AM.controller.Blogger', {
 		btn.up('gridpanel').getStore().sync();
 	},
 
-	searchBlogger : function(btn) {
+	searchBlog : function(btn) {
 		if (btn.up('form').getForm().isValid()) {
 			// Ext.MessageBox.alert('Thank you!', 'Your inquiry has been
 			// sent.
 			// We will respond as soon as possible.');
 			store = this.getBloggerStore();
-			filters = btn.up('form#searchBloggerForm').getForm().getValues();
+			filters = btn.up('form#searchBlogForm').getForm().getValues();
 			var filterObj = [];
 			var filtered = false;
 			if (filters.name.length > 0) {
@@ -104,6 +104,26 @@ Ext.define('AM.controller.Blogger', {
 				});
 				filtered = true;
 			}
+			
+			var actioncolumn = btn.up('panel#blogPanel').down('actioncolumn');
+			active=btn.up('form#searchBlogForm').down('checkbox').getValue();
+			if (active) {
+				filterObj.push({
+					property : 'active',
+					value : 'true',
+				});
+				actioncolumn.items[1].tooltip = 'Delete Product';
+				actioncolumn.items[1].icon = '/resources/ext/resources/images/delete.gif';
+			} else {
+				filterObj.push({
+					property : 'active',
+					value : 'false',
+				});
+				actioncolumn.items[1].tooltip = 'Recover Product';
+				actioncolumn.items[1].icon = '/resources/ext/resources/images/recover.png';
+				console.log("OK");
+			}
+			filtered = true;
 
 			if (filtered) {
 				store.clearFilter(true);
@@ -141,6 +161,20 @@ Ext.define('AM.controller.Blogger', {
 							Ext.example.msg('Cancel', 'Delete canceled');
 						}
 					});
+				break;
+			case 'recover':
+				store = view.getStore();
+				var blogId = view.getSelectionModel().getSelection()[0].data.id;
+				bloggerDirectService.setBlogAsActive(blogId, function(data, rs, suc){
+					if(suc && data){
+						view.getStore().remove(view.getSelectionModel()
+								.getSelection()[0]);
+					}else if(rs && rs.type == 'exception'){
+						Ext.example.msg('<font color="red">Error</font>',
+								'<font color="red">' + rs.message
+								+ " </font>");3
+					}
+				});
 				break;
 			}
 		}

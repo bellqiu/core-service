@@ -19,6 +19,7 @@ import ch.ralscha.extdirectspring.filter.StringFilter;
 
 import com.hb.core.entity.Blogger;
 import com.hb.core.service.BloggerService;
+import com.hb.core.shared.dto.ProductSummaryDTO;
 
 @Service
 @Transactional
@@ -70,35 +71,10 @@ public class BloggerDirectService {
 		bloggerService.destory(blogger);
 	}
 	
-	
-	/*@ExtDirectMethod(value=ExtDirectMethodType.FORM_LOAD)
-	public HtmlDetailDTO loadHtmlDetail(@RequestParam(value = "id") long id){
-		HtmlDetailDTO htmlDetail = new HtmlDetailDTO();
-		
-		if(id > 0){
-			htmlDetail = bloggerService.getHtmlDetailById(id);
-		}else{
-			htmlDetail.setName("Name");
-		}
-	
-		return htmlDetail;
+	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
+	@Secured("ADMIN")
+	public Blogger setBlogAsActive(long blogId) {
+		return bloggerService.setActiveBlog(blogId);
 	}
 	
-	@ExtDirectMethod(value=ExtDirectMethodType.FORM_POST)
-	public ExtDirectFormPostResult saveHtmlDetail(@Valid HtmlDetailDTO htmlDetailDTO, BindingResult result){
-		if (!result.hasErrors()) {
-			if (htmlDetailDTO.getId()< 1 && bloggerService.getHTML(htmlDetailDTO.getName()) != null) {
-				result.rejectValue("name", null, "HTML already taken");
-			}
-		}
-		if(!result.hasErrors()){
-			htmlDetailDTO = bloggerService.saveHTMLDetail(htmlDetailDTO);
-		}
-		
-		ExtDirectFormPostResult directFormPostResult = new ExtDirectFormPostResult(result);
-		directFormPostResult.addResultProperty("resultForm", htmlDetailDTO);
-		
-		return directFormPostResult;
-	}*/
-
 }

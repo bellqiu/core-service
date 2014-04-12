@@ -66,7 +66,7 @@ Ext.define('AM.view.order.OrderManager', {
 						fieldLabel : 'Source Id',
 						name : 'sourceId',
 						width : 250
-					}, {
+					}, {/*
 						margin : 5,
 						xtype : 'panel',
 						border : 0,
@@ -85,6 +85,42 @@ Ext.define('AM.view.order.OrderManager', {
 							id : 'resetOrder',
 							flex : 1
 						} ]
+					*/
+						margin : 5,
+						xtype : 'panel',
+						border : 0,
+						colspan : 2,
+						layout : {
+							type : 'hbox',
+							align : 'middle',
+							pack : 'center'
+						},
+						defaults : {
+							border : 0,
+							margin : 2
+						},
+						items : [ {
+							flex : 2
+						},
+						{
+							flex : 2,
+							defaults : {
+								border : 0,
+								margin : 2
+							},
+							items : [{
+								xtype : 'button',
+								text : 'Search',
+								id : 'searchOrder',
+								flex : 1
+							},
+							{
+								xtype : 'button',
+								text : 'Reset',
+								id : 'resetOrder',
+								flex : 1
+							}]
+						}]
 					}]
 
 				} ]

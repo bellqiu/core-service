@@ -25,7 +25,7 @@ import org.springframework.util.StringUtils;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 
 import com.hb.core.entity.Blogger;
-import com.hb.core.entity.Component;
+import com.hb.core.entity.Component.Status;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.RegexUtils;
@@ -109,13 +109,15 @@ public class BloggerService {
 			throw new CoreServiceException("Blogger does not exist");
 		}
 		b.setUpdateDate(new Date());
-		b.setStatus(Component.Status.DELETED);
+		b.setStatus(Status.DELETED);
 		b =  em.merge(b);
 	}
 	
 	public ExtDirectStoreReadResult<Blogger> queryResult(int start, int max,
 			String sort, String direction, Map<String, String> filters) {
 		StringBuffer ql = new StringBuffer("");
+		String activeKey = null;
+		boolean active = true;
 		if(!filters.isEmpty()){
 			Iterator<String> item = filters.keySet().iterator();
 			while(item.hasNext()){
@@ -123,19 +125,35 @@ public class BloggerService {
 				String param = item.next();
 				if("type".equalsIgnoreCase(param)){
 					ql.append(param +" = :" + param + " ");
+				} else if("active".equalsIgnoreCase(param)){
+					if(!Boolean.valueOf(filters.get(param))) {
+						active = false;
+					}
+					activeKey = param;
 				} else {
 					ql.append(param +" like :"+param +" ");
 				}
 			}
 		}
 		
+		if(activeKey != null && filters.size() == 1) {
+			ql = new StringBuffer("");
+		}
 		ql.append(" order by " + sort + " " + direction);
 		
-		StringBuffer queryStringPrefix = new StringBuffer("select b from Blogger as b where b.status = 'ACTIVE' ");
-		StringBuffer CountStringPrefix = new StringBuffer("select count(b.id) from Blogger as b where b.status = 'ACTIVE' ");
+		StringBuffer queryStringPrefix;
+		StringBuffer countStringPrefix;
+		if(active) {
+			queryStringPrefix = new StringBuffer("select b from Blogger as b where b.status = 'ACTIVE' ");
+			countStringPrefix = new StringBuffer("select count(b.id) from Blogger as b where b.status = 'ACTIVE' ");
+		} else {
+			queryStringPrefix = new StringBuffer("select b from Blogger as b where b.status != 'ACTIVE' ");
+			countStringPrefix = new StringBuffer("select count(b.id) from Blogger as b where b.status != 'ACTIVE' ");
+		}
+		filters.remove(activeKey);
 		
 		TypedQuery<Blogger> query = em.createQuery( queryStringPrefix.append(ql).toString(), Blogger.class);
-		TypedQuery<Long> count = em.createQuery( CountStringPrefix.append(ql).toString(), Long.class);
+		TypedQuery<Long> count = em.createQuery( countStringPrefix.append(ql).toString(), Long.class);
 		
 		query.setFirstResult(start);
 		query.setMaxResults(max);
@@ -241,5 +259,14 @@ public class BloggerService {
 		String queryString = "select b from Blogger b where b.status = 'ACTIVE' ";
 		TypedQuery<Blogger> result = em.createQuery(queryString, Blogger.class);
 		return result.getResultList();
+	}
+
+	public Blogger setActiveBlog(long blogId) {
+		Blogger blog = getBloggerById(blogId);
+		if(blog != null) {
+			blog.setStatus(Status.ACTIVE);
+			return em.merge(blog);
+		}
+		return null;
 	}
 }

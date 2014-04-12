@@ -106,32 +106,40 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 						margin : 5,
 						xtype : 'panel',
 						border : 0,
+						colspan : 2,
+						layout : {
+							type : 'hbox',
+							align : 'middle',
+							pack : 'center'
+						},
 						defaults : {
 							border : 0,
 							margin : 2
 						},
 						items : [ {
+							flex : 2
+						},
+						{
 							flex : 2,
 							defaults : {
 								border : 0,
 								margin : 2
 							},
-							items : [ {
+							items : [{
 								xtype : 'button',
 								text : 'Search',
 								id : 'searchProductSummary',
 								flex : 1
-							}, {
+							},
+							{
 								xtype : 'button',
-								text : 'reset',
+								text : 'Reset',
 								id : 'resetProductSummary',
 								flex : 1
-							} ]
-
-						} ]
-					} ]
-
-				} ]
+							}]
+						}]
+					}]
+				}]
 			},
 
 			{
