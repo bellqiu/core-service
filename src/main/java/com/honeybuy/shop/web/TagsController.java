@@ -180,7 +180,10 @@ public class TagsController {
 		model.addAttribute("indexName", indexName);
 		model.addAttribute("currentPageIndex", page);
 		
-		model.addAttribute("leftproducts", tagsService.getTabProductByName(Constants.TAB_PRODUCT_TAG_LEFT_PANEL));
+		List<ProductSummaryDTO> leftProducts = tagsService.getTabProductByName(Constants.TAB_PRODUCT_TAG_LEFT_PANEL);
+		if(leftProducts != null) {
+			model.addAttribute("leftproducts", leftProducts);
+		}
 		
 		PageMetaUtils.addPageMeta(model, "Tag Product for " + tagName, tagName, tagName);
 		

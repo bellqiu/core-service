@@ -4,10 +4,12 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb"%>
-<script>
+<%--<script>
 	/* var subParameter = "${pfilter ? '?low='+currentLowestPrice+'&high='+currentHighestPrice : ''}"; */
-	var subParameter = "${pStr}";
-
+	var subParameter = ""/*"${pStr}"*/;
+</script>--%>
+<script>
+	var subParameter = "";
 </script>
 <c:choose>
 	<c:when test="${empty products || (fn:length(products) < 1) }">

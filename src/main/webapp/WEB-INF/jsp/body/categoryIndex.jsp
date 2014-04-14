@@ -4,12 +4,13 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib uri="/WEB-INF/tag/HBTag.tld" prefix="hb"%>
-
- <script src="/resources/ui/jquery-ui-1.10.3.min.js"></script>
+<%--
+<script src="/resources/ui/jquery-ui-1.10.3.min.js"></script>
 <!--
 <link rel="stylesheet" href="/resources/ui/themes/smoothness/jquery-ui-1.10.3.css"> -->
 <!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+--%>
 
 <div class="container mainContainer">
 	<div class="row">
@@ -44,7 +45,17 @@
 			</ul>
 		</div>
 		<div>
-		<form role="form">
+			<c:if test="${not empty leftproducts && (fn:length(leftproducts) > 0)}">
+				<div style="border-bottom: 2px solid #ad3231;">
+				<h3>Suggested Products</h3>
+				</div>
+				<c:forEach items="${leftproducts}" var="product">
+					<div class="leftpad">
+						<a rel="nofollow" href="${site.domain}/${product.name}" title="${product.title }"><img src="${site.resourceServer}/${site.webResourcesFolder }/${site.productImageResourcesFolder}/${product.imageURL }" alt="${product.title }" style="display: inline;"> </a>
+					</div>
+				</c:forEach>
+			</c:if>
+		<%-- <form role="form">
 			<div>&nbsp;</div>
 			<input id="minPrice" type="hidden" name="minPrice" />
 			<input id="maxPrice" type="hidden" name="maxPrice" />
@@ -56,7 +67,7 @@
 				<div id="slider-range"></div>
 			</div>
 			<div>&nbsp;</div>
-		</form>
+		</form> --%>
 		</div>
 		</div>
 		<div class="col-xs-9" id="categoryProductListContainer">
@@ -71,7 +82,7 @@
 		</div>
 	</div>
 </div>
-
+<%--
 <script>
   $(function() {
 	var lowestPrice = parseFloat("${lowestPrice}");
@@ -104,7 +115,7 @@
     
   });
 </script>
-  
+--%>
 <style>
   .ui-autocomplete-loading {
     background: white url('/resources/bxslider/images/bx_loader.gif') right center no-repeat;

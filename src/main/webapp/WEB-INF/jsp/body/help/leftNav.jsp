@@ -45,6 +45,7 @@
 							<li><a href="/help/payment-methods">Payment Methods</a></li>
 							<li><a href="/help/terms-use">Terms of Use</a></li>
 							<li><a href="/help/shipping-handling">Shipping &amp; Handling</a></li>
+							<li><a href="/blog/list">Blogs</a></li>
 						</ul>
 					</div>
 				</div>

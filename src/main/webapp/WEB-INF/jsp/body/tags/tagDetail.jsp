@@ -16,11 +16,16 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-3">
-			<c:forEach items="${leftproducts}" var="product">
-				<div class="leftpad">
-					<a rel="nofollow" href="${site.domain}/${product.name}" title="${product.title }"><img src="${site.resourceServer}/${site.webResourcesFolder }/${site.productImageResourcesFolder}/${product.imageURL }" alt="${product.title }" style="display: inline;"> </a>
+			<c:if test="${not empty leftproducts}">
+				<div style="border-bottom: 2px solid #ad3231;">
+				<h3>Suggested Products</h3>
 				</div>
-			</c:forEach>
+				<c:forEach items="${leftproducts}" var="product">
+					<div class="leftpad">
+						<a rel="nofollow" href="${site.domain}/${product.name}" title="${product.title }"><img src="${site.resourceServer}/${site.webResourcesFolder }/${site.productImageResourcesFolder}/${product.imageURL }" alt="${product.title }" style="display: inline;"> </a>
+					</div>
+				</c:forEach>
+			</c:if>
 		</div>
 		<div class="col-xs-9">
 		<c:choose>

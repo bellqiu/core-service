@@ -30,6 +30,7 @@ import com.hb.core.service.ProductService;
 import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
+import com.hb.core.shared.dto.TabProductDTO;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.RegexUtils;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
@@ -209,6 +210,12 @@ public class ProductController {
 			keySpace = RegexUtils.upperFirstLetterEachWord(keySpace);
 			model.addAttribute("keySpace", keySpace);
 			model.addAttribute("keyword", keyHyper);
+			
+			TabProductDTO leftPanelTabProduct = productService.getTabProductByName(Constants.SEARCH_PRODUCT_TAG_LEFT_PANEL);
+			if(leftPanelTabProduct != null) {
+				model.addAttribute("leftproducts", leftPanelTabProduct.getProducts());
+			}
+			
 			return "searchProduct";
 		} else {
 			return "redirect:/";

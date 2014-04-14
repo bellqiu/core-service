@@ -20,6 +20,8 @@ import com.hb.core.entity.Currency;
 import com.hb.core.shared.dto.CategoryDetailDTO;
 import com.hb.core.shared.dto.CategoryTreeDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
+import com.hb.core.shared.dto.TabProductDTO;
+import com.hb.core.util.Constants;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
 
@@ -127,12 +129,11 @@ public class CategoryController {
 		model.addAttribute("currentCategoryDetail", categoryDetailDTO);
 		model.addAttribute("currentPageIndex", page);
 		
-		
+		/*String paraStr = "";
 		int lowestPrice = trimDoubleToInt(productService.getLowestPriceByCategoryId(categoryId) * rateBaseOnDefault, true);
 		int highestPrice = trimDoubleToInt(productService.getHighestPriceByCategoryId(categoryId) * rateBaseOnDefault, false);
 		model.addAttribute("lowestPrice", lowestPrice);
 		model.addAttribute("highestPrice", highestPrice);
-		String paraStr = "";
 		if(lowPrice == null || highPrice == null) {
 			model.addAttribute("currentLowestPrice", lowestPrice);
 			model.addAttribute("currentHighestPrice", highestPrice);
@@ -152,12 +153,19 @@ public class CategoryController {
 			model.addAttribute("currentHighestPrice", chp);
 		}
 		model.addAttribute("pStr", paraStr);
+		*/
 		
 		List<String> categoryBreadcrumb = categoryService.getCategoryBreadcrumb(categoryId);
 		model.addAttribute("categoryBreadcrumbs", categoryBreadcrumb);
 		
 		List<CategoryTreeDTO> subCateogries = categoryService.getSubCategories(categoryId);
 		model.addAttribute("subCateogries", subCateogries);
+		
+		TabProductDTO leftPanelTabProduct = productService.getTabProductByName(Constants.CATEGORY_PRODUCT_TAG_LEFT_PANEL);
+		if(leftPanelTabProduct != null) {
+			model.addAttribute("leftproducts", leftPanelTabProduct.getProducts());
+		}
+		
 		return "categoryIndex";
 	}
 	

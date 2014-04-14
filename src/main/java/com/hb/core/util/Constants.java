@@ -160,6 +160,8 @@ public interface Constants {
 	public static final String SETTING_DESCRIPTION_LOOK_FOR_VENDORS = "HELP_DESCRIPTION_LOOK_FOR_VENDORS";
 	
 	public static final String TAB_PRODUCT_TAG_LEFT_PANEL = "TAG_LEFT_PANEL";
+	public static final String CATEGORY_PRODUCT_TAG_LEFT_PANEL = "CATEGORY_LEFT_PANEL";
+	public static final String SEARCH_PRODUCT_TAG_LEFT_PANEL = "SEARCH_LEFT_PANEL";
 	
 	public static final String SETTING_BLOGGER_DIR = "BLOGGER_DIRECTORY";
 	public static final String SETTING_BLOGGER_FILE_EXTENTIONS = "BLOGGER_FILE_EXTENTIONS";
