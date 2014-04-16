@@ -118,6 +118,7 @@ Ext.define('AM.view.user.UserManager', {
 					text : "Password",
 					dataIndex : "password",
 					flex : 2,
+					hidden: true,
 					editor : {
 						inputType : 'password',
 						xtype : 'textfield',

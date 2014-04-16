@@ -73,6 +73,27 @@
 	<script type="text/javascript">
 		$(".selectpicker").selectpicker();
 		$(".wantTooltip").tooltip();
+		$("#txt-checkOrder").on("keydown", function() {
+			if(event.keyCode==13) {
+				if(odValue && odValue.trim()) {
+					window.location.href=window.location.protocol+"//"+window.location.host + "/od/orderDetail?orderId=" + odValue.trim();
+				}
+			}
+		});
+		
+		$("#btn-checkOrder").on("click", function() {
+			var odValue = $("#txt-checkOrder").val();
+			if(odValue && odValue.trim()) {
+				window.location.href=window.location.protocol+"//"+window.location.host + "/od/orderDetail?orderId=" + odValue.trim();
+			}
+		});
+		
+		$("#btn-subscribe").on("click", function() {
+			var emailValue = $("#txt-subscribe").val();
+			//alert("Thanks for subscribing. Please check your email and get the $50 coupon");
+			alert("Thanks for subscribing. ");
+		});
+		
 	</script>
 	
 </body>

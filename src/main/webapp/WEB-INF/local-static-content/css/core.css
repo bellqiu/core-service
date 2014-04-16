@@ -206,9 +206,8 @@ input[type=password] {
 }
 
 #searchBox {
-	font-size: 1.5em;
-	height: 25px;
-	float: left;
+	font-size: 1.4em;
+	height: 30px;
 	width: 320px;
 	z-index: 100;
 	border: none;
@@ -216,7 +215,7 @@ input[type=password] {
 }
 
 .header-searchBox .glyphicon {
-	margin-top: 3px;
+	margin: 3px;
 	cursor: pointer;
 }
 
