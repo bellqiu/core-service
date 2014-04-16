@@ -503,7 +503,7 @@ input[type=password] {
 .ProductImageContainer {
 	display: block;
 	width: 580px;
-	height: 580px;
+	/* height: 580px; */
 	overflow: hidden;
 }
 
