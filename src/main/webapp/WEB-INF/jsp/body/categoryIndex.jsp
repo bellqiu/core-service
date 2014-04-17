@@ -17,20 +17,20 @@
 		<div>
 			<ol class="breadcrumb">
   				<li><a href="${site.domain}">Home</a></li>
-  				<c:forEach items="${categoryBreadcrumbs}" var="item" varStatus="stat">
+  				<c:forEach items="${categoryBreadcrumbs}" var="category" varStatus="stat">
   				<c:choose>
 				<c:when test="${stat.last}">
-					<li class="active">${item}</li> 
+					<li class="active">${category.displayName}</li> 
 				</c:when>
 				<c:otherwise>
-					<li><a href="${site.domain}/c/${item}">${item}</a>
+					<li><a href="${site.domain}/c/${category.name}">${category.displayName}</a>
 				</c:otherwise>
 				</c:choose>
 				</c:forEach>
 			</ol>
 		</div>
 		<div class="categoryTitle page-header">
-			<h3><b>${currentCategoryDetail.displayName }</b></h3>
+			<h3>${currentCategoryDetail.description}</h3>
 		</div>
 	</div>
 	<div class="row">

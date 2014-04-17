@@ -19,7 +19,6 @@ import ch.ralscha.extdirectspring.filter.StringFilter;
 
 import com.hb.core.entity.Blogger;
 import com.hb.core.service.BloggerService;
-import com.hb.core.shared.dto.ProductSummaryDTO;
 
 @Service
 @Transactional
@@ -72,7 +71,6 @@ public class BloggerDirectService {
 	}
 	
 	@ExtDirectMethod(value=ExtDirectMethodType.STORE_MODIFY)
-	@Secured("ADMIN")
 	public Blogger setBlogAsActive(long blogId) {
 		return bloggerService.setActiveBlog(blogId);
 	}

@@ -46,7 +46,7 @@ public class CategoryServiceCacheWrapper {
 	}
 
 	@Cacheable(cacheName="CategoryBreadcrumb")
-	public List<String> getCategoryBreadcrumb(long id) {
+	public List<CategoryTreeDTO> getCategoryBreadcrumb(long id) {
 		return categoryService.getCategoryBreadcrumbById(id);
 	}
 	

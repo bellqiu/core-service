@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
+import org.apache.cxf.common.util.StringUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -266,12 +266,12 @@ public class CategoryService {
 		return allCategoryNames;
 	}
 
-	public List<String> getCategoryBreadcrumbById(long categoryId) {
+	public List<CategoryTreeDTO> getCategoryBreadcrumbById(long categoryId) {
 		long id = categoryId;
 		Category category = getCategoryById(id);
-		List<String> categoryBreadcrumbs = new ArrayList<String>();
+		List<CategoryTreeDTO> categoryBreadcrumbs = new ArrayList<CategoryTreeDTO>();
 		while(category != null) {
-			categoryBreadcrumbs.add(category.getName());
+			categoryBreadcrumbs.add(categoryTreeConverter.convert(category));
 			category = category.getParent();
 		}
 		Collections.reverse(categoryBreadcrumbs);

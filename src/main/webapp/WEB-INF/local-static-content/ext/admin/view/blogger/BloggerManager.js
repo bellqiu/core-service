@@ -61,7 +61,7 @@ Ext.define('AM.view.blogger.BloggerManager', {
 					}, {
 						xtype: 'checkbox',
 						margin : 5,
-						fieldLabel : 'Active Product',
+						fieldLabel : 'Active Blog',
 						name : 'active',
 						checked : 'true'
 					}, {
