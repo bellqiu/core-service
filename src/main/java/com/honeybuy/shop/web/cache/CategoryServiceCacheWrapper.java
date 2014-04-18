@@ -81,4 +81,8 @@ public class CategoryServiceCacheWrapper {
 		List<CategoryTreeDTO> categoryTree = categoryService.getAllCategories();
 		return categoryTree;
 	}
+
+	public boolean updateCategory(CategoryDetailDTO category) {
+		return categoryService.updateCategory(category);
+	}
 }

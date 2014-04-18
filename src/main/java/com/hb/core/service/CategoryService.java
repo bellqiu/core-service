@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import org.apache.cxf.common.util.StringUtils;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
+import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -348,5 +348,39 @@ public class CategoryService {
 			results.add(categoryTreeConverter.convert(c));
 		}
 		return results;
+	}
+
+	public boolean updateCategory(CategoryDetailDTO category) {
+		String name;
+		if(category == null || (name = category.getName()) == null) {
+			return false;
+		}
+		Category findCategory = getCategoryByName(name);
+		if(findCategory == null) {
+			return false;
+		}
+		boolean update = false;
+		if(!StringUtils.isEmpty(category.getPageTitle())) {
+			findCategory.setPageTitle(category.getPageTitle());
+			update = true;
+		}
+		if(!StringUtils.isEmpty(category.getRelatedKeyword())) {
+			findCategory.setRelatedKeyword(category.getRelatedKeyword());
+			update = true;
+		}
+		if(!StringUtils.isEmpty(category.getDescription())) {
+			findCategory.setDescription(category.getDescription());
+			update = true;
+		}
+		if(!StringUtils.isEmpty(category.getDisplayName())) {
+			findCategory.setDisplayName(category.getDisplayName());
+			update = true;
+		}
+		if(update) {
+			em.merge(findCategory);
+		}
+		
+		return update;
+		
 	}
 }

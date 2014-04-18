@@ -8,13 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hb.core.entity.Currency;
 import com.hb.core.shared.dto.CategoryDetailDTO;
@@ -230,5 +236,21 @@ public class CategoryController {
 		sb.append(");");
 		return sb.toString();
 	}*/
+	
+	@RequestMapping(value="/fragment/json/updateCategory", method=RequestMethod.POST)
+	@ResponseBody
+	@Produces("application/xml")
+	@Consumes("application/xml")
+	@Transactional
+	public String updateCategory(@BeanParam CategoryDetailDTO category,
+			@RequestParam(value = "token", required = true) final String token){
+		if(AdminController.token != null && AdminController.token.equals(token)) {
+			boolean status = categoryService.updateCategory(category);
+			if(status == true) {
+				return "{\"status\":\"success\"}";
+			}
+		}
+		return "{\"status\":\"fail\"}";
+	}
 	
 }

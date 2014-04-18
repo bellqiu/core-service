@@ -5,15 +5,18 @@
 package com.honeybuy.shop.web;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import net.sf.ehcache.CacheManager;
 
+import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -61,5 +64,21 @@ public class AdminController {
 	public String changeTags() {
 		productService.upcaseFirstLetterInTags();
 		return "{status:success}";
+	}
+	
+	public static String token = UUID.randomUUID().toString();
+	@RequestMapping("/token")
+	@ResponseBody
+	public String token() {
+		return token == null ? "" : token;
+	}
+	
+	@RequestMapping(value="/token", method=RequestMethod.POST)
+	@ResponseBody
+	public String postToken(@RequestParam("value") String tokenValue) {
+		if(!StringUtils.isEmpty(tokenValue)) {
+			token = tokenValue;
+		} 
+		return token == null ? "" : token;
 	}
 }
