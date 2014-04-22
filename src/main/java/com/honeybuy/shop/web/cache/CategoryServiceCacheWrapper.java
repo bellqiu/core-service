@@ -82,7 +82,7 @@ public class CategoryServiceCacheWrapper {
 		return categoryTree;
 	}
 
-	public boolean updateCategory(CategoryDetailDTO category) {
+	public CategoryDetailDTO updateCategory(CategoryDetailDTO category) {
 		return categoryService.updateCategory(category);
 	}
 }

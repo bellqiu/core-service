@@ -1,5 +1,8 @@
 package com.hb.core.service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,6 +55,12 @@ public class ProductService {
 	
 	@Autowired
 	private Converter<ProductSummaryDTO, Product> productSummaryConverter;
+	
+	@Autowired
+	private ImageResourceService imageResourceService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	public final static ConcurrentHashMap<Long, Integer> likes = new ConcurrentHashMap<Long, Integer>(1024);
 	
@@ -802,5 +811,105 @@ public class ProductService {
 			productSummaryDTO.setLike(getLikesByProductId(id));
 			productSummaryDTO.setSold(getSoldsByProductId(id));
 		}
+	}
+
+	public ProductDetailDTO uploadProduct(Product product) {
+		String productName = RegexUtils.replaceSpecialChar(product.getName(), Constants.HYPHEN_CHAR);
+		product.setId(0);
+		if(product == null || StringUtils.isEmpty(productName)) {
+			return null;
+		}
+		product.setName(productName);
+		Product existingProduct = getProductByName(product.getName());
+		if (null != existingProduct) {
+			return null;
+		}
+		
+		Date now = new Date();
+		
+		// TODO add image
+		//imageResourceService.newImage(binary, "tt.jpg");
+		List<Image> images;
+		if((images = product.getImages()) != null && images.size() > 0) {
+			List<Image> newImages = new ArrayList<Image>(images.size());
+			for(Image image : images) {
+				String urlString = image.getNoChangeUrl();
+				if(!StringUtils.isEmpty(urlString)) {
+					try {
+						URL url = new URL(urlString);
+						InputStream stream = url.openStream();
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						byte [] buffer = new byte[4096];
+						int length;
+						while((length = stream.read(buffer)) != -1) {
+							baos.write(buffer, 0, length);
+						}
+						Image newImage = imageResourceService.newImage(baos.toByteArray(), image.getName());
+						newImages.add(newImage);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+				}
+			}
+			product.setImages(images);
+		}
+		
+		// TODO add category
+		List<Category> categories;
+		if((categories = product.getCategories()) != null && categories.size() > 0) {
+			List<Category> newCategories = new ArrayList<Category>(categories.size());
+			for(Category category : categories) {
+				if(category == null) {
+					continue;
+				}
+				String categoryName = RegexUtils.replaceSpecialChar(category.getName(), Constants.HYPHEN_CHAR);
+				if(!StringUtils.isEmpty(categoryName)) {
+					Category categoryByName = categoryService.getCategoryByName(categoryName);
+					if(categoryByName != null) {
+						newCategories.add(categoryByName);
+					} else {
+						category.setName(categoryName);
+						category.setCreateDate(now);
+						category.setUpdateDate(now);
+						category.setId(0);
+						newCategories.add(category);
+					}
+				}
+			}
+			product.setCategories(newCategories);
+		}
+		
+		// TODO add options
+		List<Option> options = product.getOptions();
+		if(options != null && options.size() > 0) {
+			for(Option option : options) {
+				option.setCreateDate(now);
+				option.setUpdateDate(now);
+				option.setId(0);
+				List<OptionItem> items = option.getItems();
+				if(items != null && items.size() > 0) {
+					for(OptionItem oItem : items) {
+						oItem.setCreateDate(now);
+						oItem.setUpdateDate(now);
+						oItem.setId(0);
+						List<Property> props = oItem.getOverrideProps();
+						if(props != null && props.size() > 0) {
+							for(Property p : props) {
+								p.setCreateDate(now);
+								p.setUpdateDate(now);
+								p.setId(0);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		product.setCreateDate(now);
+		product.setUpdateDate(now);
+		product = em.merge(product);
+		
+		return productDetailConverter.convert(product);
 	}
 }

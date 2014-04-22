@@ -7,11 +7,13 @@ package com.honeybuy.shop.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.BeanParam;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -239,18 +241,21 @@ public class CategoryController {
 	
 	@RequestMapping(value="/fragment/json/updateCategory", method=RequestMethod.POST)
 	@ResponseBody
-	@Produces("application/xml")
-	@Consumes("application/xml")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
-	public String updateCategory(@BeanParam CategoryDetailDTO category,
-			@RequestParam(value = "token", required = true) final String token){
+	public Object updateCategory(@BeanParam CategoryDetailDTO category,
+			@RequestParam(value = "token", required = true) final String token,
+			HttpServletResponse response){
 		if(AdminController.token != null && AdminController.token.equals(token)) {
-			boolean status = categoryService.updateCategory(category);
-			if(status == true) {
-				return "{\"status\":\"success\"}";
+			category  = categoryService.updateCategory(category);
+			if(category != null) {
+				return category;
 			}
+			return "{\"status\":\"fail\"}";
+		} else {
+			response.setStatus(HttpStatus.SC_NOT_FOUND);
+			return "";
 		}
-		return "{\"status\":\"fail\"}";
 	}
 	
 }

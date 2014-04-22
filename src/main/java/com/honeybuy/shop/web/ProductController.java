@@ -4,18 +4,25 @@
  */
 package com.honeybuy.shop.web;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -26,12 +33,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hb.core.entity.Currency;
+import com.hb.core.entity.Product;
 import com.hb.core.service.ProductService;
 import com.hb.core.shared.dto.ProductChangeDTO;
 import com.hb.core.shared.dto.ProductDetailDTO;
 import com.hb.core.shared.dto.ProductSummaryDTO;
 import com.hb.core.shared.dto.TabProductDTO;
 import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.JsonUtil;
 import com.honeybuy.shop.util.RegexUtils;
 import com.honeybuy.shop.web.cache.CategoryServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.ProductServiceCacheWrapper;
@@ -249,6 +258,37 @@ public class ProductController {
 			logger.debug("{} can not be cast to long number.", id);
 		} 
 		return 0;
+	}
+	
+	@RequestMapping(value="/fragment/json/uploadProduct", method=RequestMethod.POST)
+	@ResponseBody
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Transactional
+	public Object uploadProduct(//@BeanParam Product product,
+			@RequestParam(value = "token", required = true) final String token,
+			HttpServletRequest request,
+			HttpServletResponse response){
+		if(AdminController.token != null && AdminController.token.equals(token)) {
+			try {
+				BufferedReader reader = request.getReader();
+				/*String line;
+				while((line = reader.readLine()) != null) {
+					System.out.println(line);
+				}*/
+				Product product = JsonUtil.convertJson(reader, Product.class);
+				ProductDetailDTO detail = productServiceNoCache.uploadProduct(product);
+				if(detail != null) {
+					return detail;
+				}
+			} catch (Exception e) {
+				logger.error("Exception when uploading product by json ", e);
+			}
+			return "{\"status\":\"fail\"}";
+		} else {
+			response.setStatus(HttpStatus.SC_NOT_FOUND);
+			return "";
+		}
 	}
 	
 }

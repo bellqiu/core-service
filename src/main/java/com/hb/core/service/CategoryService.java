@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -350,14 +351,14 @@ public class CategoryService {
 		return results;
 	}
 
-	public boolean updateCategory(CategoryDetailDTO category) {
+	public CategoryDetailDTO updateCategory(CategoryDetailDTO category) {
 		String name;
 		if(category == null || (name = category.getName()) == null) {
-			return false;
+			return null;
 		}
 		Category findCategory = getCategoryByName(name);
 		if(findCategory == null) {
-			return false;
+			return null;
 		}
 		boolean update = false;
 		if(!StringUtils.isEmpty(category.getPageTitle())) {
@@ -377,10 +378,10 @@ public class CategoryService {
 			update = true;
 		}
 		if(update) {
-			em.merge(findCategory);
+			findCategory = em.merge(findCategory);
 		}
 		
-		return update;
+		return categoryDetailConverter.convert(findCategory);
 		
 	}
 }

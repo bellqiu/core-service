@@ -10,7 +10,7 @@
 		<div class="productItem">
 			<div class="tabproductimgdiv">
 			<a href="${site.domain}/${product.name}" title="${product.title}">
-				<img alt="${product.title }" align="middle" src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${product.imageURL}" />
+				<img alt="${product.title }" align="middle" src="${site.resourceServer}${site.webResourcesFolder }${site.productImageResourcesFolder}/${product.imageURL}" />
 			</a>
 			</div>
 			<div>
