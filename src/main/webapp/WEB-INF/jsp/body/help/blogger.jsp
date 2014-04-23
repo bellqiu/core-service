@@ -62,7 +62,7 @@
 								<li class="disabled"><a href="#">&lt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${site.domain}/blogger/list/${currentPageIndex-1}">&lt;</a></li>
+								<li><a href="${site.domain}/blog/list/${currentPageIndex-1}">&lt;</a></li>
 							</c:otherwise>
 						</c:choose>
 						<c:forEach items="${pageIds }" var="item">
@@ -73,10 +73,10 @@
 	  							<c:otherwise>
 	  								<c:choose>
 	  									<c:when test="${item == currentPageIndex}">
-	  										<li class="active"><a href="${site.domain}/blogger/list/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
+	  										<li class="active"><a href="${site.domain}/blog/list/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
 	  									</c:when>
 	  									<c:otherwise>
-	  											<li><a href="${site.domain}/blogger/list/${item}">${item+1}</a></li>
+	  											<li><a href="${site.domain}/blog/list/${item}">${item+1}</a></li>
 	  									</c:otherwise>
 	  								</c:choose>
 	  							</c:otherwise>
@@ -87,7 +87,7 @@
 								<li class="disabled"><a href="#">&gt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${site.domain}/blogger/list/${currentPageIndex+1}">&gt;</a></li>
+								<li><a href="${site.domain}/blog/list/${currentPageIndex+1}">&gt;</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>

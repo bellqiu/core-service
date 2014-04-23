@@ -132,7 +132,7 @@ public class BloggerController {
 		return "bloggerlist";
 	}
 	
-	@RequestMapping("/blogger/{pageName}.pdf")
+	@RequestMapping("/blog/{pageName}.pdf")
 	@ResponseBody
 	@Produces("application/pdf")
 	public byte[] pdfPage(@PathVariable("pageName") String pageName, Model model) throws IOException {

@@ -852,7 +852,7 @@ public class ProductService {
 					
 				}
 			}
-			product.setImages(images);
+			product.setImages(newImages);
 		}
 		
 		// TODO add category
@@ -873,6 +873,7 @@ public class ProductService {
 						category.setCreateDate(now);
 						category.setUpdateDate(now);
 						category.setId(0);
+						em.persist(category);
 						newCategories.add(category);
 					}
 				}
@@ -899,12 +900,16 @@ public class ProductService {
 								p.setCreateDate(now);
 								p.setUpdateDate(now);
 								p.setId(0);
+								em.persist(p);
 							}
 						}
+						em.persist(oItem);
 					}
 				}
+				em.persist(option);
 			}
 		}
+		product.setOptions(options);
 
 		product.setCreateDate(now);
 		product.setUpdateDate(now);
