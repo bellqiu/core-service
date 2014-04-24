@@ -152,4 +152,8 @@ public class ProductServiceCacheWrapper {
 		}
 	}
 	
+	public void addSold(long id) {
+		productService.addSold(id);
+	}
+	
 }

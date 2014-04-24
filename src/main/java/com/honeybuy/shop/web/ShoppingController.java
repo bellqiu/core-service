@@ -23,6 +23,7 @@ import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -383,20 +384,24 @@ public class ShoppingController {
 	public ResponseResult<Boolean> checkoutOrder2Pending(
 			@RequestParam(value="orderId") long orderId, 
 			 @SessionAttribute(value=Constants.LOGINUSER_SESSION_ATTR)UserDetails details,
-			 @SessionAttribute("defaultCurrency")Currency currency
+			 @SessionAttribute("defaultCurrency")Currency currency,
+			 HttpSession session
 			 ){
 		
 		final OrderDetailDTO orderDetailDTO = orderService.updateOrderInfo(orderId, "", Order.Status.PENDING, currency.getCode());
 		
-		//TODO pending email
-		new Thread(){
-            public void run() {
-                try{
-					emailService.sendPayOrderMail(orderDetailDTO);
-                } catch (Exception e){
-                }
-            };
-        }.start();
+		Boolean paid = (Boolean)session.getAttribute(Constants.SESSION_PAY_ORDER_FLAG);
+		if(paid == null || !paid) {
+			// send to pay order email
+			new Thread(){
+				public void run() {
+					try{
+						emailService.sendPayOrderMail(orderDetailDTO);
+					} catch (Exception e){
+					}
+				};
+			}.start();
+		}
 		
 		return  new ResponseResult<Boolean>(true, true);
 	}
@@ -441,7 +446,7 @@ public class ShoppingController {
 	
 	
 	@RequestMapping(value="/sp/notify/paypal")
-	public String paypalNotify(HttpServletRequest request) throws IOException{
+	public String paypalNotify(HttpServletRequest request, HttpSession session) throws IOException{
 
 		List<String> errorStrings = new ArrayList<String>();
 		List<String> msgs = new ArrayList<String>();
@@ -527,7 +532,8 @@ public class ShoppingController {
 					try{
 						final OrderDetailDTO orderDetailDTO = orderService.updateOrderInfo(order.getId(), "", Order.Status.PAID, paymentCurrency);
 						
-						//TODO ORDER payment finished
+						session.removeAttribute(Constants.SESSION_PAY_ORDER_FLAG);
+						// send email when ORDER payment finished
 						new Thread(){
 				            public void run() {
 				                try{
@@ -536,6 +542,12 @@ public class ShoppingController {
 				                }
 				            };
 				        }.start();
+				        
+				        // add product sold
+				        List<OrderItemDTO> items = orderDetailDTO.getItems();
+						for(OrderItemDTO item : items) {
+							productService.addSold(item.getProductSummary().getId());
+						}
 						
 					}catch(Exception e){
 						logger.info(e.getMessage(),e);

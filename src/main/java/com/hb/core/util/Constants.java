@@ -15,6 +15,7 @@ public interface Constants {
 	
 	
 	public final static String LOGINUSER_SESSION_ATTR = "currentUser";
+	public static final String SESSION_PAY_ORDER_FLAG = "payOrderFlag";
 	
 	
 	public static final String DEFAULT_MAIL_CHARSET = "UTF-8";
@@ -168,5 +169,7 @@ public interface Constants {
 	
 	// 365 * 24 * 3600 * 1000
 	public static final long ONE_YEAR_MILSECONDS = 31536000000L;
+
+	
 	
 }

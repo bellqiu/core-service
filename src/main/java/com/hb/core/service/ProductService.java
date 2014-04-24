@@ -66,6 +66,8 @@ public class ProductService {
 	
 	public final static ConcurrentHashMap<Long, Integer> solds = new ConcurrentHashMap<Long, Integer>(1024);
 	
+	public final static int MAX_RANDON_INT = 100;
+	
 	public ProductChangeDTO compupterProductChangeByOpts(String productName, String optParams){
 		
 		ProductDetailDTO productDetailDTO = getProductDetailByName(productName);
@@ -774,7 +776,7 @@ public class ProductService {
 	public int getLikesByProductId(long id) {
 		Integer like = likes.get(id);
 		if(like == null) {
-			like = random(50);
+			like = random(100);
 			likes.put(id, like);
 		} 
 		return like;
@@ -783,7 +785,7 @@ public class ProductService {
 	public int getSoldsByProductId(long id) {
 		Integer sold = solds.get(id);
 		if(sold == null) {
-			sold = random(50);
+			sold = random(MAX_RANDON_INT);
 			solds.put(id, sold);
 		} 
 		return sold;
@@ -803,6 +805,17 @@ public class ProductService {
 		}
 		likes.put(id, like);
 		return like;
+	}
+	
+	public int addSold(long id) {
+		Integer sold = solds.get(id);
+		if(sold == null) {
+			sold = 1;
+		} else {
+			sold = sold + 1;
+		}
+		solds.put(id, sold);
+		return sold;
 	}
 	
 	public void setLikeSold(ProductSummaryDTO productSummaryDTO) {
