@@ -277,7 +277,7 @@ public class ProductController {
 					System.out.println(line);
 				}*/
 				Product product = JsonUtil.convertJson(reader, Product.class);
-				ProductDetailDTO detail = productServiceNoCache.uploadProduct(product);
+				Object detail = productServiceNoCache.uploadProduct(product);
 				if(detail != null) {
 					return detail;
 				}

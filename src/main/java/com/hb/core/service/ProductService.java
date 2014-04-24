@@ -827,7 +827,7 @@ public class ProductService {
 		
 		Date now = new Date();
 		
-		// TODO add image
+		// add image
 		//imageResourceService.newImage(binary, "tt.jpg");
 		List<Image> images;
 		if((images = product.getImages()) != null && images.size() > 0) {
@@ -855,7 +855,7 @@ public class ProductService {
 			product.setImages(newImages);
 		}
 		
-		// TODO add category
+		// add category
 		List<Category> categories;
 		if((categories = product.getCategories()) != null && categories.size() > 0) {
 			List<Category> newCategories = new ArrayList<Category>(categories.size());
@@ -881,7 +881,7 @@ public class ProductService {
 			product.setCategories(newCategories);
 		}
 		
-		// TODO add options
+		// add options
 		List<Option> options = product.getOptions();
 		if(options != null && options.size() > 0) {
 			for(Option option : options) {
@@ -909,7 +909,19 @@ public class ProductService {
 				em.persist(option);
 			}
 		}
-		product.setOptions(options);
+		
+		// TODO add product properties
+		List<Property> props = product.getProps();
+		if(props != null && props.size() > 0) {
+			for(Property p : props) {
+				if(p != null && !StringUtils.isEmpty(p.getName())) {
+					p.setCreateDate(now);
+					p.setUpdateDate(now);
+					p.setId(0);
+					em.persist(p);
+				}
+			}
+		}
 
 		product.setCreateDate(now);
 		product.setUpdateDate(now);
