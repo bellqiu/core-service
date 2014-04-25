@@ -401,6 +401,7 @@ public class ShoppingController {
 					}
 				};
 			}.start();
+			session.setAttribute(Constants.SESSION_PAY_ORDER_FLAG, Boolean.TRUE);
 		}
 		
 		return  new ResponseResult<Boolean>(true, true);
