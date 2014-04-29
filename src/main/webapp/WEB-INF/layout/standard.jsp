@@ -23,12 +23,18 @@
 				  @import url("/resources/bootstrap/css/bootstrap.min.css");
 				  @import url("/resources/bootstrap/bootstrap-select.min.css");
 				   @import url("/resources/bootstrap/css/bootstrap-formhelpers.min.css");
-				  
-			<c:forEach items="${site.css }" var="css">
-		   		 @import url("/resources/${css}");
-			</c:forEach>
+			
 				 @import url("/resources/css/core.css");
+				 
+				 	  
+			
 		</style>
+		
+		<c:forEach items="${site.css }" var="css">
+		<style type="text/css">
+			   		 @import url("${css}");
+		</style>
+		</c:forEach>
 		<link href='http://fonts.googleapis.com/css?family=Londrina+Solid|Open+Sans:400,700|Shadows+Into+Light+Two' rel='stylesheet' type='text/css'>
 		
 		<script src="/resources/js/json2.js" type="text/javascript"></script>

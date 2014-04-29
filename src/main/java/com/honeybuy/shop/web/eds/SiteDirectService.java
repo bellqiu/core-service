@@ -5,6 +5,7 @@
 package com.honeybuy.shop.web.eds;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class SiteDirectService{
 	
 	public static final String RESOURCES_SERVER = "RESOURCES_SERVER";
 	public static final String DOMAIN_SERVER = "DOMAIN_SERVER";
+	public static final String SITE_CUSTOMIZED_CSS = "SITE_CUSTOMIZED_CSS";
+	public static final String SITE_CUSTOMIZED_JS = "SITE_CUSTOMIZED_JS";
 	
 	@Autowired
 	private SettingService settingService;
@@ -41,15 +44,15 @@ public class SiteDirectService{
 		siteDTO.setWebResourcesFolder("/rs");
 		siteDTO.setProductImageResourcesFolder("/img");
 		
-		List<String> css = new ArrayList<String>();
-		List<String> js = new ArrayList<String>();
+		List<String> css = Arrays.asList(settingService.getStringValue(SITE_CUSTOMIZED_CSS, "").split(","));
+		List<String> js = Arrays.asList(settingService.getStringValue(SITE_CUSTOMIZED_JS, "").split(","));
+		
 		
 		siteDTO.setCss(css);
 		siteDTO.setJs(js);
 		
 		siteDTO.setSiteName("HoneyBuy");
 		siteDTO.setDomain(settingService.getStringValue(DOMAIN_SERVER, "http://localhost"));
-		
 		
 		return siteDTO;
 	}
