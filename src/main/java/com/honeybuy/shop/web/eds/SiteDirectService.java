@@ -44,12 +44,14 @@ public class SiteDirectService{
 		siteDTO.setWebResourcesFolder("/rs");
 		siteDTO.setProductImageResourcesFolder("/img");
 		
-		List<String> css = Arrays.asList(settingService.getStringValue(SITE_CUSTOMIZED_CSS, "").split(","));
-		List<String> js = Arrays.asList(settingService.getStringValue(SITE_CUSTOMIZED_JS, "").split(","));
-		
-		
-		siteDTO.setCss(css);
-		siteDTO.setJs(js);
+		String css = null;
+		String js = null;
+		if((css = settingService.getStringValue(SITE_CUSTOMIZED_CSS)) != null) {
+			siteDTO.setCss(Arrays.asList(css.split(",")));
+		}
+		if((js = settingService.getStringValue(SITE_CUSTOMIZED_JS)) != null) {
+			siteDTO.setJs(Arrays.asList(js.split(",")));
+		}
 		
 		siteDTO.setSiteName("HoneyBuy");
 		siteDTO.setDomain(settingService.getStringValue(DOMAIN_SERVER, "http://localhost"));
