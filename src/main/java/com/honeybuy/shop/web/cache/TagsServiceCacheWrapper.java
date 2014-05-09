@@ -103,7 +103,7 @@ public class TagsServiceCacheWrapper {
 		} else {
 			Set<String> keySet = tagsProductMap.keySet();
 			for(String key : keySet) {
-				if(key.replace(Constants.SPACE_CHAR, Constants.HYPHEN_CHAR).equals(tagName)) {
+				if(key.replace(Constants.SPACE_CHAR, Constants.HYPHEN_CHAR).equalsIgnoreCase(tagName)) {
 					return key;
 				}
 			}

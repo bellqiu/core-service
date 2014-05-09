@@ -63,12 +63,13 @@
 				<div class="row">
 					<div class="col-xs-4">
 						<ul class="pagination">
+							<c:set value="${fn:replace(tagName, ' ', '-')}" var="tagIndexItemName"></c:set>
 							<c:choose>
 								<c:when test="${currentPageIndex == 0}">
 									<li class="disabled"><a href="#">&lt;</a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex-1}">&lt;</a></li>
+									<li><a href="${site.domain}/tags/key/<hb:urlUtil value='${tagIndexItemName}'/>/${currentPageIndex-1}">&lt;</a></li>
 								</c:otherwise>
 							</c:choose>
 							<c:forEach items="${pageIds }" var="item">
@@ -79,10 +80,10 @@
 									<c:otherwise>
 										<c:choose>
 										<c:when test="${item == currentPageIndex}">
-										<li class="active"><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
+										<li class="active"><a href="${site.domain}/tags/key/<hb:urlUtil value='${tagIndexItemName}'/>/${item}">${item+1} <span class="sr-only">(current)</span></a></li>
 										</c:when>
 										<c:otherwise>
-										<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${item}">${item+1}</a></li>
+										<li><a href="${site.domain}/tags/key/<hb:urlUtil value='${tagIndexItemName}'/>/${item}">${item+1}</a></li>
 										</c:otherwise>
 										</c:choose>
 									</c:otherwise>
@@ -93,7 +94,7 @@
 									<li class="disabled"><a href="#">&gt;</a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="${site.domain}/c/${currentCategoryDetail.name }/${currentPageIndex+1}">&gt;</a></li>
+									<li><a href="${site.domain}/tags/key/<hb:urlUtil value='${tagIndexItemName}'/>/${currentPageIndex+1}">&gt;</a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>
