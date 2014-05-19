@@ -670,7 +670,6 @@ public class ProductService {
 			String key = keys[i];
 			result.setParameter("key" + i, "%" + key + "%");
 			result.setParameter("tag" + i, "%" + key + "%");
-			i++;
 		}
 		return result.getSingleResult().intValue();
 	}
@@ -700,7 +699,6 @@ public class ProductService {
 			String key = keys[i];
 			result.setParameter("key" + i, "%" + key + "%");
 			result.setParameter("tag" + i, "%" + key + "%");
-			i++;
 		}
 		result.setFirstResult(start);
 		result.setMaxResults(max);

@@ -5,6 +5,8 @@
 package com.honeybuy.shop.web;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import net.sf.ehcache.CacheManager;
@@ -20,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hb.core.service.EmailService;
 import com.hb.core.service.ProductService;
+import com.hb.core.util.Constants;
 
 /**
  * 
@@ -38,6 +42,9 @@ public class AdminController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	EmailService emailService;
 
 	@RequestMapping("/console")
 	public String console() {
@@ -80,5 +87,63 @@ public class AdminController {
 			token = tokenValue;
 		} 
 		return token == null ? "" : token;
+	}
+	
+	@RequestMapping("/edm")
+	public String edm() throws IOException {
+		
+		return "edm";
+	}
+	
+	@RequestMapping(value="/edm", method=RequestMethod.POST)
+	public String postEdm(@RequestParam("subject") String subject,
+			@RequestParam("message") String message,
+			@RequestParam("emails") String emails,
+			@RequestParam("emailSeparator") String emailSeparator,
+			@RequestParam("emailHost") String emailHost,
+			@RequestParam("username") String username,
+			@RequestParam("password") String password,
+			@RequestParam("emailFrom") String emailFrom,
+			@RequestParam("interval") String interval,
+			Model model) throws IOException {
+		String errorAttributeName = "errorMessage";
+		if(StringUtils.isEmpty(subject)) {
+			model.addAttribute(errorAttributeName, "Subject is empty");
+		} else if(StringUtils.isEmpty(message)) {
+			model.addAttribute(errorAttributeName, "Message is empty");
+		} else if(StringUtils.isEmpty(emails)) {
+			model.addAttribute(errorAttributeName, "Email list is empty");
+		} else if(StringUtils.isEmpty(emailHost)) {
+			model.addAttribute(errorAttributeName, "Email host is empty");
+		} else if(StringUtils.isEmpty(username)) {
+			model.addAttribute(errorAttributeName, "Email account is empty");
+		} else if(StringUtils.isEmpty(password)) {
+			model.addAttribute(errorAttributeName, "Password account is empty");
+		}
+		
+		if(StringUtils.isEmpty(emailSeparator)) {
+			emailSeparator = "\\s+";
+		}
+		String[] emailArray = emails.split(emailSeparator);
+		if(emailArray.length > 0) {
+			long period = 0L;
+			try {
+				period = Long.parseLong(interval);
+				if(period < Constants.EDM_MIN_PERIOD) {
+					period = Constants.EDM_MIN_PERIOD;
+				}
+			} catch(NumberFormatException e) {
+				period = Constants.EDM_MIN_PERIOD;
+			}
+			List<String> emailList = Arrays.asList(emailArray);
+			boolean sendFlag = emailService.sendEdmMail(subject, message, emailHost, username, password, emailFrom, emailList, period);
+			if(!sendFlag) {
+				model.addAttribute(errorAttributeName, "EDM Email task is not executed as there is a previous task ");
+			}
+		} else {
+			model.addAttribute(errorAttributeName, "Emails size is empty");
+		}
+		
+		return "edm";
 	}
 }

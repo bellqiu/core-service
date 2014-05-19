@@ -170,6 +170,8 @@ public interface Constants {
 	// 365 * 24 * 3600 * 1000
 	public static final long ONE_YEAR_MILSECONDS = 31536000000L;
 
+	public static final long EDM_MIN_PERIOD = 50L;
+
 	
 	
 }

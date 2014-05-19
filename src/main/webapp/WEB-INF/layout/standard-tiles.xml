@@ -265,4 +265,8 @@
 		
 		<definition name="admin_cache" template="/WEB-INF/layout/cache.jsp"></definition>
 		
+		<definition name="edm" extends="headerFooter" >
+        	 <put-attribute name="body" value="/WEB-INF/jsp/body/help/edm.jsp"/>
+        </definition>
+		
 </tiles-definitions>

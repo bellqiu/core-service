@@ -3,7 +3,13 @@ package com.hb.core.service;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -212,6 +218,48 @@ public class EmailService {
         }
     }
 	
+	public boolean sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String from, List<String> emailList, long period) {
+		if(current <= total) {
+			return false;
+		}
+		ScheduledExecutorService scheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
+		try {
+			if(StringUtils.isEmpty(from)) {
+				from = mailAccount;
+			}
+			EdmCommand command = new EdmCommand(scheduledThreadPool, subject, mailContent, emailHost, mailAccount, mailPassword, from, emailList);
+			scheduledThreadPool.scheduleAtFixedRate(command, 0L, period, TimeUnit.SECONDS);
+			return true;
+		} catch(CoreServiceException e) {
+			return false;
+		}
+	}
+	
+	public void sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String from, String to){
+		if(StringUtils.isEmpty(to)) {
+			throw new CoreServiceException("Send to email is empty");
+		}
+    	logger.debug("Send mail from {}, to {}", new Object[]{from, to});
+    	if (mailContent != null) {
+    		HtmlEmail email = new HtmlEmail();
+    	    try {
+    	    	email.setHostName(emailHost);
+    	    	email.setAuthentication(mailAccount, mailPassword);
+    	    	email.setFrom(mailAccount, from);
+    	        email.setSubject(subject);
+    	        email.setHtmlMsg(mailContent);
+    	        email.setTLS(true);
+    	        email.addTo(to);
+    	        email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
+    	        email.send();
+    	    } catch (EmailException e) {
+    	        logger.error(e.getMessage(), e);
+    	    }
+        } else {
+            logger.error("Mail content is null");
+        }
+    }
+	
 	private String parseMailContent(String templeteString,
 			Map<String, Object> variables) {
 		try {
@@ -243,5 +291,71 @@ public class EmailService {
 		}
 		return sb;
 	}
+	
+	private static final String EMAIL_PATTERN = 
+		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-\\+]+)*@"
+		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+	
+	public boolean validateEmail(String email) {
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
+	
+	static int total = 0;
+	
+	static int current = 0;
+	class EdmCommand implements Runnable {
+		
+		ScheduledExecutorService scheduledThreadPool;
+		
+		
+		private List<String> list;
+		int executorCount = 0;
+		private int size;
+		
+		private String subject;
+		private String mailContent;
+		private String emailHost;
+		private String mailAccount;
+		private String mailPassword;
+		private String from;
+		
+		public EdmCommand(ScheduledExecutorService scheduledThreadPool, String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String from, List<String> list) {
+			if(current != total) {
+				throw new CoreServiceException("Edm task is running");
+			}
+			this.scheduledThreadPool = scheduledThreadPool;
+			this.list = list;
+			this.size = list.size();
+			total = this.size;
+			current = 0;
+			
+			this.subject = subject;
+			this.mailContent = mailContent;
+			this.emailHost = emailHost;
+			this.mailAccount = mailAccount;
+			this.mailPassword = mailPassword;
+			this.from = from;
+		}
 
+		@Override
+		public void run() {
+			if(executorCount < size) {
+				String mail = list.get(executorCount).trim();
+				System.out.println(Thread.currentThread().getName() + ": " + mail);
+				if(validateEmail(mail)) {
+					//sendEdmMail(subject, mailContent, emailHost, mailAccount, mailPassword, from, mail);
+				}
+				current = ++executorCount;
+				 
+			}
+			if(executorCount >= size) {
+				scheduledThreadPool.shutdown();
+			}
+			
+		}
+		
+	}
 }
+

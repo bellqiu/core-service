@@ -22,6 +22,16 @@ var productOpts = "${currentProductOptions}";
 			<div class="row">
 				<div class="col-md-1 col-xs-1">
 					<hb:htmltag htmlKey="PRODUCT_SHARE_BUTTONS"/>
+					<!-- <div class="addthis_toolbox addthis_floating_style addthis_32x32_style" style="position: absolute;">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_preferred_5"></a>
+<a class="addthis_button_compact"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f3774750525e36a"></script> -->
 				</div>
 				<div class="col-md-11 col-xs-11">
 					<ul class="bxslider">

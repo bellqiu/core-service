@@ -157,6 +157,7 @@ public class ProductController {
 				} catch(NumberFormatException e) {
 				}
 			}
+			keyHyper = RegexUtils.replaceSpecialChar(keyHyper, Constants.SPACE_CHAR);
 			int totalCount = productService.searchProductCountByKey(keyHyper);
 			int max = SEARCH_PRODUCT_PER_PAGE;
 			
