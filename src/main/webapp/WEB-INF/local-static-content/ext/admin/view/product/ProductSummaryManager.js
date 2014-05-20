@@ -163,6 +163,10 @@ Ext.define('AM.view.product.ProductSummaryManager', {
 					selType : 'cellmodel'
 				},
 				columns : [ {
+					text : "ID",
+					dataIndex : "id",
+					flex : 1
+				}, {
 					text : "URL",
 					dataIndex : "name",
 					flex : 1,

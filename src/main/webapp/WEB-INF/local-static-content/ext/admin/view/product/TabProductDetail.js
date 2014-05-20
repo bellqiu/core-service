@@ -83,6 +83,7 @@ Ext.define('AM.view.product.TabProductDetail', {
 						enableKeyEvents:true,
 						store : productSummaryStore,
 						columns: [
+						          { text: 'ID', dataIndex: 'id', flex: 1 },
 						          { text: 'Name', dataIndex: 'name', flex: 1 },
 						          { text: 'Title',  dataIndex: 'title' , flex: 2}
 						         
