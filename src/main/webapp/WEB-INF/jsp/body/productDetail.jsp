@@ -18,7 +18,14 @@
 
 <link rel="stylesheet" href="/resources/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
 <script type="text/javascript" src="/resources/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
-
+<style>
+<!--
+	.dockbar {
+		position: inherit!important;
+		padding-right: 20px;
+	}
+-->
+</style>
 <script type="text/javascript">
 var productName = "${currentProductDetail.name}";
 var productOpts = "${currentProductOptions}";
@@ -305,7 +312,8 @@ var productOpts = "${currentProductOptions}";
 $(document).ready(function() {
 	$(".fancybox").fancybox({
 		openEffect	: 'none',
-		closeEffect	: 'none'
+		closeEffect	: 'none',
+		height: 800
 	});
 });
 </script>
