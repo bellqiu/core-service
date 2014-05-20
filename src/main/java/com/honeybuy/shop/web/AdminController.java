@@ -90,7 +90,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/edm")
-	public String edm() throws IOException {
+	public String edm(Model model) throws IOException {
+		emailService.checkEdmTask(model);
 		
 		return "edm";
 	}
@@ -126,19 +127,21 @@ public class AdminController {
 		}
 		String[] emailArray = emails.split(emailSeparator);
 		if(emailArray.length > 0) {
-			long period = 0L;
-			try {
-				period = Long.parseLong(interval);
-				if(period < Constants.EDM_MIN_PERIOD) {
+			if(!emailService.checkEdmTask(model)) {
+				long period = 0L;
+				try {
+					period = Long.parseLong(interval);
+					if(period < Constants.EDM_MIN_PERIOD) {
+						period = Constants.EDM_MIN_PERIOD;
+					}
+				} catch(NumberFormatException e) {
 					period = Constants.EDM_MIN_PERIOD;
 				}
-			} catch(NumberFormatException e) {
-				period = Constants.EDM_MIN_PERIOD;
-			}
-			List<String> emailList = Arrays.asList(emailArray);
-			boolean sendFlag = emailService.sendEdmMail(subject, message, emailHost, username, password, emailFrom, emailList, period);
-			if(!sendFlag) {
-				model.addAttribute(errorAttributeName, "EDM Email task is not executed as there is a previous task ");
+				List<String> emailList = Arrays.asList(emailArray);
+				boolean sendFlag = emailService.sendEdmMail(subject, message, emailHost, username, password, emailFrom, emailList, period);
+				if(!sendFlag) {
+					model.addAttribute(errorAttributeName, "EDM Email task is not executed as there is a previous task ");
+				}
 			}
 		} else {
 			model.addAttribute(errorAttributeName, "Emails size is empty");
@@ -146,4 +149,5 @@ public class AdminController {
 		
 		return "edm";
 	}
+	
 }

@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.hb.core.entity.Currency;
 import com.hb.core.entity.HTML;
@@ -219,7 +220,7 @@ public class EmailService {
     }
 	
 	public boolean sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String from, List<String> emailList, long period) {
-		if(current <= total) {
+		if(current < total) {
 			return false;
 		}
 		ScheduledExecutorService scheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
@@ -228,7 +229,7 @@ public class EmailService {
 				from = mailAccount;
 			}
 			EdmCommand command = new EdmCommand(scheduledThreadPool, subject, mailContent, emailHost, mailAccount, mailPassword, from, emailList);
-			scheduledThreadPool.scheduleAtFixedRate(command, 0L, period, TimeUnit.SECONDS);
+			scheduledThreadPool.scheduleAtFixedRate(command, 0L, period, TimeUnit.MILLISECONDS);
 			return true;
 		} catch(CoreServiceException e) {
 			return false;
@@ -292,6 +293,14 @@ public class EmailService {
 		return sb;
 	}
 	
+	public boolean checkEdmTask(Model model) {
+		if(current < total) {
+			model.addAttribute("processingMessage", "Edm Task is running. Process: " + current + " / " + total);
+			return true;
+		}
+		return false;
+	}
+	
 	private static final String EMAIL_PATTERN = 
 		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-\\+]+)*@"
 		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -343,14 +352,16 @@ public class EmailService {
 		public void run() {
 			if(executorCount < size) {
 				String mail = list.get(executorCount).trim();
-				System.out.println(Thread.currentThread().getName() + ": " + mail);
+				System.out.println(Thread.currentThread().getName() + ": [" + mail + "]");
 				if(validateEmail(mail)) {
-					//sendEdmMail(subject, mailContent, emailHost, mailAccount, mailPassword, from, mail);
+					sendEdmMail(subject, mailContent, emailHost, mailAccount, mailPassword, from, mail);
 				}
 				current = ++executorCount;
 				 
 			}
 			if(executorCount >= size) {
+				executorCount = 0;
+				size = 0;
 				scheduledThreadPool.shutdown();
 			}
 			
