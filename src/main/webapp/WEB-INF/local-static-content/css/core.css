@@ -253,7 +253,7 @@ input[type=password] {
 	height: 5px;
 	width: 100%;
 	background-color: #EEEEEE;
-	z-index: 99999;
+	z-index: 4444;
 }
 
 .top-level-navigator {

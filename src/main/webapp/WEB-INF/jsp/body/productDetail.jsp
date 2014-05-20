@@ -3,6 +3,22 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="hb" uri="/WEB-INF/tag/HBTag.tld"%>
+
+<!-- Add mousewheel plugin (this is optional) -->
+<script type="text/javascript" src="/resources/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="/resources/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="/resources/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<!-- Optionally add helpers - button, thumbnail and/or media -->
+<link rel="stylesheet" href="/resources/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+<script type="text/javascript" src="/resources/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="/resources/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+
+<link rel="stylesheet" href="/resources/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="/resources/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
 <script type="text/javascript">
 var productName = "${currentProductDetail.name}";
 var productOpts = "${currentProductOptions}";
@@ -36,9 +52,13 @@ var productOpts = "${currentProductOptions}";
 				<div class="col-md-11 col-xs-11">
 					<ul class="bxslider">
 						<c:forEach items="${currentProductDetail.images}" var="img">
-							<li class="ProductImageContainer"><img
+							<li class="ProductImageContainer">
+							<a class="fancybox" rel="gallery1" href="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${img.noChangeUrl}" title="${img.name }">
+								<img
 								src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${img.largerUrl}"
-								alt="${img.name }"></li>
+								alt="${img.name }">
+								</a>
+							</li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -281,7 +301,14 @@ var productOpts = "${currentProductOptions}";
 				});
 		</script>
 	</div>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+});
+</script>
 <script src="/resources/js/ProductPageMain.js" type="text/javascript"></script>	
 	
 	<div class="row">
