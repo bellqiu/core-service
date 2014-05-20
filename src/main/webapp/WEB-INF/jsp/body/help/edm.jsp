@@ -1,6 +1,12 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container mainContainer">
+	<div class="row">
+		<c:if test="${not empty errorMessage}">
+			<div class="alert alert-warning">${errorMessage}</div>
+		</c:if>
+	</div>
 	<div class="row borderline">
 		<div>
 		<form name="edmForm" id="questionForm" enctype="multipart/form-data" method="post" action="/admin/edm" role="form">
@@ -50,11 +56,24 @@
 			    <tr>
 			    	<td></td>
 			        <td>
-			        	<button type="submit" class="btn btn-primary"> Submit </button>
+			        	<c:choose>
+			        		<c:when test="${not empty processingMessage}">
+			        			<button type="submit" disabled class="btn btn-warning"> Processing </button>
+			        		</c:when>
+			        		<c:otherwise>
+			        			<button type="submit" class="btn btn-primary"> Submit </button>
+			        		</c:otherwise>
+			        	</c:choose>
 			    	</td>
 			    </tr>
 			</tbody></table>
 		</form>
 		</div>
 	</div>
+	<c:if test="${not empty processingMessage}">
+		<div class="row borderline">
+			<div>${processingMessage}</div>
+		</div>
+	</c:if>
+	
 </div>
