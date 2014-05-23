@@ -60,7 +60,7 @@ var productOpts = "${currentProductOptions}";
 					<ul class="bxslider">
 						<c:forEach items="${currentProductDetail.images}" var="img">
 							<li class="ProductImageContainer">
-							<a class="fancybox" rel="gallery1" href="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${img.noChangeUrl}" title="${img.name }">
+							<a class="fancybox margin_auto" rel="gallery1" href="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${img.noChangeUrl}" title="${img.name }">
 								<img
 								src="${site.resourceServer}${site.webResourcesFolder }/${site.productImageResourcesFolder}/${img.largerUrl}"
 								alt="${img.name }">
