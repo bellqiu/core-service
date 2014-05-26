@@ -1,7 +1,7 @@
 (function($){
 
 	$(document).ready(function(){
-		$(".category-product-img").each(function(index,el){
+		/*$(".category-product-img").each(function(index,el){
 			$(el).load(function() {
 				
 				var image = el;
@@ -17,7 +17,7 @@
 					$(image).css("width", "235px");
 				}
 			});
-		});
+		});*/
 		
 		$(".likeSpan").each(function(index,el){
 			$(el).click(function() {
