@@ -94,6 +94,18 @@
 			<taglib-uri>http://www.honeybuy.com/tag/hb</taglib-uri>
 			<taglib-location>/WEB-INF/tag/HBTag.tld</taglib-location>
 		</taglib>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+			<taglib-location>/WEB-INF/tag/c.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
+			<taglib-location>/WEB-INF/tag/fmt.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/functions</taglib-uri>
+			<taglib-location>/WEB-INF/tag/fn.tld</taglib-location>
+		</taglib>
 	</jsp-config>
 
 </web-app>
