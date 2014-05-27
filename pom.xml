@@ -442,21 +442,6 @@
                     <configuration>
                         <includeEmptyDirs>true</includeEmptyDirs>
                         <webResources>
-                            <!-- <resource>
-                                <directory>ui</directory>
-                                <targetPath></targetPath>
-                                <includes>
-                                    <include>**</include>
-                                </includes>
-                            </resource>
-                            <resource>
-                                <directory>lib</directory>
-                                <targetPath>WEB-INF</targetPath>
-                                <includes>
-                                    <include>**/*.xml</include>
-                                    <include>**/log4j.properties</include>
-                                </includes>
-                            </resource> -->
                             <resource>
                                <directory>src/lib</directory>
                                <targetPath>WEB-INF/lib</targetPath>
