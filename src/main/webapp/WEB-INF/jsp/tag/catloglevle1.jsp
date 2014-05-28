@@ -39,7 +39,7 @@
 	
 	<script type="text/javascript">
 		
-	$(".top-level-navigator-item a").each(function(index,el){
+	$(".top-level-navigator-item a[href^='#']").each(function(index,el){
 		$(el).click(function(){
 			var link = $(this);
 			var contentId = $(this).attr("aimTo");
