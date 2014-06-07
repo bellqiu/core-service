@@ -219,16 +219,16 @@ public class EmailService {
         }
     }
 	
-	public boolean sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String from, List<String> emailList, long period) {
+	public boolean sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String mailFrom, String mailAlias, List<String> emailList, long period) {
 		if(current < total) {
 			return false;
 		}
 		ScheduledExecutorService scheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
 		try {
-			if(StringUtils.isEmpty(from)) {
-				from = mailAccount;
+			if(StringUtils.isEmpty(mailAlias)) {
+				mailAlias = mailFrom;
 			}
-			EdmCommand command = new EdmCommand(scheduledThreadPool, subject, mailContent, emailHost, mailAccount, mailPassword, from, emailList);
+			EdmCommand command = new EdmCommand(scheduledThreadPool, subject, mailContent, emailHost, mailAccount, mailPassword, mailFrom, mailAlias, emailList);
 			scheduledThreadPool.scheduleAtFixedRate(command, 0L, period, TimeUnit.MILLISECONDS);
 			return true;
 		} catch(CoreServiceException e) {
@@ -236,17 +236,17 @@ public class EmailService {
 		}
 	}
 	
-	public void sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String from, String to){
+	public void sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String mailFrom, String mailAlias, String to){
 		if(StringUtils.isEmpty(to)) {
 			throw new CoreServiceException("Send to email is empty");
 		}
-    	logger.debug("Send mail from {}, to {}", new Object[]{from, to});
+    	logger.debug("Send mail from {}, to {}", new Object[]{mailFrom, to});
     	if (mailContent != null) {
     		HtmlEmail email = new HtmlEmail();
     	    try {
     	    	email.setHostName(emailHost);
     	    	email.setAuthentication(mailAccount, mailPassword);
-    	    	email.setFrom(mailAccount, from);
+    	    	email.setFrom(mailFrom, mailAlias);
     	        email.setSubject(subject);
     	        email.setHtmlMsg(mailContent);
     	        email.setTLS(true);
@@ -328,9 +328,10 @@ public class EmailService {
 		private String emailHost;
 		private String mailAccount;
 		private String mailPassword;
-		private String from;
+		private String mailFrom;
+		private String mailAlias;
 		
-		public EdmCommand(ScheduledExecutorService scheduledThreadPool, String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String from, List<String> list) {
+		public EdmCommand(ScheduledExecutorService scheduledThreadPool, String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String mailFrom, String mailAlias, List<String> list) {
 			if(current != total) {
 				throw new CoreServiceException("Edm task is running");
 			}
@@ -345,7 +346,8 @@ public class EmailService {
 			this.emailHost = emailHost;
 			this.mailAccount = mailAccount;
 			this.mailPassword = mailPassword;
-			this.from = from;
+			this.mailFrom = mailFrom;
+			this.mailAlias = mailAlias;
 		}
 
 		@Override
@@ -354,7 +356,7 @@ public class EmailService {
 				String mail = list.get(executorCount).trim();
 				System.out.println(Thread.currentThread().getName() + ": [" + mail + "]");
 				if(validateEmail(mail)) {
-					sendEdmMail(subject, mailContent, emailHost, mailAccount, mailPassword, from, mail);
+					sendEdmMail(subject, mailContent, emailHost, mailAccount, mailPassword, mailFrom, mailAlias, mail);
 				}
 				current = ++executorCount;
 				 

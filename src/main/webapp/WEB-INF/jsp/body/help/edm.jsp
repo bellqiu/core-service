@@ -45,8 +45,12 @@
 			        <td><input type="text" name="password" id="password" required size="10" style="width:150px"></td>
 			    </tr>
 			    <tr>
-			    	<td class="support_label" width="22%" valign="top">From Email(same as login email if none): </td>
-			        <td><input type="text" name="emailFrom" id="emailFrom" size="10" style="width:150px"></td>
+			    	<td class="support_label" width="22%" valign="top"><span class="red">*</span>From Email: </td>
+			        <td><input type="text" name="emailFrom" id="emailFrom" required size="10" style="width:150px"></td>
+			    </tr>
+			    <tr>
+			    	<td class="support_label" width="22%" valign="top">From Alias(same as from email if none): </td>
+			        <td><input type="text" name="emailAlias" id="emailAlias" size="10" style="width:150px"></td>
 			    </tr>
 			    <tr>
 			    	<td class="support_label" width="22%" valign="top"><span class="red">*</span>Interval(milliseconds): </td>

@@ -105,6 +105,7 @@ public class AdminController {
 			@RequestParam("username") String username,
 			@RequestParam("password") String password,
 			@RequestParam("emailFrom") String emailFrom,
+			@RequestParam("emailAlias") String emailAlias,
 			@RequestParam("interval") String interval,
 			Model model) throws IOException {
 		String errorAttributeName = "errorMessage";
@@ -120,32 +121,35 @@ public class AdminController {
 			model.addAttribute(errorAttributeName, "Email account is empty");
 		} else if(StringUtils.isEmpty(password)) {
 			model.addAttribute(errorAttributeName, "Password account is empty");
-		}
-		
-		if(StringUtils.isEmpty(emailSeparator)) {
-			emailSeparator = "\\s+";
-		}
-		String[] emailArray = emails.split(emailSeparator);
-		if(emailArray.length > 0) {
-			if(!emailService.checkEdmTask(model)) {
-				long period = 0L;
-				try {
-					period = Long.parseLong(interval);
-					if(period < Constants.EDM_MIN_PERIOD) {
+		} else if(StringUtils.isEmpty(emailFrom)) {
+			model.addAttribute(errorAttributeName, "Email from is empty");
+		} else {
+			if(StringUtils.isEmpty(emailSeparator)) {
+				emailSeparator = "\\s+";
+			}
+			String[] emailArray = emails.split(emailSeparator);
+			if(emailArray.length > 0) {
+				if(!emailService.checkEdmTask(model)) {
+					long period = 0L;
+					try {
+						period = Long.parseLong(interval);
+						if(period < Constants.EDM_MIN_PERIOD) {
+							period = Constants.EDM_MIN_PERIOD;
+						}
+					} catch(NumberFormatException e) {
 						period = Constants.EDM_MIN_PERIOD;
 					}
-				} catch(NumberFormatException e) {
-					period = Constants.EDM_MIN_PERIOD;
+					List<String> emailList = Arrays.asList(emailArray);
+					boolean sendFlag = emailService.sendEdmMail(subject, message, emailHost, username, password, emailFrom, emailAlias, emailList, period);
+					if(!sendFlag) {
+						model.addAttribute(errorAttributeName, "EDM Email task is not executed as there is a previous task ");
+					}
 				}
-				List<String> emailList = Arrays.asList(emailArray);
-				boolean sendFlag = emailService.sendEdmMail(subject, message, emailHost, username, password, emailFrom, emailList, period);
-				if(!sendFlag) {
-					model.addAttribute(errorAttributeName, "EDM Email task is not executed as there is a previous task ");
-				}
+			} else {
+				model.addAttribute(errorAttributeName, "Emails size is empty");
 			}
-		} else {
-			model.addAttribute(errorAttributeName, "Emails size is empty");
 		}
+		
 		
 		return "edm";
 	}
