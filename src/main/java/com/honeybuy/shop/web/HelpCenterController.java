@@ -11,12 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hb.core.entity.Address;
 import com.hb.core.service.EmailService;
+import com.hb.core.service.SubscribeService;
 import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.PageMetaUtils;
 import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
+import com.honeybuy.shop.web.dto.ResponseResult;
 
 @Controller
 @RequestMapping("/help")
@@ -32,6 +36,9 @@ public class HelpCenterController {
 	
 	@Autowired
 	EmailService emailService;
+	
+	@Autowired
+	SubscribeService subscribeService;
 	
 	@RequestMapping("/about-us")
 	public String aboutUs(Model model) {
@@ -245,4 +252,69 @@ public class HelpCenterController {
 		return "supportSubmited";
 	}
 	
+	@RequestMapping(value="/subscribe", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseResult<String> subscribe(
+			@RequestParam("email")String email,
+			Model model) {
+		// TODO subscribe user
+		boolean result = subscribeService.saveSubscriber(email);
+		if(result) {
+			return new ResponseResult<String>(true, "Success to subscribe email " + email);
+		} else {
+			return new ResponseResult<String>(false, "Subscribe fail. Email format is not correct.");
+		}
+	}
+	
+	@RequestMapping(value="/unsubscribe", method=RequestMethod.GET)
+	public String unsubscribe(
+			@RequestParam(value="email", required=false)String email,
+			Model model) {
+		if(email == null) {
+			model.addAttribute("noEmail", true);
+		} else if(!EmailService.validateEmail(email)) {
+			model.addAttribute("invalidEmail", true);
+		}
+		model.addAttribute("email", email);
+		return "unsubscribe";
+	}
+	
+	@RequestMapping(value="/unsubscribe", method=RequestMethod.POST)
+	public String unsubscribePost(
+			@RequestParam("email")String email,
+			Model model) {
+		if(!EmailService.validateEmail(email)) {
+			model.addAttribute("invalidEmail", true);
+		} else {
+			logger.debug("Processing to unsubscribe for [{}]", email);
+			// TODO unsubscribe
+			subscribeService.disableSubscriber(email);
+			model.addAttribute("requestSuccess", true);
+		}
+		
+		return "unsubscribe";
+	}
+	
+	@RequestMapping(value="/changeSubscribe", method=RequestMethod.POST)
+	public String changeSubscribe(
+			@RequestParam("email")String email,
+			@RequestParam("newEmail")String newEmail,
+			Model model) {
+		if(!EmailService.validateEmail(newEmail)) {
+			model.addAttribute("invalidEmail", true);
+		} else {
+			logger.debug("Processing to change subscriber from [{}] to [{}]", new Object[]{email, newEmail});
+			if(!newEmail.equals(email)) {
+				subscribeService.changeSubscriber(email, newEmail);
+			}
+			model.addAttribute("requestSuccess", true);
+		}
+		return "unsubscribe";
+	}
+	
+	@RequestMapping(value="/changeSubscribe", method=RequestMethod.GET)
+	public String changeSubscribe(
+			Model model) {
+		return "redirect:/help/unsubscribe";
+	}
 }

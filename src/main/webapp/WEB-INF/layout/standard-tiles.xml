@@ -231,6 +231,13 @@
         	  <put-attribute name="pageDescription" value="Support"/>
         </definition>
         
+        <definition name="unsubscribe" extends="headerFooter" >
+        	  <put-attribute name="body" value="/WEB-INF/jsp/body/help/unsubscribe.jsp"/>
+        	  <put-attribute name="pageTitle" value="Unsubscribe"/>
+        	  <put-attribute name="pageKeywords" value="Unsubscribe"/>
+        	  <put-attribute name="pageDescription" value="Unsubscribe email"/>
+        </definition>
+        
         <definition name="bloggerlist" extends="headerFooter" >
         	  <put-attribute name="body" value="/WEB-INF/jsp/body/help/blogger.jsp"/>
         	  <put-attribute name="pageTitle" value="Blogger"/>

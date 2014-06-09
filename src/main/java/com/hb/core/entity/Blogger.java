@@ -30,7 +30,7 @@ public class Blogger extends Component{
 	private String description;
 	
 	@Column(name="priority")
-	private String priority;
+	private int priority;
 	
 	@Column(name="size")
 	private int size;
@@ -66,11 +66,11 @@ public class Blogger extends Component{
 		return description;
 	}
 
-	public void setPriority(String priority) {
+	public void setPriority(int priority) {
 		this.priority = priority;
 	}
 
-	public String getPriority() {
+	public int getPriority() {
 		return priority;
 	}
 
