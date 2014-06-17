@@ -45,6 +45,7 @@ public class SubscribeService {
 
 	public boolean saveSubscriber(String email) {
 		if(EmailService.validateEmail(email)) {
+			logger.debug("Save subscriber: {}", email);
 			Subscriber subscriber = getSubscriberByEmail(email);
 			if(subscriber == null) {
 				subscriber = new Subscriber();
@@ -60,6 +61,7 @@ public class SubscribeService {
 	}
 	
 	public void disableSubscriber(String email) {
+		logger.debug("Disable subscriber: {}", email);
 		Subscriber subscriber = getSubscriberByEmail(email);
 		if(subscriber != null && subscriber.getStatus() != Component.Status.DISABLED) {
 			subscriber.setStatus(Component.Status.DISABLED);
@@ -68,6 +70,7 @@ public class SubscribeService {
 	}
 	
 	public void changeSubscriber(String oldEmail, String newEmail) {
+		logger.debug("Change subscriber from {} to {}", new Object[]{oldEmail, newEmail});
 		if(oldEmail != null && oldEmail.equals(newEmail)) {
 			return;
 		}

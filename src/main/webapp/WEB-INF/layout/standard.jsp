@@ -96,7 +96,15 @@
 		
 		$("#btn-subscribe").on("click", function() {
 			var emailValue = $("#txt-subscribe").val();
-			//alert("Thanks for subscribing. Please check your email and get the $50 coupon");
+			$.ajax({
+				type: "GET",
+				contentType : "application/json; charset=UTF-8",
+				url : "/help/subscribe",
+				data : {email: emailValue},
+				success: function(result){
+					console.log(result);
+				}
+			});
 			alert("Thanks for subscribing. ");
 		});
 		

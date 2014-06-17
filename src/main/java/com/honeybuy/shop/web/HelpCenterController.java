@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hb.core.entity.Address;
 import com.hb.core.service.EmailService;
 import com.hb.core.service.SubscribeService;
 import com.hb.core.util.Constants;
@@ -257,7 +256,6 @@ public class HelpCenterController {
 	public ResponseResult<String> subscribe(
 			@RequestParam("email")String email,
 			Model model) {
-		// TODO subscribe user
 		boolean result = subscribeService.saveSubscriber(email);
 		if(result) {
 			return new ResponseResult<String>(true, "Success to subscribe email " + email);
