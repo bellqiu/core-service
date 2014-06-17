@@ -29,8 +29,15 @@
 				</c:forEach>
 			</ol>
 		</div>
-		<div class="categoryTitle page-header">
-			<h3>${currentCategoryDetail.description}</h3>
+		<div class="categoryTitle">
+			<c:choose>
+				<c:when test="${empty currentCategoryDetail.marketContent }">
+					<h3>${currentCategoryDetail.description}</h3>
+				</c:when>
+				<c:otherwise>
+					${currentCategoryDetail.marketContent}
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	<div class="row">
