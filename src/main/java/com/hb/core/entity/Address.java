@@ -148,7 +148,7 @@ public class Address extends Component{
 	 */
 	@Override
 	public String toString() {
-		return firstName +" " + lastName + " ("+address1 + (address2==null? "": (" "+address2)) +", " + city +", "+ (null==postalCode?"":(postalCode +" ")) + stateProvince + ", "+ getCountryName() + ")";
+		return firstName +" " + lastName + " ("+address1 + (address2==null? "": (" "+address2)) +", " + city +", "+ (null==postalCode?"":(postalCode +", ")) + stateProvince + ", "+ getCountryName() + "), " + phone;
 	}
 
 }
