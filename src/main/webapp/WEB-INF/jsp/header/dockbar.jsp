@@ -5,7 +5,7 @@
 <div class="dockbar">
 	<div class="span4 offset8">
 		<ul class="dockbar-menu">
-			<li><a href="/help/about-us" class="btn"><span
+			<li><a href="/help/support" class="btn"><span
 					class="glyphicon glyphicon-question-sign"></span><span>Help</span></a>
 			</li>
 			<li>
