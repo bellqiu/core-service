@@ -58,6 +58,7 @@ public class EmailService {
 		variable.put("email", toEmail);
 		variable.put("password", newPassword);
 		
+		logger.info("Send recovery password mail to {}", email);
 		sendMail(recoverPwdTemplate, recoverSubject, variable, email);
 	}
 	
@@ -73,7 +74,7 @@ public class EmailService {
 		variable.put("email", toEmail);
 		variable.put("password", password);
 		
-		
+		logger.info("Send register mail to {}", email);
 		sendMail(registerTemplate, registerSubject, variable, email);
 	}
 	
@@ -93,6 +94,7 @@ public class EmailService {
 		}
 		variable.put("currency", currency);
 		
+		logger.info("Send attend to pay order mail to {}", email);
 		sendMail(payOrderTemplate, payOrderSubject, variable, email);
 	}
 	
@@ -113,10 +115,12 @@ public class EmailService {
 		}
 		variable.put("currency", currency);
 		
+		logger.info("Send receive order mail to {}", email);
 		sendMail(receiveOrderPaymentTemplate, receiveOrderPaymentSubject, variable, email);
 	}
 	
 	public void sendShippingOrderMail(OrderDetailDTO order) {
+		
 		String email = getThrirdPartyEmail(order.getUseremail());
 		String shipOrderTemplate = getTemplateFromDB(Constants.HTML_MAIL_SHIPPING_ORDER_TEMPLATE);
 		
@@ -128,6 +132,7 @@ public class EmailService {
 		Map<String, Object> variable = new HashMap<String, Object>();
 		variable.put("order", order);
 		
+		logger.info("Send shipping order mail to {}", email);
 		sendMail(shipOrderTemplate, shipOrderSubject, variable, email);
 	}
 	
@@ -147,6 +152,7 @@ public class EmailService {
 		}
 		String supportMail = settingService.getStringValue(Constants.SETTING_MAIL_SUPPORT, Constants.DEFAULT_MAIL_SUPPORT);
 		
+		logger.info("Send support mail from {}", email);
 		sendMailWithFromAndTo(submitSupportTemplate, supportSubject, content, email, supportMail);
 	}
 	
@@ -163,7 +169,6 @@ public class EmailService {
 			throw new CoreServiceException("Send to email is empty");
 		}
     	String mailContent = parseMailContent(templateString, variable);
-    	logger.info("Send mail to: " + sendTo);
     	if (mailContent != null) {
     		HtmlEmail email = new HtmlEmail();
     	    try {
@@ -194,7 +199,6 @@ public class EmailService {
 			throw new CoreServiceException("Send to email is empty");
 		}
     	String mailContent = parseMailContent(templateString, variable);
-    	logger.info("Send mail from {}, to {}", new Object[]{from, to});
     	if (mailContent != null) {
     		HtmlEmail email = new HtmlEmail();
     	    try {
@@ -211,6 +215,7 @@ public class EmailService {
     	        email.addTo(to);
     	        email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
     	        email.send();
+    	        logger.info("Send mail from {} to {}", new Object[]{from, to});
     	    } catch (EmailException e) {
     	        logger.error(e.getMessage(), e);
     	    }
@@ -240,7 +245,7 @@ public class EmailService {
 		if(StringUtils.isEmpty(to)) {
 			throw new CoreServiceException("Send to email is empty");
 		}
-    	logger.debug("Send mail from {}, to {}", new Object[]{mailFrom, to});
+    	logger.debug("Send edm mail from {} to {}", new Object[]{mailFrom, to});
     	if (mailContent != null) {
     		HtmlEmail email = new HtmlEmail();
     	    try {

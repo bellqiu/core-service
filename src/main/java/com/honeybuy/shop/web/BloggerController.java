@@ -121,9 +121,10 @@ public class BloggerController {
 					pageIds.add(totalPage - 1);
 				}
 			}
-			model.addAttribute("resultStart", start + 1);
+			model.addAttribute("start", start);
+			/*model.addAttribute("resultStart", start + 1);
 			model.addAttribute("resultEnd", start + bloggerList.size());
-			model.addAttribute("resultTotal", totalCount);
+			model.addAttribute("resultTotal", totalCount);*/
 			model.addAttribute("totalPage", totalPage);
 			model.addAttribute("pageIds", pageIds);
 			model.addAttribute("bloggers", bloggerList);

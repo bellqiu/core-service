@@ -258,6 +258,8 @@ public class BloggerService {
 	public List<Blogger> getAllActiveBlogger(int start, int max) {
 		String queryString = "select b from Blogger b where b.status = 'ACTIVE' ";
 		TypedQuery<Blogger> result = em.createQuery(queryString, Blogger.class);
+		result.setFirstResult(start);
+		result.setMaxResults(max);
 		return result.getResultList();
 	}
 

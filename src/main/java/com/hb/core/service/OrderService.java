@@ -442,6 +442,7 @@ public class OrderService {
 			order.setOrderStatus(status);
 			order.setUpdateDate(new Date());
 			order.setCurrency(currencyCode);
+			logger.debug("Update order {} from status {} to status {}", new Object[]{orderId, oldStatus, status});
 			final OrderDetailDTO orderDetailDTO = orderDetailConverter.convert(em.merge(order));
 			if(Order.Status.SHIPPING.equals(status) && !Order.Status.SHIPPING.equals(oldStatus)) {
 				new Thread(){
