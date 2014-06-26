@@ -531,23 +531,26 @@ public class ShoppingController {
 						&&receiverEmail.equalsIgnoreCase(settingService.getStringValue(Constants.PAYPAL_ACCOUNT, Constants.PAYPAL_ACCOUNT_DEFAULT))
 						&&quantity.equals("1")){
 					try{
-						final OrderDetailDTO orderDetailDTO = orderService.updateOrderInfo(order.getId(), "", Order.Status.PAID, paymentCurrency);
-						
-						session.removeAttribute(Constants.SESSION_PAY_ORDER_FLAG);
-						// send email when ORDER payment finished
-						new Thread(){
-				            public void run() {
-				                try{
-									emailService.sendReceiveOrderPaymentMail(orderDetailDTO);
-				                } catch (Exception e){
-				                }
-				            };
-				        }.start();
-				        
-				        // add product sold
-				        List<OrderItemDTO> items = orderDetailDTO.getItems();
-						for(OrderItemDTO item : items) {
-							productService.addSold(item.getProductSummary().getId());
+						if(order.getOrderStatus() == Order.Status.ONSHOPPING ||  order.getOrderStatus() == Order.Status.PENDING) {
+							
+							final OrderDetailDTO orderDetailDTO = orderService.updateOrderInfo(order.getId(), "", Order.Status.PAID, paymentCurrency);
+							
+							session.removeAttribute(Constants.SESSION_PAY_ORDER_FLAG);
+							// send email when ORDER payment finished
+							new Thread(){
+								public void run() {
+									try{
+										emailService.sendReceiveOrderPaymentMail(orderDetailDTO);
+									} catch (Exception e){
+									}
+								};
+							}.start();
+							
+							// add product sold
+							List<OrderItemDTO> items = orderDetailDTO.getItems();
+							for(OrderItemDTO item : items) {
+								productService.addSold(item.getProductSummary().getId());
+							}
 						}
 						
 					}catch(Exception e){
