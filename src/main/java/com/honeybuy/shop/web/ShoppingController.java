@@ -635,29 +635,27 @@ public class ShoppingController {
 		encoder.add("L_SHIPPINGOPTIONNAME1","Expedited Shipping");
 		encoder.add("L_SHIPPINGOPTIONISDEFAULT1","false");
 		encoder.add("L_SHIPPINGOPTIONISDEFAULT0","true");
-		encoder.add("L_SHIPPINGOPTIONAMOUNT1","8");
-		encoder.add("L_SHIPPINGOPTIONAMOUNT0","0");
 		
-		/*if(totalAmount > 100){
+		float shippingCost = 0;
+		if(totalAmount > 100){
 			encoder.add("L_SHIPPINGOPTIONAMOUNT1","6.99");
 			encoder.add("L_SHIPPINGOPTIONAMOUNT0","0");
 		} else {
 			encoder.add("L_SHIPPINGOPTIONAMOUNT1","12.99");
 			encoder.add("L_SHIPPINGOPTIONAMOUNT0","6.99");
-		}*/
+			shippingCost = 6.99f;
+		}
 		//encoder.add("SHIPPINGOPTIONAMOUNT","8");
-		
 		
 		encoder.add("PAYMENTREQUEST_0_ITEMAMT", numberFormat.format(totalAmount));
 		
 		totalAmount  = totalAmount + 0;
 		
-		encoder.add("PAYMENTREQUEST_0_SHIPPINGAMT","0");
+		encoder.add("PAYMENTREQUEST_0_SHIPPINGAMT", numberFormat.format(shippingCost));
 		
 		encoder.add("MAXAMT",  numberFormat.format(totalAmount + 25));
 		
-		encoder.add("PAYMENTREQUEST_0_AMT",numberFormat.format(totalAmount));
-		
+		encoder.add("PAYMENTREQUEST_0_AMT",numberFormat.format(totalAmount + shippingCost));
 		
 		//encode method will encode the name and value and form NVP string for the request	
 		strNVPRequest = encoder.encode(); 
