@@ -1,3 +1,4 @@
+-- Change HB to related database name
 CREATE  TABLE IF NOT EXISTS `HB`.`Blogger` (
   `id` BIGINT NOT NULL AUTO_INCREMENT ,
   `create_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,

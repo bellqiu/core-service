@@ -638,6 +638,13 @@ public class ShoppingController {
 		encoder.add("L_SHIPPINGOPTIONAMOUNT1","8");
 		encoder.add("L_SHIPPINGOPTIONAMOUNT0","0");
 		
+		if(totalAmount > 100){
+			encoder.add("L_SHIPPINGOPTIONAMOUNT1","6.99");
+			encoder.add("L_SHIPPINGOPTIONAMOUNT0","0");
+		} else {
+			encoder.add("L_SHIPPINGOPTIONAMOUNT1","12.99");
+			encoder.add("L_SHIPPINGOPTIONAMOUNT0","6.99");
+		}
 		//encoder.add("SHIPPINGOPTIONAMOUNT","8");
 		
 		
