@@ -638,13 +638,13 @@ public class ShoppingController {
 		encoder.add("L_SHIPPINGOPTIONAMOUNT1","8");
 		encoder.add("L_SHIPPINGOPTIONAMOUNT0","0");
 		
-		if(totalAmount > 100){
+		/*if(totalAmount > 100){
 			encoder.add("L_SHIPPINGOPTIONAMOUNT1","6.99");
 			encoder.add("L_SHIPPINGOPTIONAMOUNT0","0");
 		} else {
 			encoder.add("L_SHIPPINGOPTIONAMOUNT1","12.99");
 			encoder.add("L_SHIPPINGOPTIONAMOUNT0","6.99");
-		}
+		}*/
 		//encoder.add("SHIPPINGOPTIONAMOUNT","8");
 		
 		
@@ -657,8 +657,6 @@ public class ShoppingController {
 		encoder.add("MAXAMT",  numberFormat.format(totalAmount + 25));
 		
 		encoder.add("PAYMENTREQUEST_0_AMT",numberFormat.format(totalAmount));
-		
-		
 		
 		
 		//encode method will encode the name and value and form NVP string for the request	
@@ -678,9 +676,10 @@ public class ShoppingController {
 		String strAck = resultValues.get("ACK"); 
 		if(strAck !=null && !(strAck.equals("Success") || strAck.equals("SuccessWithWarning")))
 		{
+			logger.info("Acknowledgement from pay is {}", strAck);
 			return null;
-		}else {
-				
+		} else {
+			logger.info("Redirect to paypal");
 			response.sendRedirect("https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="+resultValues.get("TOKEN"));
 					
 		}

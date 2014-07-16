@@ -1,5 +1,6 @@
 package com.hb.core.service;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -26,9 +27,10 @@ public class CountryService {
 
 	public Country saveOrUpdate(Country country){
 		Country existingCountry = getCountry(country.getCode());
-		if(existingCountry != null && (country.getId() < 1 || existingCountry.getId() == country.getId())) {
+		if(existingCountry != null && (country.getId() < 1 || existingCountry.getId() != country.getId())) {
 			throw new CoreServiceException("Country name already exist");
 		}
+		country.setUpdateDate(new Date());
 		country = em.merge(country);
 		return country;
 	}
