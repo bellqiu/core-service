@@ -447,7 +447,8 @@ public class ShoppingController {
 	
 	
 	@RequestMapping(value="/sp/notify/paypal")
-	public String paypalNotify(HttpServletRequest request, HttpSession session) throws IOException{
+    @ResponseBody
+	public String paypalNotify(HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException{
 
 		List<String> errorStrings = new ArrayList<String>();
 		List<String> msgs = new ArrayList<String>();
