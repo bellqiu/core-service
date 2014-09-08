@@ -186,7 +186,7 @@ public class EmailService {
     			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
     			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
     	        if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
-    	        	MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, sendTo, null, subject, mailContent, null);
+    	        	MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, null, sendTo, subject, mailContent, null);
     	        	sendMailByProxy(mailEntity);
     	        } else {
     	        	email.setHostName(hostname);
@@ -221,7 +221,7 @@ public class EmailService {
     			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
     			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
     	        if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
-    	        	MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, to, from, subject, mailContent, null);
+    	        	MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, from, to, subject, mailContent, null);
     	        	sendMailByProxy(mailEntity);
     	        } else {
     	        	email.setHostName(hostname);
@@ -267,7 +267,7 @@ public class EmailService {
     	logger.debug("Send edm mail from {} to {}", new Object[]{mailFrom, to});
     	if (mailContent != null) {
     		if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
-	        	MailEntity mailEntity = new MailEntity(emailHost, mailAccount, mailPassword, mailFrom, to, mailAlias, subject, mailContent, null);
+	        	MailEntity mailEntity = new MailEntity(emailHost, mailAccount, mailPassword, mailFrom, mailAlias, to, subject, mailContent, null);
 	        	sendMailByProxy(mailEntity);
 	        } else {
 	        	HtmlEmail email = new HtmlEmail();
