@@ -389,7 +389,7 @@ public class EmailService {
 			try {
 				String content = JsonUtil.convertObjetToString(mailEntity);
 				Entity<String> entity = Entity.entity(content, MediaType.APPLICATION_JSON_TYPE);
-				Response response = client.target("http://localhost/help/sendmail").request(MediaType.APPLICATION_JSON_TYPE).buildPost(entity).invoke();
+				Response response = client.target(mailProxyUrl).request(MediaType.APPLICATION_JSON_TYPE).buildPost(entity).invoke();
 				@SuppressWarnings("unchecked")
 				ResponseResult<String> result = JsonUtil.convertJson(response.readEntity(String.class), ResponseResult.class);
 				logger.debug("Send mail by proxy result: status={}, message={}", new Object[]{result.isSuccess(), result.getResult()});
