@@ -11,6 +11,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.cxf.common.util.StringUtils;
@@ -25,9 +31,12 @@ import com.hb.core.entity.HTML;
 import com.hb.core.exception.CoreServiceException;
 import com.hb.core.shared.dto.OrderDetailDTO;
 import com.hb.core.util.Constants;
+import com.honeybuy.shop.util.JsonUtil;
 import com.honeybuy.shop.web.cache.CurrencyServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
+import com.honeybuy.shop.web.dto.MailEntity;
+import com.honeybuy.shop.web.dto.ResponseResult;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -176,16 +185,21 @@ public class EmailService {
     			String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
     			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
     			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
-    	    	email.setHostName(hostname);
-    	    	email.setAuthentication(mailAccount, mailPassword);
-    	    	email.setFrom(mailFrom);
-    	        email.setSubject(subject);
-    	        email.setHtmlMsg(mailContent);
-    	        email.setTLS(true);
-    	        email.addTo(sendTo);
-    	        email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
-    	        email.send();
-    	        logger.info("Send mail successfully to " + sendTo);
+    	        if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
+    	        	MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, sendTo, null, subject, mailContent, null);
+    	        	sendMailByProxy(mailEntity);
+    	        } else {
+    	        	email.setHostName(hostname);
+        	    	email.setAuthentication(mailAccount, mailPassword);
+        	    	email.setFrom(mailFrom);
+        	        email.setSubject(subject);
+        	        email.setHtmlMsg(mailContent);
+        	        email.addTo(sendTo);
+    	        	email.setTLS(true);
+    	        	email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
+    	        	email.send();
+    	        	logger.info("Send mail successfully to " + sendTo);
+    	        }
     	    } catch (EmailException e) {
     	        logger.error(e.getMessage(), e);
     	    }
@@ -206,16 +220,21 @@ public class EmailService {
     			String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
     			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
     			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
-    	    	email.setHostName(hostname);
-    	    	email.setAuthentication(mailAccount, mailPassword);
-    	    	email.setFrom(mailFrom, from);
-    	        email.setSubject(subject);
-    	        email.setHtmlMsg(mailContent);
-    	        email.setTLS(true);
-    	        email.addTo(to);
-    	        email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
-    	        email.send();
-    	        logger.info("Send mail from {} to {}", new Object[]{from, to});
+    	        if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
+    	        	MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, to, from, subject, mailContent, null);
+    	        	sendMailByProxy(mailEntity);
+    	        } else {
+    	        	email.setHostName(hostname);
+    	        	email.setAuthentication(mailAccount, mailPassword);
+    	        	email.setFrom(mailFrom, from);
+    	        	email.setSubject(subject);
+    	        	email.setHtmlMsg(mailContent);
+    	        	email.addTo(to);
+    	        	email.setTLS(true);
+    	        	email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
+    	        	email.send();
+    	        	logger.info("Send mail from {} to {}", new Object[]{from, to});
+    	        }
     	    } catch (EmailException e) {
     	        logger.error(e.getMessage(), e);
     	    }
@@ -223,7 +242,7 @@ public class EmailService {
             logger.error("cannot parse email template");
         }
     }
-	
+
 	public boolean sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String mailFrom, String mailAlias, List<String> emailList, long period) {
 		if(current < total) {
 			return false;
@@ -247,20 +266,25 @@ public class EmailService {
 		}
     	logger.debug("Send edm mail from {} to {}", new Object[]{mailFrom, to});
     	if (mailContent != null) {
-    		HtmlEmail email = new HtmlEmail();
-    	    try {
-    	    	email.setHostName(emailHost);
-    	    	email.setAuthentication(mailAccount, mailPassword);
-    	    	email.setFrom(mailFrom, mailAlias);
-    	        email.setSubject(subject);
-    	        email.setHtmlMsg(mailContent);
-    	        email.setTLS(true);
-    	        email.addTo(to);
-    	        email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
-    	        email.send();
-    	    } catch (EmailException e) {
-    	        logger.error(e.getMessage(), e);
-    	    }
+    		if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
+	        	MailEntity mailEntity = new MailEntity(emailHost, mailAccount, mailPassword, mailFrom, to, mailAlias, subject, mailContent, null);
+	        	sendMailByProxy(mailEntity);
+	        } else {
+	        	HtmlEmail email = new HtmlEmail();
+	    	    try {
+	    	    	email.setHostName(emailHost);
+	    	    	email.setAuthentication(mailAccount, mailPassword);
+	    	    	email.setFrom(mailFrom, mailAlias);
+	    	        email.setSubject(subject);
+	    	        email.setHtmlMsg(mailContent);
+	    	        email.addTo(to);
+	    	        email.setTLS(true);
+	    	        email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
+	    	        email.send();
+	    	    } catch (EmailException e) {
+	    	        logger.error(e.getMessage(), e);
+	    	    }
+	        }
         } else {
             logger.error("Mail content is null");
         }
@@ -304,6 +328,75 @@ public class EmailService {
 			return true;
 		}
 		return false;
+	}
+	
+	public void sendProxyMail(MailEntity mailEntity, ResponseResult<String> response) {
+    	if (checkMailEntity(mailEntity)) {
+    		String mailProxyTooken = settingService.getStringValue(Constants.SETTING_MAIL_PROXY_TOOKEN);
+    		if(mailEntity.getTooken().equals(mailProxyTooken)) {
+    			HtmlEmail email = new HtmlEmail();
+    			logger.debug("Send proxy mail from {} to {}", new Object[]{mailEntity.getMailFrom(), mailEntity.getMailTo()});
+    			try {
+    				email.setHostName(mailEntity.getMailHost());
+    				email.setAuthentication(mailEntity.getMailAccount(), mailEntity.getMailPassword());
+    				if(mailEntity.getMailAlias() != null) {
+    					email.setFrom(mailEntity.getMailFrom(), mailEntity.getMailAlias());
+    				} else {
+    					email.setFrom(mailEntity.getMailFrom());
+    				}
+    				email.setSubject(mailEntity.getSubject());
+    				email.setHtmlMsg(mailEntity.getContent());
+    				email.addTo(mailEntity.getMailTo());
+    				email.setTLS(true);
+    				email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
+    				email.send();
+    				response.setSuccess(true);
+    				response.setResult("Sent mail successfully");
+    			} catch (EmailException e) {
+    				response.setSuccess(false);
+    				response.setResult(e.getMessage());
+    			}
+    		} else {
+    			response.setSuccess(false);
+            	response.setResult("Token does not match");
+    		}
+        } else {
+        	response.setSuccess(false);
+        	response.setResult("Some fields in MailEntity are null");
+        }
+	}
+	
+	private boolean checkMailEntity(MailEntity mailEntity) {
+		boolean result = mailEntity.getMailHost() != null
+				&& mailEntity.getMailAccount() != null
+				&& mailEntity.getMailPassword() != null
+				&& mailEntity.getMailFrom() != null
+				&& mailEntity.getMailTo() != null
+				&& mailEntity.getContent() != null
+				&& mailEntity.getSubject() != null
+				&& mailEntity.getTooken() != null;
+		return result;
+	}
+	
+	private void sendMailByProxy(MailEntity mailEntity) {
+		String mailProxyUrl = settingService.getStringValue(Constants.SETTING_MAIL_PROXY_URL);
+		String mailProxyTooken = settingService.getStringValue(Constants.SETTING_MAIL_PROXY_TOOKEN);
+		if(mailProxyUrl == null || mailProxyTooken == null) {
+			logger.info("MailProxyUrl or MailProxyTooken is null");
+		} else {
+			mailEntity.setTooken(mailProxyTooken);
+			Client client = ClientBuilder.newClient();
+			try {
+				String content = JsonUtil.convertObjetToString(mailEntity);
+				Entity<String> entity = Entity.entity(content, MediaType.APPLICATION_JSON_TYPE);
+				Response response = client.target("http://localhost/help/sendmail").request(MediaType.APPLICATION_JSON_TYPE).buildPost(entity).invoke();
+				@SuppressWarnings("unchecked")
+				ResponseResult<String> result = JsonUtil.convertJson(response.readEntity(String.class), ResponseResult.class);
+				logger.debug("Send mail by proxy result: status={}, message={}", new Object[]{result.isSuccess(), result.getResult()});
+			} catch (Exception e) {
+				logger.error(e.getMessage(), e);
+			}
+		}
 	}
 	
 	private static final String EMAIL_PATTERN = 

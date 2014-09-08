@@ -1,6 +1,7 @@
 package com.honeybuy.shop.util;
 
 import java.io.Reader;
+import java.io.StringWriter;
 import java.net.URL;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -34,6 +35,16 @@ public class JsonUtil {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		T value = mapper.readValue(reader, clazz);
 		return value;
+	}
+	
+	public static String convertObjetToString(Object value) throws Exception {
+		StringWriter stringWriter = new StringWriter();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		mapper.writeValue(stringWriter, value);
+		return stringWriter.toString();
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
@@ -17,16 +18,32 @@ public class EncodingUtils {
 		  return Hex.encodeHexString(sha256_HMAC.doFinal(data.getBytes()));
 	}
 	
+	public static String encodeString(String data) {
+		return new String(Hex.encodeHex(data.getBytes()));
+	}
+	
+	public static String decodeString(String data) throws DecoderException {
+		return new String(Hex.decodeHex(data.toCharArray()));
+	}
+	
 	public static void main(String [] args) throws Exception {
 		  // System.out.println(encode("277233412302753", "92efa5dd2807209cb37b375777b21eaf").toUpperCase());
 		String secretKey = "92efa5dd2807209cb37b375777b21eaf";
 		System.out.println(hmac256(secretKey,"CAAD8JG8PZA6EBABPZCfXfNO5kbEUuFhuZBRlXz0ZBA4dz0itf4hfMLTzWhsGmdySXBWMavVDO5AwZB61XMh4Fx8mfHkWygJR2qGta2i1sQHhOeUZAo2XqmxYm4cR1BSov331DV7aiwFeLf6eCnDhLDeXE2hIRo3JZBSCZCMdANBy6CtZAUb2D9VltZBZArkvx8J0jkZD"));
 		String token = "CAAD8JG8PZA6EBAK6eUz2nZCYdoFywCZANARA4vNhHOhk2yNR9xWBWv3YM8q0VOqp2ZBtXDDgMJ0gdagRd9TTZA1hrDBUWoeDlCizwh8D97TeEZCNBHyZCCg5Ha4M9HZBypk0OcqxxrUCZBD7YUq9ly3koZCBm9bOvi6EAjMNZA0th7jJERx1EmS35V33CwdrZCEuExus82UX2OKOnAZDZD";
-		System.out.println(hmac256(secretKey, token));
+		String hmac256 = hmac256(secretKey, token);
+		System.out.println(hmac256);
+		byte[] decodeHex = Hex.decodeHex(hmac256.toCharArray());
+		System.out.println("Decode: " + new String(decodeHex));
 		UUID uuid = UUID.randomUUID();
 		String randomString = new String(Base64.encodeBase64URLSafe(uuid.toString().getBytes()));
 		System.out.println(randomString);
 		System.out.println(randomString.substring(0,8));
-	
+		
+		String originStr = "abcdedf123_";
+		String enStr = encodeString(originStr);
+		System.out.println(enStr);
+		System.out.println(decodeString(enStr));
+		
 	}
 }

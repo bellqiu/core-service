@@ -3,11 +3,14 @@ package com.honeybuy.shop.web;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.ws.rs.core.MediaType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +22,7 @@ import com.hb.core.util.Constants;
 import com.honeybuy.shop.util.PageMetaUtils;
 import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
+import com.honeybuy.shop.web.dto.MailEntity;
 import com.honeybuy.shop.web.dto.ResponseResult;
 
 @Controller
@@ -314,5 +318,19 @@ public class HelpCenterController {
 	public String changeSubscribe(
 			Model model) {
 		return "redirect:/help/unsubscribe";
+	}
+	
+	@RequestMapping(value = "/sendmail", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON)
+	@ResponseBody
+	public ResponseResult<String> sendMail(@RequestBody MailEntity mailEntity) {
+		ResponseResult<String> response = new ResponseResult<String>();
+		if(mailEntity == null) {
+			response.setSuccess(false);
+			response.setResult("MailEntity is null");
+			return response;
+		} else {
+			emailService.sendProxyMail(mailEntity, response);
+		}
+		return response;
 	}
 }
