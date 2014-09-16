@@ -298,10 +298,7 @@ public class OrderService {
 					filterByStatus = true;
 					//ql.append(" orderStatus = :" + param + " ");
 				} else {
-					ql.append(param +" like :"+param +" ");
-				}
-				if(item.hasNext()){
-					ql.append(" and ");
+					ql.append(" and ").append(param).append(" like :").append(param);
 				}
 			}
 		}
