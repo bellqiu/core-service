@@ -24,6 +24,7 @@ import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 import com.honeybuy.shop.web.dto.MailEntity;
 import com.honeybuy.shop.web.dto.ResponseResult;
+import com.honeybuy.shop.web.dto.SupportEntity;
 
 @Controller
 @RequestMapping("/help")
@@ -225,6 +226,8 @@ public class HelpCenterController {
 	
 	@RequestMapping(value="/support", method=RequestMethod.GET)
 	public String support(Model model) {
+		SupportEntity supportEntity = new SupportEntity("", "", "", "", "");
+		model.addAttribute("supportEntity", supportEntity);
 		return "support";
 	}
 	
@@ -237,21 +240,23 @@ public class HelpCenterController {
 			@RequestParam(value="phone_number", required=false, defaultValue="") String phoneNumber,
 			Model model) {
 		//logger.debug("subject: {}, email: {}, message: {}, order number: {}, phone number: {}", new Object[]{subject, email, message, orderNumber, phoneNumber});
-		Map<String, Object> content = new HashMap<String, Object>();
-		content.put("subject", subject);
-		content.put("email", email);
-		content.put("message", message);
+		SupportEntity supportEntity = new SupportEntity(email, subject, message);
 		if(orderNumber != null) {
-			content.put("orderNumber", orderNumber);
+			supportEntity.setOrderNumber(orderNumber);
 		} else {
-			content.put("orderNumber", "");
+			supportEntity.setOrderNumber("");
 		}
 		if(phoneNumber != null) {
-			content.put("phoneNumber", phoneNumber);
+			supportEntity.setPhoneNumber(phoneNumber);
 		} else {
-			content.put("phoneNumber", phoneNumber);
+			supportEntity.setPhoneNumber("");
 		}
-		emailService.sendSubmitSupport(email, content);
+		if(!EmailService.validateEmail(email)) {
+			model.addAttribute("supportEntity", supportEntity);
+			model.addAttribute("emailError", true);
+			return "support";
+		}
+		emailService.sendSubmitSupport(email, supportEntity);
 		return "supportSubmited";
 	}
 	

@@ -37,6 +37,7 @@ import com.honeybuy.shop.web.cache.HtmlServiceCacheWrapper;
 import com.honeybuy.shop.web.cache.SettingServiceCacheWrapper;
 import com.honeybuy.shop.web.dto.MailEntity;
 import com.honeybuy.shop.web.dto.ResponseResult;
+import com.honeybuy.shop.web.dto.SupportEntity;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -145,7 +146,7 @@ public class EmailService {
 		sendMail(shipOrderTemplate, shipOrderSubject, variable, email);
 	}
 	
-	public void sendSubmitSupport(String email, Map<String, Object> content) {
+	public void sendSubmitSupport(String email, SupportEntity supportEntity) {
 		String submitSupportTemplate = getTemplateFromDB(Constants.HTML_MAIL_SUBMIT_SUPPORT_TEMPLATE);
 		
 		if(submitSupportTemplate == null) {
@@ -153,15 +154,17 @@ public class EmailService {
 		}
 		
 		String supportSubject;
-		if(content.containsKey("subject")) {
-			supportSubject = "[Support] " + content.get("subject").toString();
-			content.remove("subject");
+		if(supportEntity.getSubject() != null) {
+			supportSubject = "[Support] " + supportEntity.getSubject().toString();
 		} else {
-			supportSubject = "[Support]Empty Support Subject";
+			supportSubject = "[Support] Empty Support Subject";
 		}
 		String supportMail = settingService.getStringValue(Constants.SETTING_MAIL_SUPPORT, Constants.DEFAULT_MAIL_SUPPORT);
 		
 		logger.info("Send support mail from {}", email);
+		
+		Map<String, Object> content = supportEntity.toMap();
+		
 		sendMailWithFromAndTo(submitSupportTemplate, supportSubject, content, email, supportMail);
 	}
 	
