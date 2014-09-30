@@ -26,6 +26,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
+import com.amazonaws.services.simpleemail.model.Body;
+import com.amazonaws.services.simpleemail.model.Content;
+import com.amazonaws.services.simpleemail.model.Destination;
+import com.amazonaws.services.simpleemail.model.Message;
+import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 import com.hb.core.entity.Currency;
 import com.hb.core.entity.HTML;
 import com.hb.core.exception.CoreServiceException;
@@ -166,6 +176,53 @@ public class EmailService {
 		Map<String, Object> content = supportEntity.toMap();
 		
 		sendMailWithFromAndTo(submitSupportTemplate, supportSubject, content, email, supportMail);
+	}
+	
+	public void sendEmailByAmazon(String subject, String mailContent, String to){
+		if(StringUtils.isEmpty(to)) {
+			throw new CoreServiceException("Send to email is empty");
+		}
+    	String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_AMAZON_FROM);
+    	String accessKey = settingService.getStringValue(Constants.SETTING_MAIL_AMAZON_ACCESSKEY);
+    	String secretKey = settingService.getStringValue(Constants.SETTING_MAIL_AMAZON_SECRETKEY);
+    	if(mailFrom == null || accessKey == null || secretKey == null) {
+    		logger.error("MAIL_AMAZON_FROM or MAIL_AMAZON_ACCESSKEY or MAIL_AMAZON_SECRETKEY in setting is null");
+    		return;
+    	} 
+    	if (mailContent != null) {
+    		Destination destination = new Destination().withToAddresses(to);
+    		Content subjectContent = new Content().withData(subject);
+    		Content textBody = new Content().withData(mailContent);
+    		Body body = new Body().withHtml(textBody);
+    		Message message = new Message().withSubject(subjectContent).withBody(body);
+    		SendEmailRequest request = new SendEmailRequest().withSource(mailFrom).withDestination(destination).withMessage(message);
+    		
+    		try {
+    			logger.debug("Attempting to send an email through Amazon SES from {} to {}", new Object[]{mailFrom , to});
+    			
+    			AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+    			AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(credentials);
+    			String regionString = settingService.getStringValue(Constants.SETTING_MAIL_AMAZON_REGEON); 
+    			Region region;
+    			if(regionString != null) {
+    				try {
+    					region = Region.getRegion(Regions.fromName(regionString));
+    				} catch(Exception e) {
+    					region = Region.getRegion(Regions.US_EAST_1);
+    				}
+    			} else {
+    				region = Region.getRegion(Regions.US_EAST_1);
+    			}
+    			client.setRegion(region);
+    			// Send the email.
+    			client.sendEmail(request);
+    			logger.debug("Email sent through Amazon SES!");
+    		} catch (Exception ex) {
+    			logger.error("The email was not sent. Error message: " + ex.getMessage());
+    		}
+        } else {
+            logger.error("Mail content is null");
+        }
 	}
 	
 	private String getTemplateFromDB(String htmlKey) {

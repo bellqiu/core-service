@@ -1,5 +1,7 @@
 package com.hb.core.util;
 
+import com.amazonaws.services.s3.model.Region;
+
 public interface Constants {
 	
 	public final static float FLOAT_COMPARE = 0.0001f;
@@ -177,5 +179,12 @@ public interface Constants {
 	public static final String SETTING_MAIL_PROXY_TOOKEN = "MAIL_PROXY_TOOKEN";
 	
 	public static final String SETTING_MAIL_PROXY_URL = "MAIL_PROXY_URL";
+
+	// Add Amazon SES access key, secret key and verify email. And the amazon account region
+	public static final String SETTING_MAIL_AMAZON_FROM = "MAIL_AMAZON_FROM";
+	public static final String SETTING_MAIL_AMAZON_ACCESSKEY = "MAIL_AMAZON_ACCESSKEY";
+	public static final String SETTING_MAIL_AMAZON_SECRETKEY = "MAIL_AMAZON_SECRETKEY";
+	public static final String SETTING_MAIL_AMAZON_REGEON = "MAIL_AMAZON_REGEON";
+	public static final String DEFAULT_MAIL_AMAZON_REGEON = "us-east-1";
 	
 }
