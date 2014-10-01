@@ -9,7 +9,7 @@
 	</div>
 	<div class="row borderline">
 		<div>
-		<form name="edmForm" id="questionForm" enctype="multipart/form-data" method="post" action="/admin/edm" role="form">
+		<form name="edmForm" id="questionForm" enctype="multipart/form-data" method="post" action="/admin/edm/amazon" role="form">
 			<table width="100%" border="0" cellspacing="1" bgcolor="#FFFFFF" class="noborder" id="comment_tb" align="center" style="padding-top:20px;">
 			<tbody>
 				<tr>

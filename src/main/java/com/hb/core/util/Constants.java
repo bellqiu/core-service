@@ -172,6 +172,8 @@ public interface Constants {
 
 	public static final long EDM_MIN_PERIOD = 50L;
 
+	// first check amazon. If false, check proxy. Then using default stmp to send mail
+	public static final String SETTING_MAIL_AMAZON_ENABLE = "MAIL_AMAZON_ENABLE";
 	public static final String SETTING_MAIL_PROXY_ENABLE = "MAIL_PROXY_ENABLE";
 	
 	public static final String SETTING_MAIL_PROXY_TOOKEN = "MAIL_PROXY_TOOKEN";

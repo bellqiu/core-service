@@ -239,30 +239,34 @@ public class EmailService {
 		}
     	String mailContent = parseMailContent(templateString, variable);
     	if (mailContent != null) {
-    		HtmlEmail email = new HtmlEmail();
-    	    try {
-    	    	String hostname = settingService.getStringValue(Constants.SETTING_MAIL_HOST_NAME, Constants.DEFAULT_MAIL_HOST_NAME);
-    			String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
-    			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
-    			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
-    	        if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
-    	        	MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, null, sendTo, subject, mailContent, null);
-    	        	sendMailByProxy(mailEntity);
-    	        } else {
-    	        	email.setHostName(hostname);
-        	    	email.setAuthentication(mailAccount, mailPassword);
-        	    	email.setFrom(mailFrom);
-        	        email.setSubject(subject);
-        	        email.setHtmlMsg(mailContent);
-        	        email.addTo(sendTo);
-    	        	email.setTLS(true);
-    	        	email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
-    	        	email.send();
-    	        	logger.info("Send mail successfully to " + sendTo);
-    	        }
-    	    } catch (EmailException e) {
-    	        logger.error(e.getMessage(), e);
-    	    }
+    		if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_AMAZON_ENABLE))) {
+    			sendEmailByAmazon(subject, mailContent, sendTo);
+    		} else {
+    			HtmlEmail email = new HtmlEmail();
+    			try {
+    				String hostname = settingService.getStringValue(Constants.SETTING_MAIL_HOST_NAME, Constants.DEFAULT_MAIL_HOST_NAME);
+    				String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
+    				String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
+    				String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
+    				if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
+    					MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, null, sendTo, subject, mailContent, null);
+    					sendMailByProxy(mailEntity);
+    				} else {
+    					email.setHostName(hostname);
+    					email.setAuthentication(mailAccount, mailPassword);
+    					email.setFrom(mailFrom);
+    					email.setSubject(subject);
+    					email.setHtmlMsg(mailContent);
+    					email.addTo(sendTo);
+    					email.setTLS(true);
+    					email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
+    					email.send();
+    					logger.info("Send mail successfully to " + sendTo);
+    				}
+    			} catch (EmailException e) {
+    				logger.error(e.getMessage(), e);
+    			}
+    		}
         } else {
             logger.error("cannot parse email template");
         }
@@ -274,30 +278,34 @@ public class EmailService {
 		}
     	String mailContent = parseMailContent(templateString, variable);
     	if (mailContent != null) {
-    		HtmlEmail email = new HtmlEmail();
-    	    try {
-    	    	String hostname = settingService.getStringValue(Constants.SETTING_MAIL_HOST_NAME, Constants.DEFAULT_MAIL_HOST_NAME);
-    			String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
-    			String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
-    			String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
-    	        if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
-    	        	MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, from, to, subject, mailContent, null);
-    	        	sendMailByProxy(mailEntity);
-    	        } else {
-    	        	email.setHostName(hostname);
-    	        	email.setAuthentication(mailAccount, mailPassword);
-    	        	email.setFrom(mailFrom, from);
-    	        	email.setSubject(subject);
-    	        	email.setHtmlMsg(mailContent);
-    	        	email.addTo(to);
-    	        	email.setTLS(true);
-    	        	email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
-    	        	email.send();
-    	        	logger.info("Send mail from {} to {}", new Object[]{from, to});
-    	        }
-    	    } catch (EmailException e) {
-    	        logger.error(e.getMessage(), e);
-    	    }
+    		if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_AMAZON_ENABLE))) {
+    			sendEmailByAmazon(subject, mailContent, to);
+    		} else {
+    			HtmlEmail email = new HtmlEmail();
+    			try {
+    				String hostname = settingService.getStringValue(Constants.SETTING_MAIL_HOST_NAME, Constants.DEFAULT_MAIL_HOST_NAME);
+    				String mailAccount = settingService.getStringValue(Constants.SETTING_MAIL_ACCOUNT, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
+    				String mailPassword = settingService.getStringValue(Constants.SETTING_MAIL_PASSWORD, Constants.DEFAULT_MAIL_FROM_PASSWORD);
+    				String mailFrom = settingService.getStringValue(Constants.SETTING_MAIL_FROM, Constants.DEFAULT_MAIL_FROM_ACCOUNT);
+    				if(Boolean.valueOf(settingService.getStringValue(Constants.SETTING_MAIL_PROXY_ENABLE))) {
+    					MailEntity mailEntity = new MailEntity(hostname, mailAccount, mailPassword, mailFrom, from, to, subject, mailContent, null);
+    					sendMailByProxy(mailEntity);
+    				} else {
+    					email.setHostName(hostname);
+    					email.setAuthentication(mailAccount, mailPassword);
+    					email.setFrom(mailFrom, from);
+    					email.setSubject(subject);
+    					email.setHtmlMsg(mailContent);
+    					email.addTo(to);
+    					email.setTLS(true);
+    					email.setCharset(Constants.DEFAULT_MAIL_CHARSET);
+    					email.send();
+    					logger.info("Send mail from {} to {}", new Object[]{from, to});
+    				}
+    			} catch (EmailException e) {
+    				logger.error(e.getMessage(), e);
+    			}
+    		}
         } else {
             logger.error("cannot parse email template");
         }

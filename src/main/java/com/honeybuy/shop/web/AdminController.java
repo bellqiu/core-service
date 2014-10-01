@@ -190,7 +190,7 @@ public class AdminController {
 						period = Constants.EDM_MIN_PERIOD;
 					}
 					List<String> emailList = Arrays.asList(emailArray);
-					boolean sendFlag = emailService.sendEdmMail(subject, message, null, null, null, null, null, emailList, period, false);
+					boolean sendFlag = emailService.sendEdmMail(subject, message, null, null, null, null, null, emailList, period, true);
 					if(!sendFlag) {
 						model.addAttribute(errorAttributeName, "EDM Email task is not executed as there is a previous task ");
 					}
