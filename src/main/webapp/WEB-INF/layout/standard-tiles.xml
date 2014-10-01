@@ -275,5 +275,9 @@
 		<definition name="edm" extends="headerFooter" >
         	 <put-attribute name="body" value="/WEB-INF/jsp/body/help/edm.jsp"/>
         </definition>
+        
+        <definition name="edmamazon" extends="headerFooter" >
+        	 <put-attribute name="body" value="/WEB-INF/jsp/body/help/edmamazon.jsp"/>
+        </definition>
 		
 </tiles-definitions>

@@ -1,7 +1,5 @@
 package com.hb.core.util;
 
-import com.amazonaws.services.s3.model.Region;
-
 public interface Constants {
 	
 	public final static float FLOAT_COMPARE = 0.0001f;

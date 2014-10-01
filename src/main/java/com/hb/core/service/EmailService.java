@@ -303,16 +303,21 @@ public class EmailService {
         }
     }
 
-	public boolean sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String mailFrom, String mailAlias, List<String> emailList, long period) {
+	public boolean sendEdmMail(String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String mailFrom, String mailAlias, List<String> emailList, long period, boolean useAamazonSes) {
 		if(current < total) {
 			return false;
 		}
 		ScheduledExecutorService scheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
 		try {
-			if(StringUtils.isEmpty(mailAlias)) {
-				mailAlias = mailFrom;
+			EdmCommand command;
+			if(useAamazonSes) {
+				command = new EdmCommand(scheduledThreadPool, subject, mailContent, emailHost, mailAccount, mailPassword, mailFrom, mailAlias, emailList, true);
+			} else {
+				if(StringUtils.isEmpty(mailAlias)) {
+					mailAlias = mailFrom;
+				}
+				command = new EdmCommand(scheduledThreadPool, subject, mailContent, emailHost, mailAccount, mailPassword, mailFrom, mailAlias, emailList, false);
 			}
-			EdmCommand command = new EdmCommand(scheduledThreadPool, subject, mailContent, emailHost, mailAccount, mailPassword, mailFrom, mailAlias, emailList);
 			scheduledThreadPool.scheduleAtFixedRate(command, 0L, period, TimeUnit.MILLISECONDS);
 			return true;
 		} catch(CoreServiceException e) {
@@ -491,8 +496,9 @@ public class EmailService {
 		private String mailPassword;
 		private String mailFrom;
 		private String mailAlias;
+		private boolean useAmazonSes;
 		
-		public EdmCommand(ScheduledExecutorService scheduledThreadPool, String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String mailFrom, String mailAlias, List<String> list) {
+		public EdmCommand(ScheduledExecutorService scheduledThreadPool, String subject, String mailContent, String emailHost, String mailAccount, String mailPassword, String mailFrom, String mailAlias, List<String> list, boolean useAmazonSes) {
 			if(current != total) {
 				throw new CoreServiceException("Edm task is running");
 			}
@@ -509,15 +515,19 @@ public class EmailService {
 			this.mailPassword = mailPassword;
 			this.mailFrom = mailFrom;
 			this.mailAlias = mailAlias;
+			this.useAmazonSes = useAmazonSes;
 		}
 
 		@Override
 		public void run() {
 			if(executorCount < size) {
 				String mail = list.get(executorCount).trim();
-				System.out.println(Thread.currentThread().getName() + ": [" + mail + "]");
 				if(validateEmail(mail)) {
-					sendEdmMail(subject, mailContent, emailHost, mailAccount, mailPassword, mailFrom, mailAlias, mail);
+					if(useAmazonSes) {
+						sendEmailByAmazon(subject, mailContent, mail);
+					} else {
+						sendEdmMail(subject, mailContent, emailHost, mailAccount, mailPassword, mailFrom, mailAlias, mail);
+					}
 				}
 				current = ++executorCount;
 				 

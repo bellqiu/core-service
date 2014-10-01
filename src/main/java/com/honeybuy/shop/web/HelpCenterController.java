@@ -1,8 +1,5 @@
 package com.honeybuy.shop.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;

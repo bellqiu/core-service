@@ -107,7 +107,7 @@ public class AdminController {
 			@RequestParam("emailFrom") String emailFrom,
 			@RequestParam("emailAlias") String emailAlias,
 			@RequestParam("interval") String interval,
-			Model model) throws IOException {
+			Model model) {
 		String errorAttributeName = "errorMessage";
 		if(StringUtils.isEmpty(subject)) {
 			model.addAttribute(errorAttributeName, "Subject is empty");
@@ -140,7 +140,57 @@ public class AdminController {
 						period = Constants.EDM_MIN_PERIOD;
 					}
 					List<String> emailList = Arrays.asList(emailArray);
-					boolean sendFlag = emailService.sendEdmMail(subject, message, emailHost, username, password, emailFrom, emailAlias, emailList, period);
+					boolean sendFlag = emailService.sendEdmMail(subject, message, emailHost, username, password, emailFrom, emailAlias, emailList, period, false);
+					if(!sendFlag) {
+						model.addAttribute(errorAttributeName, "EDM Email task is not executed as there is a previous task ");
+					}
+				}
+			} else {
+				model.addAttribute(errorAttributeName, "Emails size is empty");
+			}
+		}
+		return "edm";
+	}
+	
+	@RequestMapping("/edm/amazon")
+	public String edmSes(Model model) throws IOException {
+		emailService.checkEdmTask(model);
+		
+		return "edmamazon";
+	}
+	
+	@RequestMapping(value="/edm/amazon", method=RequestMethod.POST)
+	public String postEdmSes(@RequestParam("subject") String subject,
+			@RequestParam("message") String message,
+			@RequestParam("emails") String emails,
+			@RequestParam("emailSeparator") String emailSeparator,
+			@RequestParam("interval") String interval,
+			Model model) {
+		String errorAttributeName = "errorMessage";
+		if(StringUtils.isEmpty(subject)) {
+			model.addAttribute(errorAttributeName, "Subject is empty");
+		} else if(StringUtils.isEmpty(message)) {
+			model.addAttribute(errorAttributeName, "Message is empty");
+		} else if(StringUtils.isEmpty(emails)) {
+			model.addAttribute(errorAttributeName, "Email list is empty");
+		} else {
+			if(StringUtils.isEmpty(emailSeparator)) {
+				emailSeparator = "\\s+";
+			}
+			String[] emailArray = emails.split(emailSeparator);
+			if(emailArray.length > 0) {
+				if(!emailService.checkEdmTask(model)) {
+					long period = 0L;
+					try {
+						period = Long.parseLong(interval);
+						if(period < Constants.EDM_MIN_PERIOD) {
+							period = Constants.EDM_MIN_PERIOD;
+						}
+					} catch(NumberFormatException e) {
+						period = Constants.EDM_MIN_PERIOD;
+					}
+					List<String> emailList = Arrays.asList(emailArray);
+					boolean sendFlag = emailService.sendEdmMail(subject, message, null, null, null, null, null, emailList, period, false);
 					if(!sendFlag) {
 						model.addAttribute(errorAttributeName, "EDM Email task is not executed as there is a previous task ");
 					}
@@ -150,8 +200,7 @@ public class AdminController {
 			}
 		}
 		
-		
-		return "edm";
+		return "edmamazon";
 	}
 	
 }
