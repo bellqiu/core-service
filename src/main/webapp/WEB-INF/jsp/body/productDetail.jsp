@@ -116,16 +116,16 @@ var productOpts = "${currentProductOptions}";
 							<span>Price:</span> 
 						</div>
 						<div class="col-md-9 col-xs-9">
-							<div class="priceDuplicate"> 
-								<hb:printPrice price="${currentProductDetail.price }"/> 
+							<div class="priceDuplicate">
+                                <hb:printCurrency/><span id="finalPriceOrigin"><hb:printPrice price="${currentProductProductChange.finalPriceOrigin}" withCurrency="false"/> </span>
 								<span class="productChangedPrice">
-									<c:if test="${currentProductProductChange.priceChange > 0.1 }">
+								<%--	<c:if test="${currentProductProductChange.priceChange > 0.1 }">
 										+<hb:printPrice price="${currentProductProductChange.priceChange}" withCurrency="false"/> 
 									</c:if>
 									<c:if test="${currentProductProductChange.priceChange < (-0.1) }">
 										<hb:printPrice price="${currentProductProductChange.priceChange}" withCurrency="false"/> 
 									</c:if>
-								</span>
+								</span>  --%>
 							</div>
 						</div>
 					</div>
@@ -135,15 +135,15 @@ var productOpts = "${currentProductOptions}";
 						</div>
 						<div class="col-md-9 col-xs-9">
 							<span class="priceActive">
-								<hb:printPrice price="${currentProductDetail.actualPrice}"/>
-									<span class="productChangedPrice">
+								<hb:printCurrency/><span id="finalPriceSale"><hb:printPrice price="${currentProductProductChange.finalPriceSale}" withCurrency="false"/> </span>
+									<%--<span class="productChangedPrice">
 									<c:if test="${currentProductProductChange.priceChange > 0.1 }">
 									+<hb:printPrice price="${currentProductProductChange.priceChange }" withCurrency="false"/> 
 									</c:if>
 									<c:if test="${currentProductProductChange.priceChange < (-0.1) }">
 										<hb:printPrice price="${currentProductProductChange.priceChange }" withCurrency="false"/> 
 									</c:if>
-								</span>
+								</span>--%>
 							</span>
 						 </div>
 					 </div>

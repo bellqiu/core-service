@@ -122,7 +122,8 @@ public class ProductService {
 		
 		changeDTO.setSelectedOpts(selectedOpts);
 		changeDTO.setPropertiesChanges(overridePropsMap);
-		
+		changeDTO.setFinalPriceOrigin(changeDTO.getPriceChange() + (float)productDetailDTO.getPrice());
+		changeDTO.setFinalPriceSale(changeDTO.getPriceChange() + (float)productDetailDTO.getActualPrice());
 		
 		return changeDTO;
 	}

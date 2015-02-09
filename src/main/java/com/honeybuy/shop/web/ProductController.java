@@ -79,7 +79,7 @@ public class ProductController {
 			logger.warn("Product: {} is not existing", productName);
 			return "404";
 		}
-		
+
 		ProductDetailDTO productDetailDTO= productService.getProductDetailByName(productName);
 		ProductChangeDTO changeDTO = productService.getProductDetailChangeByNameAndParams(productName, optParams);
 		model.addAttribute("currentProductDetail", productDetailDTO);
@@ -120,7 +120,8 @@ public class ProductController {
 		logger.info("getPrice Change, priceChange={}", changeDTO.getPriceChange());
 		
 		changeDTO.setPriceChange(changeDTO.getPriceChange() * currency.getExchangeRateBaseOnDefault());
-		
+		changeDTO.setFinalPriceOrigin(changeDTO.getFinalPriceOrigin() * currency.getExchangeRateBaseOnDefault());
+		changeDTO.setFinalPriceSale(changeDTO.getFinalPriceSale() * currency.getExchangeRateBaseOnDefault());
 		
 		return changeDTO;
 	}

@@ -16,6 +16,8 @@ public class ProductChangeDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = 7229801382939214276L;
 	private float priceChange;
+	private float finalPriceSale;
+	private float finalPriceOrigin;
 	private String productUrlChange;
 	private Map<String, String> propertiesChanges = new HashMap<String, String>();
 	private Map<String, Float> selectedOpts = new HashMap<String, Float>();
@@ -52,14 +54,43 @@ public class ProductChangeDTO implements Serializable{
 	public void setOptionParam(String optionParam) {
 		this.optionParam = optionParam;
 	}
+
+	public float getFinalPriceOrigin() {
+		return finalPriceOrigin;
+	}
+
+	public void setFinalPriceOrigin(float finalPriceOrigin) {
+		this.finalPriceOrigin = finalPriceOrigin;
+	}
+
+	public float getFinalPriceSale() {
+		return finalPriceSale;
+	}
+
+	public void setFinalPriceSale(float finalPriceSale) {
+		this.finalPriceSale = finalPriceSale;
+	}
+
 	public String getStrPriceChange() {
 		NumberFormat numberFormat = new DecimalFormat("###,###,###,###,##0.00");
 		
 		return numberFormat.format(priceChange);
 	}
+
+	public String getStrPriceOriginFinal() {
+		NumberFormat numberFormat = new DecimalFormat("###,###,###,###,##0.00");
+
+		return numberFormat.format(finalPriceOrigin);
+	}
+
+	public String getStrPriceSaleFinal() {
+		NumberFormat numberFormat = new DecimalFormat("###,###,###,###,##0.00");
+
+		return numberFormat.format(finalPriceSale);
+	}
 	public Map<String,String> getSelectedOptOriginal() {
 		Map<String,String> paramMap = ParamValueUtils.parseParamString(optionParam);
 		return paramMap;
 	}
-	
+
 }

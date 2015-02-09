@@ -1,16 +1,15 @@
 package com.honeybuy.shop.sercurity;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
-
+import com.hb.core.shared.dto.UserDTO;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.hb.core.shared.dto.UserDTO;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class HBUserDetail implements UserDetails, CredentialsContainer {
 
@@ -31,7 +30,7 @@ public class HBUserDetail implements UserDetails, CredentialsContainer {
 		this.username = userDTO.getEmail();
 		this.password = userDTO.getPassword();
 		this.enabled = userDTO.isEnabled();
-		this.authorities = new TreeSet<GrantedAuthority>();
+		this.authorities = new HashSet<GrantedAuthority>();
 
 		for (String authority : userDTO.getRoles()) {
 			this.authorities.add(new SimpleGrantedAuthority(authority));

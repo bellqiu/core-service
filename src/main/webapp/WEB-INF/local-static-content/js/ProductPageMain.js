@@ -4,12 +4,15 @@
 		["/resources/js/shopping/Shopping.js"], function(shopping){
 			
 			var productChangeCallBack =  function(productChange){
-				if(productChange.priceChange > 0.1){
-					$(".productChangedPrice").html("+" + productChange.strPriceChange);
-					$(".productChangedPrice").show();
-				}else if (productChange.priceChange <  -0.1){
+                $(".productChangedPrice").hide();
+				if(productChange.priceChange > 0.1 || productChange.priceChange <  -0.1){
+					//$(".productChangedPrice").html("+" + productChange.strPriceChange);
+                    $("#finalPriceOrigin").html(productChange.strPriceOriginFinal);
+                    $("#finalPriceSale").html(productChange.strPriceSaleFinal);
+					//$(".productChangedPrice").show();
+				/*}else if (productChange.priceChange <  -0.1){
 					$(".productChangedPrice").html(productChange.strPriceChange);
-					$(".productChangedPrice").show();
+					//$(".productChangedPrice").show();  */
 				}else{
 					$(".productChangedPrice").hide();
 				}
